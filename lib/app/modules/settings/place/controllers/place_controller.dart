@@ -5,7 +5,6 @@ import 'package:amina_enterprises_flutter_web/app/domain/entity/dropdown_entity.
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/place/place_repository.dart';
 
-import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/utils.dart';
 
 class PlaceController extends GetxController {

@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:amina_enterprises_flutter_web/app/data/local/user_preference/user_prefrence_view_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/network/network_api_services.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/login_repository/login_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/profile/profile_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/utils.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoginController extends GetxController {
   final formkey = GlobalKey<FormState>();
@@ -20,7 +20,7 @@ class LoginController extends GetxController {
   final isLoading = false.obs;
   final isVisiblePassword = false.obs;
   final rememberMe = false.obs;
-  String macid = '';
+  String type = 'employee';
 
   void login() async {
     isLoading(true);
@@ -31,7 +31,8 @@ class LoginController extends GetxController {
       String password =
           passwordController.value.text.trim().replaceAll('&', 'amp;');
       String temp =
-          "mobile=${emailController.value.text.trim()}&password=$password&mac_id=$macid";
+          "username=${emailController.value.text.trim()}&password=$password&type=$type";
+      print("Temp $temp");
       List<int> encDataByte =
           utf8.encode(temp); // Convert string to UTF-8 bytes
       String encodedData = base64Encode(encDataByte); // Encode bytes to Base64
@@ -43,10 +44,11 @@ class LoginController extends GetxController {
         Utils.snackBar('Login', failure.message);
       }, (sucess) async {
         if (sucess.data != null) {
-          await userPreference.addToken(sucess.data ?? '');
+          await userPreference.addToken(sucess.data!.token ?? '');
 
           if (sucess.data != null) {
-            final res = await _useapi.getProfileView(sucess.data!);
+            final res =
+                await _useapi.getProfileView(sucess.data!.token.toString());
 
             res.fold(
               (failure) {
@@ -55,14 +57,15 @@ class LoginController extends GetxController {
               },
               (resData) {
                 if (resData.data != null) {
-                  userPreference
-                      .saveUser(resData.data!, resData.branches ?? [],
-                          resData.privilage ?? [])
-                      .then(
-                    (s) {
-                      Get.rootDelegate.offNamed(Routes.home);
-                    },
-                  );
+                  Get.rootDelegate.offNamed(Routes.home);
+                  // userPreference
+                  //     .saveUser(resData.data!, resData.branches ?? [],
+                  //         resData.privilage ?? [])
+                  //     .then(
+                  //   (s) {
+                  //     Get.rootDelegate.offNamed(Routes.home);
+                  //   },
+                  // );
                 }
               },
             );
@@ -77,13 +80,13 @@ class LoginController extends GetxController {
   Future<void> fetchDeviceInfo() async {
     //  DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
     try {
-      final value = await apiServices.getPublicIP();
-      if (value != '') {
-        macid = value;
-      } else if (value == 'Failed') {
-        macid = '';
-      }
-      await userPreference.addMac(macid);
+      // final value = await apiServices.getPublicIP();
+      // if (value != '') {
+      //   type = value;
+      // } else if (value == 'Failed') {
+      //   type = '';
+      // }
+      await userPreference.addMac(type);
       // if (GetPlatform.isDesktop) {
       //   final info = NetworkInfo();
       //   String? wifiInfo = await info.getWifiBSSID();
@@ -98,7 +101,7 @@ class LoginController extends GetxController {
       //   // macid = 'Not available on non-Android platforms';
       // }
     } catch (e) {
-      macid = 'Error fetching Android ID';
+      type = 'Error fetching Android ID';
     }
 
     // Update the UI using GetX

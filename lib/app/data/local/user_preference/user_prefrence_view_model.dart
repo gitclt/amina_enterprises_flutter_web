@@ -7,15 +7,15 @@ import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 class UserPreference {
   Future<bool> saveUser(
     UserData userData,
-    List<Branch> branch,
-    List<Privilage> privilages,
+    // List<Branch> branch,
+    // List<Privilage> privilages,
   ) async {
-    LocalStorageKey.roleId = userData.roleId ?? '0';
-    LocalStorageKey.userName = userData.employeeName ?? 'Error';
-    LocalStorageKey.roleName = userData.rolename ?? 'Error';
-    LocalStorageKey.empId = userData.employeeId ?? 'Error';
-    LocalStorageKey.userBranch = branch;
-    LocalStorageKey.privilage = privilages;
+    LocalStorageKey.roleId = (userData.roleId ?? 0) as String;
+    LocalStorageKey.userName = userData.name ?? 'Error';
+   // LocalStorageKey.roleName = userData.rolename ?? 'Error';
+   // LocalStorageKey.empId = userData.employeeId ?? 'Error';
+   // LocalStorageKey.userBranch = branch;
+   // LocalStorageKey.privilage = privilages;
     return true;
   }
 

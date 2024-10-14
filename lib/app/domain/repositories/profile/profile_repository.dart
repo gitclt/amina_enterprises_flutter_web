@@ -12,7 +12,7 @@ class ProfileRepository {
 
     // return AuthModel.fromJson(response);
     var formData = {
-      "empid": token,
+      "encKey": token,
     };
     try {
       dynamic response = await _apiServices.postApi(

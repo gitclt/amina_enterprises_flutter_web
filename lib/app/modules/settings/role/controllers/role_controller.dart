@@ -6,7 +6,6 @@ import 'package:amina_enterprises_flutter_web/app/data/model/settings/roles/user
 import 'package:amina_enterprises_flutter_web/app/domain/entity/dropdown_entity.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/settings_repository.dart';
-import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/utils.dart';
 
 class RoleController extends GetxController {

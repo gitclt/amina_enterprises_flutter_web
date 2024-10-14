@@ -5,7 +5,6 @@ import 'package:amina_enterprises_flutter_web/app/common_widgets/button/common_b
 import 'package:amina_enterprises_flutter_web/app/common_widgets/dropdown/drop_down3_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/text_form_field.dart/add_new_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/settings/place/controllers/place_controller.dart';
-import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
 
 class PlaceAddView extends GetView<PlaceController> {

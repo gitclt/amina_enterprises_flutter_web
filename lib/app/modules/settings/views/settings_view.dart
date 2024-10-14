@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 
-import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
 
 import '../controllers/settings_controller.dart';
@@ -23,7 +22,7 @@ class SettingsView extends GetView<SettingsController> {
                       ? 10
                       : 10,
               runSpacing: 15,
-              children: [
+              children: const [
                 // ReportMainCard(header: 'Master Settings', child: [
                 //   ReporCard(
                 //     lable: 'Employee',
