@@ -4,7 +4,7 @@ const String kBaseUrl = s1;
 const String kBaseUrlForImage = "$kBaseUrl/public/assets/web";
 const bool isStaging = true;
 
-const String s1 = "amina.gitdgtl.com/api";
+const String s1 = "http://amina.gitdgtl.com/api";
 
 class LocalStorageKey {
   static String token = "USER_TOKEN";
