@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/button/common_button.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/text_form_field.dart/underline_textformfield.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/core/assets/image_assets.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../controllers/login_controller.dart';
 
@@ -19,14 +19,15 @@ class LoginView extends GetView<LoginController> {
         body: Stack(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height * .5,
+              width: MediaQuery.of(context).size.width * .5,
+              height: double.infinity,
               color: AppColor.primary,
             ),
             Align(
               alignment: Alignment.center,
               child: Form(
                 key: controller.formkey,
-                child: Column(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -36,7 +37,7 @@ class LoginView extends GetView<LoginController> {
                       scale: 1.6,
                     ),
                     const SizedBox(
-                      height: 10,
+                      width: 30,
                     ),
                     Container(
                       width: Responsive.isDesktop(context)
@@ -47,19 +48,19 @@ class LoginView extends GetView<LoginController> {
                           color: Colors.white,
                           shape: BoxShape.rectangle),
                       child: Column(
-                        //  crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           const SizedBox(
                             height: 20,
                           ),
                           Text(
-                            'sigin_in'.tr,
+                            'login'.tr,
                             style: const TextStyle(
-                                fontWeight: FontWeight.w700, fontSize: 40),
-                          ),
+                                fontWeight: FontWeight.w700, fontSize: 36),
+                          ).paddingOnly(left: 20),
                           UnderlineTextFormField(
-                            hint: '',
+                            hint: 'admin',
                             label: 'user_name'.tr,
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -72,7 +73,7 @@ class LoginView extends GetView<LoginController> {
                           ).paddingSymmetric(horizontal: 20, vertical: 12),
                           const SizedBox(height: 12),
                           Obx(() => UnderlineTextFormField(
-                                hint: '',
+                                hint: '...........',
                                 label: 'password'.tr,
                                 obscureText:
                                     !controller.isVisiblePassword.value,
@@ -97,24 +98,6 @@ class LoginView extends GetView<LoginController> {
                                 textEditingController:
                                     controller.passwordController.value,
                               )).paddingSymmetric(horizontal: 20, vertical: 12),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Obx(() => Checkbox(
-                                  value: controller.rememberMe.value,
-                                  onChanged: (value) {
-                                    controller.rememberMe.value =
-                                        value ?? false;
-                                  })),
-                              Text(
-                                'remember_me'.tr,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 16,
-                                ),
-                              ).paddingOnly(right: 20),
-                            ],
-                          ),
                           const SizedBox(
                             height: 10,
                           ),
@@ -129,7 +112,7 @@ class LoginView extends GetView<LoginController> {
                                     controller.login();
                                   }
                                 },
-                                label: 'sigin_in'.tr,
+                                label: 'login'.tr,
                               ).paddingSymmetric(horizontal: 20, vertical: 10),
                             ),
                           )
