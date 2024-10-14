@@ -113,7 +113,7 @@ class LoginView extends GetView<LoginController> {
                                   }
                                 },
                                 label: 'login'.tr,
-                              ).paddingSymmetric(horizontal: 20, vertical: 10),
+                              ).paddingSymmetric(horizontal: 20, vertical: 15),
                             ),
                           )
                         ],

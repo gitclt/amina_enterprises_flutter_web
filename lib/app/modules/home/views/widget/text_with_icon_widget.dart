@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/svg_icons/svg_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SidemenuWidget extends StatelessWidget {
   final IconData? iconData;
@@ -40,7 +40,9 @@ class SidemenuWidget extends StatelessWidget {
                 color: !isSelected ? Colors.white : AppColor.textGrayColor,
               )
             : svgIcon != ''
-                ? svgWidget(svgIcon!, color: AppColor.textGrayColor, size: 17)
+                ? svgWidget(svgIcon!,
+                    color: !isSelected ? Colors.white : AppColor.textGrayColor,
+                    size: 24)
                 : const SizedBox(),
         title: Text(
           label,

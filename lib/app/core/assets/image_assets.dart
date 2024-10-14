@@ -16,13 +16,10 @@ class SvgAssets {
   static const String sidemenu = 'assets/svg_icons/sidemenu.svg';
   static const String sortIcon = 'assets/svg_icons/sort.svg';
 
-  // button icon
-
-  static const String viewIcon = 'assets/svg_icons/view_icon.svg';
-  static const String approveIcon = 'assets/svg_icons/approve_icon.svg';
-  static const String editIcon = 'assets/svg_icons/edit_icon.svg';
-  static const String unApproveIcon = 'assets/svg_icons/un_approve_icon.svg';
-  static const String detailIcon = 'assets/svg_icons/detail_eye_icon.svg';
-  static const String deleteIcon = 'assets/svg_icons/delete.svg';
-  static const String delIcon = 'assets/svg_icons/delete_icon.svg';
+  // sidemenu icons
+  static const String dashboard = 'assets/svg_icons/home.svg';
+  static const String employees = 'assets/svg_icons/users.svg';
+  static const String customers = 'assets/svg_icons/customers.svg';
+  static const String sales = 'assets/svg_icons/sales.svg';
+  static const String settings = 'assets/svg_icons/settings.svg';
 }
