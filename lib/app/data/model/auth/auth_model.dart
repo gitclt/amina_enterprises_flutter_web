@@ -22,7 +22,7 @@ class AuthModel {
   factory AuthModel.fromJson(Map<String, dynamic> json) => AuthModel(
         status: json["status"],
         message: json["message"],
-        data: json["data"],
+        data: json["data"] == null ? null : LoginData.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -33,25 +33,24 @@ class AuthModel {
 }
 
 class LoginData {
-    int? empId;
-    String? token;
+  int? empId;
+  String? token;
 
-    LoginData({
-        this.empId,
-        this.token,
-    });
+  LoginData({
+    this.empId,
+    this.token,
+  });
 
-    factory LoginData.fromJson(Map<String, dynamic> json) => LoginData(
+  factory LoginData.fromJson(Map<String, dynamic> json) => LoginData(
         empId: json["emp_id"],
         token: json["token"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "emp_id": empId,
         "token": token,
-    };
+      };
 }
-
 
 class UserResponse {
   bool? status;
@@ -59,7 +58,7 @@ class UserResponse {
   UserData? data;
   // List<Branch>? branches;
   // List<Privilage>? privilage;
-  
+
   UserResponse({
     this.status,
     this.message,
@@ -69,19 +68,19 @@ class UserResponse {
   });
 
   factory UserResponse.fromJson(Map<String, dynamic> json) => UserResponse(
-        status: json["status"],
-        message: json["message"],
-        data: json["data"] == null ? null : UserData.fromJson(json["data"])
-        // branches: json["branches"] == null
-        //     ? []
-        //     : List<Branch>.from(
-        //         json["branches"]!.map((x) => Branch.fromJson(x)),
-        //       ),
-        // privilage: json["privilage"] == null
-            // ? []
-            // : List<Privilage>.from(
-            //     json["privilage"]!.map((x) => Privilage.fromJson(x)),
-            //  ),
+      status: json["status"],
+      message: json["message"],
+      data: json["data"] == null ? null : UserData.fromJson(json["data"])
+      // branches: json["branches"] == null
+      //     ? []
+      //     : List<Branch>.from(
+      //         json["branches"]!.map((x) => Branch.fromJson(x)),
+      //       ),
+      // privilage: json["privilage"] == null
+      // ? []
+      // : List<Privilage>.from(
+      //     json["privilage"]!.map((x) => Privilage.fromJson(x)),
+      //  ),
       );
 }
 
@@ -118,32 +117,32 @@ class UserResponse {
 // }
 
 class UserData {
-   String? name;
-    String? mobile;
-    String? email;
-    String? location;
-    int? roleId;
-    int? activeStatus;
-    String? joiningDate;
-    int? districtId;
-    String? address;
-    String? code;
-    String? stateName;
-    String? districtName;
+  String? name;
+  String? mobile;
+  String? email;
+  String? location;
+  int? roleId;
+  int? activeStatus;
+  String? joiningDate;
+  int? districtId;
+  String? address;
+  String? code;
+  String? stateName;
+  String? districtName;
 
   UserData({
-   this.name,
-        this.mobile,
-        this.email,
-        this.location,
-        this.roleId,
-        this.activeStatus,
-        this.joiningDate,
-        this.districtId,
-        this.address,
-        this.code,
-        this.stateName,
-        this.districtName,
+    this.name,
+    this.mobile,
+    this.email,
+    this.location,
+    this.roleId,
+    this.activeStatus,
+    this.joiningDate,
+    this.districtId,
+    this.address,
+    this.code,
+    this.stateName,
+    this.districtName,
   });
 
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(
@@ -161,7 +160,7 @@ class UserData {
         districtName: json["districtName"],
       );
 
-      Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "name": name,
         "mobile": mobile,
         "email": email,
@@ -174,7 +173,7 @@ class UserData {
         "code": code,
         "stateName": stateName,
         "districtName": districtName,
-    };
+      };
 }
 
 // class Privilage {
