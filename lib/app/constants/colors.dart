@@ -29,4 +29,5 @@ class AppColor {
   static const Color greyColor = Color(0xFFB7B7B7);
   static const Color tabTextColor = Color(0xFF666666);
   static const appointTextColor = Color(0xFFDD1D2E);
+  static const boxBorderColor = Color(0xFFE9ECEF);
 }

@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/appbar/common_appbar.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/home/views/widget/content_place_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/home/views/widget/sidemenu_view.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -17,7 +17,7 @@ class HomeView extends GetView<HomeController> {
       drawer: ResponsiveWidget.isMobile(context)
           ? SizedBox(width: 250, child: SidemenuView(scaffoldKey: _scaffoldKey))
           : null,
-      appBar: CommonAppBar(scaffoldKey: _scaffoldKey),
+      //  appBar: CommonAppBar(scaffoldKey: _scaffoldKey),
       body: SafeArea(
         child: Row(
           children: [
@@ -28,9 +28,15 @@ class HomeView extends GetView<HomeController> {
                   scaffoldKey: _scaffoldKey,
                 ),
               ),
-            const Flexible(
+            Flexible(
               flex: 10,
-              child: ContentPlaceWidget(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CommonAppBar(scaffoldKey: _scaffoldKey),
+                  const Expanded(child: ContentPlaceWidget()),
+                ],
+              ),
             )
           ],
         ),

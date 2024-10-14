@@ -1,3 +1,4 @@
+import 'package:amina_enterprises_flutter_web/app/common_widgets/container/simple_container.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/popup/common_popup.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/popup/user/admin_popup.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/popup/user/change_password_popup.dart';
@@ -18,19 +19,18 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColor.primary,
+      backgroundColor: AppColor.white,
       automaticallyImplyLeading: false,
+
       centerTitle: false,
       elevation: .2,
-      title: const Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            "AMINA ENTERPRISES",
-          )
-        ],
-      ),
+      // title: const Column(
+      //   mainAxisAlignment: MainAxisAlignment.center,
+      //   crossAxisAlignment: CrossAxisAlignment.center,
+      //   children: [
+
+      //   ],
+      // ),
       leading: ResponsiveWidget.isMobile(context)
           ? IconButton(
               onPressed: () {
@@ -47,11 +47,15 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            IconButton(
-              icon: const Icon(Icons.notifications),
-              onPressed: () {
-               // Get.rootDelegate.toNamed(Routes.notification);
-              },
+            SimpleContainer(
+              child: InkWell(
+                onTap: () {},
+                child: const Icon(
+                  Icons.notifications,
+                  color: AppColor.textGrayColor,
+                  size: 20,
+                ),
+              ),
             ),
             TextButton(
                 onPressed: () {
@@ -93,20 +97,24 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                         );
                       });
                 },
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.account_circle_rounded,
-                      color: Colors.white,
-                    ),
-                    5.height,
-                    Text(
-                      LocalStorageKey.roleName.toUpperCase(),
-                      style: TextStyle(color: AppColor.white, fontSize: 10),
-                    ),
-                  ],
+                child: SimpleContainer(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.account_box_outlined,
+                        color: AppColor.textGrayColor,
+                        size: 20,
+                      ),
+                      5.width,
+                      Text(
+                        LocalStorageKey.roleName.toUpperCase(),
+                        style: const TextStyle(
+                            color: AppColor.textGrayColor, fontSize: 12),
+                      ),
+                    ],
+                  ),
                 )),
           ],
         ).paddingOnly(right: 20)
