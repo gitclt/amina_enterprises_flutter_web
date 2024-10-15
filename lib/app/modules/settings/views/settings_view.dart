@@ -29,7 +29,7 @@ class SettingsView extends GetView<SettingsController> {
                   DashCards(
                     lable: 'Role',
                     onTap: () {
-                      //  Get.rootDelegate.toNamed(Routes.role);
+                      Get.rootDelegate.toNamed(Routes.role);
                     },
                   ),
                   DashCards(
@@ -47,43 +47,43 @@ class SettingsView extends GetView<SettingsController> {
                   DashCards(
                     lable: 'State',
                     onTap: () {
-                      Get.rootDelegate.toNamed(Routes.designation);
+                      Get.rootDelegate.toNamed(Routes.state);
                     },
                   ),
                   DashCards(
                     lable: 'District',
                     onTap: () {
-                      Get.rootDelegate.toNamed(Routes.designation);
+                      Get.rootDelegate.toNamed(Routes.district);
                     },
                   ),
                   DashCards(
                     lable: 'Color',
                     onTap: () {
-                      Get.rootDelegate.toNamed(Routes.designation);
+                      Get.rootDelegate.toNamed(Routes.color);
                     },
                   ),
                   DashCards(
                     lable: 'Brand',
                     onTap: () {
-                      Get.rootDelegate.toNamed(Routes.designation);
+                      Get.rootDelegate.toNamed(Routes.brand);
                     },
                   ),
                   DashCards(
                     lable: 'Construction',
                     onTap: () {
-                      Get.rootDelegate.toNamed(Routes.designation);
+                      Get.rootDelegate.toNamed(Routes.construction);
                     },
                   ),
                   DashCards(
                     lable: 'Category',
                     onTap: () {
-                      Get.rootDelegate.toNamed(Routes.designation);
+                      Get.rootDelegate.toNamed(Routes.category);
                     },
                   ),
-                   DashCards(
+                  DashCards(
                     lable: 'Sub Category',
                     onTap: () {
-                      Get.rootDelegate.toNamed(Routes.designation);
+                      Get.rootDelegate.toNamed(Routes.subCategory);
                     },
                   ),
                 ])
