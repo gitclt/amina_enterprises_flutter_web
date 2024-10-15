@@ -16,6 +16,7 @@ abstract class Routes {
   static const subCategory = _Paths.home + _Paths.subCategory;
   static const color = _Paths.home + _Paths.color;
   static const brand = _Paths.home + _Paths.brand;
+  static const brandAdd = _Paths.home + _Paths.brand + _Paths.brandAdd;
   static const category = _Paths.home + _Paths.category;
   static const construction = _Paths.home + _Paths.construction;
   static const state = _Paths.home + _Paths.state;
@@ -37,6 +38,7 @@ abstract class _Paths {
   static const subCategory = '/sub-category';
   static const color = '/color';
   static const brand = '/brand';
+  static const brandAdd = '/brand-add';
   static const category = '/category';
   static const construction = '/construction';
   static const state = '/state';
