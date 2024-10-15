@@ -56,6 +56,14 @@ class SettingsUrl {
   static String stateAddApi = '$baseUrl/State/state_add';
   static String stateEditApi = '$baseUrl/State/Edit_state';
   static String stateDeleteApi = '$baseUrl/State/Delete_state';
+
+  //District
+
+  static String districtListApi = '$baseUrl/District/view_district';
+  static String districtAddApi = '$baseUrl/District/district_add';
+  static String districtEditApi = '$baseUrl/District/Edit_district';
+  static String districtDeleteApi = '$baseUrl/District/Delete_district';
+
   //Construction
 
   static String constructionListApi = '$baseUrl/Construction/view_construction';
