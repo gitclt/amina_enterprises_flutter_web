@@ -12,7 +12,7 @@ String stateModelToJson(StateModel data) => json.encode(data.toJson());
 class StateModel {
   bool? status;
   String? message;
-  List<State>? data;
+  List<StateData>? data;
 
   StateModel({
     this.status,
@@ -25,7 +25,7 @@ class StateModel {
         message: json["message"],
         data: json["data"] == null
             ? []
-            : List<State>.from(json["data"]!.map((x) => State.fromJson(x))),
+            : List<StateData>.from(json["data"]!.map((x) => StateData.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,16 +37,16 @@ class StateModel {
       };
 }
 
-class State {
+class StateData {
   int? id;
   String? name;
 
-  State({
+  StateData({
     this.id,
     this.name,
   });
 
-  factory State.fromJson(Map<String, dynamic> json) => State(
+  factory StateData.fromJson(Map<String, dynamic> json) => StateData(
         id: json["id"],
         name: json["name"],
       );
