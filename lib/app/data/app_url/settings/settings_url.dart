@@ -45,10 +45,10 @@ class SettingsUrl {
 
   //Color
 
-  static String colorListApi = '$baseUrl/Color/Getcolor';
+  static String colorListApi = '$baseUrl/Color/view_color';
   static String colorAddApi = '$baseUrl/Color/Postcolor';
   static String colorEditApi = '$baseUrl/Color/Updatecolor';
-  static String colorDeleteApi = '$baseUrl/Color/Deletecolor';
+  static String colorDeleteApi = '$baseUrl/Color/Delete_color';
 
   //State
 
