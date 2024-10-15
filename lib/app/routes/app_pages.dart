@@ -4,6 +4,8 @@ import '../modules/customer/bindings/customer_binding.dart';
 import '../modules/customer/views/customer_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
+import '../modules/employee/bindings/employee_binding.dart';
+import '../modules/employee/views/employee_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -212,5 +214,10 @@ class AppPages {
             ],
           ),
         ]),
+    GetPage(
+      name: _Paths.EMPLOYEE,
+      page: () => const EmployeeView(),
+      binding: EmployeeBinding(),
+    ),
   ];
 }
