@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:amina_enterprises_flutter_web/app/core/failure/failure.dart';
@@ -7,11 +6,13 @@ import 'package:amina_enterprises_flutter_web/app/data/model/api_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/settings/branch/branch_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/network/network_api_services.dart';
 
-class BranchRepository extends NetworkApiServices {
+class BrandRepository extends NetworkApiServices {
   final _apiServices = NetworkApiServices();
+
+
   Future<Either<Failure, BranchModel>> assignedRouteList() async {
     try {
-      dynamic response = await getApi(SettingsUrl.branchView);
+      dynamic response = await getApi(SettingsUrl.brandView);
 
       if (response != null && response["status"] == true) {
         BranchModel res = BranchModel.fromJson(response);
@@ -25,15 +26,18 @@ class BranchRepository extends NetworkApiServices {
     }
   }
 
-  //add
-
-  Future<Either<Failure, ApiModel>> addBranch(
-      {required String name, required String stateId}) async {
+//add
+  Future<Either<Failure, ApiModel>> addBrand(
+    String name,
+  ) async {
     try {
-      var body = json.encode({"name": name, "state_id": stateId});
-
-      dynamic response =
-          await _apiServices.postApi(body, SettingsUrl.branchAdd, isJson: true);
+      var data = {
+        "name": name,
+      };
+      dynamic response = await _apiServices.postApi(
+        data,
+        SettingsUrl.brandAdd,
+      );
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);
@@ -60,7 +64,7 @@ class BranchRepository extends NetworkApiServices {
       };
       dynamic response = await _apiServices.postApi(
         data,
-        SettingsUrl.branchEdit,
+        SettingsUrl.brandEdit,
       );
 
       if (response != null && response["status"] == true) {
@@ -82,7 +86,7 @@ class BranchRepository extends NetworkApiServices {
     var body = {"id": id};
     try {
       dynamic response =
-          await _apiServices.postApi(body, SettingsUrl.branchDelete);
+          await _apiServices.postApi(body, SettingsUrl.brandDelete);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);
