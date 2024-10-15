@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amina_enterprises_flutter_web/app/data/model/settings/construction/construction_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:amina_enterprises_flutter_web/app/core/failure/failure.dart';
@@ -29,13 +31,11 @@ class ConstructionRepository extends NetworkApiServices {
     String name,
   ) async {
     try {
-      var data = {
+      var body = json.encode({
         "name": name,
-      };
-      dynamic response = await _apiServices.postApi(
-        data,
-        SettingsUrl.constructionAddApi,
-      );
+      });
+      dynamic response = await _apiServices
+          .postApi(body, SettingsUrl.constructionAddApi, isJson: true);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);
@@ -56,14 +56,12 @@ class ConstructionRepository extends NetworkApiServices {
     required String name,
   }) async {
     try {
-      var data = {
+      var body = json.encode({
         "id": id,
         "name": name,
-      };
-      dynamic response = await _apiServices.putApi(
-        data,
-        SettingsUrl.constructionEditApi,
-      );
+      });
+      dynamic response = await _apiServices
+          .putApi(body, SettingsUrl.constructionEditApi, isJson: true);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);
