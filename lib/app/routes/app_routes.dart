@@ -14,7 +14,11 @@ abstract class Routes {
       _Paths.home + _Paths.designation + _Paths.designationAdd;
   static const settings = _Paths.home + _Paths.settings;
   static const subCategory = _Paths.home + _Paths.subCategory;
+  static const subCategoryAdd =
+      _Paths.home + _Paths.subCategory + _Paths.subCategoryAdd;
+
   static const color = _Paths.home + _Paths.color;
+  static const colorAdd = _Paths.home + _Paths.color + _Paths.colorAdd;
   static const brand = _Paths.home + _Paths.brand;
   static const brandAdd = _Paths.home + _Paths.brand + _Paths.brandAdd;
   static const category = _Paths.home + _Paths.category;
@@ -26,6 +30,7 @@ abstract class Routes {
   static const state = _Paths.home + _Paths.state;
   static const stateAdd = _Paths.home + _Paths.state + _Paths.stateAdd;
   static const district = _Paths.home + _Paths.district;
+  static const districtAdd = _Paths.home + _Paths.district + _Paths.districtAdd;
   static const role = _Paths.home + _Paths.role;
 }
 
@@ -41,7 +46,9 @@ abstract class _Paths {
   static const designation = '/designation';
   static const designationAdd = '/designation-add';
   static const subCategory = '/sub-category';
+  static const subCategoryAdd = '/sub-category-add';
   static const color = '/color';
+  static const colorAdd = '/color-add';
   static const brand = '/brand';
   static const brandAdd = '/brand-add';
   static const category = '/category';
@@ -51,5 +58,6 @@ abstract class _Paths {
   static const state = '/state';
   static const stateAdd = '/state-add';
   static const district = '/district';
+  static const districtAdd = '/district-add';
   static const role = '/role';
 }
