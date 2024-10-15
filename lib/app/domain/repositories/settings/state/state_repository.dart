@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amina_enterprises_flutter_web/app/data/model/settings/state/state_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:amina_enterprises_flutter_web/app/core/failure/failure.dart';
@@ -29,12 +31,13 @@ class StateRepository extends NetworkApiServices {
     String name,
   ) async {
     try {
-      var data = {
+      var data = json.encode({
         "name": name,
-      };
+      });
       dynamic response = await _apiServices.postApi(
         data,
         SettingsUrl.stateAddApi,
+        isJson: true
       );
 
       if (response != null && response["status"] == true) {
@@ -56,13 +59,14 @@ class StateRepository extends NetworkApiServices {
     required String name,
   }) async {
     try {
-      var data = {
+      var data = json.encode({
         "id": id,
         "name": name,
-      };
+      });
       dynamic response = await _apiServices.putApi(
         data,
         SettingsUrl.stateEditApi,
+        isJson: true
       );
 
       if (response != null && response["status"] == true) {

@@ -28,7 +28,7 @@ class DashboardController extends GetxController {
 
   @override
   void onInit() {
-    getDashboardCount();
+   // getDashboardCount();
     super.onInit();
   }
 

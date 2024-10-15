@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amina_enterprises_flutter_web/app/data/model/settings/district/district_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:amina_enterprises_flutter_web/app/core/failure/failure.dart';
@@ -5,7 +7,7 @@ import 'package:amina_enterprises_flutter_web/app/data/app_url/settings/settings
 import 'package:amina_enterprises_flutter_web/app/data/model/api_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/network/network_api_services.dart';
 
-class DistrctRepository extends NetworkApiServices {
+class DistrictRepository extends NetworkApiServices {
   final _apiServices = NetworkApiServices();
 
   Future<Either<Failure, DistrictModel>> getList() async {
@@ -30,13 +32,14 @@ class DistrctRepository extends NetworkApiServices {
     String stateId,
   ) async {
     try {
-      var data = {
+      var data = json.encode({
         "name": name,
         "state_id": stateId,
-      };
+      });
       dynamic response = await _apiServices.postApi(
         data,
         SettingsUrl.districtAddApi,
+        isJson: true
       );
 
       if (response != null && response["status"] == true) {
@@ -59,14 +62,15 @@ class DistrctRepository extends NetworkApiServices {
     required String stateId,
   }) async {
     try {
-      var data = {
+      var data = json.encode({
         "id": id,
         "name": name,
         "state_id": stateId,
-      };
+      });
       dynamic response = await _apiServices.putApi(
         data,
         SettingsUrl.districtEditApi,
+        isJson: true
       );
 
       if (response != null && response["status"] == true) {

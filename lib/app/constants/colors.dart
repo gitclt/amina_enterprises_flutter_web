@@ -8,7 +8,7 @@ class AppColor {
   static Color background = Colors.white;
   static Color secondaryBackground = const Color(0xffF4F6FF);
   static const Color textGrayColor = Color(0xff666666);
-  static const Color scaffoldBgColor = Color(0xffEDF3F5);
+  static const Color scaffoldBgColor = Color(0xffF5F6FA);
   static Color green = const Color(0xff038900);
   static Color red = const Color(0xffff0000);
   static Color violet = const Color(0xff673698);
