@@ -33,12 +33,6 @@ class SettingsView extends GetView<SettingsController> {
                     },
                   ),
                   DashCards(
-                    lable: 'Place',
-                    onTap: () {
-                      // Get.rootDelegate.toNamed(Routes.place);
-                    },
-                  ),
-                  DashCards(
                     lable: 'Designation',
                     onTap: () {
                       Get.rootDelegate.toNamed(Routes.designation);

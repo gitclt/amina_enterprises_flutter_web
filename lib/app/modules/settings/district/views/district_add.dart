@@ -4,6 +4,7 @@ import 'package:amina_enterprises_flutter_web/app/common_widgets/container/simpl
 import 'package:amina_enterprises_flutter_web/app/common_widgets/dropdown/drop_down3_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/padding/common_padding.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/text_form_field.dart/add_new_widget.dart';
+import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/settings/district/controllers/district_controller.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
@@ -18,19 +19,20 @@ class DistrictAdd extends GetView<DistrictController> {
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        HomeAppBar(
-          title: 'Home / Master / District / Add',
-          onClick: () {
-            Get.rootDelegate.toNamed(Routes.district);
-          },
-          label: 'view_all'.tr,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        CommonPagePadding(
-          child: PageContainer(
+      backgroundColor: AppColor.scaffoldBgColor,
+      body: CommonPagePadding(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          HomeAppBar(
+            title: 'Home / Master / District / Add',
+            onClick: () {
+              Get.rootDelegate.toNamed(Routes.district);
+            },
+            label: 'view_all'.tr,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          PageContainer(
             child: Form(
               key: controller.formkey,
               child: Column(
@@ -99,9 +101,9 @@ class DistrictAdd extends GetView<DistrictController> {
                 ],
               ),
             ),
-          ),
-        )
-      ]),
+          )
+        ]),
+      ),
     );
   }
 }

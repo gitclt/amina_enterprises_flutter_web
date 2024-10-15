@@ -113,7 +113,7 @@ class DistrictController extends GetxController {
       (resData) {
         if (resData.status!) {
           isLoading(false);
-          Get.rootDelegate.toNamed(Routes.state);
+          Get.rootDelegate.toNamed(Routes.district);
           Utils.snackBar('Success', resData.message ?? '', type: 'success');
 
           get();
@@ -128,10 +128,10 @@ class DistrictController extends GetxController {
   void delete(String id) async {
     final res = await _repo.delete(id: id);
     res.fold((failure) {
-      Utils.snackBar('State Error', failure.message);
+      Utils.snackBar('District Error', failure.message);
       setError(error.toString());
     }, (resData) {
-      Utils.snackBar('State', resData.message!);
+      Utils.snackBar('District', resData.message!);
       get();
     });
   }
