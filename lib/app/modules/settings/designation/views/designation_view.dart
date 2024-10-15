@@ -117,7 +117,7 @@ class DesignationView extends GetView<DesignationController> {
                                       ),
                                       ColumnWidget(
                                           text: columnText(
-                                              item.name ?? '', fontSize),
+                                              item.designation ?? '', fontSize),
                                           width: size.width * 0.3,
                                           alignment: Alignment.center,
                                           color: bgColor),

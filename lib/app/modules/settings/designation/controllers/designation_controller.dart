@@ -41,7 +41,7 @@ class DesignationController extends GetxController {
 
   //edit
   void editClick(DesignationData data) async {
-    nameController = TextEditingController(text: data.name);
+    nameController = TextEditingController(text: data.designation);
     editId = data.id.toString();
     Get.rootDelegate.toNamed(Routes.designationAdd);
   }
