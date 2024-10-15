@@ -60,6 +60,7 @@ class SettingsUrl {
 
   static String constructionListApi = '$baseUrl/Construction/view_construction';
   static String constructionAddApi = '$baseUrl/Construction/construction_add';
-  static String constructionEditApi = '$baseUrl/Construction/Edit_state';
-  static String constructionDeleteApi = '$baseUrl/Construction/Delete_state';
+  static String constructionEditApi = '$baseUrl/Construction/Edit_construction';
+  static String constructionDeleteApi =
+      '$baseUrl/Construction/Delete_construction';
 }

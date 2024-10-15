@@ -1,3 +1,4 @@
+import 'package:amina_enterprises_flutter_web/app/modules/settings/brand/views/brand_add.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/settings/role/bindings/role_binding.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/settings/role/views/role_view.dart';
 import 'package:get/get.dart';
@@ -96,10 +97,17 @@ class AppPages {
                 binding: ColorBinding(),
               ),
               GetPage(
-                name: _Paths.brand,
-                page: () => const BrandView(),
-                binding: BrandBinding(),
-              ),
+                  name: _Paths.brand,
+                  page: () => const BrandView(),
+                  binding: BrandBinding(),
+                  children: [
+                    GetPage(
+                      name: _Paths.brandAdd,
+                      page: () => const BrandAddView(),
+                      transition: Transition.noTransition,
+                      binding: BrandBinding(),
+                    )
+                  ]),
               GetPage(
                 name: _Paths.category,
                 page: () => const CategoryView(),

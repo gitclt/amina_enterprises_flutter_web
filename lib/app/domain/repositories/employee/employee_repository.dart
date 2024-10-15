@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:amina_enterprises_flutter_web/app/core/failure/failure.dart';
-import 'package:amina_enterprises_flutter_web/app/data/app_url/employee_url.dart';
+import 'package:amina_enterprises_flutter_web/app/data/app_url/employee/employee_url.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/api_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/employee/employee_list_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/employee/employee_response.dart';
