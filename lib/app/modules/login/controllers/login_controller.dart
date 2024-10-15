@@ -24,7 +24,7 @@ class LoginController extends GetxController {
 
   void login() async {
     isLoading(true);
-    await fetchDeviceInfo();
+    // await fetchDeviceInfo();
     //  runLiveDb();
 
     try {
@@ -71,36 +71,5 @@ class LoginController extends GetxController {
     } finally {
       isLoading(false);
     }
-  }
-
-  Future<void> fetchDeviceInfo() async {
-    //  DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
-    try {
-      // final value = await apiServices.getPublicIP();
-      // if (value != '') {
-      //   type = value;
-      // } else if (value == 'Failed') {
-      //   type = '';
-      // }
-      await userPreference.addMac(type);
-      // if (GetPlatform.isDesktop) {
-      //   final info = NetworkInfo();
-      //   String? wifiInfo = await info.getWifiBSSID();
-
-      //   macid = wifiInfo ?? '';
-
-      //   print('Fetched MAC ID: $macid');
-
-      //   await userPreference.addMac(macid);
-
-      // } else {
-      //   // macid = 'Not available on non-Android platforms';
-      // }
-    } catch (e) {
-      type = 'Error fetching Android ID';
-    }
-
-    // Update the UI using GetX
-    update();
   }
 }
