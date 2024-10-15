@@ -58,14 +58,13 @@ class DesignationRepository extends NetworkApiServices {
     required String name,
   }) async {
     try {
-      var data = {
+ 
+      var body = json.encode({
         "id": id,
         "name": name,
-      };
-      dynamic response = await _apiServices.putApi(
-        data,
-        SettingsUrl.designationEdit,
-      );
+      });
+      dynamic response = await _apiServices
+          .putApi(body, SettingsUrl.designationEdit, isJson: true);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);
