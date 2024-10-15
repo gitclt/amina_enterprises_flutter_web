@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:amina_enterprises_flutter_web/app/core/failure/failure.dart';
 import 'package:amina_enterprises_flutter_web/app/data/app_url/settings/settings_url.dart';
@@ -31,13 +33,11 @@ class DesignationRepository extends NetworkApiServices {
     String name,
   ) async {
     try {
-      var data = {
+      var body = json.encode({
         "name": name,
-      };
-      dynamic response = await _apiServices.postApi(
-        data,
-        SettingsUrl.designationAdd,
-      );
+      });
+      dynamic response = await _apiServices
+          .postApi(body, SettingsUrl.designationAdd, isJson: true);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);
