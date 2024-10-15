@@ -164,7 +164,6 @@ class NetworkApiServices extends BaseApiServices {
     return responseJson;
   }
 
-  @override
   Future deleteApi(
     data,
     String url,
@@ -209,7 +208,6 @@ class NetworkApiServices extends BaseApiServices {
     return responseJson;
   }
 
-  @override
   Future putApi(data, String url, {bool isJson = false}) async {
     if (kDebugMode) {
       print(url);
