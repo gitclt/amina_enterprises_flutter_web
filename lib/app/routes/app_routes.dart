@@ -7,9 +7,12 @@ abstract class Routes {
   static const login = _Paths.login;
   static const root = _Paths.root;
   static const dashboard = _Paths.home + _Paths.dashboard;
+
+  //settings
   static const designation = _Paths.home + _Paths.designation;
    static const designationAdd =
       _Paths.home + _Paths.designation + _Paths.designationAdd;
+    static const settings = _Paths.home + _Paths.settings;
 }
 
 abstract class _Paths {
@@ -18,6 +21,9 @@ abstract class _Paths {
   static const login = '/login';
   static const root = '/';
   static const dashboard = '/dashboard';
-  static const designation = '/designation';
+  
+//settings
+   static const settings = '/settings';
+   static const designation = '/designation';
    static const designationAdd = '/designation-add';
 }

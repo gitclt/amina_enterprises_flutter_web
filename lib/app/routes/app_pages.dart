@@ -1,4 +1,6 @@
+import 'package:amina_enterprises_flutter_web/app/modules/settings/bindings/settings_binding.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/settings/designation/views/designation_add.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/settings/views/settings_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/dashboard/bindings/dashboard_binding.dart';
@@ -50,23 +52,25 @@ class AppPages {
                 transition: Transition.noTransition,
                 children: const [],
               ),
-                 GetPage(
-                name: _Paths.designation,
-                page: () => const DesignationView(),
-                binding: DesignationBinding(),
-                children: [
+              GetPage(
+                  name: _Paths.settings,
+                  page: () => const SettingsView(),
+                  transition: Transition.noTransition,
+                  binding: SettingsBinding()),
+              GetPage(
+                  name: _Paths.designation,
+                  page: () => const DesignationView(),
+                  binding: DesignationBinding(),
+                  children: [
                     GetPage(
                       name: _Paths.designationAdd,
                       page: () => const DesignationAdd(),
                       transition: Transition.noTransition,
                       binding: DesignationBinding(),
                     )
-                ]
-              ),
+                  ]),
             ],
           ),
-
         ]),
- 
   ];
 }
