@@ -2,9 +2,11 @@ import 'package:amina_enterprises_flutter_web/app/modules/settings/brand/views/b
 import 'package:amina_enterprises_flutter_web/app/modules/settings/category/views/category_add.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/settings/color/views/color_add.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/settings/construction/views/construction_add.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/settings/district/views/district_add.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/settings/role/bindings/role_binding.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/settings/role/views/role_view.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/settings/state/views/state_add.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/settings/sub_category/views/sub_category_add.dart';
 import 'package:get/get.dart';
 
 import '../modules/dashboard/bindings/dashboard_binding.dart';
@@ -96,6 +98,14 @@ class AppPages {
                 page: () => const SubCategoryView(),
                 transition: Transition.noTransition,
                 binding: SubCategoryBinding(),
+                children: [
+                  GetPage(
+                    name: _Paths.subCategoryAdd,
+                    page: () => const SubCategoryAdd(),
+                    transition: Transition.noTransition,
+                    binding: SubCategoryBinding(),
+                  )
+                ],
               ),
               GetPage(
                 name: _Paths.color,
@@ -104,7 +114,7 @@ class AppPages {
                 binding: ColorBinding(),
                 children: [
                   GetPage(
-                    name: _Paths.categoryAdd,
+                    name: _Paths.colorAdd,
                     page: () => const ColorAdd(),
                     transition: Transition.noTransition,
                     binding: ColorBinding(),
@@ -171,6 +181,14 @@ class AppPages {
                 page: () => const DistrictView(),
                 transition: Transition.noTransition,
                 binding: DistrictBinding(),
+                children: [
+                  GetPage(
+                    name: _Paths.districtAdd,
+                    page: () => const DistrictAdd(),
+                    transition: Transition.noTransition,
+                    binding: DistrictBinding(),
+                  )
+                ],
               ),
               GetPage(
                 name: _Paths.role,
