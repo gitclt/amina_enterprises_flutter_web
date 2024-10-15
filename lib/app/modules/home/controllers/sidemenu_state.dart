@@ -68,7 +68,7 @@ class SidemenuState {
         svgIcon: SvgAssets.settings,
         items: [],
         onClick: () {
-          Get.rootDelegate.toNamed(Routes.dashboard);
+          Get.rootDelegate.toNamed(Routes.settings);
           
         },
       ),
