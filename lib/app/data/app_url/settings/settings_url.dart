@@ -31,41 +31,35 @@ class SettingsUrl {
   static String brandDelete = '$baseUrl/Brand/Delete_brand';
 
   //productcategory
-  static String proCategoryListApi = '$baseUrl/Master/procatList';
-  static String proCategoryAddApi = '$baseUrl/Master/Addprocat';
-  static String proCategoryEditApi = '$baseUrl/Master/Updateprocat';
-  static String proCategoryDeleteApi = '$baseUrl/Master/Deleteprocat';
+  static String proCategoryListApi = '$baseUrl/category/Getcategory';
+  static String proCategoryAddApi = '$baseUrl/category/Postcategory';
+  static String proCategoryEditApi = '$baseUrl/category/Updatecategory';
+  static String proCategoryDeleteApi = '$baseUrl/category/Deletecategory';
 
   //subcategory
 
-  static String subCategoryListApi = '$baseUrl/Master/prosubcatList';
-  static String subCategoryAddApi = '$baseUrl/Master/Addprosubcat';
-  static String subCategoryEditApi = '$baseUrl/Master/Updateprosubcat';
-  static String subCategoryDeleteApi = '$baseUrl/Master/Delete_subcat';
+  static String subCategoryListApi = '$baseUrl/subcategory/Getsubcategory';
+  static String subCategoryAddApi = '$baseUrl/subcategory/Postsubcategory';
+  static String subCategoryEditApi = '$baseUrl/subcategory/Updatesubcategory';
+  static String subCategoryDeleteApi = '$baseUrl/subcategory/Deletesubcategory';
 
-  //productgroup
-  static String proGroupListApi = '$baseUrl/Master/pro_group';
-  static String proGroupAddApi = '$baseUrl/Master/add_progroup';
-  static String proGroupEditApi = '$baseUrl/Master/Updatepro_group';
-  static String proGroupDeleteApi = '$baseUrl/Master/Deletepro_group';
+  //Color
 
-  //subproductgroup
-  static String subGroupListApi = '$baseUrl/Master/prosubgroup_List';
-  static String subGroupAddApi = '$baseUrl/Master/add_prosubgroup';
-  static String subGroupEditApi = '$baseUrl/Master/Updateprosub_group';
-  static String subGroupDeleteApi = '$baseUrl/Master/Delete_subGroup';
+  static String colorListApi = '$baseUrl/Color/Getcolor';
+  static String colorAddApi = '$baseUrl/Color/Postcolor';
+  static String colorEditApi = '$baseUrl/Color/Updatecolor';
+  static String colorDeleteApi = '$baseUrl/Color/Deletecolor';
 
-  //product Aplication
-  static String proApplicationListApi = '$baseUrl/Master/pro_application_list';
-  static String proApplicationAddApi = '$baseUrl/Master/add_pro_application';
-  static String proApplicationEditApi =
-      '$baseUrl/Master/pro_application_update';
-  static String proApplicationDeleteApi =
-      '$baseUrl/Master/Deletepro_application';
+  //State
 
-  //place
-  static String placeListApi = '$baseUrl/Master/locationListWeb';
-  static String placeAddApi = '$baseUrl/Master/Addlocation';
-  static String placeEditApi = '$baseUrl/Master/Updatelocation';
-  static String placeDeleteApi = '$baseUrl/Master/Deletedlocation';
+  static String stateListApi = '$baseUrl/State/view_state';
+  static String stateAddApi = '$baseUrl/State/state_add';
+  static String stateEditApi = '$baseUrl/State/Edit_state';
+  static String stateDeleteApi = '$baseUrl/State/Delete_state';
+  //Construction
+
+  static String constructionListApi = '$baseUrl/Construction/view_construction';
+  static String constructionAddApi = '$baseUrl/Construction/construction_add';
+  static String constructionEditApi = '$baseUrl/Construction/Edit_state';
+  static String constructionDeleteApi = '$baseUrl/Construction/Delete_state';
 }
