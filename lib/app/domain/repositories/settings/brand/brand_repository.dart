@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amina_enterprises_flutter_web/app/data/model/settings/brand/brand_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:amina_enterprises_flutter_web/app/core/failure/failure.dart';
@@ -29,12 +31,13 @@ class BrandRepository extends NetworkApiServices {
     String name,
   ) async {
     try {
-      var data = {
+      var body = json.encode({
         "name": name,
-      };
+      });
       dynamic response = await _apiServices.postApi(
-        data,
+        body,
         SettingsUrl.brandAdd,
+        isJson: true
       );
 
       if (response != null && response["status"] == true) {
@@ -51,18 +54,19 @@ class BrandRepository extends NetworkApiServices {
 
   //edit
 
-  Future<Either<Failure, ApiModel>> editBranch({
+  Future<Either<Failure, ApiModel>> editBrand({
     required String id,
     required String name,
   }) async {
     try {
-      var data = {
+       var body = json.encode({
         "id": id,
         "name": name,
-      };
+      });
       dynamic response = await _apiServices.putApi(
-        data,
+        body,
         SettingsUrl.brandEdit,
+        isJson: true
       );
 
       if (response != null && response["status"] == true) {
@@ -78,7 +82,7 @@ class BrandRepository extends NetworkApiServices {
   }
 
   //delete
-  Future<Either<Failure, ApiModel>> deleteBranch({
+  Future<Either<Failure, ApiModel>> deleteBrand({
     required String id,
   }) async {
     var body = {"id": id};
