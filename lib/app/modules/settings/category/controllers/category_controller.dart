@@ -105,4 +105,8 @@ class CategoryController extends GetxController {
       get();
     });
   }
+  clear() {
+    editId = '';
+    nameController.clear();
+  }
 }

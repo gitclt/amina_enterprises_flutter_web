@@ -28,6 +28,7 @@ class CategoryView extends GetView<CategoryController> {
         HomeAppBar(
           title: 'Settings / Category / View',
           onClick: () {
+               controller.clear();
             Get.rootDelegate.toNamed(Routes.categoryAdd);
           },
           label: 'add_new'.tr,

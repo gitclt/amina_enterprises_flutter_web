@@ -105,4 +105,8 @@ class ConstructionController extends GetxController {
       get();
     });
   }
+  clear() {
+    editId = '';
+    nameController.clear();
+  }
 }

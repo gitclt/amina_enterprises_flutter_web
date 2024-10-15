@@ -106,4 +106,8 @@ class BrandController extends GetxController {
       get();
     });
   }
+  clear() {
+    editId = '';
+    nameController.clear();
+  }
 }

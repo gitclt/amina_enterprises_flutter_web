@@ -28,6 +28,7 @@ class BrandView extends GetView<BrandController> {
         HomeAppBar(
           title: 'Settings / Brand / View',
           onClick: () {
+               controller.clear();
             Get.rootDelegate.toNamed(Routes.brandAdd);
           },
           label: 'add_new'.tr,

@@ -28,6 +28,7 @@ class ConstructionView extends GetView<ConstructionController> {
         HomeAppBar(
           title: 'Settings / Construction / View',
           onClick: () {
+            controller.clear();
             Get.rootDelegate.toNamed(Routes.constructionAdd);
           },
           label: 'add_new'.tr,

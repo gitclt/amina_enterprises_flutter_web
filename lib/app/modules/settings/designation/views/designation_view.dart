@@ -19,7 +19,7 @@ import '../controllers/designation_controller.dart';
 
 class DesignationView extends GetView<DesignationController> {
   const DesignationView({super.key});
-   @override
+  @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var fontSize = size.width * 0.008;
@@ -28,6 +28,7 @@ class DesignationView extends GetView<DesignationController> {
         HomeAppBar(
           title: 'Settings / Designation / View',
           onClick: () {
+            controller.clear();
             Get.rootDelegate.toNamed(Routes.designationAdd);
           },
           label: 'add_new'.tr,
@@ -159,4 +160,3 @@ class DesignationView extends GetView<DesignationController> {
     );
   }
 }
-
