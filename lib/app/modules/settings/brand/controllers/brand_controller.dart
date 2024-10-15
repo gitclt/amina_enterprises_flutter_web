@@ -4,6 +4,8 @@ class BrandController extends GetxController {
   //TODO: Implement BrandController
 
   final count = 0.obs;
+
+  get rxRequestStatus => null;
   @override
   void onInit() {
     super.onInit();
