@@ -36,7 +36,7 @@ class DashHeaderCardWidgets extends StatelessWidget {
                           : 10,
                   runSpacing: 15,
                   children: child,
-                ).paddingSymmetric(horizontal: 10, vertical: 20)
+                ).paddingSymmetric(horizontal: 20, vertical: 20)
               ],
             ),
           ),
