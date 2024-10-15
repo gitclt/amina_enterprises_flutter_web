@@ -18,6 +18,7 @@ abstract class Routes {
   static const brand = _Paths.home + _Paths.brand;
   static const brandAdd = _Paths.home + _Paths.brand + _Paths.brandAdd;
   static const category = _Paths.home + _Paths.category;
+  static const categoryAdd = _Paths.home + _Paths.category + _Paths.categoryAdd;
   static const construction = _Paths.home + _Paths.construction;
   static const state = _Paths.home + _Paths.state;
   static const district = _Paths.home + _Paths.district;
@@ -40,6 +41,7 @@ abstract class _Paths {
   static const brand = '/brand';
   static const brandAdd = '/brand-add';
   static const category = '/category';
+  static const categoryAdd = '/category-add';
   static const construction = '/construction';
   static const state = '/state';
   static const district = '/district';

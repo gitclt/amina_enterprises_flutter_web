@@ -1,4 +1,5 @@
 import 'package:amina_enterprises_flutter_web/app/modules/settings/brand/views/brand_add.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/settings/category/views/category_add.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/settings/role/bindings/role_binding.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/settings/role/views/role_view.dart';
 import 'package:get/get.dart';
@@ -109,10 +110,18 @@ class AppPages {
                     )
                   ]),
               GetPage(
-                name: _Paths.category,
-                page: () => const CategoryView(),
-                binding: CategoryBinding(),
-              ),
+                  name: _Paths.category,
+                  page: () => const CategoryView(),
+                  transition: Transition.noTransition,
+                  binding: CategoryBinding(),
+                  children: [
+                    GetPage(
+                      name: _Paths.categoryAdd,
+                      page: () => const CategoryAdd(),
+                      transition: Transition.noTransition,
+                      binding: CategoryBinding(),
+                    )
+                  ]),
               GetPage(
                 name: _Paths.construction,
                 page: () => const ConstructionView(),
