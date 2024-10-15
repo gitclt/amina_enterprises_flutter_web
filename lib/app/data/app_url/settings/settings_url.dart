@@ -38,7 +38,7 @@ class SettingsUrl {
 
   //subcategory
 
-  static String subCategoryListApi = '$baseUrl/subcategory/Getsubcategory';
+  static String subCategoryListApi = '$baseUrl/subcategory/GetSubcategories';
   static String subCategoryAddApi = '$baseUrl/subcategory/Postsubcategory';
   static String subCategoryEditApi = '$baseUrl/subcategory/Updatesubcategory';
   static String subCategoryDeleteApi = '$baseUrl/subcategory/Deletesubcategory';

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amina_enterprises_flutter_web/app/data/model/settings/pro_sub_category/pro_sub_category_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:amina_enterprises_flutter_web/app/core/failure/failure.dart';
@@ -30,14 +32,12 @@ class ProSubCategoryRepository extends NetworkApiServices {
     String procatid,
   ) async {
     try {
-      var data = {
+      var data = json.encode({
         "name": name,
         "procat_id": procatid,
-      };
-      dynamic response = await _apiServices.postApi(
-        data,
-        SettingsUrl.subCategoryAddApi,
-      );
+      });
+      dynamic response = await _apiServices
+          .postApi(data, SettingsUrl.subCategoryAddApi, isJson: true);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);
@@ -59,15 +59,13 @@ class ProSubCategoryRepository extends NetworkApiServices {
     required String procatid,
   }) async {
     try {
-      var data = {
+      var data = json.encode({
         "id": id,
         "name": name,
         "procat_id": procatid,
-      };
-      dynamic response = await _apiServices.putApi(
-        data,
-        SettingsUrl.subCategoryEditApi,
-      );
+      });
+      dynamic response = await _apiServices
+          .putApi(data, SettingsUrl.subCategoryEditApi, isJson: true);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);
