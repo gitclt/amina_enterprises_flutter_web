@@ -20,7 +20,11 @@ abstract class Routes {
   static const category = _Paths.home + _Paths.category;
   static const categoryAdd = _Paths.home + _Paths.category + _Paths.categoryAdd;
   static const construction = _Paths.home + _Paths.construction;
+
+  static const constructionAdd =
+      _Paths.home + _Paths.construction + _Paths.constructionAdd;
   static const state = _Paths.home + _Paths.state;
+  static const stateAdd = _Paths.home + _Paths.state + _Paths.stateAdd;
   static const district = _Paths.home + _Paths.district;
   static const role = _Paths.home + _Paths.role;
 }
@@ -43,7 +47,9 @@ abstract class _Paths {
   static const category = '/category';
   static const categoryAdd = '/category-add';
   static const construction = '/construction';
+  static const constructionAdd = '/construction-add';
   static const state = '/state';
+  static const stateAdd = '/state-add';
   static const district = '/district';
   static const role = '/role';
 }
