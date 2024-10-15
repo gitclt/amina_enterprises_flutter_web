@@ -62,7 +62,7 @@ class DesignationRepository extends NetworkApiServices {
         "id": id,
         "name": name,
       };
-      dynamic response = await _apiServices.postApi(
+      dynamic response = await _apiServices.putApi(
         data,
         SettingsUrl.designationEdit,
       );
@@ -86,7 +86,7 @@ class DesignationRepository extends NetworkApiServices {
     var body = {"id": id};
     try {
       dynamic response =
-          await _apiServices.postApi(body, SettingsUrl.designationDelete);
+          await _apiServices.deleteApi(body, SettingsUrl.designationDelete);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);
