@@ -45,7 +45,7 @@ class SidemenuState {
         svgIcon: SvgAssets.customers,
         items: [],
         onClick: () {
-          Get.rootDelegate.toNamed(Routes.dashboard);
+          Get.rootDelegate.toNamed(Routes.customer);
         },
       ),
     );
@@ -69,7 +69,6 @@ class SidemenuState {
         items: [],
         onClick: () {
           Get.rootDelegate.toNamed(Routes.settings);
-          
         },
       ),
     );

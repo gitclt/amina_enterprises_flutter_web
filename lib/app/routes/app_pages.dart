@@ -1,14 +1,7 @@
-import 'package:amina_enterprises_flutter_web/app/modules/settings/brand/views/brand_add.dart';
-import 'package:amina_enterprises_flutter_web/app/modules/settings/category/views/category_add.dart';
-import 'package:amina_enterprises_flutter_web/app/modules/settings/color/views/color_add.dart';
-import 'package:amina_enterprises_flutter_web/app/modules/settings/construction/views/construction_add.dart';
-import 'package:amina_enterprises_flutter_web/app/modules/settings/district/views/district_add.dart';
-import 'package:amina_enterprises_flutter_web/app/modules/settings/role/bindings/role_binding.dart';
-import 'package:amina_enterprises_flutter_web/app/modules/settings/role/views/role_view.dart';
-import 'package:amina_enterprises_flutter_web/app/modules/settings/state/views/state_add.dart';
-import 'package:amina_enterprises_flutter_web/app/modules/settings/sub_category/views/sub_category_add.dart';
 import 'package:get/get.dart';
 
+import '../modules/customer/bindings/customer_binding.dart';
+import '../modules/customer/views/customer_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -19,21 +12,30 @@ import '../modules/root/bindings/root_binding.dart';
 import '../modules/root/views/root_view.dart';
 import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/brand/bindings/brand_binding.dart';
+import '../modules/settings/brand/views/brand_add.dart';
 import '../modules/settings/brand/views/brand_view.dart';
 import '../modules/settings/category/bindings/category_binding.dart';
+import '../modules/settings/category/views/category_add.dart';
 import '../modules/settings/category/views/category_view.dart';
 import '../modules/settings/color/bindings/color_binding.dart';
+import '../modules/settings/color/views/color_add.dart';
 import '../modules/settings/color/views/color_view.dart';
 import '../modules/settings/construction/bindings/construction_binding.dart';
+import '../modules/settings/construction/views/construction_add.dart';
 import '../modules/settings/construction/views/construction_view.dart';
 import '../modules/settings/designation/bindings/designation_binding.dart';
 import '../modules/settings/designation/views/designation_add.dart';
 import '../modules/settings/designation/views/designation_view.dart';
 import '../modules/settings/district/bindings/district_binding.dart';
+import '../modules/settings/district/views/district_add.dart';
 import '../modules/settings/district/views/district_view.dart';
+import '../modules/settings/role/bindings/role_binding.dart';
+import '../modules/settings/role/views/role_view.dart';
 import '../modules/settings/state/bindings/state_binding.dart';
+import '../modules/settings/state/views/state_add.dart';
 import '../modules/settings/state/views/state_view.dart';
 import '../modules/settings/sub_category/bindings/sub_category_binding.dart';
+import '../modules/settings/sub_category/views/sub_category_add.dart';
 import '../modules/settings/sub_category/views/sub_category_view.dart';
 import '../modules/settings/views/settings_view.dart';
 
@@ -75,6 +77,17 @@ class AppPages {
                 transition: Transition.noTransition,
                 children: const [],
               ),
+              GetPage(
+                  name: _Paths.customer,
+                  page: () => const CustomerView(),
+                  binding: CustomerBinding(),
+                  children: [
+                    GetPage(
+                      name: _Paths.customerAdd,
+                      page: () => const CustomerView(),
+                      binding: CustomerBinding(),
+                    )
+                  ]),
               GetPage(
                   name: _Paths.settings,
                   page: () => const SettingsView(),
