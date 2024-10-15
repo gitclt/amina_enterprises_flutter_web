@@ -57,15 +57,11 @@ class LoginController extends GetxController {
               },
               (resData) {
                 if (resData.data != null) {
-                  Get.rootDelegate.offNamed(Routes.home);
-                  // userPreference
-                  //     .saveUser(resData.data!, resData.branches ?? [],
-                  //         resData.privilage ?? [])
-                  //     .then(
-                  //   (s) {
-                  //     Get.rootDelegate.offNamed(Routes.home);
-                  //   },
-                  // );
+                  userPreference.saveUser(resData.data!).then(
+                    (s) {
+                      Get.rootDelegate.offNamed(Routes.home);
+                    },
+                  );
                 }
               },
             );

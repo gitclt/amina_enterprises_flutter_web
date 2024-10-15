@@ -18,17 +18,17 @@ class SettingsUrl {
 
   // designation
 
-  static String designationView = '$baseUrl/Master/designationList';
-  static String designationAdd = '$baseUrl/Master/Adddesignation';
-  static String designationEdit = '$baseUrl/Master/Updatedesignation';
-  static String designationDelete = '$baseUrl/Master/Deletedesignation';
+  static String designationView = '$baseUrl/designation/GetDesignations';
+  static String designationAdd = '$baseUrl/designation/PostDesignation';
+  static String designationEdit = '$baseUrl/designation/UpdateDesignation';
+  static String designationDelete = '$baseUrl/designation/DeleteDesignation';
 
-  // branch
+  // brand
 
-  static String branchView = '$baseUrl/Master/branchList';
-  static String branchAdd = '$baseUrl/Master/Addbranch';
-  static String branchEdit = '$baseUrl/Master/Updatebranch';
-  static String branchDelete = '$baseUrl/Master/Deletebranch';
+  static String brandView = '$baseUrl/Brand/view_brand';
+  static String brandAdd = '$baseUrl/Brand/brand_add';
+  static String brandEdit = '$baseUrl/Brand/Edit_brand';
+  static String brandDelete = '$baseUrl/Brand/Delete_brand';
 
   //productcategory
   static String proCategoryListApi = '$baseUrl/Master/procatList';

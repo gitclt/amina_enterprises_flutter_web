@@ -7,7 +7,10 @@ import 'package:amina_enterprises_flutter_web/app/data/network/network_api_servi
 
 class DesignationRepository extends NetworkApiServices {
   final _apiServices = NetworkApiServices();
-  Future<Either<Failure, DesignationListModel>> assignedRouteList() async {
+
+  //view
+
+  Future<Either<Failure, DesignationListModel>> designationView() async {
     try {
       dynamic response = await getApi(SettingsUrl.designationView);
 

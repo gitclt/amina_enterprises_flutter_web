@@ -109,7 +109,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ),
                       5.width,
                       Text(
-                        LocalStorageKey.roleName.toUpperCase(),
+                        LocalStorageKey.userName.toUpperCase(),
                         style: const TextStyle(
                             color: AppColor.textGrayColor, fontSize: 12),
                       ),
