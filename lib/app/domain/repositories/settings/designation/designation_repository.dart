@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:dartz/dartz.dart';
 import 'package:amina_enterprises_flutter_web/app/core/failure/failure.dart';
 import 'package:amina_enterprises_flutter_web/app/data/app_url/settings/settings_url.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/api_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/settings/designation/designation_list_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/network/network_api_services.dart';
+import 'package:dartz/dartz.dart';
 
 class DesignationRepository extends NetworkApiServices {
   final _apiServices = NetworkApiServices();
@@ -58,7 +58,6 @@ class DesignationRepository extends NetworkApiServices {
     required String name,
   }) async {
     try {
- 
       var body = json.encode({
         "id": id,
         "name": name,

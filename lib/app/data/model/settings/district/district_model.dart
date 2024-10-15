@@ -12,7 +12,7 @@ String districtModelToJson(DistrictModel data) => json.encode(data.toJson());
 class DistrictModel {
   bool? status;
   String? message;
-  List<District>? data;
+  List<DistrictData>? data;
 
   DistrictModel({
     this.status,
@@ -25,8 +25,8 @@ class DistrictModel {
         message: json["message"],
         data: json["data"] == null
             ? []
-            : List<District>.from(
-                json["data"]!.map((x) => District.fromJson(x))),
+            : List<DistrictData>.from(
+                json["data"]!.map((x) => DistrictData.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -38,20 +38,20 @@ class DistrictModel {
       };
 }
 
-class District {
+class DistrictData {
   int? id;
   String? district;
   String? state;
   int? stateId;
 
-  District({
+  DistrictData({
     this.id,
     this.district,
     this.state,
     this.stateId,
   });
 
-  factory District.fromJson(Map<String, dynamic> json) => District(
+  factory DistrictData.fromJson(Map<String, dynamic> json) => DistrictData(
         id: json["id"],
         district: json["district"],
         state: json["state"],
