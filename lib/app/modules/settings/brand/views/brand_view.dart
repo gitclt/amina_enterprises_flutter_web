@@ -12,7 +12,6 @@ import 'package:amina_enterprises_flutter_web/app/core/extention.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 import '../controllers/brand_controller.dart';
@@ -28,7 +27,7 @@ class BrandView extends GetView<BrandController> {
         HomeAppBar(
           title: 'Settings / Brand / View',
           onClick: () {
-               controller.clear();
+            controller.clear();
             Get.rootDelegate.toNamed(Routes.brandAdd);
           },
           label: 'add_new'.tr,
@@ -97,7 +96,7 @@ class BrandView extends GetView<BrandController> {
                             itemCount: controller.data.length,
                             itemBuilder: (context, index) {
                               const evenColor = Colors.white;
-                              final oddColor = AppColor.grey.withOpacity(0.2);
+                              const oddColor = AppColor.boxBorderColor;
 
                               final bgColor =
                                   index % 2 == 0 ? oddColor : evenColor;
@@ -160,5 +159,3 @@ class BrandView extends GetView<BrandController> {
     );
   }
 }
-
-
