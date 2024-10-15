@@ -141,8 +141,10 @@ class SubCategoryController extends GetxController {
   void editClick(ProSubCategory data) async {
     nameController = TextEditingController(text: data.name);
     editId = data.id.toString();
+    sdsubCategory = DropDownModel(
+        id: data.procatId.toString(), name: data.procategory.toString());
     // proCatId = data.procatId.toString();
-    subnameController.text = data.procategory.toString();
+    // subnameController.text = data.procategory.toString();
 
     Get.rootDelegate.toNamed(Routes.subCategoryAdd);
   }

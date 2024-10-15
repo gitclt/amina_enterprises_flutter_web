@@ -19,19 +19,19 @@ class StateAdd extends GetView<StateController> {
 
     return Scaffold(
       backgroundColor: AppColor.scaffoldBgColor,
-      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        HomeAppBar(
-          title: 'Home / Master / State / Add',
-          onClick: () {
-            Get.rootDelegate.toNamed(Routes.state);
-          },
-          label: 'view_all'.tr,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        CommonPagePadding(
-          child: PageContainer(
+      body: CommonPagePadding(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          HomeAppBar(
+            title: 'Home / Master / State / Add',
+            onClick: () {
+              Get.rootDelegate.toNamed(Routes.state);
+            },
+            label: 'view_all'.tr,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          PageContainer(
             child: Form(
               key: controller.formkey,
               child: Row(
@@ -72,9 +72,9 @@ class StateAdd extends GetView<StateController> {
                 ],
               ),
             ),
-          ),
-        )
-      ]),
+          )
+        ]),
+      ),
     );
   }
 }

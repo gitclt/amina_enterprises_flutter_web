@@ -26,56 +26,56 @@ class DistrictView extends GetView<DistrictController> {
     var fontSize = size.width * 0.008;
     return Scaffold(
       backgroundColor: AppColor.scaffoldBgColor,
-      body: Column(
-        children: [
-          HomeAppBar(
-            title: 'Settings / District / View',
-            onClick: () async{
-              controller.clear();
-              await controller.getstateList();
-              Get.rootDelegate.toNamed(Routes.districtAdd);
-            },
-            label: 'add_new'.tr,
-          ),
-          10.height,
-          Obx(() {
-            switch (controller.rxRequestStatus.value) {
-              case Status.loading:
-                return SizedBox(
-                  height: size.height * 0.5,
-                  child: ShimmerBuilder(
-                    rowCount: 10,
-                    sizes: [
-                      size.width * 0.03,
-                      size.width * 0.1,
-                      size.width * 0.055,
-                      size.width * 0.08,
-                      size.width * 0.08,
-                      size.width * 0.06,
-                      size.width * 0.12,
-                      size.width * 0.04,
-                      size.width * 0.04,
-                      size.width * 0.04,
-                    ],
-                  ).paddingAll(10),
-                );
-
-              case Status.error:
-                if (controller.error.value == 'No internet') {
-                  return InterNetExceptionWidget(
-                    onPress: () {
-                      controller.get();
-                    },
+      body: CommonPagePadding(
+        child: Column(
+          children: [
+            HomeAppBar(
+              title: 'Settings / District / View',
+              onClick: () async {
+                controller.clear();
+                await controller.getstateList();
+                Get.rootDelegate.toNamed(Routes.districtAdd);
+              },
+              label: 'add_new'.tr,
+            ),
+            10.height,
+            Obx(() {
+              switch (controller.rxRequestStatus.value) {
+                case Status.loading:
+                  return SizedBox(
+                    height: size.height * 0.5,
+                    child: ShimmerBuilder(
+                      rowCount: 10,
+                      sizes: [
+                        size.width * 0.03,
+                        size.width * 0.1,
+                        size.width * 0.055,
+                        size.width * 0.08,
+                        size.width * 0.08,
+                        size.width * 0.06,
+                        size.width * 0.12,
+                        size.width * 0.04,
+                        size.width * 0.04,
+                        size.width * 0.04,
+                      ],
+                    ).paddingAll(10),
                   );
-                } else {
-                  return GeneralExceptionWidget(onPress: () {
-                    controller.get();
-                  });
-                }
 
-              case Status.completed:
-                return CommonPagePadding(
-                  child: PageContainer(
+                case Status.error:
+                  if (controller.error.value == 'No internet') {
+                    return InterNetExceptionWidget(
+                      onPress: () {
+                        controller.get();
+                      },
+                    );
+                  } else {
+                    return GeneralExceptionWidget(onPress: () {
+                      controller.get();
+                    });
+                  }
+
+                case Status.completed:
+                  return PageContainer(
                     child: Column(
                       children: [
                         Row(
@@ -175,11 +175,11 @@ class DistrictView extends GetView<DistrictController> {
                         )
                       ],
                     ),
-                  ),
-                );
-            }
-          })
-        ],
+                  );
+              }
+            })
+          ],
+        ),
       ),
     );
   }

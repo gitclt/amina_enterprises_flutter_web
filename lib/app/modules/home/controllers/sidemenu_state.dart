@@ -52,7 +52,7 @@ class SidemenuState {
     menus.add(
       MenuEntity(
         id: 0,
-        menu: 'SALES',
+        menu: 'ORDER',
         svgIcon: SvgAssets.sales,
         items: [],
         onClick: () {
