@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class AppColor {
   static Color primary = isStaging == true
-      ? const Color(0xffFF5733)
+      ? const Color(0xffAF601A)
       : const Color(0xFFff0000); //0xff51CDF1 //8874a3
   static Color background = Colors.white;
   static Color secondaryBackground = const Color(0xffF4F6FF);

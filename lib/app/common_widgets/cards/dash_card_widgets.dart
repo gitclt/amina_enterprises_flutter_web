@@ -14,32 +14,30 @@ class DashHeaderCardWidgets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Container(
-          padding: const EdgeInsets.all(2),
-          decoration: BoxDecoration(
-              color: AppColor.white, borderRadius: BorderRadius.circular(10)),
-          child: CommonPagePadding(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CommonHeader(
-                  title: header,
-                  subTitle: subHeader,
-                ),
-                Wrap(
-                  spacing: Responsive.isDesktop(context)
-                      ? MediaQuery.of(context).size.width * 0.02
-                      : Responsive.isMobile(context)
-                          ? 10
-                          : 10,
-                  runSpacing: 15,
-                  children: child,
-                ).paddingSymmetric(horizontal: 20, vertical: 20)
-              ],
+    return Container(
+      padding: const EdgeInsets.all(2),
+      decoration: BoxDecoration(
+          color: AppColor.white, borderRadius: BorderRadius.circular(10)),
+      child: CommonPagePadding(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CommonHeader(
+              title: header,
+              subTitle: subHeader,
             ),
-          ),
-        ));
+            Wrap(
+              spacing: Responsive.isDesktop(context)
+                  ? MediaQuery.of(context).size.width * 0.02
+                  : Responsive.isMobile(context)
+                      ? 10
+                      : 10,
+              runSpacing: 15,
+              children: child,
+            ).paddingSymmetric(horizontal: 20, vertical: 20)
+          ],
+        ),
+      ),
+    );
   }
 }
