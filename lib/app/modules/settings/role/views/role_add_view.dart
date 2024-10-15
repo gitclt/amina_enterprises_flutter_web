@@ -49,7 +49,7 @@ class RoleAddView extends GetView<RoleController> {
                           ? size.width * 0.35
                           : size.width * .32,
                       textController: controller.nameController,
-                      label: 'KVN Role',
+                      label: 'Role',
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Enter Role Name';
