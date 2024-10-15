@@ -32,7 +32,7 @@ class LoginController extends GetxController {
           passwordController.value.text.trim().replaceAll('&', 'amp;');
       String temp =
           "username=${emailController.value.text.trim()}&password=$password&type=$type";
-      print("Temp $temp");
+
       List<int> encDataByte =
           utf8.encode(temp); // Convert string to UTF-8 bytes
       String encodedData = base64Encode(encDataByte); // Encode bytes to Base64

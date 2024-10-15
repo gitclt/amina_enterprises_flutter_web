@@ -1,27 +1,22 @@
 import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
 import 'package:amina_enterprises_flutter_web/app/core/failure/failure.dart';
 import 'package:amina_enterprises_flutter_web/app/data/app_url/employee/employee_url.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/api_model.dart';
-import 'package:amina_enterprises_flutter_web/app/data/model/employee/employee_list_model.dart';
-import 'package:amina_enterprises_flutter_web/app/data/model/employee/employee_response.dart';
+import 'package:amina_enterprises_flutter_web/app/data/model/employee/employee_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/network/network_api_services.dart';
 
 class EmployeeRepository {
   final _apiServices = NetworkApiServices();
 
-  Future<Either<Failure, EmployeeListModel>> getEmployeeTeamList({
-    required String roleId,
-    String? branchId,
-  }) async {
+  Future<Either<Failure, EmployeeModel>> getEmployeeList() async {
     try {
       dynamic response = await _apiServices.getApi(
-        "${AppEmpUrl.employeeApi}?roleid=$roleId${branchId != null ? '&branch_id=$branchId' : ''}",
+        AppEmpUrl.view,
       );
 
       if (response != null && response["status"] == true) {
-        EmployeeListModel res = EmployeeListModel.fromJson(response);
+        EmployeeModel res = EmployeeModel.fromJson(response);
 
         return Right(res);
       } else {
@@ -32,25 +27,7 @@ class EmployeeRepository {
     }
   }
 
-  Future<Either<Failure, EmployeeListModel>> getEmployeeList() async {
-    try {
-      dynamic response = await _apiServices.getApi(
-        AppEmpUrl.employeeListApi,
-      );
-
-      if (response != null && response["status"] == true) {
-        EmployeeListModel res = EmployeeListModel.fromJson(response);
-
-        return Right(res);
-      } else {
-        return Left(Failure(response["message"].toString()));
-      }
-    } catch (e) {
-      return Left(Failure(e.toString()));
-    }
-  }
-
-  Future<Either<Failure, EmpResponseModel>> addEmployee(
+  Future<Either<Failure, ApiModel>> addEmployee(
       {required String name,
       required String password,
       required String mobile,
@@ -82,11 +59,11 @@ class EmployeeRepository {
         "isBdm": isBde,
         "mac_id": macid
       });
-      dynamic response = await _apiServices
-          .postApi(body, AppEmpUrl.employeeAddApi, isJson: true);
+      dynamic response =
+          await _apiServices.postApi(body, AppEmpUrl.add, isJson: true);
 
       if (response != null && response["status"] == true) {
-        EmpResponseModel res = EmpResponseModel.fromJson(response);
+        ApiModel res = ApiModel.fromJson(response);
 
         return Right(res);
       } else {
@@ -97,7 +74,7 @@ class EmployeeRepository {
     }
   }
 
-  Future<Either<Failure, EmpResponseModel>> updateEmployee(
+  Future<Either<Failure, ApiModel>> updateEmployee(
       {required String id,
       required String name,
       required String password,
@@ -131,11 +108,11 @@ class EmployeeRepository {
         "isBdm": isBde,
         "mac_id": macId
       });
-      dynamic response = await _apiServices
-          .postApi(body, AppEmpUrl.employeeeUpdateApi, isJson: true);
+      dynamic response =
+          await _apiServices.postApi(body, AppEmpUrl.edit, isJson: true);
 
       if (response != null && response["status"] == true) {
-        EmpResponseModel res = EmpResponseModel.fromJson(response);
+        ApiModel res = ApiModel.fromJson(response);
 
         return Right(res);
       } else {
@@ -151,8 +128,7 @@ class EmployeeRepository {
   }) async {
     var body = {"id": id};
     try {
-      dynamic response =
-          await _apiServices.postApi(body, AppEmpUrl.employeeDeleteApi);
+      dynamic response = await _apiServices.postApi(body, AppEmpUrl.delete);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);
