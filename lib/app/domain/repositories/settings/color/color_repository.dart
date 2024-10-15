@@ -1,19 +1,19 @@
-import 'package:amina_enterprises_flutter_web/app/data/model/settings/brand/brand_model.dart';
+import 'package:amina_enterprises_flutter_web/app/data/model/settings/color/color_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:amina_enterprises_flutter_web/app/core/failure/failure.dart';
 import 'package:amina_enterprises_flutter_web/app/data/app_url/settings/settings_url.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/api_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/network/network_api_services.dart';
 
-class BrandRepository extends NetworkApiServices {
+class ColorRepository extends NetworkApiServices {
   final _apiServices = NetworkApiServices();
 
-  Future<Either<Failure, BrandModel>> brandList() async {
+  Future<Either<Failure, ColorModel>> getList() async {
     try {
-      dynamic response = await getApi(SettingsUrl.brandView);
+      dynamic response = await getApi(SettingsUrl.colorListApi);
 
       if (response != null && response["status"] == true) {
-        BrandModel res = BrandModel.fromJson(response);
+        ColorModel res = ColorModel.fromJson(response);
 
         return Right(res);
       } else {
@@ -25,7 +25,7 @@ class BrandRepository extends NetworkApiServices {
   }
 
 //add
-  Future<Either<Failure, ApiModel>> addBrand(
+  Future<Either<Failure, ApiModel>> add(
     String name,
   ) async {
     try {
@@ -34,7 +34,7 @@ class BrandRepository extends NetworkApiServices {
       };
       dynamic response = await _apiServices.postApi(
         data,
-        SettingsUrl.brandAdd,
+        SettingsUrl.colorAddApi,
       );
 
       if (response != null && response["status"] == true) {
@@ -51,7 +51,7 @@ class BrandRepository extends NetworkApiServices {
 
   //edit
 
-  Future<Either<Failure, ApiModel>> editBranch({
+  Future<Either<Failure, ApiModel>> edit({
     required String id,
     required String name,
   }) async {
@@ -62,7 +62,7 @@ class BrandRepository extends NetworkApiServices {
       };
       dynamic response = await _apiServices.putApi(
         data,
-        SettingsUrl.brandEdit,
+        SettingsUrl.colorEditApi,
       );
 
       if (response != null && response["status"] == true) {
@@ -78,13 +78,13 @@ class BrandRepository extends NetworkApiServices {
   }
 
   //delete
-  Future<Either<Failure, ApiModel>> deleteBranch({
+  Future<Either<Failure, ApiModel>> delete({
     required String id,
   }) async {
     var body = {"id": id};
     try {
       dynamic response =
-          await _apiServices.deleteApi(body, SettingsUrl.brandDelete);
+          await _apiServices.deleteApi(body, SettingsUrl.colorDeleteApi);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);

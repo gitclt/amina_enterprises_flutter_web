@@ -8,14 +8,14 @@ import 'package:amina_enterprises_flutter_web/app/data/network/network_api_servi
 class ProCategoryRepository {
   final _apiServices = NetworkApiServices();
 //view
-  Future<Either<Failure, ProCategoryListModel>> getProCategoryList() async {
+  Future<Either<Failure, ProductCategory>> getProCategoryList() async {
     try {
       dynamic response = await _apiServices.getApi(
         SettingsUrl.proCategoryListApi,
       );
 
       if (response != null && response["status"] == true) {
-        ProCategoryListModel res = ProCategoryListModel.fromJson(response);
+        ProductCategory res = ProductCategory.fromJson(response);
 
         return Right(res);
       } else {
@@ -32,7 +32,7 @@ class ProCategoryRepository {
   ) async {
     try {
       var data = {
-        "Name": name,
+        "name": name,
       };
       dynamic response = await _apiServices.postApi(
         data,
@@ -62,7 +62,7 @@ class ProCategoryRepository {
         "id": id,
         "name": name,
       };
-      dynamic response = await _apiServices.postApi(
+      dynamic response = await _apiServices.putApi(
         data,
         SettingsUrl.proCategoryEditApi,
       );
@@ -86,7 +86,7 @@ class ProCategoryRepository {
     var body = {"id": id};
     try {
       dynamic response =
-          await _apiServices.postApi(body, SettingsUrl.proCategoryDeleteApi);
+          await _apiServices.deleteApi(body, SettingsUrl.proCategoryDeleteApi);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);

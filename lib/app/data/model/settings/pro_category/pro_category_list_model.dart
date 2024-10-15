@@ -1,33 +1,34 @@
 // To parse this JSON data, do
 //
-//     final proCategoryListModel = proCategoryListModelFromJson(jsonString);
+//     final productCategoryModel = productCategoryModelFromJson(jsonString);
 
 import 'dart:convert';
 
-ProCategoryListModel proCategoryListModelFromJson(String str) =>
-    ProCategoryListModel.fromJson(json.decode(str));
+ProductCategoryModel productCategoryModelFromJson(String str) =>
+    ProductCategoryModel.fromJson(json.decode(str));
 
-String proCategoryListModelToJson(ProCategoryListModel data) =>
+String productCategoryModelToJson(ProductCategoryModel data) =>
     json.encode(data.toJson());
 
-class ProCategoryListModel {
+class ProductCategoryModel {
   bool? status;
   String? message;
-  List<ProCategoryListData>? data;
+  List<ProductCategory>? data;
 
-  ProCategoryListModel({
+  ProductCategoryModel({
     this.status,
     this.message,
     this.data,
   });
 
-  factory ProCategoryListModel.fromJson(Map<String, dynamic> json) =>
-      ProCategoryListModel(
+  factory ProductCategoryModel.fromJson(Map<String, dynamic> json) =>
+      ProductCategoryModel(
         status: json["status"],
         message: json["message"],
         data: json["data"] == null
             ? []
-            : List<ProCategoryListData>.from(json["data"]!.map((x) => ProCategoryListData.fromJson(x))),
+            : List<ProductCategory>.from(
+                json["data"]!.map((x) => ProductCategory.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -39,23 +40,23 @@ class ProCategoryListModel {
       };
 }
 
-class ProCategoryListData {
-  int? id;
-  String? name;
+class ProductCategory {
+  String? id;
+  String? category;
 
-ProCategoryListData({
+  ProductCategory({
     this.id,
-    this.name,
+    this.category,
   });
 
-  factory ProCategoryListData.fromJson(Map<String, dynamic> json) =>
-      ProCategoryListData(
+  factory ProductCategory.fromJson(Map<String, dynamic> json) =>
+      ProductCategory(
         id: json["id"],
-        name: json["name"],
+        category: json["category"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name": name,
+        "category": category,
       };
 }
