@@ -24,6 +24,7 @@ class CustomerController extends GetxController {
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
   void setError(String value) => error.value = value;
+  
   void get() async {
     setRxRequestStatus(Status.loading);
     data.clear();

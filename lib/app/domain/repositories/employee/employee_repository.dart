@@ -1,18 +1,20 @@
 import 'dart:convert';
-import 'package:dartz/dartz.dart';
+
 import 'package:amina_enterprises_flutter_web/app/core/failure/failure.dart';
 import 'package:amina_enterprises_flutter_web/app/data/app_url/employee/employee_url.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/api_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/employee/employee_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/network/network_api_services.dart';
+import 'package:dartz/dartz.dart';
 
 class EmployeeRepository {
   final _apiServices = NetworkApiServices();
 
-  Future<Either<Failure, EmployeeModel>> getEmployeeList() async {
+  Future<Either<Failure, EmployeeModel>> getEmployeeList(
+      int pageSize, int currentPage) async {
     try {
       dynamic response = await _apiServices.getApi(
-        AppEmpUrl.view,
+        '${AppEmpUrl.view}?pageSize=$pageSize&page=$currentPage',
       );
 
       if (response != null && response["status"] == true) {

@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:amina_enterprises_flutter_web/app/data/local/user_preference/user_prefrence_view_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/network/app_exceptions.dart';
 import 'package:amina_enterprises_flutter_web/app/data/network/base_api_services.dart';
+import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 class NetworkApiServices extends BaseApiServices {
   @override

@@ -1,3 +1,4 @@
+import 'package:amina_enterprises_flutter_web/app/modules/employee/views/employee_add.dart';
 import 'package:get/get.dart';
 
 import '../modules/customer/bindings/customer_binding.dart';
@@ -206,6 +207,19 @@ class AppPages {
                 ],
               ),
               GetPage(
+                  name: _Paths.employee,
+                  page: () => const EmployeeView(),
+                   transition: Transition.noTransition,
+                  binding: EmployeeBinding(),
+                  children: [
+                    GetPage(
+                      name: _Paths.employeeAdd,
+                      page: () => const EmployeeAdd(),
+                      transition: Transition.noTransition,
+                      binding: EmployeeBinding(),
+                    ),
+                  ]),
+              GetPage(
                 name: _Paths.role,
                 page: () => const RoleView(),
                 transition: Transition.noTransition,
@@ -214,10 +228,5 @@ class AppPages {
             ],
           ),
         ]),
-    GetPage(
-      name: _Paths.EMPLOYEE,
-      page: () => const EmployeeView(),
-      binding: EmployeeBinding(),
-    ),
   ];
 }
