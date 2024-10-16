@@ -101,6 +101,12 @@ class AppConstValue {
     DropDownModel(id: 'my_customer', name: 'My Customer')
   ];
 
+  
+  List<DropDownModel> custemerTypes = [
+    DropDownModel(id: 'delear', name: 'Delear'),
+    DropDownModel(id: 'subdelear', name: 'SubDelear')
+  ];
+
   List<DropDownModel> flags = [
     DropDownModel(id: '1', name: 'Lead'),
     DropDownModel(id: '2', name: 'Customer'),

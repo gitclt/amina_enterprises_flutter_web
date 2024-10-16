@@ -1,3 +1,4 @@
+import 'package:amina_enterprises_flutter_web/app/constants/const_valus.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/customer/customer_model.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/dropdown_entity.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
@@ -18,7 +19,13 @@ class CustomerController extends GetxController {
   final districtRepo = DistrictRepository();
   RxList<Customer> data = <Customer>[].obs;
   final formkey = GlobalKey<FormState>();
+
   TextEditingController nameController = TextEditingController();
+   TextEditingController codeController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+     TextEditingController placeController = TextEditingController();
+  // TextEditingController   typeController = TextEditingController();
+
   RxBool isLoading = false.obs;
   RxBool isStateLoading = false.obs;
   String editId = '';
@@ -26,9 +33,12 @@ class CustomerController extends GetxController {
 //list
   DropDownModel sdSearchState = DropDownModel();
   DropDownModel sdSearchDistrict = DropDownModel();
+  DropDownModel sdState = DropDownModel();
+  DropDownModel sdType = DropDownModel();
 
   RxList<DropDownModel> searchStateDropList = <DropDownModel>[].obs;
   RxList<DropDownModel> searchDistrictDropList = <DropDownModel>[].obs;
+  RxList<DropDownModel> typeDropList = <DropDownModel>[].obs;
 
   RxBool isSearchStateLoading = false.obs;
   RxBool isSearchDistrictLoading = false.obs;
@@ -40,12 +50,15 @@ class CustomerController extends GetxController {
     getState();
     get();
     getSearchState();
+    for (var v in AppConstValue().custemerTypes) {
+      typeDropList.add(DropDownModel(id: v.id.toString(), name: v.name));
+    }
     super.onInit();
   }
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
   void setError(String value) => error.value = value;
-  
+
   void get() async {
     setRxRequestStatus(Status.loading);
     data.clear();
@@ -144,7 +157,8 @@ class CustomerController extends GetxController {
         mobile: '',
         password: '',
         roleId: '',
-        state: '');
+        state: ''
+        );
     res.fold(
       (failure) {
         isLoading(false);
@@ -170,7 +184,8 @@ class CustomerController extends GetxController {
   void add() async {
     isLoading(true);
     final res = await _repo.addCustomer(
-        name: '',
+        name: nameController.text,
+        cusType: sdType.id.toString() ,
         address: '',
         branchId: '',
         designationId: '',

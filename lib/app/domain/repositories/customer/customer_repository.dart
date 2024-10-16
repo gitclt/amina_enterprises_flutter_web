@@ -33,6 +33,7 @@ class CustomerRepository {
   Future<Either<Failure, ApiModel>> addCustomer(
       {required String name,
       required String password,
+         required String cusType,
       required String mobile,
       required String email,
       required String state,
@@ -48,6 +49,7 @@ class CustomerRepository {
     try {
       var body = json.encode({
         "name": name,
+         "customer_type": cusType,
         "password": password,
         "mobile": mobile,
         "email": email,
