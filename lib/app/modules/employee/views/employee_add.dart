@@ -35,12 +35,12 @@ class EmployeeAdd extends GetView<EmployeeController> {
             child: Form(
               key: controller.formkey,
               child: Wrap(
-                spacing: 12,
+                spacing: 15,
                 runSpacing: 15,
                 children: [
                   AddTextFieldWidget(
                     width: Responsive.isDesktop(context)
-                        ? size.width * 0.3
+                        ? size.width * 0.18
                         : size.width * .32,
                     textController: controller.nameController,
                     label: 'Name',
@@ -54,7 +54,7 @@ class EmployeeAdd extends GetView<EmployeeController> {
                   ),
                   AddTextFieldWidget(
                     width: Responsive.isDesktop(context)
-                        ? size.width * 0.3
+                        ? size.width * 0.18
                         : size.width * .32,
                     textController: controller.nameController,
                     label: 'Code',
@@ -68,13 +68,42 @@ class EmployeeAdd extends GetView<EmployeeController> {
                   ),
                   AddTextFieldWidget(
                     width: Responsive.isDesktop(context)
-                        ? size.width * 0.3
+                        ? size.width * 0.18
                         : size.width * .32,
                     textController: controller.nameController,
                     label: 'Email',
+                    visible: true,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Enter District Name';
+                        return 'Enter Email';
+                      }
+                      return null;
+                    },
+                  ),
+                  AddTextFieldWidget(
+                    width: Responsive.isDesktop(context)
+                        ? size.width * 0.18
+                        : size.width * .32,
+                    textController: controller.nameController,
+                    label: 'Password',
+                    visible: true,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Enter Password';
+                      }
+                      return null;
+                    },
+                  ),
+                  AddTextFieldWidget(
+                    width: Responsive.isDesktop(context)
+                        ? size.width * 0.18
+                        : size.width * .32,
+                    textController: controller.nameController,
+                    label: 'Address',
+                    visible: true,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Enter Address';
                       }
                       return null;
                     },
@@ -103,17 +132,46 @@ class EmployeeAdd extends GetView<EmployeeController> {
 
                   AddTextFieldWidget(
                     width: Responsive.isDesktop(context)
-                        ? size.width * 0.3
+                        ? size.width * 0.18
                         : size.width * .32,
                     textController: controller.nameController,
-                    label: 'District Name',
+                    label: 'Location',
+                    visible: true,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Enter District Name';
+                        return 'Enter Location';
                       }
                       return null;
                     },
-                  ).paddingOnly(left: 15),
+                  ),
+                  AddTextFieldWidget(
+                    width: Responsive.isDesktop(context)
+                        ? size.width * 0.18
+                        : size.width * .32,
+                    textController: controller.nameController,
+                    label: 'Location',
+                    visible: true,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Enter Location';
+                      }
+                      return null;
+                    },
+                  ),
+                  AddTextFieldWidget(
+                    width: Responsive.isDesktop(context)
+                        ? size.width * 0.18
+                        : size.width * .32,
+                    textController: controller.nameController,
+                    label: 'Location',
+                    visible: true,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Enter Location';
+                      }
+                      return null;
+                    },
+                  ),
                   SizedBox(
                     height: size.height * 0.03,
                   ),
