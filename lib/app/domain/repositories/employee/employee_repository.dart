@@ -37,13 +37,13 @@ class EmployeeRepository {
       required String state,
       required String location,
       required String designationId,
-      required String dob,
+      required String status,
+      required String district,
+      required String code,
       required String doj,
       required String address,
       required String roleId,
-      required String branchId,
-      required String isBde,
-      required String macid}) async {
+     }) async {
     try {
       var body = json.encode({
         "name": name,
@@ -53,13 +53,11 @@ class EmployeeRepository {
         "state": state,
         "location": location,
         "designation_id": designationId,
-        "dob": dob,
+       
         "doj": doj,
         "address": address,
         "role_id": roleId,
-        "branch_id": branchId,
-        "isBdm": isBde,
-        "mac_id": macid
+       
       });
       dynamic response =
           await _apiServices.postApi(body, AppEmpUrl.add, isJson: true);

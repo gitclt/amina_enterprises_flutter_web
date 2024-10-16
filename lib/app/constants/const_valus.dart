@@ -1,5 +1,5 @@
-import 'package:intl/intl.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/dropdown_entity.dart';
+import 'package:intl/intl.dart';
 
 class AppConstValue {
   List<DropDownModel> year = _generateYear();
@@ -101,7 +101,6 @@ class AppConstValue {
     DropDownModel(id: 'my_customer', name: 'My Customer')
   ];
 
-  
   List<DropDownModel> custemerTypes = [
     DropDownModel(id: 'delear', name: 'Delear'),
     DropDownModel(id: 'subdelear', name: 'SubDelear')
@@ -132,5 +131,8 @@ class AppConstValue {
     DropDownModel(id: '3', name: '3'),
   ];
 
-  
+  List<DropDownModel> status = [
+    DropDownModel(id: '0', name: 'Inactive'),
+    DropDownModel(id: '1', name: 'Active')
+  ];
 }

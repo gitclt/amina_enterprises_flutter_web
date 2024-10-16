@@ -28,10 +28,12 @@ class EmployeeController extends GetxController {
   TextEditingController mobileController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  TextEditingController jDateController = TextEditingController();
+  TextEditingController locController = TextEditingController();
   DropDownModel dropDownState = DropDownModel();
   DropDownModel dropDownDistrict = DropDownModel();
   DropDownModel dropDownRole = DropDownModel();
-  DropDownModel dropDwonDesignate = DropDownModel();
+  DropDownModel dropDownDesignate = DropDownModel();
   DropDownModel dropDownStatus = DropDownModel();
 
   RxList<DropDownModel> stateDropList = <DropDownModel>[].obs;
@@ -59,10 +61,10 @@ class EmployeeController extends GetxController {
     get();
     getState();
     getDesignation();
-    getDistrict();
+
     getRole();
-    for(var st in AppConstValue().filterTypes){
-      
+    for (var st in AppConstValue().status) {
+      statusDropList.add(DropDownModel(id: st.id, name: st.name));
     }
     super.onInit();
   }
@@ -125,7 +127,7 @@ class EmployeeController extends GetxController {
   getDistrict() async {
     isDisLoading(true);
     districtDropList.clear();
-    final res = await districtRepo.getList();
+    final res = await districtRepo.getList(stateId: dropDownState.id);
     res.fold((failure) {
       isDisLoading(false);
       Utils.snackBar('State', failure.message);
@@ -142,7 +144,7 @@ class EmployeeController extends GetxController {
 
   getRole() async {
     isStateLoading(true);
-     roleDropList.clear();
+    roleDropList.clear();
     final res = await roleRepo.getRoleList();
     res.fold((failure) {
       isStateLoading(false);
@@ -152,11 +154,9 @@ class EmployeeController extends GetxController {
       isStateLoading(false);
 
       for (var d in resData.data!) {
-        roleDropList
-            .add(DropDownModel(id: d.id.toString(), name: d.name));
+        roleDropList.add(DropDownModel(id: d.id.toString(), name: d.name));
       }
     });
-
   }
 
   void changePage(int page) {
@@ -216,20 +216,19 @@ class EmployeeController extends GetxController {
   void add() async {
     isLoading(true);
     final res = await _repo.addEmployee(
-        name: '',
-        address: '',
-        branchId: '',
-        designationId: '',
-        dob: '',
-        doj: '',
-        email: '',
-        isBde: '',
-        location: '',
-        macid: '',
-        mobile: '',
-        password: '',
-        roleId: '',
-        state: '');
+        name: nameController.text.trim(),
+        code:codeController.text.trim(),
+        district:dropDownDistrict.id ?? '',
+        status:dropDownStatus.id ?? '',
+        address: addressController.text.trim(),
+        designationId: dropDownDesignate.id ?? '',
+        doj: jDateController.text.trim(),
+        email: emailController.text.trim(),
+        location: locController.text.trim(),
+        mobile: mobileController.text.trim(),
+        password: passwordController.text.trim(),
+        roleId: dropDownRole.id ?? '',
+        state: dropDownState.id ?? '');
     res.fold(
       (failure) {
         isLoading(false);

@@ -38,11 +38,11 @@ class DropDown3Widget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final enabledBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(5),
       borderSide: const BorderSide(color: AppColor.textGrayColor, width: 0.5),
     );
     final disabledBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(5),
       borderSide: BorderSide(
         color: const Color.fromARGB(255, 159, 158, 158).withOpacity(0.3),
       ),
