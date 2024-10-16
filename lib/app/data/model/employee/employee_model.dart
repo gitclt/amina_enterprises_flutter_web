@@ -14,7 +14,7 @@ class EmployeeModel {
   String? message;
   int? totalCount;
   int? totalPages;
-  List<Employee>? data;
+  List<EmployeeData>? data;
 
   EmployeeModel({
     this.status,
@@ -31,8 +31,8 @@ class EmployeeModel {
         totalPages: json["totalPages"],
         data: json["data"] == null
             ? []
-            : List<Employee>.from(
-                json["data"]!.map((x) => Employee.fromJson(x))),
+            : List<EmployeeData>.from(
+                json["data"]!.map((x) => EmployeeData.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -46,7 +46,7 @@ class EmployeeModel {
       };
 }
 
-class Employee {
+class EmployeeData {
   int? id;
   String? code;
   String? name;
@@ -66,7 +66,7 @@ class Employee {
   int? designationId;
   String? designation;
 
-  Employee({
+  EmployeeData({
     this.id,
     this.code,
     this.name,
@@ -87,7 +87,7 @@ class Employee {
     this.designation,
   });
 
-  factory Employee.fromJson(Map<String, dynamic> json) => Employee(
+  factory EmployeeData.fromJson(Map<String, dynamic> json) => EmployeeData(
         id: json["id"],
         code: json["code"],
         name: json["name"],

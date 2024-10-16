@@ -29,18 +29,18 @@ class SidemenuState {
     );
     menus.add(
       MenuEntity(
-        id: 0,
+        id: 1,
         menu: 'EMPLOYEES',
         svgIcon: SvgAssets.employees,
         items: [],
         onClick: () {
-          Get.rootDelegate.toNamed(Routes.dashboard);
+          Get.rootDelegate.toNamed(Routes.employee);
         },
       ),
     );
     menus.add(
       MenuEntity(
-        id: 0,
+        id: 2,
         menu: 'CUSTOMERS',
         svgIcon: SvgAssets.customers,
         items: [],
@@ -51,7 +51,7 @@ class SidemenuState {
     );
     menus.add(
       MenuEntity(
-        id: 0,
+        id: 3,
         menu: 'ORDER',
         svgIcon: SvgAssets.sales,
         items: [],
