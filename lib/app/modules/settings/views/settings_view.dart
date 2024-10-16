@@ -1,5 +1,6 @@
 import 'package:amina_enterprises_flutter_web/app/common_widgets/cards/dash_card_widgets.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/cards/dash_cards.dart';
+import 'package:amina_enterprises_flutter_web/app/common_widgets/padding/common_padding.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
@@ -14,8 +15,7 @@ class SettingsView extends GetView<SettingsController> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColor.scaffoldBgColor,
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
+        body: CommonPagePadding(
           child: SingleChildScrollView(
             child: Wrap(
               spacing: Responsive.isDesktop(context)
