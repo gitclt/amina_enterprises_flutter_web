@@ -30,39 +30,32 @@ class CustomerRepository {
     }
   }
 
-  Future<Either<Failure, ApiModel>> addCustomer(
-      {required String name,
-      required String password,
-         required String cusType,
-      required String mobile,
-      required String email,
-      required String state,
-      required String location,
-      required String designationId,
-      required String dob,
-      required String doj,
-      required String address,
-      required String roleId,
-      required String branchId,
-      required String isBde,
-      required String macid}) async {
+  Future<Either<Failure, ApiModel>> addCustomer({
+    required String name,
+    required String code,
+    required String password,
+    required String cusType,
+    required String mobile,
+    required String email,
+    required String place,
+    required String state,
+    required String designationId,
+    required String address,
+    required String pincode,
+  }) async {
     try {
       var body = json.encode({
         "name": name,
-         "customer_type": cusType,
+        "code": code,
+        "customer_type": cusType,
         "password": password,
         "mobile": mobile,
         "email": email,
+        "place": place,
         "state": state,
-        "location": location,
-        "designation_id": designationId,
-        "dob": dob,
-        "doj": doj,
+        "district_id": designationId,
+        "pincode": pincode,
         "address": address,
-        "role_id": roleId,
-        "branch_id": branchId,
-        "isBdm": isBde,
-        "mac_id": macid
       });
       dynamic response =
           await _apiServices.postApi(body, AppCusUrl.add, isJson: true);

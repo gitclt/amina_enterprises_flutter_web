@@ -21,10 +21,13 @@ class CustomerController extends GetxController {
   final formkey = GlobalKey<FormState>();
 
   TextEditingController nameController = TextEditingController();
-   TextEditingController codeController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-     TextEditingController placeController = TextEditingController();
-  // TextEditingController   typeController = TextEditingController();
+  TextEditingController codeController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController placeController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController pincodeController = TextEditingController();
 
   RxBool isLoading = false.obs;
   RxBool isStateLoading = false.obs;
@@ -157,8 +160,7 @@ class CustomerController extends GetxController {
         mobile: '',
         password: '',
         roleId: '',
-        state: ''
-        );
+        state: '');
     res.fold(
       (failure) {
         isLoading(false);
@@ -168,7 +170,7 @@ class CustomerController extends GetxController {
       (resData) {
         if (resData.status!) {
           isLoading(false);
-          Get.rootDelegate.toNamed(Routes.construction);
+          Get.rootDelegate.toNamed(Routes.customer);
           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
 
           get();
@@ -184,21 +186,17 @@ class CustomerController extends GetxController {
   void add() async {
     isLoading(true);
     final res = await _repo.addCustomer(
-        name: nameController.text,
-        cusType: sdType.id.toString() ,
-        address: '',
-        branchId: '',
+        name: nameController.text.trim(),
+        code: codeController.text.trim(),
+        cusType: sdType.id.toString(),
+        password: passwordController.text.trim(),
+        email: emailController.text.trim(),
+        mobile: mobileController.text.trim(),
+        address: addressController.text.trim(),
+        place: passwordController.text.trim(),
         designationId: '',
-        dob: '',
-        doj: '',
-        email: '',
-        isBde: '',
-        location: '',
-        macid: '',
-        mobile: '',
-        password: '',
-        roleId: '',
-        state: '');
+        pincode: pincodeController.text.trim(),
+        state: sdState.id.toString());
     res.fold(
       (failure) {
         isLoading(false);
@@ -208,7 +206,7 @@ class CustomerController extends GetxController {
       (resData) {
         if (resData.status!) {
           isLoading(false);
-          Get.rootDelegate.toNamed(Routes.construction);
+          Get.rootDelegate.toNamed(Routes.customer);
           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
 
           get();
@@ -223,10 +221,10 @@ class CustomerController extends GetxController {
   void delete(String id) async {
     final res = await _repo.deleteCustomer(id: id);
     res.fold((failure) {
-      Utils.snackBar('Construction Error', failure.message);
+      Utils.snackBar('Customer Error', failure.message);
       setError(error.toString());
     }, (resData) {
-      Utils.snackBar('Construction', resData.message!);
+      Utils.snackBar('Customer', resData.message!);
       get();
     });
   }

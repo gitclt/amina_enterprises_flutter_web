@@ -58,7 +58,7 @@ class CustomerAdd extends GetView<CustomerController> {
                     width: Responsive.isDesktop(context)
                         ? size.width * 0.18
                         : size.width * .32,
-                    textController: controller.nameController,
+                    textController: controller.codeController,
                     label: 'Code',
                     visible: true,
                     validator: (value) {
@@ -68,51 +68,51 @@ class CustomerAdd extends GetView<CustomerController> {
                       return null;
                     },
                   ),
-                  
-                    DropDown3Widget(
-                              width: Responsive.isDesktop(context)
-                            ? size.width * 0.18
-                            : size.width * .32,
-                      label: 'Customer Type',
-                      hint: '--Customer Type--',
-                      selectedItem: controller.sdType.id == null
-                          ? null
-                          : controller.sdType,
-                      items: controller.typeDropList,
-                      onChanged: (data) async {
-                        if (data == null) return;
-                        controller.sdType  = data;
-                      },
-                    ),
-                    //  DropDown3Widget(
-                    //   width: Responsive.isDesktop(context)
-                    //       ? size.width * 0.18
-                    //       : size.width * .32,
-                    //   label: 'Customer Type',
-                    //   hint: '--Select Type--',
-                    //   selectedItem: controller.sdState.id == null
-                    //       ? null
-                    //       : controller.sdState,
-                    //   items: AppConstValue().custemerTypes,
-                    //   isLoading: controller.isStateLoading.value,
-                    //   validator: (value) {
-                    //     if (value == null) {
-                    //       return 'Select State';
-                    //     }
-                    //     return null;
-                    //   },
-                    //   onChanged: (data) async {
-                    //     if (data == null) return;
-                    //     controller.sdState = data;
-                    //   },
-                    // ),
+
+                  DropDown3Widget(
+                    width: Responsive.isDesktop(context)
+                        ? size.width * 0.18
+                        : size.width * .32,
+                    label: 'Customer Type',
+                    hint: '--Customer Type--',
+                    selectedItem:
+                        controller.sdType.id == null ? null : controller.sdType,
+                    items: controller.typeDropList,
+                    onChanged: (data) async {
+                      if (data == null) return;
+                      controller.sdType = data;
+                    },
+                  ),
+                  //  DropDown3Widget(
+                  //   width: Responsive.isDesktop(context)
+                  //       ? size.width * 0.18
+                  //       : size.width * .32,
+                  //   label: 'Customer Type',
+                  //   hint: '--Select Type--',
+                  //   selectedItem: controller.sdState.id == null
+                  //       ? null
+                  //       : controller.sdState,
+                  //   items: AppConstValue().custemerTypes,
+                  //   isLoading: controller.isStateLoading.value,
+                  //   validator: (value) {
+                  //     if (value == null) {
+                  //       return 'Select State';
+                  //     }
+                  //     return null;
+                  //   },
+                  //   onChanged: (data) async {
+                  //     if (data == null) return;
+                  //     controller.sdState = data;
+                  //   },
+                  // ),
                   // ),
                   AddTextFieldWidget(
                     width: Responsive.isDesktop(context)
                         ? size.width * 0.18
                         : size.width * .32,
-                    textController: controller.nameController,
+                    textController: controller.passwordController,
                     label: 'Password',
+                    visible: true,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Enter Password';
@@ -124,7 +124,7 @@ class CustomerAdd extends GetView<CustomerController> {
                     width: Responsive.isDesktop(context)
                         ? size.width * 0.18
                         : size.width * .32,
-                    textController: controller.nameController,
+                    textController: controller.emailController,
                     label: 'Email',
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -137,7 +137,7 @@ class CustomerAdd extends GetView<CustomerController> {
                     width: Responsive.isDesktop(context)
                         ? size.width * 0.18
                         : size.width * .32,
-                    textController: controller.nameController,
+                    textController: controller.mobileController,
                     label: 'Mobile',
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -150,7 +150,7 @@ class CustomerAdd extends GetView<CustomerController> {
                     width: Responsive.isDesktop(context)
                         ? size.width * 0.18
                         : size.width * .32,
-                    textController: controller.nameController,
+                    textController: controller.addressController,
                     label: 'Address',
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -211,7 +211,7 @@ class CustomerAdd extends GetView<CustomerController> {
                     width: Responsive.isDesktop(context)
                         ? size.width * 0.18
                         : size.width * .32,
-                    textController: controller.nameController,
+                    textController: controller.placeController,
                     label: 'Place',
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -224,7 +224,7 @@ class CustomerAdd extends GetView<CustomerController> {
                     width: Responsive.isDesktop(context)
                         ? size.width * 0.18
                         : size.width * .32,
-                    textController: controller.nameController,
+                    textController: controller.pincodeController,
                     label: 'Pincode',
                     validator: (value) {
                       if (value!.isEmpty) {
