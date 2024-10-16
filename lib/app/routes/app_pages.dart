@@ -1,3 +1,4 @@
+import 'package:amina_enterprises_flutter_web/app/modules/customer/views/customer_add.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/employee/views/employee_add.dart';
 import 'package:get/get.dart';
 
@@ -87,7 +88,7 @@ class AppPages {
                   children: [
                     GetPage(
                       name: _Paths.customerAdd,
-                      page: () => const CustomerView(),
+                      page: () => const CustomerAdd(),
                       binding: CustomerBinding(),
                     )
                   ]),
@@ -209,7 +210,7 @@ class AppPages {
               GetPage(
                   name: _Paths.employee,
                   page: () => const EmployeeView(),
-                   transition: Transition.noTransition,
+                  transition: Transition.noTransition,
                   binding: EmployeeBinding(),
                   children: [
                     GetPage(
