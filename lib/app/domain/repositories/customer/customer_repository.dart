@@ -8,14 +8,15 @@ import 'package:amina_enterprises_flutter_web/app/data/network/network_api_servi
 import 'package:dartz/dartz.dart';
 
 class CustomerRepository {
+  final _apiServices = NetworkApiServices();
 
-final _apiServices = NetworkApiServices();
-
-  Future<Either<Failure, CustomerModel>> getCustomerList() async {
+  Future<Either<Failure, CustomerModel>> getCustomerList({
+    String? stateid,
+    String? districtId,
+  }) async {
     try {
       dynamic response = await _apiServices.getApi(
-        AppCusUrl.view,
-      );
+          '${AppCusUrl.view}?state_id=$stateid&district_id=$districtId');
 
       if (response != null && response["status"] == true) {
         CustomerModel res = CustomerModel.fromJson(response);
