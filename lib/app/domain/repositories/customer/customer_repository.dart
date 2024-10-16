@@ -39,7 +39,7 @@ class CustomerRepository {
     required String email,
     required String place,
     required String state,
-    required String designationId,
+    required String districtId,
     required String address,
     required String pincode,
   }) async {
@@ -53,7 +53,7 @@ class CustomerRepository {
         "email": email,
         "place": place,
         "state": state,
-        "district_id": designationId,
+        "district_id": districtId,
         "pincode": pincode,
         "address": address,
       });

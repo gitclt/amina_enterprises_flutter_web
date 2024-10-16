@@ -5,7 +5,6 @@ import 'package:amina_enterprises_flutter_web/app/common_widgets/dropdown/drop_d
 import 'package:amina_enterprises_flutter_web/app/common_widgets/padding/common_padding.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/text_form_field.dart/add_new_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
-import 'package:amina_enterprises_flutter_web/app/constants/const_valus.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/customer/controllers/customer_controller.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
@@ -180,6 +179,7 @@ class CustomerAdd extends GetView<CustomerController> {
                       onChanged: (data) async {
                         if (data == null) return;
                         controller.sdState = data;
+                        controller.getDistrict();
                       },
                     ),
                   ),
@@ -190,11 +190,11 @@ class CustomerAdd extends GetView<CustomerController> {
                           : size.width * .32,
                       label: 'District',
                       hint: '--Select District--',
-                      selectedItem: controller.sdState.id == null
+                      selectedItem: controller.sdDistrict.id == null
                           ? null
-                          : controller.sdState,
-                      items: controller.stateDropList,
-                      isLoading: controller.isStateLoading.value,
+                          : controller.sdDistrict,
+                      items: controller.districtDropList,
+                      isLoading: controller.isDistrictLoading.value,
                       validator: (value) {
                         if (value == null) {
                           return 'Select District';
@@ -203,7 +203,7 @@ class CustomerAdd extends GetView<CustomerController> {
                       },
                       onChanged: (data) async {
                         if (data == null) return;
-                        controller.sdState = data;
+                        controller.sdDistrict = data;
                       },
                     ),
                   ),

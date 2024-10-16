@@ -3,6 +3,7 @@ import 'package:amina_enterprises_flutter_web/app/common_widgets/container/simpl
 import 'package:amina_enterprises_flutter_web/app/common_widgets/general_exception.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/internet_exceptions_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/padding/common_padding.dart';
+import 'package:amina_enterprises_flutter_web/app/common_widgets/pagination/pagination_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/popup/common_popup.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/shimmer/table_loader.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/table/column_header_widget.dart';
@@ -121,7 +122,7 @@ class CustomerView extends GetView<CustomerController> {
                         ),
                         SingleChildScrollView(
                           child: SizedBox(
-                            height: size.height * 0.55,
+                            height: size.height * 0.5,
                             child: Obx(
                               () => ListView.builder(
                                   itemCount: controller.data.length,
@@ -211,7 +212,12 @@ class CustomerView extends GetView<CustomerController> {
                                   }),
                             ),
                           ),
-                        )
+                        ),
+                        10.height,
+                        Obx(() => PaginationWidget(
+                            totalPages: controller.totalPages.value,
+                            currentPage: controller.currentPage.value,
+                            onPageSelected: controller.changePage))
                       ],
                     ),
                   );

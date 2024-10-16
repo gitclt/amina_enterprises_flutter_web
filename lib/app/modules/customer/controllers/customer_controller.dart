@@ -19,6 +19,9 @@ class CustomerController extends GetxController {
   final districtRepo = DistrictRepository();
   RxList<Customer> data = <Customer>[].obs;
   final formkey = GlobalKey<FormState>();
+  final int pageSize = 10;
+  var currentPage = 1.obs;
+  var totalPages = 1.obs;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController codeController = TextEditingController();
@@ -31,12 +34,14 @@ class CustomerController extends GetxController {
 
   RxBool isLoading = false.obs;
   RxBool isStateLoading = false.obs;
+  RxBool isDistrictLoading = false.obs;
   String editId = '';
 
 //list
   DropDownModel sdSearchState = DropDownModel();
   DropDownModel sdSearchDistrict = DropDownModel();
   DropDownModel sdState = DropDownModel();
+  DropDownModel sdDistrict = DropDownModel();
   DropDownModel sdType = DropDownModel();
 
   RxList<DropDownModel> searchStateDropList = <DropDownModel>[].obs;
@@ -47,10 +52,12 @@ class CustomerController extends GetxController {
   RxBool isSearchDistrictLoading = false.obs;
 
   RxList<DropDownModel> stateDropList = <DropDownModel>[].obs;
+  RxList<DropDownModel> districtDropList = <DropDownModel>[].obs;
 
   @override
   void onInit() {
     getState();
+
     get();
     getSearchState();
     for (var v in AppConstValue().custemerTypes) {
@@ -76,8 +83,16 @@ class CustomerController extends GetxController {
       setRxRequestStatus(Status.completed);
       if (resData.data != null) {
         data.addAll(resData.data!);
+        totalPages.value = resData.totalPages ?? 1;
       }
     });
+  }
+
+  void changePage(int page) {
+    if (page > 0 && page <= totalPages.value) {
+      currentPage.value = page; // Update current page
+      get(); // Fetch the employee list for the new page
+    }
   }
 
   void getSearchState() async {
@@ -132,6 +147,24 @@ class CustomerController extends GetxController {
       for (var state in resData.data!) {
         stateDropList
             .add(DropDownModel(id: state.id.toString(), name: state.name));
+      }
+    });
+  }
+
+  void getDistrict() async {
+    isDistrictLoading(true);
+    districtDropList.clear();
+    final res = await districtRepo.getList(stateId: sdState.id ?? '');
+    res.fold((failure) {
+      isDistrictLoading(false);
+      Utils.snackBar('District', failure.message);
+      setError(error.toString());
+    }, (resData) {
+      isDistrictLoading(false);
+
+      for (var district in resData.data!) {
+        districtDropList.add(
+            DropDownModel(id: district.id.toString(), name: district.district));
       }
     });
   }
@@ -194,7 +227,7 @@ class CustomerController extends GetxController {
         mobile: mobileController.text.trim(),
         address: addressController.text.trim(),
         place: passwordController.text.trim(),
-        designationId: '',
+        districtId: sdDistrict.id.toString(),
         pincode: pincodeController.text.trim(),
         state: sdState.id.toString());
     res.fold(
