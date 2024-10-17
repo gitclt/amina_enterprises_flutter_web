@@ -1,5 +1,4 @@
 import 'package:amina_enterprises_flutter_web/app/constants/const_valus.dart';
-import 'package:amina_enterprises_flutter_web/app/constants/strings.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/customer/customer_model.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/dropdown_entity.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
@@ -121,6 +120,7 @@ class CustomerController extends GetxController {
 
   void getSearchDistrict() async {
     isSearchDistrictLoading(true);
+    sdSearchDistrict = DropDownModel(id: '', name: '--Select District--');
     searchDistrictDropList.clear();
     final res =
         await districtRepo.getList(stateId: sdSearchState.id.toString());
@@ -159,6 +159,7 @@ class CustomerController extends GetxController {
 
   void getDistrict() async {
     isDistrictLoading(true);
+    sdDistrict = DropDownModel(id: '', name: '--Select District--');
     districtDropList.clear();
     final res = await districtRepo.getList(stateId: sdState.id ?? '');
     res.fold((failure) {
@@ -179,7 +180,7 @@ class CustomerController extends GetxController {
   void editClick(Customer data) async {
     nameController = TextEditingController(text: data.name);
     codeController = TextEditingController(text: data.code);
-    //  sdType = data.customerType.toString();
+    sdType = DropDownModel(id: data.customerType, name: data.customerType);
     passwordController = TextEditingController(text: data.password);
     emailController = TextEditingController(text: data.email);
     mobileController = TextEditingController(text: data.mobile);
@@ -187,9 +188,10 @@ class CustomerController extends GetxController {
     placeController = TextEditingController(text: data.place);
     //Controller = TextEditingController(text: data.name);
     pincodeController = TextEditingController(text: data.pincode.toString());
-    // sdState
-    // sdDistrict
-    // sdStatus
+    sdState = DropDownModel(id: data.stateId.toString(), name: data.state);
+    sdDistrict =
+        DropDownModel(id: data.districtId.toString(), name: data.district);
+    sdStatus = DropDownModel(id: data.status, name: data.status);
     editId = data.id.toString();
     Get.rootDelegate.toNamed(Routes.customerAdd);
   }
@@ -285,5 +287,16 @@ class CustomerController extends GetxController {
   clear() {
     editId = '';
     nameController.clear();
+    codeController.clear();
+    sdType = DropDownModel(id: '', name: '--Select Type--');
+    sdDistrict = DropDownModel(id: '', name: '--Select District--');
+    sdState = DropDownModel(id: '', name: '--Select State--');
+    sdStatus = DropDownModel(id: '', name: '--Select Status--');
+    passwordController.clear();
+    emailController.clear();
+    mobileController.clear();
+    addressController.clear();
+    placeController.clear();
+    pincodeController.clear();
   }
 }
