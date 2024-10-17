@@ -81,30 +81,36 @@ class CustomerAdd extends GetView<CustomerController> {
                       if (data == null) return;
                       controller.sdType = data;
                     },
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Select Type';
+                      }
+                      return null;
+                    },
                   ),
-                  //  DropDown3Widget(
-                  //   width: Responsive.isDesktop(context)
-                  //       ? size.width * 0.18
-                  //       : size.width * .32,
-                  //   label: 'Customer Type',
-                  //   hint: '--Select Type--',
-                  //   selectedItem: controller.sdState.id == null
-                  //       ? null
-                  //       : controller.sdState,
-                  //   items: AppConstValue().custemerTypes,
-                  //   isLoading: controller.isStateLoading.value,
-                  //   validator: (value) {
-                  //     if (value == null) {
-                  //       return 'Select State';
-                  //     }
-                  //     return null;
-                  //   },
-                  //   onChanged: (data) async {
-                  //     if (data == null) return;
-                  //     controller.sdState = data;
-                  //   },
-                  // ),
-                  // ),
+                  DropDown3Widget(
+                    width: Responsive.isDesktop(context)
+                        ? size.width * 0.18
+                        : size.width * .32,
+                    label: 'Status',
+                    hint: '--Select Status--',
+                    selectedItem: controller.sdStatus.id == null
+                        ? null
+                        : controller.sdStatus,
+                    items: controller.statusDropList,
+                    onChanged: (data) async {
+                      if (data == null) return;
+                      controller.sdStatus = data;
+                      
+                    },
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Select Status';
+                      }
+                      return null;
+                    },
+                  ),
+               
                   AddTextFieldWidget(
                     width: Responsive.isDesktop(context)
                         ? size.width * 0.18
@@ -125,12 +131,12 @@ class CustomerAdd extends GetView<CustomerController> {
                         : size.width * .32,
                     textController: controller.emailController,
                     label: 'Email',
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Enter Email';
-                      }
-                      return null;
-                    },
+                    // validator: (value) {
+                    //   if (value!.isEmpty) {
+                    //     return 'Enter Email';
+                    //   }
+                    //   return null;
+                    // },
                   ),
                   AddTextFieldWidget(
                     width: Responsive.isDesktop(context)
@@ -151,12 +157,12 @@ class CustomerAdd extends GetView<CustomerController> {
                         : size.width * .32,
                     textController: controller.addressController,
                     label: 'Address',
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Enter Address';
-                      }
-                      return null;
-                    },
+                    // validator: (value) {
+                    //   if (value!.isEmpty) {
+                    //     return 'Enter Address';
+                    //   }
+                    //   return null;
+                    // },
                   ),
                   Obx(
                     () => DropDown3Widget(

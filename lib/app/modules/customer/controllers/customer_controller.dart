@@ -1,4 +1,5 @@
 import 'package:amina_enterprises_flutter_web/app/constants/const_valus.dart';
+import 'package:amina_enterprises_flutter_web/app/constants/strings.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/customer/customer_model.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/dropdown_entity.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
@@ -43,10 +44,12 @@ class CustomerController extends GetxController {
   DropDownModel sdState = DropDownModel();
   DropDownModel sdDistrict = DropDownModel();
   DropDownModel sdType = DropDownModel();
+    DropDownModel sdStatus = DropDownModel();
 
   RxList<DropDownModel> searchStateDropList = <DropDownModel>[].obs;
   RxList<DropDownModel> searchDistrictDropList = <DropDownModel>[].obs;
   RxList<DropDownModel> typeDropList = <DropDownModel>[].obs;
+   RxList<DropDownModel> statusDropList = <DropDownModel>[].obs;
 
   RxBool isSearchStateLoading = false.obs;
   RxBool isSearchDistrictLoading = false.obs;
@@ -62,6 +65,9 @@ class CustomerController extends GetxController {
     getSearchState();
     for (var v in AppConstValue().custemerTypes) {
       typeDropList.add(DropDownModel(id: v.id.toString(), name: v.name));
+    }
+     for (var v in AppConstValue().statusTypes) {
+      statusDropList.add(DropDownModel(id: v.id.toString(), name: v.name));
     }
     super.onInit();
   }
@@ -229,7 +235,10 @@ class CustomerController extends GetxController {
         place: passwordController.text.trim(),
         districtId: sdDistrict.id.toString(),
         pincode: pincodeController.text.trim(),
-        state: sdState.id.toString());
+        state: sdState.id.toString(),
+        status: sdStatus.id.toString(),
+        empid: LocalStorageKey.empId);
+
     res.fold(
       (failure) {
         isLoading(false);

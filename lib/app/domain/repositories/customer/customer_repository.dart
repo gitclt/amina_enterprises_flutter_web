@@ -42,6 +42,8 @@ class CustomerRepository {
     required String districtId,
     required String address,
     required String pincode,
+    required String status,
+    required String empid
   }) async {
     try {
       var body = json.encode({
@@ -52,10 +54,12 @@ class CustomerRepository {
         "mobile": mobile,
         "email": email,
         "place": place,
-        "state": state,
+        "state_id": state,
         "district_id": districtId,
         "pincode": pincode,
         "address": address,
+        "status":status,
+          "created_emp_id": 1,
       });
       dynamic response =
           await _apiServices.postApi(body, AppCusUrl.add, isJson: true);
