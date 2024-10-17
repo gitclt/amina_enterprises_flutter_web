@@ -29,7 +29,8 @@ class CustomerModel {
         message: json["message"],
         data: json["data"] == null
             ? []
-            : List<Customer>.from(json["data"]!.map((x) => Customer.fromJson(x))),
+            : List<Customer>.from(
+                json["data"]!.map((x) => Customer.fromJson(x))),
         totalCount: json["totalCount"],
         totalPages: json["totalPages"],
       );
@@ -64,6 +65,7 @@ class Customer {
   String? gpsLocation;
   int? createdEmpId;
   String? status;
+  int? pincode;
   int? addedby;
 
   Customer({
@@ -85,6 +87,7 @@ class Customer {
     this.gpsLocation,
     this.createdEmpId,
     this.status,
+    this.pincode,
     this.addedby,
   });
 
@@ -106,6 +109,7 @@ class Customer {
         longitude: json["longitude"],
         gpsLocation: json["gps_location"],
         createdEmpId: json["created_emp_id"],
+        pincode: json["pincode"],
         status: json["status"],
         addedby: json["addedby"],
       );
@@ -129,6 +133,7 @@ class Customer {
         "gps_location": gpsLocation,
         "created_emp_id": createdEmpId,
         "status": status,
+        "pincode": pincode,
         "addedby": addedby,
       };
 }

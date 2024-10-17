@@ -44,12 +44,12 @@ class CustomerController extends GetxController {
   DropDownModel sdState = DropDownModel();
   DropDownModel sdDistrict = DropDownModel();
   DropDownModel sdType = DropDownModel();
-    DropDownModel sdStatus = DropDownModel();
+  DropDownModel sdStatus = DropDownModel();
 
   RxList<DropDownModel> searchStateDropList = <DropDownModel>[].obs;
   RxList<DropDownModel> searchDistrictDropList = <DropDownModel>[].obs;
   RxList<DropDownModel> typeDropList = <DropDownModel>[].obs;
-   RxList<DropDownModel> statusDropList = <DropDownModel>[].obs;
+  RxList<DropDownModel> statusDropList = <DropDownModel>[].obs;
 
   RxBool isSearchStateLoading = false.obs;
   RxBool isSearchDistrictLoading = false.obs;
@@ -66,7 +66,7 @@ class CustomerController extends GetxController {
     for (var v in AppConstValue().custemerTypes) {
       typeDropList.add(DropDownModel(id: v.id.toString(), name: v.name));
     }
-     for (var v in AppConstValue().statusTypes) {
+    for (var v in AppConstValue().statusTypes) {
       statusDropList.add(DropDownModel(id: v.id.toString(), name: v.name));
     }
     super.onInit();
@@ -89,7 +89,7 @@ class CustomerController extends GetxController {
       setRxRequestStatus(Status.completed);
       if (resData.data != null) {
         data.addAll(resData.data!);
-        totalPages.value = resData.totalPages ?? 1;
+        totalPages.value = (resData.totalCount! / pageSize).ceil();
       }
     });
   }
@@ -178,6 +178,18 @@ class CustomerController extends GetxController {
   //edit
   void editClick(Customer data) async {
     nameController = TextEditingController(text: data.name);
+    codeController = TextEditingController(text: data.code);
+    //  sdType = data.customerType.toString();
+    passwordController = TextEditingController(text: data.password);
+    emailController = TextEditingController(text: data.email);
+    mobileController = TextEditingController(text: data.mobile);
+    addressController = TextEditingController(text: data.address);
+    placeController = TextEditingController(text: data.place);
+    //Controller = TextEditingController(text: data.name);
+    pincodeController = TextEditingController(text: data.pincode.toString());
+    // sdState
+    // sdDistrict
+    // sdStatus
     editId = data.id.toString();
     Get.rootDelegate.toNamed(Routes.customerAdd);
   }
@@ -185,21 +197,20 @@ class CustomerController extends GetxController {
   edit() async {
     isLoading(true);
     final res = await _repo.updateCustomer(
-        id: editId,
-        name: nameController.text,
-        address: '',
-        branchId: '',
-        designationId: '',
-        dob: '',
-        doj: '',
-        email: '',
-        isBde: '',
-        location: '',
-        macId: '',
-        mobile: '',
-        password: '',
-        roleId: '',
-        state: '');
+        editId: editId,
+        name: nameController.text.trim(),
+        code: codeController.text.trim(),
+        cusType: sdType.id.toString(),
+        password: passwordController.text.trim(),
+        email: emailController.text.trim(),
+        mobile: mobileController.text.trim(),
+        address: addressController.text.trim(),
+        place: placeController.text.trim(),
+        districtId: sdDistrict.id.toString(),
+        pincode: pincodeController.text.trim(),
+        state: sdState.id.toString(),
+        status: sdStatus.id.toString(),
+        empid: '1');
     res.fold(
       (failure) {
         isLoading(false);
@@ -232,12 +243,12 @@ class CustomerController extends GetxController {
         email: emailController.text.trim(),
         mobile: mobileController.text.trim(),
         address: addressController.text.trim(),
-        place: passwordController.text.trim(),
+        place: placeController.text.trim(),
         districtId: sdDistrict.id.toString(),
         pincode: pincodeController.text.trim(),
         state: sdState.id.toString(),
         status: sdStatus.id.toString(),
-        empid: LocalStorageKey.empId);
+        empid: '1');
 
     res.fold(
       (failure) {

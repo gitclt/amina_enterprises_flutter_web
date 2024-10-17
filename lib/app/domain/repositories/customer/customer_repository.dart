@@ -30,21 +30,20 @@ class CustomerRepository {
     }
   }
 
-  Future<Either<Failure, ApiModel>> addCustomer({
-    required String name,
-    required String code,
-    required String password,
-    required String cusType,
-    required String mobile,
-    required String email,
-    required String place,
-    required String state,
-    required String districtId,
-    required String address,
-    required String pincode,
-    required String status,
-    required String empid
-  }) async {
+  Future<Either<Failure, ApiModel>> addCustomer(
+      {required String name,
+      required String code,
+      required String password,
+      required String cusType,
+      required String mobile,
+      required String email,
+      required String place,
+      required String state,
+      required String districtId,
+      required String address,
+      required String pincode,
+      required String status,
+      required String empid}) async {
     try {
       var body = json.encode({
         "name": name,
@@ -58,8 +57,8 @@ class CustomerRepository {
         "district_id": districtId,
         "pincode": pincode,
         "address": address,
-        "status":status,
-          "created_emp_id": 1,
+        "status": status,
+        "created_emp_id": empid,
       });
       dynamic response =
           await _apiServices.postApi(body, AppCusUrl.add, isJson: true);
@@ -77,41 +76,39 @@ class CustomerRepository {
   }
 
   Future<Either<Failure, ApiModel>> updateCustomer(
-      {required String id,
+      {required String editId,
       required String name,
+      required String code,
       required String password,
+      required String cusType,
       required String mobile,
       required String email,
+      required String place,
       required String state,
-      required String location,
-      required String designationId,
-      required String dob,
-      required String doj,
+      required String districtId,
       required String address,
-      required String roleId,
-      required String branchId,
-      required String isBde,
-      required String macId}) async {
+      required String pincode,
+      required String status,
+      String? empid}) async {
     try {
       var body = json.encode({
-        "id": id,
+        "id": editId,
         "name": name,
+        "code": code,
+        "customer_type": cusType,
         "password": password,
         "mobile": mobile,
         "email": email,
-        "state": state,
-        "location": location,
-        "designation_id": designationId,
-        "dob": dob,
-        "doj": doj,
+        "place": place,
+        "state_id": state,
+        "district_id": districtId,
+        "pincode": pincode,
         "address": address,
-        "role_id": roleId,
-        "branch_id": branchId,
-        "isBdm": isBde,
-        "mac_id": macId
+        "status": status,
+        "created_emp_id": empid,
       });
       dynamic response =
-          await _apiServices.postApi(body, AppCusUrl.edit, isJson: true);
+          await _apiServices.putApi(body, AppCusUrl.edit, isJson: true);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);
@@ -130,7 +127,7 @@ class CustomerRepository {
   }) async {
     var body = {"id": id};
     try {
-      dynamic response = await _apiServices.postApi(body, AppCusUrl.delete);
+      dynamic response = await _apiServices.deleteApi(body, AppCusUrl.delete);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);
