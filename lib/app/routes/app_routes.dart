@@ -36,7 +36,9 @@ abstract class Routes {
   static const customerAdd = _Paths.home + _Paths.customer + _Paths.customerAdd;
   static const employee = _Paths.home + _Paths.employee;
   static const employeeAdd = _Paths.home + _Paths.employee + _Paths.employeeAdd;
-  
+  static const mainCategory = _Paths.home + _Paths.mainCategory;
+  static const mainCategoryAdd =
+      _Paths.home + _Paths.mainCategory + _Paths.mainCategoryAdd;
 }
 
 abstract class _Paths {
@@ -69,4 +71,6 @@ abstract class _Paths {
   static const customerAdd = '/customer-add';
   static const employee = '/employee';
   static const employeeAdd = '/employee-add';
+  static const mainCategory = '/main-category';
+  static const mainCategoryAdd = '/main-category-add';
 }

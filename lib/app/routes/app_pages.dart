@@ -1,12 +1,13 @@
-import 'package:amina_enterprises_flutter_web/app/modules/customer/views/customer_add.dart';
-import 'package:amina_enterprises_flutter_web/app/modules/employee/views/employee_add.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/settings/main_category/views/main_category_add.dart';
 import 'package:get/get.dart';
 
 import '../modules/customer/bindings/customer_binding.dart';
+import '../modules/customer/views/customer_add.dart';
 import '../modules/customer/views/customer_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/employee/bindings/employee_binding.dart';
+import '../modules/employee/views/employee_add.dart';
 import '../modules/employee/views/employee_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
@@ -33,6 +34,8 @@ import '../modules/settings/designation/views/designation_view.dart';
 import '../modules/settings/district/bindings/district_binding.dart';
 import '../modules/settings/district/views/district_add.dart';
 import '../modules/settings/district/views/district_view.dart';
+import '../modules/settings/main_category/bindings/main_category_binding.dart';
+import '../modules/settings/main_category/views/main_category_view.dart';
 import '../modules/settings/role/bindings/role_binding.dart';
 import '../modules/settings/role/views/role_view.dart';
 import '../modules/settings/state/bindings/state_binding.dart';
@@ -165,6 +168,19 @@ class AppPages {
                   )
                 ],
               ),
+                GetPage(
+                name: _Paths.mainCategory,
+                page: () => const MainCategoryView(),
+                binding: MainCategoryBinding(),
+                children: [
+                 GetPage(
+                      name: _Paths.mainCategoryAdd,
+                      page: () => const MainCategoryAdd(),
+                      transition: Transition.noTransition,
+                      binding: MainCategoryBinding(),
+                    ) 
+                ]
+              ),
               GetPage(
                 name: _Paths.construction,
                 page: () => const ConstructionView(),
@@ -229,5 +245,6 @@ class AppPages {
             ],
           ),
         ]),
+  
   ];
 }

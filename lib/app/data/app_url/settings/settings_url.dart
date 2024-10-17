@@ -43,6 +43,13 @@ class SettingsUrl {
   static String subCategoryEditApi = '$baseUrl/subcategory/Updatesubcategory';
   static String subCategoryDeleteApi = '$baseUrl/subcategory/Deletesubcategory';
 
+    //mainCategory
+
+  static String mainCategoryListApi = '$baseUrl/Product_main_category/view_main_categorye';
+  static String mainCategoryAddApi = '$baseUrl/Product_main_category/add_main_category';
+  static String mainCategoryEditApi = '$baseUrl/Product_main_category/edit_main_category';
+  static String mainCategoryDeleteApi = '$baseUrl/Product_main_category/Delete_main_category';
+
   //Color
 
   static String colorListApi = '$baseUrl/Color/view_color';

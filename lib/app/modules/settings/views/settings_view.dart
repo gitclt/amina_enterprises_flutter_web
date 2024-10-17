@@ -80,6 +80,12 @@ class SettingsView extends GetView<SettingsController> {
                       Get.rootDelegate.toNamed(Routes.subCategory);
                     },
                   ),
+                  DashCards(
+                    lable: 'Main Category',
+                    onTap: () {
+                      Get.rootDelegate.toNamed(Routes.mainCategory);
+                    },
+                  ),
                 ])
               ],
             ),
