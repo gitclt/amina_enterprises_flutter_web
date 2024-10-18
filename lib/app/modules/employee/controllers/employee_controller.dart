@@ -1,10 +1,12 @@
 import 'package:amina_enterprises_flutter_web/app/constants/const_valus.dart';
+import 'package:amina_enterprises_flutter_web/app/data/model/employee/employee_add_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/employee/employee_model.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/dropdown_entity.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/employee/employee_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/designation/designation_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/district/distrct_repository.dart';
+import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/division/division_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/settings_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/state/state_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
@@ -17,7 +19,7 @@ class EmployeeController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isStateLoading = false.obs;
   RxBool isDisLoading = false.obs;
-
+  RxBool isDivisionLoading = false.obs;
   RxString error = ''.obs;
   final _repo = EmployeeRepository();
 
@@ -42,7 +44,13 @@ class EmployeeController extends GetxController {
   RxList<DropDownModel> roleDropList = <DropDownModel>[].obs;
   RxList<DropDownModel> statusDropList = <DropDownModel>[].obs;
 
+// division
+
+  RxList<DropDownModel> divisionDropList = <DropDownModel>[].obs;
+  RxList<DropDownModel> dropdownDivisionList = <DropDownModel>[].obs;
+
   final desigRepo = DesignationRepository();
+  final divisionRepo = DivisionRepository();
   final stateRepo = StateRepository();
   final districtRepo = DistrictRepository();
   final roleRepo = SettingsRepository();
@@ -61,7 +69,7 @@ class EmployeeController extends GetxController {
     get();
     getState();
     getDesignation();
-
+    getDivision();
     getRole();
     for (var st in AppConstValue().status) {
       statusDropList.add(DropDownModel(id: st.id, name: st.name));
@@ -120,6 +128,24 @@ class EmployeeController extends GetxController {
       for (var d in resData.data!) {
         designationDropList
             .add(DropDownModel(id: d.id.toString(), name: d.designation));
+      }
+    });
+  }
+
+  getDivision() async {
+    isDisLoading(true);
+    designationDropList.clear();
+    final res = await divisionRepo.getList();
+    res.fold((failure) {
+      isDisLoading(false);
+      Utils.snackBar('State', failure.message);
+      setError(error.toString());
+    }, (resData) {
+      isDisLoading(false);
+
+      for (var d in resData.data!) {
+        divisionDropList
+            .add(DropDownModel(id: d.id.toString(), name: d.division));
       }
     });
   }
@@ -216,19 +242,26 @@ class EmployeeController extends GetxController {
   void add() async {
     isLoading(true);
     final res = await _repo.addEmployee(
-        name: nameController.text.trim(),
-        code:codeController.text.trim(),
-        district:dropDownDistrict.id ?? '',
-        status:dropDownStatus.id ?? '',
-        address: addressController.text.trim(),
-        designationId: dropDownDesignate.id ?? '',
-        doj: jDateController.text.trim(),
-        email: emailController.text.trim(),
-        location: locController.text.trim(),
-        mobile: mobileController.text.trim(),
-        password: passwordController.text.trim(),
-        roleId: dropDownRole.id ?? '',
-        state: dropDownState.id ?? '');
+      add: EmpAddModel(
+          employee: Employee(
+              name: nameController.text.trim(),
+              code: codeController.text.trim(),
+              districtId: dropDownDistrict.id ?? '',
+              activeStatus: dropDownStatus.id ?? '',
+              address: addressController.text.trim(),
+              designationId: dropDownDesignate.id ?? '',
+              joiningDate: Utils.dateConvert(jDateController.text.trim()),
+              email: emailController.text.trim(),
+              location: locController.text.trim(),
+              mobile: mobileController.text.trim(),
+              password: passwordController.text.trim(),
+              roleId: dropDownRole.id ?? '',
+              addedby: '1',
+              stateId: dropDownState.id ?? ''),
+          divisions: dropdownDivisionList
+              .map((f) => Division(divisionId: f.id.toString()))
+              .toList()),
+    );
     res.fold(
       (failure) {
         isLoading(false);
@@ -238,7 +271,7 @@ class EmployeeController extends GetxController {
       (resData) {
         if (resData.status!) {
           isLoading(false);
-          Get.rootDelegate.toNamed(Routes.construction);
+          Get.rootDelegate.toNamed(Routes.employee);
           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
 
           get();
