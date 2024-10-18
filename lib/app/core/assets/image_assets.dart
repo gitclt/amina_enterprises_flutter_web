@@ -22,4 +22,5 @@ class SvgAssets {
   static const String customers = 'assets/svg_icons/customers.svg';
   static const String sales = 'assets/svg_icons/sales.svg';
   static const String settings = 'assets/svg_icons/settings.svg';
+  static const String product = 'assets/svg_icons/settings.svg';
 }

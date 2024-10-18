@@ -63,6 +63,17 @@ class SidemenuState {
 
     menus.add(
       MenuEntity(
+        id: 3,
+        menu: 'PRODUCT',
+        svgIcon: SvgAssets.product,
+        items: [],
+        onClick: () {
+          Get.rootDelegate.toNamed(Routes.product);
+        },
+      ),
+    );
+    menus.add(
+      MenuEntity(
         id: 0,
         menu: 'MASTER',
         svgIcon: SvgAssets.settings,
