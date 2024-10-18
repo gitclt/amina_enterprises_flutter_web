@@ -42,6 +42,7 @@ class Division {
 }
 
 class Employee {
+  String? id;
   String? code;
   String? name;
   String? email;
@@ -58,6 +59,7 @@ class Employee {
   String? districtId;
 
   Employee({
+    this.id,
     this.code,
     this.name,
     this.email,
@@ -75,6 +77,7 @@ class Employee {
   });
 
   factory Employee.fromJson(Map<String, dynamic> json) => Employee(
+        id: json["id"],
         code: json["code"],
         name: json["name"],
         email: json["email"],
@@ -94,6 +97,7 @@ class Employee {
       );
 
   Map<String, dynamic> toJson() => {
+        if (id != null) "id": id,
         "code": code,
         "name": name,
         "email": email,

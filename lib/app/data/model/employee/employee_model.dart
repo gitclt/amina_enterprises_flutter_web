@@ -47,23 +47,23 @@ class EmployeeModel {
 }
 
 class EmployeeData {
-  int? id;
+  String? id;
   String? code;
   String? name;
   String? email;
   String? mobile;
   String? password;
   String? address;
-  int? stateId;
+  String? stateId;
   String? state;
   String? location;
-  int? roleId;
+  String? roleId;
   String? role;
-  int? activeStatus;
+  String? activeStatus;
   DateTime? joiningDate;
-  int? districtId;
+  String? districtId;
   String? district;
-  int? designationId;
+  String? designationId;
   String? designation;
   List<EmpDivision>? empDivisions;
   EmployeeData({
@@ -89,27 +89,27 @@ class EmployeeData {
   });
 
   factory EmployeeData.fromJson(Map<String, dynamic> json) => EmployeeData(
-        id: json["id"],
+        id: json["id"].toString(),
         code: json["code"],
         name: json["name"],
         email: json["email"],
         mobile: json["mobile"],
         password: json["password"],
         address: json["address"],
-        stateId: json["state_id"],
+        stateId: json["state_id"].toString(),
         state: json["state"],
         location: json["location"],
-        roleId: json["role_id"],
+        roleId: json["role_id"].toString(),
         role: json["role"],
-        activeStatus: json["active_status"],
+        activeStatus: json["active_status"].toString(),
         joiningDate: json["joining_date"] == null
             ? null
             : DateTime.parse(json["joining_date"]),
-        districtId: json["district_id"],
+        districtId: json["district_id"].toString(),
         district: json["district"],
-        designationId: json["designation_id"],
+        designationId: json["designation_id"].toString(),
         designation: json["designation"],
-        empDivisions: json["empDivisions"] == null
+        empDivisions: json["divisions"] == null
             ? []
             : List<EmpDivision>.from(
                 json["divisions"]!.map((x) => EmpDivision.fromJson(x))),
@@ -141,8 +141,8 @@ class EmployeeData {
 }
 
 class EmpDivision {
-  int? empId;
-  int? divisionId;
+  String? empId;
+  String? divisionId;
   String? divisionName;
 
   EmpDivision({
@@ -152,8 +152,8 @@ class EmpDivision {
   });
 
   factory EmpDivision.fromJson(Map<String, dynamic> json) => EmpDivision(
-        empId: json["emp_id"],
-        divisionId: json["division_id"],
+        empId: json["emp_id"].toString(),
+        divisionId: json["division_id"].toString(),
         divisionName: json["division_name"],
       );
 

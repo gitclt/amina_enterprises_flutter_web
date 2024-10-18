@@ -105,7 +105,7 @@ class AppConstValue {
     DropDownModel(id: 'delear', name: 'Delear'),
     DropDownModel(id: 'subdelear', name: 'SubDelear')
   ];
-   List<DropDownModel> statusTypes = [
+  List<DropDownModel> statusTypes = [
     DropDownModel(id: 'active', name: 'Active'),
     DropDownModel(id: 'Inactive', name: 'InActive')
   ];

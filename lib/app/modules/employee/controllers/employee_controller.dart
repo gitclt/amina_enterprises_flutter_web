@@ -13,6 +13,7 @@ import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class EmployeeController extends GetxController {
   final rxRequestStatus = Status.completed.obs;
@@ -195,38 +196,75 @@ class EmployeeController extends GetxController {
   //edit
   void editClick(EmployeeData data) async {
     nameController = TextEditingController(text: data.name);
+    codeController = TextEditingController(text: data.code);
+
+    dropDownDesignate =
+        DropDownModel(id: data.designationId ?? '', name: data.designation);
+    emailController = TextEditingController(text: data.email);
+    mobileController = TextEditingController(text: data.mobile);
+    addressController = TextEditingController(text: data.address);
+    passwordController = TextEditingController(text: data.password);
+    dropDownState = DropDownModel(id: data.stateId ?? '', name: data.state);
+    dropDownDistrict =
+        DropDownModel(id: data.districtId ?? '', name: data.district);
+    locController = TextEditingController(text: data.location);
+    dropDownRole = DropDownModel(id: data.roleId ?? '', name: data.role);
+
+    if (data.joiningDate != null) {
+      jDateController = TextEditingController(
+          text: DateFormat('dd-MM-yyyy').format(data.joiningDate!));
+    }
+
+    dropDownStatus = DropDownModel(
+        id: data.activeStatus ?? '',
+        name: data.activeStatus == '0' ? "Inactive" : "Active");
+
+    if (data.empDivisions != null) {
+      dropdownDivisionList(data.empDivisions!
+          .map((v) =>
+              DropDownModel(id: v.divisionId ?? '', name: v.divisionName))
+          .toList());
+    }
+
     editId = data.id.toString();
-    Get.rootDelegate.toNamed(Routes.customerAdd);
+
+    Get.rootDelegate.toNamed(Routes.employeeAdd);
   }
 
-  edit() async {
+  void edit() async {
     isLoading(true);
     final res = await _repo.updateEmployee(
-        id: editId,
-        name: nameController.text,
-        address: '',
-        branchId: '',
-        designationId: '',
-        dob: '',
-        doj: '',
-        email: '',
-        isBde: '',
-        location: '',
-        macId: '',
-        mobile: '',
-        password: '',
-        roleId: '',
-        state: '');
+        update: EmpAddModel(
+            employee: Employee(
+                id: editId,
+                name: nameController.text.trim(),
+                code: codeController.text.trim(),
+                districtId: dropDownDistrict.id ?? '',
+                activeStatus: dropDownStatus.id ?? '',
+                address: addressController.text.trim(),
+                designationId: dropDownDesignate.id ?? '',
+                joiningDate: Utils.dateConvert(jDateController.text.trim()),
+                email: emailController.text.trim(),
+                location: locController.text.trim(),
+                mobile: mobileController.text.trim(),
+                password: passwordController.text.trim(),
+                roleId: dropDownRole.id ?? '',
+                addedby: '1',
+                stateId: dropDownState.id ?? ''),
+            divisions: dropdownDivisionList
+                .map((f) => Division(divisionId: f.id.toString()))
+                .toList()));
     res.fold(
       (failure) {
         isLoading(false);
         Utils.snackBar('Error', failure.message);
+        clear();
         setError(error.toString());
       },
       (resData) {
         if (resData.status!) {
           isLoading(false);
-          Get.rootDelegate.toNamed(Routes.construction);
+          Get.rootDelegate.toNamed(Routes.employee);
           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
 
           get();
@@ -276,7 +314,7 @@ class EmployeeController extends GetxController {
 
           get();
 
-          // clrValue();
+          clear();
         }
       },
     );
@@ -297,5 +335,18 @@ class EmployeeController extends GetxController {
   clear() {
     editId = '';
     nameController.clear();
+    codeController.clear();
+    emailController.clear();
+    mobileController.clear();
+    passwordController.clear();
+    addressController.clear();
+    jDateController.clear();
+    locController.clear();
+    dropDownDesignate = DropDownModel();
+    dropDownState = DropDownModel();
+    dropDownDistrict = DropDownModel();
+    dropDownRole = DropDownModel();
+    dropDownStatus = DropDownModel();
+    dropdownDivisionList.clear();
   }
 }
