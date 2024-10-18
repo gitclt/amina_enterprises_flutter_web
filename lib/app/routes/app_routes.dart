@@ -40,8 +40,9 @@ abstract class Routes {
   static const mainCategoryAdd =
       _Paths.home + _Paths.mainCategory + _Paths.mainCategoryAdd;
   static const division = _Paths.home + _Paths.division;
-   static const divisionAdd = _Paths.home + _Paths.division
-   + _Paths.divisionAdd;
+  static const divisionAdd = _Paths.home + _Paths.division + _Paths.divisionAdd;
+  static const product =  _Paths.home + _Paths.product;
+    static const productAdd = _Paths.home + _Paths.product + _Paths.productAdd;
 }
 
 abstract class _Paths {
@@ -78,4 +79,6 @@ abstract class _Paths {
   static const mainCategoryAdd = '/main-category-add';
   static const division = '/division';
   static const divisionAdd = '/division';
+  static const product = '/product';
+  static const productAdd = '/product-add';
 }

@@ -1,4 +1,4 @@
-import 'package:amina_enterprises_flutter_web/app/modules/settings/division/views/division_add.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/product/views/product_add.dart';
 import 'package:get/get.dart';
 
 import '../modules/customer/bindings/customer_binding.dart';
@@ -13,6 +13,8 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/product/bindings/product_binding.dart';
+import '../modules/product/views/product_view.dart';
 import '../modules/root/bindings/root_binding.dart';
 import '../modules/root/views/root_view.dart';
 import '../modules/settings/bindings/settings_binding.dart';
@@ -35,6 +37,7 @@ import '../modules/settings/district/bindings/district_binding.dart';
 import '../modules/settings/district/views/district_add.dart';
 import '../modules/settings/district/views/district_view.dart';
 import '../modules/settings/division/bindings/division_binding.dart';
+import '../modules/settings/division/views/division_add.dart';
 import '../modules/settings/division/views/division_view.dart';
 import '../modules/settings/main_category/bindings/main_category_binding.dart';
 import '../modules/settings/main_category/views/main_category_add.dart';
@@ -98,6 +101,18 @@ class AppPages {
                       binding: CustomerBinding(),
                     )
                   ]),
+                     GetPage(
+                name: _Paths.product,
+                page: () => const ProductView(),
+                binding: ProductBinding(),
+                children: [
+                     GetPage(
+                      name: _Paths.productAdd,
+                      page: () => const ProductAdd(),
+                      binding: ProductBinding(),
+                    ),
+                ]
+              ),
               GetPage(
                   name: _Paths.settings,
                   page: () => const SettingsView(),
@@ -197,18 +212,17 @@ class AppPages {
                   )
                 ],
               ),
-               GetPage(
-                name: _Paths.division,
-                page: () => const DivisionView(),
-                binding: DivisionBinding(),
-                children: [
-                   GetPage(
+              GetPage(
+                  name: _Paths.division,
+                  page: () => const DivisionView(),
+                  binding: DivisionBinding(),
+                  children: [
+                    GetPage(
                       name: _Paths.divisionAdd,
                       page: () => const DivisionAdd(),
                       binding: DivisionBinding(),
                     ),
-                ]
-              ),
+                  ]),
               GetPage(
                 name: _Paths.state,
                 page: () => const StateView(),
@@ -259,6 +273,6 @@ class AppPages {
             ],
           ),
         ]),
-   
+ 
   ];
 }
