@@ -86,6 +86,12 @@ class SettingsView extends GetView<SettingsController> {
                       Get.rootDelegate.toNamed(Routes.mainCategory);
                     },
                   ),
+                  DashCards(
+                    lable: 'Divisiom',
+                    onTap: () {
+                      Get.rootDelegate.toNamed(Routes.division);
+                    },
+                  ),
                 ])
               ],
             ),

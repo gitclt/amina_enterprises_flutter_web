@@ -76,6 +76,13 @@ class SettingsUrl {
   static String constructionListApi = '$baseUrl/Construction/view_construction';
   static String constructionAddApi = '$baseUrl/Construction/construction_add';
   static String constructionEditApi = '$baseUrl/Construction/Edit_construction';
-  static String constructionDeleteApi =
-      '$baseUrl/Construction/Delete_construction';
+  static String constructionDeleteApi = '$baseUrl/Construction/Delete_construction';
+
+  
+  //Division
+
+  static String divisionListApi = '$baseUrl/division/Getdivision';
+  static String divisionAddApi = '$baseUrl/division/Postdivision';
+  static String divisionEditApi = '$baseUrl/division/Updatedivision';
+  static String divisionDeleteApi =  '$baseUrl/division/Deletedivision';
 }

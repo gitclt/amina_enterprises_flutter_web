@@ -39,6 +39,9 @@ abstract class Routes {
   static const mainCategory = _Paths.home + _Paths.mainCategory;
   static const mainCategoryAdd =
       _Paths.home + _Paths.mainCategory + _Paths.mainCategoryAdd;
+  static const division = _Paths.home + _Paths.division;
+   static const divisionAdd = _Paths.home + _Paths.division
+   + _Paths.divisionAdd;
 }
 
 abstract class _Paths {
@@ -73,4 +76,6 @@ abstract class _Paths {
   static const employeeAdd = '/employee-add';
   static const mainCategory = '/main-category';
   static const mainCategoryAdd = '/main-category-add';
+  static const division = '/division';
+  static const divisionAdd = '/division';
 }

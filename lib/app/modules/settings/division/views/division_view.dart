@@ -17,11 +17,11 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/designation_controller.dart';
+import '../controllers/division_controller.dart';
 
-class DesignationView extends GetView<DesignationController> {
-  const DesignationView({super.key});
-  @override
+class DivisionView extends GetView<DivisionController> {
+  const DivisionView({super.key});
+ @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var fontSize = size.width * 0.008;
@@ -31,10 +31,10 @@ class DesignationView extends GetView<DesignationController> {
         child: Column(
           children: [
             HomeAppBar(
-              title: 'Settings / Designation / View',
+              title: 'Settings / Division / View',
               onClick: () {
                 controller.clear();
-                Get.rootDelegate.toNamed(Routes.designationAdd);
+                Get.rootDelegate.toNamed(Routes.divisionAdd);
               },
               label: 'add_new'.tr,
             ),
@@ -77,26 +77,22 @@ class DesignationView extends GetView<DesignationController> {
                 case Status.completed:
                   return PageContainer(
                     child: Column(
-                      // crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          // crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ColumnHeaderWidget(
-                              width: size.width * 0.05,
+                              width: size.width * 0.12,
                               label: 'Sl No.',
                             ),
-                            Expanded(
-                              child: ColumnHeaderWidget(
-                                label: 'Name',
-                                
-                                width: size.width * 0.3,
-                              ),
-                            ),
                             ColumnHeaderWidget(
+                              label: 'Name',
+                              width: size.width * 0.3,
+                            ),
+                            Expanded(
+                                child: ColumnHeaderWidget(
                               label: '',
-                              width: size.width * 0.10,
-                            )
+                              width: size.width * 0.5,
+                            ))
                           ],
                         ),
                         SingleChildScrollView(
@@ -124,40 +120,39 @@ class DesignationView extends GetView<DesignationController> {
                                                 fontSize,
                                               ),
                                               alignment: Alignment.center,
-                                              width: size.width * 0.05,
+                                              width: size.width * 0.12,
                                               color: bgColor,
                                             ),
+                                            ColumnWidget(
+                                                text: columnText(
+                                                    item.division ?? '', fontSize),
+                                                width: size.width * 0.3,
+                                                alignment: Alignment.center,
+                                                color: bgColor),
                                             Expanded(
-                                              child: ColumnWidget(
-                                                  text: columnText(
-                                                      item.designation ?? '',
-                                                      fontSize),
-                                                  width: size.width * 0.3,
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  color: bgColor),
-                                            ),
-                                            IconsColumnWidget(
-                                              width: size.width * 0.10,
-                                              delete: () async {
-                                                dynamic returnResponse =
-                                                    await commonDialog(
-                                                        title: "Delete",
-                                                        subTitle:
-                                                            "Are you sure want to delete this item?",
-                                                        titleIcon: Icons.delete,
-                                                        theamColor:
-                                                            AppColor.red);
+                                              child: IconsColumnWidget(
+                                                width: size.width * 0.5,
+                                                delete: () async {
+                                                  dynamic returnResponse =
+                                                      await commonDialog(
+                                                          title: "Delete",
+                                                          subTitle:
+                                                              "Are you sure want to delete this item?",
+                                                          titleIcon:
+                                                              Icons.delete,
+                                                          theamColor:
+                                                              AppColor.red);
 
-                                                if (returnResponse == true) {
-                                                  controller.delete(
-                                                      item.id.toString());
-                                                }
-                                              },
-                                              edit: () async {
-                                                controller.editClick(item);
-                                              },
-                                              color: bgColor,
+                                                  if (returnResponse == true) {
+                                                    controller.delete(
+                                                        item.id.toString());
+                                                  }
+                                                },
+                                                edit: () async {
+                                                  controller.editClick(item);
+                                                },
+                                                color: bgColor,
+                                              ),
                                             )
                                           ],
                                         )

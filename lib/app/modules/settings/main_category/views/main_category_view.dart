@@ -114,16 +114,14 @@ class MainCategoryView extends GetView<MainCategoryController> {
                               height: size.height * 0.48,
                               child: Obx(
                                 () => ListView.builder(
-                                    itemCount:
-                                        controller.data.length,
+                                    itemCount: controller.data.length,
                                     itemBuilder: (context, index) {
                                       const evenColor = Colors.white;
                                       const oddColor = AppColor.boxBorderColor;
 
                                       final bgColor =
                                           index % 2 == 0 ? oddColor : evenColor;
-                                      final item =
-                                          controller.data[index];
+                                      final item = controller.data[index];
                                       return Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -147,11 +145,26 @@ class MainCategoryView extends GetView<MainCategoryController> {
                                                     color: bgColor),
                                               ),
                                               ColumnWidget(
-                                                  text: columnText(
-                                                      item.image ?? '',
-                                                      fontSize),
-                                                  width: size.width * 0.24,
-                                                  color: bgColor),
+                                                text: CircleAvatar(
+                                                  radius: 50,
+                                                  backgroundColor:
+                                                      Colors.black12,
+                                                  backgroundImage: item.image !=
+                                                          ''
+                                                      //  &&
+                                                      // controller.fileType != 'pdf'
+                                                      ? NetworkImage(
+                                                          item.image ?? '')
+                                                      : const AssetImage(
+                                                              "assets/svg_icons/Gallery.svg")
+                                                          as ImageProvider,
+                                                ).paddingOnly(bottom: 15),
+                                              ),
+                                              //  columnText(
+                                              //     item.image ?? '',
+                                              //     fontSize),
+                                              // width: size.width * 0.24,
+                                              // color: bgColor),
                                               IconsColumnWidget(
                                                 width: size.width * 0.11,
                                                 delete: () async {
@@ -193,4 +206,3 @@ class MainCategoryView extends GetView<MainCategoryController> {
         ));
   }
 }
-

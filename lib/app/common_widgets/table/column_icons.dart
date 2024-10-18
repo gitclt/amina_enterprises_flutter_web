@@ -32,13 +32,13 @@ class IconsColumnWidget extends StatelessWidget {
                     : size.width * 0.025,
                 height: size.width * 0.040,
                 decoration: BoxDecoration(
-                    color: AppColor.matteRed,
-                    border: Border.all(color: AppColor.matteRed),
+                    color: AppColor.white,
+                    border: Border.all(color: AppColor.dividerColor),
                     borderRadius: BorderRadius.circular(5)),
                 child: Center(
                   child: Icon(
                     Icons.edit,
-                    color: AppColor.white,
+                    // color: AppColor.white,
                     size: Responsive.isDesktop(context)
                         ? size.width * .009
                         : size.width * 0.015,
@@ -54,16 +54,16 @@ class IconsColumnWidget extends StatelessWidget {
               onTap: delete,
               child: Container(
                 width: Responsive.isDesktop(context)
-                    ? size.width * .018
-                    : size.width * 0.025,
-                height: size.width * 0.040,
+                    ? size.width * .02
+                    : size.width * 0.03,
+                height: size.width * 0.050,
                 decoration: BoxDecoration(
-                    color: AppColor.red,
-                    border: Border.all(color: AppColor.red),
+                    color: AppColor.white,
+                    border: Border.all(color: AppColor.dividerColor),
                     borderRadius: BorderRadius.circular(5)),
                 child: Icon(
-                  Icons.delete,
-                  color: AppColor.white,
+                  Icons.delete_outline_outlined,
+                  // color: AppColor.white,
                   size: Responsive.isDesktop(context)
                       ? size.width * .009
                       : size.width * 0.015,
