@@ -29,7 +29,7 @@ Future<void> selectDate(
   if (picked != null && picked != _selectedDate) {
     _selectedDate = picked;
     // if (date == 'joinDate') {
-    textController.text = DateFormat('yyyy-MM-dd').format(_selectedDate!);
+    textController.text = DateFormat('dd-MM-yyyy').format(_selectedDate!);
     // }
   }
 }

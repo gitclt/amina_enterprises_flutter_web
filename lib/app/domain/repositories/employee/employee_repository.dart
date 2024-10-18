@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:amina_enterprises_flutter_web/app/core/failure/failure.dart';
 import 'package:amina_enterprises_flutter_web/app/data/app_url/employee/employee_url.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/api_model.dart';
+import 'package:amina_enterprises_flutter_web/app/data/model/employee/employee_add_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/employee/employee_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/network/network_api_services.dart';
 import 'package:dartz/dartz.dart';
@@ -30,35 +31,9 @@ class EmployeeRepository {
   }
 
   Future<Either<Failure, ApiModel>> addEmployee(
-      {required String name,
-      required String password,
-      required String mobile,
-      required String email,
-      required String state,
-      required String location,
-      required String designationId,
-      required String status,
-      required String district,
-      required String code,
-      required String doj,
-      required String address,
-      required String roleId,
-     }) async {
+      {required EmpAddModel add}) async {
     try {
-      var body = json.encode({
-        "name": name,
-        "password": password,
-        "mobile": mobile,
-        "email": email,
-        "state": state,
-        "location": location,
-        "designation_id": designationId,
-       
-        "doj": doj,
-        "address": address,
-        "role_id": roleId,
-       
-      });
+      var body = json.encode(add);
       dynamic response =
           await _apiServices.postApi(body, AppEmpUrl.add, isJson: true);
 

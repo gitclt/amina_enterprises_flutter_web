@@ -65,7 +65,7 @@ class EmployeeData {
   String? district;
   int? designationId;
   String? designation;
-
+  List<EmpDivision>? empDivisions;
   EmployeeData({
     this.id,
     this.code,
@@ -85,6 +85,7 @@ class EmployeeData {
     this.district,
     this.designationId,
     this.designation,
+    this.empDivisions,
   });
 
   factory EmployeeData.fromJson(Map<String, dynamic> json) => EmployeeData(
@@ -108,6 +109,10 @@ class EmployeeData {
         district: json["district"],
         designationId: json["designation_id"],
         designation: json["designation"],
+        empDivisions: json["empDivisions"] == null
+            ? []
+            : List<EmpDivision>.from(
+                json["divisions"]!.map((x) => EmpDivision.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -129,5 +134,32 @@ class EmployeeData {
         "district": district,
         "designation_id": designationId,
         "designation": designation,
+        "divisions": empDivisions == null
+            ? []
+            : List<dynamic>.from(empDivisions!.map((x) => x.toJson())),
+      };
+}
+
+class EmpDivision {
+  int? empId;
+  int? divisionId;
+  String? divisionName;
+
+  EmpDivision({
+    this.empId,
+    this.divisionId,
+    this.divisionName,
+  });
+
+  factory EmpDivision.fromJson(Map<String, dynamic> json) => EmpDivision(
+        empId: json["emp_id"],
+        divisionId: json["division_id"],
+        divisionName: json["division_name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "emp_id": empId,
+        "division_id": divisionId,
+        "division_name": divisionName,
       };
 }

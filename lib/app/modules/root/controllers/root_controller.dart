@@ -39,19 +39,20 @@ class RootController extends GetxController {
           (res) {
             if (res.data != null) {
               if (res.data != null) {
-                // userPreference
-                //     .saveUser(
-                //         res.data!, res.branches ?? [], res.privilage ?? [])
-                //     .then(
-                //   (s) {
-                    if (LocalStorageKey.roleId == '1') {
+                userPreference
+                    .saveUser(
+                  res.data!,
+                )
+                    .then(
+                  (s) {
+                    if (LocalStorageKey.roleId.isNotEmpty) {
                       Get.rootDelegate.offNamed(Routes.home);
                     } else {
-                      //gotoLogin();
+                      gotoLogin();
                       Utils.snackBar('User', "Permission denied ....");
                     }
-                 // },
-               // );
+                  },
+                );
               }
             }
           },

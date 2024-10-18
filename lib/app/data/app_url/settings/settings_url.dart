@@ -4,7 +4,7 @@ class SettingsUrl {
   static String baseUrl = kBaseUrl;
 
   //role
-  static String roleListApi = '$baseUrl/Master/role_list';
+  static String roleListApi = '$baseUrl/role/view_role';
   static String userRoleListApi = '$baseUrl/Roleprivilage/UserRole_list';
   static String roleAddApi = '$baseUrl/Roleprivilage/UserRole_add';
   static String roleDeleteApi = '$baseUrl/Roleprivilage/UserRole_delete';
@@ -43,12 +43,16 @@ class SettingsUrl {
   static String subCategoryEditApi = '$baseUrl/subcategory/Updatesubcategory';
   static String subCategoryDeleteApi = '$baseUrl/subcategory/Deletesubcategory';
 
-    //mainCategory
+  //mainCategory
 
-  static String mainCategoryListApi = '$baseUrl/Product_main_category/view_main_categorye';
-  static String mainCategoryAddApi = '$baseUrl/Product_main_category/add_main_category';
-  static String mainCategoryEditApi = '$baseUrl/Product_main_category/edit_main_category';
-  static String mainCategoryDeleteApi = '$baseUrl/Product_main_category/Delete_main_category';
+  static String mainCategoryListApi =
+      '$baseUrl/Product_main_category/view_main_categorye';
+  static String mainCategoryAddApi =
+      '$baseUrl/Product_main_category/add_main_category';
+  static String mainCategoryEditApi =
+      '$baseUrl/Product_main_category/edit_main_category';
+  static String mainCategoryDeleteApi =
+      '$baseUrl/Product_main_category/Delete_main_category';
 
   //Color
 
@@ -76,13 +80,13 @@ class SettingsUrl {
   static String constructionListApi = '$baseUrl/Construction/view_construction';
   static String constructionAddApi = '$baseUrl/Construction/construction_add';
   static String constructionEditApi = '$baseUrl/Construction/Edit_construction';
-  static String constructionDeleteApi = '$baseUrl/Construction/Delete_construction';
+  static String constructionDeleteApi =
+      '$baseUrl/Construction/Delete_construction';
 
-  
   //Division
 
   static String divisionListApi = '$baseUrl/division/Getdivision';
   static String divisionAddApi = '$baseUrl/division/Postdivision';
   static String divisionEditApi = '$baseUrl/division/Updatedivision';
-  static String divisionDeleteApi =  '$baseUrl/division/Deletedivision';
+  static String divisionDeleteApi = '$baseUrl/division/Deletedivision';
 }

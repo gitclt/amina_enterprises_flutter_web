@@ -12,8 +12,8 @@ import 'package:get/get.dart';
 class LoginController extends GetxController {
   final formkey = GlobalKey<FormState>();
   final _useapi = ProfileRepository();
-  final emailController = TextEditingController(text: '9081234567').obs;
-  final passwordController = TextEditingController(text: '3456').obs;
+  final emailController = TextEditingController(text: '').obs;
+  final passwordController = TextEditingController(text: '').obs;
   final _api = LoginRepository();
   final apiServices = NetworkApiServices();
   UserPreference userPreference = UserPreference();
