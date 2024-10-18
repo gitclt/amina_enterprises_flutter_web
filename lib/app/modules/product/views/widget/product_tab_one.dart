@@ -26,15 +26,15 @@ class ProductTabOne extends GetView<ProductController> {
             label: 'Main Category',
             hint: '--Select Category--',
             selectedItem:
-                controller.sdStatus.id == null ? null : controller.sdStatus,
-            items: controller.statusDropList,
+                controller.sdMainCat.id == null ? null : controller.sdMainCat,
+            items: controller.mainCatDropList,
             onChanged: (data) async {
               if (data == null) return;
-              controller.sdStatus = data;
+              controller.sdMainCat = data;
             },
             validator: (value) {
               if (value == null) {
-                return 'Select Status';
+                return 'Select Main Category';
               }
               return null;
             },
@@ -43,15 +43,15 @@ class ProductTabOne extends GetView<ProductController> {
             label: 'Category',
             hint: '--Select Category--',
             selectedItem:
-                controller.sdStatus.id == null ? null : controller.sdStatus,
-            items: controller.statusDropList,
+                controller.sdCat.id == null ? null : controller.sdCat,
+            items: controller.categoryDropList,
             onChanged: (data) async {
               if (data == null) return;
-              controller.sdStatus = data;
+              controller.sdCat = data;
             },
             validator: (value) {
               if (value == null) {
-                return 'Select Status';
+                return 'Select Category';
               }
               return null;
             },
@@ -60,21 +60,21 @@ class ProductTabOne extends GetView<ProductController> {
             label: 'Construction',
             hint: '--Select Construction--',
             selectedItem:
-                controller.sdStatus.id == null ? null : controller.sdStatus,
-            items: controller.statusDropList,
+                controller.sdConstruction.id == null ? null : controller.sdConstruction,
+            items: controller.constructionDropList,
             onChanged: (data) async {
               if (data == null) return;
-              controller.sdStatus = data;
+              controller.sdConstruction = data;
             },
             validator: (value) {
               if (value == null) {
-                return 'Select Status';
+                return 'Select Construction';
               }
               return null;
             },
           ),
           AddTextFieldWidget(
-            // textController: controller.codeController,
+             textController: controller.artnoController,
             label: 'Art No',
             visible: true,
             validator: (value) {
@@ -84,25 +84,25 @@ class ProductTabOne extends GetView<ProductController> {
               return null;
             },
           ),
-          DropDown3Widget(
+         DropDown3Widget(
             label: 'Brand',
             hint: '--Select Brand--',
             selectedItem:
-                controller.sdStatus.id == null ? null : controller.sdStatus,
-            items: controller.statusDropList,
+                controller.sdBrand.id == null ? null : controller.sdBrand,
+            items: controller.brandDropList,
             onChanged: (data) async {
               if (data == null) return;
-              controller.sdStatus = data;
+              controller.sdBrand = data;
             },
             validator: (value) {
               if (value == null) {
-                return 'Select Status';
+                return 'Select Brand';
               }
               return null;
             },
           ),
           AddTextFieldWidget(
-            // textController: controller.nameController,
+             textController: controller.nameController,
             label: 'Name',
             visible: true,
             validator: (value) {
@@ -140,7 +140,7 @@ class ProductTabOne extends GetView<ProductController> {
             onClick: () {
               if (controller.formkey.currentState!.validate()) {
                 if (controller.editId == '') {
-                  //    controller.add();
+                     controller.addProduct();
                 } else {
                   //  controller.edit();
                 }

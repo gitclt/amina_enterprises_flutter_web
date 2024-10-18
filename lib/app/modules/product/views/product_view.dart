@@ -34,7 +34,7 @@ class ProductView extends GetView<ProductController> {
             HomeAppBar(
               title: 'Settings / Product / View',
               onClick: () {
-                // controller.clear();
+                controller.clear();
                 Get.rootDelegate.toNamed(Routes.productAdd);
               },
               label: 'add_new'.tr,
@@ -169,8 +169,7 @@ class ProductView extends GetView<ProductController> {
                                                 color: bgColor),
                                             ColumnWidget(
                                                 text: columnText(
-                                                    item.artNo ?? '',
-                                                    fontSize),
+                                                    item.artNo ?? '', fontSize),
                                                 width: size.width * 0.1,
                                                 alignment: Alignment.centerLeft,
                                                 color: bgColor),
@@ -211,7 +210,7 @@ class ProductView extends GetView<ProductController> {
                             ),
                           ),
                         ),
-                         10.height,
+                        10.height,
                         Obx(() => PaginationWidget(
                             totalPages: controller.totalPages.value,
                             currentPage: controller.currentPage.value,
