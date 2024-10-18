@@ -291,7 +291,7 @@ class EmployeeAdd extends GetView<EmployeeController> {
                       items: controller.statusDropList,
                       validator: (value) {
                         if (value == null) {
-                          return 'Select District';
+                          return 'Select Status';
                         }
                         return null;
                       },

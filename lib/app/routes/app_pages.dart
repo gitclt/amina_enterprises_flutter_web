@@ -93,6 +93,7 @@ class AppPages {
               GetPage(
                   name: _Paths.customer,
                   page: () => const CustomerView(),
+                  transition: Transition.noTransition,
                   binding: CustomerBinding(),
                   children: [
                     GetPage(
@@ -101,18 +102,18 @@ class AppPages {
                       binding: CustomerBinding(),
                     )
                   ]),
-                     GetPage(
-                name: _Paths.product,
-                page: () => const ProductView(),
-                binding: ProductBinding(),
-                children: [
-                     GetPage(
+              GetPage(
+                  name: _Paths.product,
+                  page: () => const ProductView(),
+                  binding: ProductBinding(),
+                  transition: Transition.noTransition,
+                  children: [
+                    GetPage(
                       name: _Paths.productAdd,
                       page: () => const ProductAdd(),
                       binding: ProductBinding(),
                     ),
-                ]
-              ),
+                  ]),
               GetPage(
                   name: _Paths.settings,
                   page: () => const SettingsView(),
@@ -189,6 +190,7 @@ class AppPages {
               GetPage(
                   name: _Paths.mainCategory,
                   page: () => const MainCategoryView(),
+                  transition: Transition.noTransition,
                   binding: MainCategoryBinding(),
                   children: [
                     GetPage(
@@ -215,6 +217,7 @@ class AppPages {
               GetPage(
                   name: _Paths.division,
                   page: () => const DivisionView(),
+                  transition: Transition.noTransition,
                   binding: DivisionBinding(),
                   children: [
                     GetPage(
@@ -273,6 +276,5 @@ class AppPages {
             ],
           ),
         ]),
- 
   ];
 }
