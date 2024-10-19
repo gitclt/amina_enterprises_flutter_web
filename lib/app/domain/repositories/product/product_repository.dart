@@ -12,10 +12,10 @@ class ProductRepository {
   final _apiServices = NetworkApiServices();
 
   Future<Either<Failure, ProductModel>> getProductList(
-      int pageSize, int currentPage) async {
+      int pageSize, int currentPage,String proId) async {
     try {
       dynamic response = await _apiServices.getApi(
-          '${ProductUrl.view}?pageSize=$pageSize&pageNumber=$currentPage');
+          '${ProductUrl.view}?pageSize=$pageSize&pageNumber=$currentPage&id=$proId');
 
       if (response != null && response["status"] == true) {
         ProductModel res = ProductModel.fromJson(response);

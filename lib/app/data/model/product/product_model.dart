@@ -28,7 +28,8 @@ class ProductModel {
         currentPage: json["currentPage"],
         data: json["data"] == null
             ? []
-            : List<ProductData>.from(json["data"]!.map((x) => ProductData.fromJson(x))),
+            : List<ProductData>.from(
+                json["data"]!.map((x) => ProductData.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -53,6 +54,7 @@ class ProductData {
   String? brandName;
   int? addedBy;
   int? newLaunch;
+  String? subcategory;
   List<ProductItem>? productItems;
 
   ProductData({
@@ -67,6 +69,7 @@ class ProductData {
     this.brandName,
     this.addedBy,
     this.newLaunch,
+    this.subcategory,
     this.productItems,
   });
 
@@ -82,6 +85,7 @@ class ProductData {
         brandName: json["brand_name"],
         addedBy: json["added_by"],
         newLaunch: json["new_launch"],
+        subcategory: json["subcategory"],
         productItems: json["product_items"] == null
             ? []
             : List<ProductItem>.from(
@@ -100,6 +104,7 @@ class ProductData {
         "brand_name": brandName,
         "added_by": addedBy,
         "new_launch": newLaunch,
+        "subcategory": subcategory,
         "product_items": productItems == null
             ? []
             : List<dynamic>.from(productItems!.map((x) => x.toJson())),
@@ -133,19 +138,35 @@ class ProductItem {
 class Size {
   String? size;
   int? mrp;
+  int? stock;
+  String? status;
+  int? subCatId;
+  String? subcatName;
 
   Size({
     this.size,
     this.mrp,
+    this.stock,
+    this.status,
+    this.subCatId,
+    this.subcatName,
   });
 
   factory Size.fromJson(Map<String, dynamic> json) => Size(
         size: json["size"],
         mrp: json["mrp"],
+        stock: json["stock"],
+        status: json["status"],
+        subCatId: json["sub_cat_id"],
+        subcatName: json["subcat_name"],
       );
 
   Map<String, dynamic> toJson() => {
         "size": size,
         "mrp": mrp,
+        "stock": stock,
+        "status": status,
+        "sub_cat_id": subCatId,
+        "subcat_name": subcatName,
       };
 }

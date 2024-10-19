@@ -9,6 +9,7 @@ import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/c
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/construction/construction_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/main_category/main_category_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/product_category/pro_category_repository.dart';
+import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/state/state_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/sub_category/sub_category_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/utils.dart';
@@ -54,8 +55,10 @@ class ProductController extends GetxController {
   RxBool isBrandLoading = false.obs;
   RxBool isSubCatLoading = false.obs;
   RxBool isColorLoading = false.obs;
+  RxBool isStateLoading = false.obs;
 
   String editId = '';
+  String productId = '';
   final int pageSize = 10;
   var currentPage = 1.obs;
   var totalPages = 1.obs;
@@ -67,6 +70,7 @@ class ProductController extends GetxController {
   final constructionrepo = ConstructionRepository();
   final subCatrepo = SubCategoryRepository();
   final colorrepo = ColorRepository();
+  final staterepo = StateRepository();
 
   DropDownModel sdStatus = DropDownModel();
   RxList<DropDownModel> statusDropList = <DropDownModel>[].obs;
@@ -82,6 +86,8 @@ class ProductController extends GetxController {
   RxList<DropDownModel> subcatDropList = <DropDownModel>[].obs;
   DropDownModel sdColor = DropDownModel();
   RxList<DropDownModel> colorDropList = <DropDownModel>[].obs;
+  DropDownModel sdState = DropDownModel();
+  RxList<DropDownModel> stateDropList = <DropDownModel>[].obs;
 
   var selectedTab = 0.obs;
   // selectedTab.animateTo(1);
@@ -116,6 +122,7 @@ class ProductController extends GetxController {
     getconstruction();
     getcolor();
     getSubcategory();
+    getState();
   }
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
@@ -123,7 +130,8 @@ class ProductController extends GetxController {
   void get() async {
     setRxRequestStatus(Status.loading);
     data.clear();
-    final res = await _repo.getProductList(pageSize, currentPage.value);
+    final res =
+        await _repo.getProductList(pageSize, currentPage.value, productId);
     res.fold((failure) {
       setRxRequestStatus(Status.completed);
       setError(error.toString());
@@ -323,6 +331,24 @@ class ProductController extends GetxController {
     });
   }
 
+  void getState() async {
+    isStateLoading(true);
+    colorDropList.clear();
+    final res = await staterepo.getList();
+    res.fold((failure) {
+      isStateLoading(false);
+      Utils.snackBar('Error', failure.message);
+      setError(error.toString());
+    }, (resData) {
+      isStateLoading(false);
+
+      for (var item in resData.data!) {
+        stateDropList
+            .add(DropDownModel(id: item.id.toString(), name: item.name));
+      }
+    });
+  }
+
   clear() {
     editId = '';
     nameController.clear();
@@ -332,5 +358,8 @@ class ProductController extends GetxController {
     sdCat = DropDownModel();
     sdBrand = DropDownModel();
     sdConstruction = DropDownModel();
+    sdSubCat = DropDownModel();
+    sdColor = DropDownModel();
+    sdState = DropDownModel();
   }
 }

@@ -103,11 +103,11 @@ class ProductTabTwo extends GetView<ProductController> {
                   label: 'State',
                   hint: '--Select State--',
                   selectedItem:
-                      controller.sdStatus.id == null ? null : controller.sdStatus,
-                  items: controller.statusDropList,
+                      controller.sdState.id == null ? null : controller.sdState,
+                  items: controller.stateDropList,
                   onChanged: (data) async {
                     if (data == null) return;
-                    controller.sdStatus = data;
+                    controller.sdState = data;
                   },
                   validator: (value) {
                     if (value == null) {
@@ -121,22 +121,28 @@ class ProductTabTwo extends GetView<ProductController> {
             SizedBox(
               height: size.height * 0.03,
             ),
-            CommonButton(
-              isLoading: controller.isLoading.value,
-              width: Responsive.isDesktop(context)
-                  ? size.width * .1
-                  : size.width * 0.25,
-              onClick: () {
-                if (controller.formkey.currentState!.validate()) {
-                  if (controller.editId == '') {
-                    controller.addProduct();
-                  } else {
-                    //  controller.edit();
-                  }
-                }
-              },
-              label: controller.editId == '' ? 'Save' : 'Update',
-            ).paddingOnly(right: 40),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                CommonButton(
+                  isLoading: controller.isLoading.value,
+                  width: Responsive.isDesktop(context)
+                      ? size.width * .1
+                      : size.width * 0.25,
+                  onClick: () {
+                    if (controller.formkey.currentState!.validate()) {
+                      if (controller.editId == '') {
+                        controller.addProduct();
+                      } else {
+                        //  controller.edit();
+                      }
+                    }
+                  },
+                  label: controller.editId == '' ? 'Save' : 'Update',
+                ),
+              ],
+            )
           ],
         ),
       ),
