@@ -87,7 +87,7 @@ class SettingsView extends GetView<SettingsController> {
                     },
                   ),
                   DashCards(
-                    lable: 'Divisiom',
+                    lable: 'Division',
                     onTap: () {
                       Get.rootDelegate.toNamed(Routes.division);
                     },
