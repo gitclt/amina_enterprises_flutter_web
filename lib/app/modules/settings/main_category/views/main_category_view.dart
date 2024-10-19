@@ -141,12 +141,13 @@ class MainCategoryView extends GetView<MainCategoryController> {
                                                     text: columnText(
                                                         item.name ?? '',
                                                         fontSize),
-                                                    width: size.width * 0.3,
+                                                    width: size.width * 0.33,
                                                     color: bgColor),
                                               ),
                                               ColumnWidget(
+                                                width: size.width * 0.24,
                                                 text: CircleAvatar(
-                                                  radius: 50,
+                                                  radius: 20,
                                                   backgroundColor:
                                                       Colors.black12,
                                                   backgroundImage: item.image !=
@@ -158,7 +159,7 @@ class MainCategoryView extends GetView<MainCategoryController> {
                                                       : const AssetImage(
                                                               "assets/svg_icons/Gallery.svg")
                                                           as ImageProvider,
-                                                ).paddingOnly(bottom: 15),
+                                                ),
                                               ),
                                               //  columnText(
                                               //     item.image ?? '',

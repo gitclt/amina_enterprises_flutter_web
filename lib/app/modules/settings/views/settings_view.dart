@@ -26,12 +26,12 @@ class SettingsView extends GetView<SettingsController> {
               runSpacing: 15,
               children: [
                 DashHeaderCardWidgets(header: 'Master Settings', child: [
-                  DashCards(
-                    lable: 'Role',
-                    onTap: () {
-                      Get.rootDelegate.toNamed(Routes.role);
-                    },
-                  ),
+                  // DashCards(
+                  //   lable: 'Role',
+                  //   onTap: () {
+                  //     Get.rootDelegate.toNamed(Routes.role);
+                  //   },
+                  // ),
                   DashCards(
                     lable: 'Designation',
                     onTap: () {
