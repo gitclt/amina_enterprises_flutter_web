@@ -31,7 +31,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
 
       //   ],
       // ),
-      leading: ResponsiveWidget.isMobile(context)
+      leading: !ResponsiveWidget.isDesktop(context)
           ? IconButton(
               onPressed: () {
                 //if(scaffoldKey.currentState=null )
@@ -39,7 +39,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               },
               icon: Icon(
                 Icons.menu,
-                color: AppColor.white,
+                color: AppColor.black,
               ))
           : null,
       actions: [

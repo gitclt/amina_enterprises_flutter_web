@@ -10,11 +10,11 @@ import 'package:dartz/dartz.dart';
 class DistrictRepository extends NetworkApiServices {
   final _apiServices = NetworkApiServices();
 
-  Future<Either<Failure, DistrictModel>> getList({String? stateId}) async {
+  Future<Either<Failure, DistrictModel>> getList({
+    String? stateId,
+  }) async {
     try {
-      dynamic response = await getApi(
-      '${SettingsUrl.districtListApi}?state_id=$stateId' 
-        );
+      dynamic response = await getApi(SettingsUrl.districtListApi);
 
       if (response != null && response["status"] == true) {
         DistrictModel res = DistrictModel.fromJson(response);
