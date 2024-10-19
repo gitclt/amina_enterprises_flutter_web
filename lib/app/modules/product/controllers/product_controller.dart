@@ -22,6 +22,23 @@ class ProductController extends GetxController {
   final formkey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController artnoController = TextEditingController();
+  // Define an observable boolean for the checkbox state
+  var isChecked = false.obs;
+
+  // Toggle the checkbox value
+  void toggleCheckbox() {
+    isChecked.value = !isChecked.value;
+  }
+
+  // Track the status (Active/Inactive) for each item
+  var statuses = List<String>.filled(10, "Inactive")
+      .obs; // Modify the length based on your data
+
+  // Update status (Active/Inactive) for a specific index
+  void setStatus(int index, String status) {
+    statuses[index] = status;
+  }
+  
   //loading
   RxBool isLoading = false.obs;
   RxBool isMaincatLoading = false.obs;

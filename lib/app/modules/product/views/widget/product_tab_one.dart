@@ -22,6 +22,8 @@ class ProductTabOne extends GetView<ProductController> {
                 : 50,
         runSpacing: 20,
         children: [
+          // Obx(
+          //             () =>
           DropDown3Widget(
             label: 'Main Category',
             hint: '--Select Category--',
@@ -39,11 +41,13 @@ class ProductTabOne extends GetView<ProductController> {
               return null;
             },
           ),
+          // ),
+          // Obx(
+          //               () =>
           DropDown3Widget(
             label: 'Category',
             hint: '--Select Category--',
-            selectedItem:
-                controller.sdCat.id == null ? null : controller.sdCat,
+            selectedItem: controller.sdCat.id == null ? null : controller.sdCat,
             items: controller.categoryDropList,
             onChanged: (data) async {
               if (data == null) return;
@@ -56,11 +60,15 @@ class ProductTabOne extends GetView<ProductController> {
               return null;
             },
           ),
+          // ),
+          //  Obx(
+          //             () =>
           DropDown3Widget(
             label: 'Construction',
             hint: '--Select Construction--',
-            selectedItem:
-                controller.sdConstruction.id == null ? null : controller.sdConstruction,
+            selectedItem: controller.sdConstruction.id == null
+                ? null
+                : controller.sdConstruction,
             items: controller.constructionDropList,
             onChanged: (data) async {
               if (data == null) return;
@@ -73,8 +81,9 @@ class ProductTabOne extends GetView<ProductController> {
               return null;
             },
           ),
+          // ),
           AddTextFieldWidget(
-             textController: controller.artnoController,
+            textController: controller.artnoController,
             label: 'Art No',
             visible: true,
             validator: (value) {
@@ -84,7 +93,9 @@ class ProductTabOne extends GetView<ProductController> {
               return null;
             },
           ),
-         DropDown3Widget(
+          // Obx(
+          //               () =>
+          DropDown3Widget(
             label: 'Brand',
             hint: '--Select Brand--',
             selectedItem:
@@ -101,8 +112,9 @@ class ProductTabOne extends GetView<ProductController> {
               return null;
             },
           ),
+          // ),
           AddTextFieldWidget(
-             textController: controller.nameController,
+            textController: controller.nameController,
             label: 'Name',
             visible: true,
             validator: (value) {
@@ -112,6 +124,8 @@ class ProductTabOne extends GetView<ProductController> {
               return null;
             },
           ),
+          //  Obx(
+          //             () =>
           DropDown3Widget(
             label: 'Status',
             hint: '--Select Status--',
@@ -129,6 +143,7 @@ class ProductTabOne extends GetView<ProductController> {
               return null;
             },
           ),
+          // ),
           SizedBox(
             height: size.height * 0.03,
           ),
@@ -140,7 +155,7 @@ class ProductTabOne extends GetView<ProductController> {
             onClick: () {
               if (controller.formkey.currentState!.validate()) {
                 if (controller.editId == '') {
-                     controller.addProduct();
+                  controller.addProduct();
                 } else {
                   //  controller.edit();
                 }
