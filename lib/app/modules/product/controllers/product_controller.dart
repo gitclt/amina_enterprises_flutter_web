@@ -5,9 +5,11 @@ import 'package:amina_enterprises_flutter_web/app/domain/entity/dropdown_entity.
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/product/product_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/brand/brand_repository.dart';
+import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/color/color_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/construction/construction_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/main_category/main_category_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/product_category/pro_category_repository.dart';
+import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/sub_category/sub_category_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/utils.dart';
 import 'package:flutter/widgets.dart';
@@ -38,13 +40,15 @@ class ProductController extends GetxController {
   void setStatus(int index, String status) {
     statuses[index] = status;
   }
-  
+
   //loading
   RxBool isLoading = false.obs;
   RxBool isMaincatLoading = false.obs;
   RxBool isCatLoading = false.obs;
   RxBool isConstructionLoading = false.obs;
   RxBool isBrandLoading = false.obs;
+  RxBool isSubCatLoading = false.obs;
+  RxBool isColorLoading = false.obs;
 
   String editId = '';
   final int pageSize = 10;
@@ -56,6 +60,8 @@ class ProductController extends GetxController {
   final catrepo = ProCategoryRepository();
   final brandrepo = BrandRepository();
   final constructionrepo = ConstructionRepository();
+  final subCatrepo = SubCategoryRepository();
+  final colorrepo = ColorRepository();
 
   DropDownModel sdStatus = DropDownModel();
   RxList<DropDownModel> statusDropList = <DropDownModel>[].obs;
@@ -67,6 +73,10 @@ class ProductController extends GetxController {
   RxList<DropDownModel> constructionDropList = <DropDownModel>[].obs;
   DropDownModel sdBrand = DropDownModel();
   RxList<DropDownModel> brandDropList = <DropDownModel>[].obs;
+  DropDownModel sdSubCat = DropDownModel();
+  RxList<DropDownModel> subcatDropList = <DropDownModel>[].obs;
+  DropDownModel sdColor = DropDownModel();
+  RxList<DropDownModel> colorDropList = <DropDownModel>[].obs;
 
   var selectedTab = 0.obs;
   // selectedTab.animateTo(1);
@@ -99,6 +109,8 @@ class ProductController extends GetxController {
     getCat();
     getBrand();
     getconstruction();
+    getcolor();
+    getSubcategory();
   }
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
@@ -265,6 +277,42 @@ class ProductController extends GetxController {
 
       for (var item in resData.data!) {
         constructionDropList
+            .add(DropDownModel(id: item.id.toString(), name: item.name));
+      }
+    });
+  }
+
+  void getSubcategory() async {
+    isSubCatLoading(true);
+    subcatDropList.clear();
+    final res = await subCatrepo.getSubCategoryList();
+    res.fold((failure) {
+      isSubCatLoading(false);
+      Utils.snackBar('Error', failure.message);
+      setError(error.toString());
+    }, (resData) {
+      isSubCatLoading(false);
+
+      for (var item in resData.data!) {
+        subcatDropList.add(
+            DropDownModel(id: item.subcatId.toString(), name: item.subcatname));
+      }
+    });
+  }
+
+  void getcolor() async {
+    isColorLoading(true);
+    colorDropList.clear();
+    final res = await colorrepo.getList();
+    res.fold((failure) {
+      isColorLoading(false);
+      Utils.snackBar('Error', failure.message);
+      setError(error.toString());
+    }, (resData) {
+      isColorLoading(false);
+
+      for (var item in resData.data!) {
+        colorDropList
             .add(DropDownModel(id: item.id.toString(), name: item.name));
       }
     });

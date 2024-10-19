@@ -49,7 +49,7 @@ class ItemSelectTable extends StatelessWidget {
       ),
       SingleChildScrollView(
         child: SizedBox(
-          height: size.height * 0.55,
+          height: size.height * 0.07,
           child: ListView.builder(
               itemCount: 3,
               itemBuilder: (context, index) {
@@ -112,7 +112,6 @@ class ItemSelectTable extends StatelessWidget {
                                 width: size.width * 0.1,
                                 alignment: Alignment.center,
                                 color: bgColor)),
-                       
                       ],
                     )
                   ],
