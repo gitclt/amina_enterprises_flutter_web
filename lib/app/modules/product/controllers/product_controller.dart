@@ -26,10 +26,15 @@ class ProductController extends GetxController {
   TextEditingController artnoController = TextEditingController();
   // Define an observable boolean for the checkbox state
   var isChecked = false.obs;
+  var islaunchChecked = false.obs;
 
   // Toggle the checkbox value
   void toggleCheckbox() {
     isChecked.value = !isChecked.value;
+  }
+
+  void launchCheckbox() {
+    islaunchChecked.value = !islaunchChecked.value;
   }
 
   // Track the status (Active/Inactive) for each item
@@ -175,7 +180,7 @@ class ProductController extends GetxController {
         constructionId: sdConstruction.id,
         mainCategoryId: sdMainCat.id,
         name: nameController.text,
-        newLaunch: '0');
+        newLaunch: islaunchChecked.value == true ? '1' : '0');
     final res = await _repo.addProduct(data: addedItem);
     res.fold(
       (failure) {

@@ -1,8 +1,10 @@
 import 'package:amina_enterprises_flutter_web/app/common_widgets/button/common_button.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/dropdown/drop_down3_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/text_form_field.dart/add_new_widget.dart';
+import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/product/controllers/product_controller.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -144,25 +146,52 @@ class ProductTabOne extends GetView<ProductController> {
             },
           ),
           // ),
+          Obx(() => SizedBox(
+                width: Responsive.isDesktop(context)
+                    ? size.width * 0.73 / 2
+                    : size.width * .8,
+                height: size.height * 0.075,
+                child: Row(
+                  children: [
+                    Checkbox(
+                      activeColor: AppColor.primary,
+                      value: controller.islaunchChecked.value,
+                      onChanged: (value) {
+                        controller.launchCheckbox();
+                      },
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Text('New Launch')
+                  ],
+                ),
+              )),
           SizedBox(
             height: size.height * 0.03,
           ),
-          CommonButton(
-            isLoading: controller.isLoading.value,
-            width: Responsive.isDesktop(context)
-                ? size.width * .1
-                : size.width * 0.25,
-            onClick: () {
-              if (controller.formkey.currentState!.validate()) {
-                if (controller.editId == '') {
-                  controller.addProduct();
-                } else {
-                  //  controller.edit();
-                }
-              }
-            },
-            label: controller.editId == '' ? 'Next' : 'Update',
-          ).paddingOnly(right: 40),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              CommonButton(
+                isLoading: controller.isLoading.value,
+                width: Responsive.isDesktop(context)
+                    ? size.width * .1
+                    : size.width * 0.25,
+                onClick: () {
+                  if (controller.formkey.currentState!.validate()) {
+                    if (controller.editId == '') {
+                      controller.addProduct();
+                    } else {
+                      //  controller.edit();
+                    }
+                  }
+                },
+                label: controller.editId == '' ? 'Next' : 'Update',
+              ),
+            ],
+          ),
         ],
       ),
     );
