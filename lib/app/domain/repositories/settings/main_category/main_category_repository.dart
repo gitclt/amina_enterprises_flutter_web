@@ -8,10 +8,9 @@ import 'package:dartz/dartz.dart';
 import '../../../../data/app_url/settings/settings_url.dart';
 
 class MainCategoryRepository {
-
   final _apiServices = NetworkApiServices();
 
- //view
+  //view
   Future<Either<Failure, MainCategoryModel>> getList() async {
     try {
       dynamic response = await _apiServices.getApi(
@@ -34,12 +33,10 @@ class MainCategoryRepository {
   Future<Either<Failure, ApiModel>> add(
     String name,
     String image,
+    String img,
   ) async {
     try {
-      var data = json.encode({
-        "name": name,
-        "image": image,
-      });
+      var data = json.encode({"name": name, "image": image, 'image_data': img});
       dynamic response = await _apiServices
           .postApi(data, SettingsUrl.mainCategoryAddApi, isJson: true);
 

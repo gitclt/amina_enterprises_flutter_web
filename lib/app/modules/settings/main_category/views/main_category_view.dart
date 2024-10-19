@@ -141,24 +141,23 @@ class MainCategoryView extends GetView<MainCategoryController> {
                                                     text: columnText(
                                                         item.name ?? '',
                                                         fontSize),
-                                                    width: size.width * 0.3,
+                                                    width: size.width * 0.33,
                                                     color: bgColor),
                                               ),
                                               ColumnWidget(
+                                                width: size.width * 0.24,
                                                 text: CircleAvatar(
-                                                  radius: 50,
+                                                  radius: 20,
                                                   backgroundColor:
                                                       Colors.black12,
                                                   backgroundImage: item.image !=
-                                                          ''
+                                                          'http://192.168.1.101:8087/'
                                                       //  &&
                                                       // controller.fileType != 'pdf'
                                                       ? NetworkImage(
                                                           item.image ?? '')
-                                                      : const AssetImage(
-                                                              "assets/svg_icons/Gallery.svg")
-                                                          as ImageProvider,
-                                                ).paddingOnly(bottom: 15),
+                                                      : null,
+                                                ),
                                               ),
                                               //  columnText(
                                               //     item.image ?? '',

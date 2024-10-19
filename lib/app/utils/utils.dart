@@ -18,6 +18,12 @@ class Utils {
     DateTime dateTime = format.parse(date);
     return dateTime;
   }
+
+  String getFormattedTimestamp() {
+    final now = DateTime.now();
+    final formatted = now.millisecondsSinceEpoch.toString();
+    return formatted;
+  }
 //   static snackBar(
 //     String title,
 //     String message,
