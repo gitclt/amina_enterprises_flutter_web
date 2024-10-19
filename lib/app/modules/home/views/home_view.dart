@@ -14,7 +14,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: ResponsiveWidget.isMobile(context)
+      drawer: !ResponsiveWidget.isDesktop(context)
           ? SizedBox(width: 250, child: SidemenuView(scaffoldKey: _scaffoldKey))
           : null,
       //  appBar: CommonAppBar(scaffoldKey: _scaffoldKey),
