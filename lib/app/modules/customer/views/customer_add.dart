@@ -1,5 +1,6 @@
 import 'package:amina_enterprises_flutter_web/app/common_widgets/appbar/common_home_appbar.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/button/common_button.dart';
+import 'package:amina_enterprises_flutter_web/app/common_widgets/common_regex.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/container/simple_container.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/dropdown/drop_down3_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/padding/common_padding.dart';
@@ -67,7 +68,6 @@ class CustomerAdd extends GetView<CustomerController> {
                       return null;
                     },
                   ),
-
                   DropDown3Widget(
                     width: Responsive.isDesktop(context)
                         ? size.width * 0.18
@@ -101,7 +101,6 @@ class CustomerAdd extends GetView<CustomerController> {
                     onChanged: (data) async {
                       if (data == null) return;
                       controller.sdStatus = data;
-                      
                     },
                     validator: (value) {
                       if (value == null) {
@@ -110,7 +109,6 @@ class CustomerAdd extends GetView<CustomerController> {
                       return null;
                     },
                   ),
-               
                   AddTextFieldWidget(
                     width: Responsive.isDesktop(context)
                         ? size.width * 0.18
@@ -131,22 +129,21 @@ class CustomerAdd extends GetView<CustomerController> {
                         : size.width * .32,
                     textController: controller.emailController,
                     label: 'Email',
-                    // validator: (value) {
-                    //   if (value!.isEmpty) {
-                    //     return 'Enter Email';
-                    //   }
-                    //   return null;
-                    // },
+                    validator: Validators.validateEmail,
                   ),
                   AddTextFieldWidget(
                     width: Responsive.isDesktop(context)
                         ? size.width * 0.18
                         : size.width * .32,
                     textController: controller.mobileController,
+                    inputFormat: true,
+                    maxLengthLimit: 10,
                     label: 'Mobile',
                     validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Enter Mobile';
+                      if (value.isEmpty) {
+                        return 'Enter Mobile Number';
+                      } else if (value.isNotEmpty && value.length < 10) {
+                        return 'Mobile number should contain 10-digit number';
                       }
                       return null;
                     },
@@ -232,6 +229,8 @@ class CustomerAdd extends GetView<CustomerController> {
                         : size.width * .32,
                     textController: controller.pincodeController,
                     label: 'Pincode',
+                    inputFormat: true,
+                    maxLengthLimit: 6,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Enter Pincode';

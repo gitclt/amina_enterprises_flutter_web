@@ -122,6 +122,14 @@ class AddTextFieldWidget extends StatelessWidget {
                       color: AppColor.textGrayColor, width: .5),
                   borderRadius: BorderRadius.circular(borderRadius),
                 ),
+                errorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: AppColor.red, width: .5),
+                  borderRadius: BorderRadius.circular(borderRadius),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: AppColor.red, width: .5),
+                  borderRadius: BorderRadius.circular(borderRadius),
+                ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
                       color: AppColor.textGrayColor, width: .5),

@@ -151,14 +151,12 @@ class MainCategoryView extends GetView<MainCategoryController> {
                                                   backgroundColor:
                                                       Colors.black12,
                                                   backgroundImage: item.image !=
-                                                          ''
+                                                          'http://192.168.1.101:8087/'
                                                       //  &&
                                                       // controller.fileType != 'pdf'
                                                       ? NetworkImage(
                                                           item.image ?? '')
-                                                      : const AssetImage(
-                                                              "assets/svg_icons/Gallery.svg")
-                                                          as ImageProvider,
+                                                      : null,
                                                 ),
                                               ),
                                               //  columnText(

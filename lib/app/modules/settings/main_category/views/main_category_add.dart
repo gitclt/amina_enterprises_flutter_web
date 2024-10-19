@@ -10,11 +10,10 @@ import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class MainCategoryAdd extends GetView<MainCategoryController> {
   const MainCategoryAdd({super.key});
 
- @override
+  @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
@@ -59,7 +58,26 @@ class MainCategoryAdd extends GetView<MainCategoryController> {
                         SizedBox(
                           width: size.width * 0.035,
                         ),
-                       
+                        AddTextFieldWidget(
+                          width: Responsive.isDesktop(context)
+                              ? size.width * 0.35
+                              : size.width * .32,
+                          textController: controller.imgCtr,
+                          readonly: true,
+                          onTap: () {
+                            controller.picImage();
+                          },
+                          label: 'Image',
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Select  Image';
+                            }
+                            return null;
+                          },
+                        ).paddingOnly(left: 15),
+                        SizedBox(
+                          width: size.width * 0.035,
+                        ),
                       ],
                     ),
                     CommonButton(
