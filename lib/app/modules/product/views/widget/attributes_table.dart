@@ -25,7 +25,7 @@ class AttributesTable extends StatelessWidget {
       Row(
         children: [
           ColumnHeaderWidget(
-            width: size.width * 0.1,
+            width: size.width * 0.05,
             label: 'Sl No.',
           ),
           ColumnHeaderWidget(
@@ -48,9 +48,13 @@ class AttributesTable extends StatelessWidget {
             label: 'Stock',
             width: size.width * 0.1,
           ),
+          ColumnHeaderWidget(
+            label: 'Status',
+            width: size.width * 0.1,
+          ),
           Expanded(
               child: ColumnHeaderWidget(
-            label: 'Status',
+            label: '',
             width: size.width * 0.5,
           ))
         ],
@@ -78,9 +82,15 @@ class AttributesTable extends StatelessWidget {
                               fontSize,
                             ),
                             alignment: Alignment.center,
-                            width: size.width * 0.1,
+                            width: size.width * 0.05,
                             color: bgColor,
                           ),
+                          ColumnWidget(
+                              text:
+                                  columnText(item.productName ?? '', fontSize),
+                              width: size.width * 0.1,
+                              alignment: Alignment.center,
+                              color: bgColor),
                           ColumnWidget(
                               text:
                                   columnText(item.productName ?? '', fontSize),

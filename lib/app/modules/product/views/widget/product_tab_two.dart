@@ -19,118 +19,126 @@ class ProductTabTwo extends GetView<ProductController> {
     var size = MediaQuery.of(context).size;
     return Form(
       // key: controller.formkey,
-      child: Wrap(
-        spacing: Responsive.isDesktop(context)
-            ? size.width * 0.03
-            : Responsive.isMobile(context)
-                ? 50
-                : 50,
-        runSpacing: 20,
-        children: [
-          AttributesTable(controller: controller),
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(15),
-                width: size.width * 0.13,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: AppColor.boxBorderColor)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      children: [
-                        svgWidget('assets/svg_icons/shoe.svg'),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        columnText('404', 20),
-                        boldText('Gents / V- Strap',
-                            fontWeight: FontWeight.w400)
-                      ],
-                    )
-                  ],
+      child: SingleChildScrollView(
+        physics: const ScrollPhysics(),
+        child: Wrap(
+          spacing: Responsive.isDesktop(context)
+              ? size.width * 0.03
+              : Responsive.isMobile(context)
+                  ? 50
+                  : 50,
+          runSpacing: 20,
+          children: [
+            AttributesTable(controller: controller),
+            Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(15),
+                  width: size.width * 0.13,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: AppColor.boxBorderColor)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        children: [
+                          svgWidget('assets/svg_icons/shoe.svg'),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          columnText('404', 20),
+                          boldText('Gents / V- Strap',
+                              fontWeight: FontWeight.w400)
+                        ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          DropDown3Widget(
-            label: 'Sub Category',
-            hint: '--Select Category--',
-            selectedItem:
-                controller.sdMainCat.id == null ? null : controller.sdMainCat,
-            items: controller.mainCatDropList,
-            onChanged: (data) async {
-              if (data == null) return;
-              controller.sdMainCat = data;
-            },
-            validator: (value) {
-              if (value == null) {
-                return 'Select Sub Category';
-              }
-              return null;
-            },
-          ),
-          DropDown3Widget(
-            label: 'Color',
-            hint: '--Select Color--',
-            selectedItem: controller.sdCat.id == null ? null : controller.sdCat,
-            items: controller.categoryDropList,
-            onChanged: (data) async {
-              if (data == null) return;
-              controller.sdCat = data;
-            },
-            validator: (value) {
-              if (value == null) {
-                return 'Select Color';
-              }
-              return null;
-            },
-          ),
-          ItemSelectTable(
-            controller: controller,
-          ),
-          DropDown3Widget(
-            label: 'State',
-            hint: '--Select State--',
-            selectedItem:
-                controller.sdStatus.id == null ? null : controller.sdStatus,
-            items: controller.statusDropList,
-            onChanged: (data) async {
-              if (data == null) return;
-              controller.sdStatus = data;
-            },
-            validator: (value) {
-              if (value == null) {
-                return 'Select State';
-              }
-              return null;
-            },
-          ),
-          SizedBox(
-            height: size.height * 0.03,
-          ),
-          CommonButton(
-            isLoading: controller.isLoading.value,
-            width: Responsive.isDesktop(context)
-                ? size.width * .1
-                : size.width * 0.25,
-            onClick: () {
-              if (controller.formkey.currentState!.validate()) {
-                if (controller.editId == '') {
-                  controller.addProduct();
-                } else {
-                  //  controller.edit();
+              ],
+            ),
+            DropDown3Widget(
+              label: 'Sub Category',
+              hint: '--Select Category--',
+              selectedItem:
+                  controller.sdSubCat.id == null ? null : controller.sdSubCat,
+              items: controller.subcatDropList,
+              onChanged: (data) async {
+                if (data == null) return;
+                controller.sdSubCat = data;
+              },
+              validator: (value) {
+                if (value == null) {
+                  return 'Select Sub Category';
                 }
-              }
-            },
-            label: controller.editId == '' ? 'Save' : 'Update',
-          ).paddingOnly(right: 40),
-        ],
+                return null;
+              },
+            ),
+            DropDown3Widget(
+              label: 'Color',
+              hint: '--Select Color--',
+              selectedItem:
+                  controller.sdColor.id == null ? null : controller.sdColor,
+              items: controller.colorDropList,
+              onChanged: (data) async {
+                if (data == null) return;
+                controller.sdColor = data;
+              },
+              validator: (value) {
+                if (value == null) {
+                  return 'Select Color';
+                }
+                return null;
+              },
+            ),
+            ItemSelectTable(
+              controller: controller,
+            ),
+            Row(
+              children: [
+                DropDown3Widget(
+                  label: 'State',
+                  hint: '--Select State--',
+                  selectedItem:
+                      controller.sdStatus.id == null ? null : controller.sdStatus,
+                  items: controller.statusDropList,
+                  onChanged: (data) async {
+                    if (data == null) return;
+                    controller.sdStatus = data;
+                  },
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Select State';
+                    }
+                    return null;
+                  },
+                ),
+              ],
+            ),
+            SizedBox(
+              height: size.height * 0.03,
+            ),
+            CommonButton(
+              isLoading: controller.isLoading.value,
+              width: Responsive.isDesktop(context)
+                  ? size.width * .1
+                  : size.width * 0.25,
+              onClick: () {
+                if (controller.formkey.currentState!.validate()) {
+                  if (controller.editId == '') {
+                    controller.addProduct();
+                  } else {
+                    //  controller.edit();
+                  }
+                }
+              },
+              label: controller.editId == '' ? 'Save' : 'Update',
+            ).paddingOnly(right: 40),
+          ],
+        ),
       ),
     );
   }
