@@ -92,7 +92,7 @@ class EmployeeController extends GetxController {
       setRxRequestStatus(Status.completed);
       if (resData.data != null) {
         data.addAll(resData.data!);
-        totalPages.value = resData.totalPages ?? 1;
+        totalPages.value = (resData.totalPages ?? 1 / pageSize).ceil();
       }
     });
   }
