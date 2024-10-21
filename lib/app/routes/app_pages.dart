@@ -279,11 +279,13 @@ class AppPages {
               GetPage(
                   name: _Paths.size,
                   page: () => const SizeView(),
+                  transition: Transition.noTransition,
                   binding: SizeBinding(),
                   children: [
                     GetPage(
-                      name: _Paths.size,
+                      name: _Paths.sizeAdd,
                       page: () => const SizeAdd(),
+                      transition: Transition.noTransition,
                       binding: SizeBinding(),
                     ),
                   ]),

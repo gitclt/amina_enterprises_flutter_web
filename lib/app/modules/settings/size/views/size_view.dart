@@ -14,7 +14,6 @@ import 'package:amina_enterprises_flutter_web/app/core/extention.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 import '../controllers/size_controller.dart';
@@ -23,18 +22,18 @@ class SizeView extends GetView<SizeController> {
   const SizeView({super.key});
   @override
   Widget build(BuildContext context) {
-     var size = MediaQuery.of(context).size;
+    var size = MediaQuery.of(context).size;
     var fontSize = size.width * 0.008;
-   return Scaffold(
+    return Scaffold(
       backgroundColor: AppColor.scaffoldBgColor,
       body: CommonPagePadding(
         child: Column(
           children: [
             HomeAppBar(
-              title: 'Settings / District / View',
+              title: 'Settings / Product Size / View',
               onClick: () async {
-               // controller.clear();
-               
+                 controller.clear();
+
                 Get.rootDelegate.toNamed(Routes.sizeAdd);
               },
               label: 'add_new'.tr,
@@ -66,12 +65,12 @@ class SizeView extends GetView<SizeController> {
                   if (controller.error.value == 'No internet') {
                     return InterNetExceptionWidget(
                       onPress: () {
-                       // controller.get();
+                        controller.get();
                       },
                     );
                   } else {
                     return GeneralExceptionWidget(onPress: () {
-                     // controller.get();
+                      controller.get();
                     });
                   }
 
@@ -90,7 +89,7 @@ class SizeView extends GetView<SizeController> {
                               width: size.width * 0.3,
                             ),
                             ColumnHeaderWidget(
-                              label: 'Main Category',
+                              label: 'Product Category',
                               width: size.width * 0.3,
                             ),
                             Expanded(
@@ -136,7 +135,7 @@ class SizeView extends GetView<SizeController> {
                                                 color: bgColor),
                                             ColumnWidget(
                                                 text: columnText(
-                                                    item.mainCategory ?? '',
+                                                    item.procCategory ?? '',
                                                     fontSize),
                                                 width: size.width * 0.3,
                                                 alignment: Alignment.center,
