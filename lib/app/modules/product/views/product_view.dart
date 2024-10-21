@@ -190,8 +190,8 @@ class ProductView extends GetView<ProductController> {
                                                             AppColor.red);
 
                                                 if (returnResponse == true) {
-                                                  // controller.delete(
-                                                  //     item.id.toString());
+                                                  controller.delete(
+                                                      item.id.toString());
                                                 }
                                               },
                                               edit: () async {

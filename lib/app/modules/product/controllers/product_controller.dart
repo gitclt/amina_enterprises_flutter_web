@@ -301,17 +301,17 @@ class ProductController extends GetxController {
     );
   }
 
-  // //delete
-  // void delete(String id) async {
-  //   final res = await _repo.deleteDesignation(id: id);
-  //   res.fold((failure) {
-  //     Utils.snackBar('Product Error', failure.message);
-  //     setError(error.toString());
-  //   }, (resData) {
-  //     Utils.snackBar('Product', resData.message!);
-  //     get();
-  //   });
-  // }
+  //delete
+  void delete(String id) async {
+    final res = await _repo.deleteProduct(id: id);
+    res.fold((failure) {
+      Utils.snackBar('Product Error', failure.message);
+      setError(error.toString());
+    }, (resData) {
+      Utils.snackBar('Product', resData.message!);
+      get();
+    });
+  }
 
   void getMainCat() async {
     isMaincatLoading(true);

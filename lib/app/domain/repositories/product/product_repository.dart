@@ -121,24 +121,24 @@ class ProductRepository {
   //   }
   // }
 
-  // Future<Either<Failure, ApiModel>> deleteCustomer({
-  //   required String id,
-  // }) async {
-  //   var body = {"id": id};
-  //   try {
-  //     dynamic response = await _apiServices.deleteApi(body, AppCusUrl.delete);
+  Future<Either<Failure, ApiModel>> deleteProduct({
+    required String id,
+  }) async {
+    var body = {"id": id};
+    try {
+      dynamic response = await _apiServices.deleteApi(body, ProductUrl.delete);
 
-  //     if (response != null && response["status"] == true) {
-  //       ApiModel res = ApiModel.fromJson(response);
+      if (response != null && response["status"] == true) {
+        ApiModel res = ApiModel.fromJson(response);
 
-  //       return Right(res);
-  //     } else {
-  //       return Left(Failure(response["message"].toString()));
-  //     }
-  //   } catch (e) {
-  //     return Left(Failure(e.toString()));
-  //   }
-  // }
+        return Right(res);
+      } else {
+        return Left(Failure(response["message"].toString()));
+      }
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
 
   Future<Either<Failure, ProductDetailModel>> getProductDetails(
       {int? pageSize, int? currentPage, dynamic proId}) async {

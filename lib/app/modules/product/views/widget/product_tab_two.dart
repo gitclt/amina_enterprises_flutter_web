@@ -1,6 +1,7 @@
 import 'package:amina_enterprises_flutter_web/app/common_widgets/button/common_button.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/dropdown/drop_down3_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/svg_icons/svg_widget.dart';
+import 'package:amina_enterprises_flutter_web/app/common_widgets/text/text_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/product/controllers/product_controller.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/attributes_select_table.dart';
@@ -50,15 +51,14 @@ class ProductTabTwo extends GetView<ProductController> {
                           svgWidget('assets/svg_icons/shoe.svg'),
                         ],
                       ),
-                      // Column(
-                      //   crossAxisAlignment: CrossAxisAlignment.start,
-                      //   children: [
-                      //     columnText(
-                      //         controller.detailList.first.product ?? '', 20),
-                      //     boldText(controller.detailList.first.status ?? '',
-                      //         fontWeight: FontWeight.w400)
-                      //   ],
-                      // )
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          columnText(controller.nameController.text, 20),
+                          boldText(controller.artnoController.text,
+                              fontWeight: FontWeight.w400)
+                        ],
+                      )
                     ],
                   ),
                 ),
