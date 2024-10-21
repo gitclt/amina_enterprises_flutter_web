@@ -92,6 +92,12 @@ class SettingsView extends GetView<SettingsController> {
                       Get.rootDelegate.toNamed(Routes.division);
                     },
                   ),
+                  DashCards(
+                    lable: 'Product Size',
+                    onTap: () {
+                      Get.rootDelegate.toNamed(Routes.size);
+                    },
+                  ),
                 ])
               ],
             ),

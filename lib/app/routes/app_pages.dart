@@ -1,4 +1,4 @@
-import 'package:amina_enterprises_flutter_web/app/modules/product/views/product_add.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/settings/size/views/size_add.dart';
 import 'package:get/get.dart';
 
 import '../modules/customer/bindings/customer_binding.dart';
@@ -14,6 +14,7 @@ import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/product/bindings/product_binding.dart';
+import '../modules/product/views/product_add.dart';
 import '../modules/product/views/product_view.dart';
 import '../modules/root/bindings/root_binding.dart';
 import '../modules/root/views/root_view.dart';
@@ -44,6 +45,8 @@ import '../modules/settings/main_category/views/main_category_add.dart';
 import '../modules/settings/main_category/views/main_category_view.dart';
 import '../modules/settings/role/bindings/role_binding.dart';
 import '../modules/settings/role/views/role_view.dart';
+import '../modules/settings/size/bindings/size_binding.dart';
+import '../modules/settings/size/views/size_view.dart';
 import '../modules/settings/state/bindings/state_binding.dart';
 import '../modules/settings/state/views/state_add.dart';
 import '../modules/settings/state/views/state_view.dart';
@@ -273,6 +276,17 @@ class AppPages {
                 transition: Transition.noTransition,
                 binding: RoleBinding(),
               ),
+              GetPage(
+                  name: _Paths.size,
+                  page: () => const SizeView(),
+                  binding: SizeBinding(),
+                  children: [
+                    GetPage(
+                      name: _Paths.size,
+                      page: () => const SizeAdd(),
+                      binding: SizeBinding(),
+                    ),
+                  ]),
             ],
           ),
         ]),
