@@ -199,6 +199,7 @@ class ProductController extends GetxController {
       (resData) {
         if (resData.status!) {
           isLoading(false);
+          productId = resData.data!.id.toString();
           selectedTab.value = 1;
 
           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');

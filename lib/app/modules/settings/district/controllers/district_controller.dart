@@ -26,6 +26,7 @@ class DistrictController extends GetxController {
   @override
   void onInit() {
     get();
+    getstateList();
     super.onInit();
   }
 
@@ -68,8 +69,11 @@ class DistrictController extends GetxController {
   //edit
   void editClick(DistrictData data) async {
     nameController = TextEditingController(text: data.district);
+    dropDownState =
+        DropDownModel(id: data.stateId.toString(), name: data.state);
     editId = data.id.toString();
-    Get.rootDelegate.toNamed(Routes.stateAdd);
+
+    Get.rootDelegate.toNamed(Routes.districtAdd);
   }
 
   edit() async {
@@ -139,5 +143,6 @@ class DistrictController extends GetxController {
   clear() {
     editId = '';
     nameController.clear();
+    dropDownState = DropDownModel(id: '', name: '--Select State--');
   }
 }

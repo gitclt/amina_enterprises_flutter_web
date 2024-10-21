@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:amina_enterprises_flutter_web/app/core/failure/failure.dart';
 import 'package:amina_enterprises_flutter_web/app/data/app_url/product/product_url.dart';
-import 'package:amina_enterprises_flutter_web/app/data/model/api_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/product/product_add_model.dart';
+import 'package:amina_enterprises_flutter_web/app/data/model/product/product_add_response_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/product/product_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/network/network_api_services.dart';
 import 'package:dartz/dartz.dart';
@@ -29,7 +29,7 @@ class ProductRepository {
     }
   }
 
-  Future<Either<Failure, ApiModel>> addProduct({
+  Future<Either<Failure, ProAddresponseModel>> addProduct({
     required ProductAddModel data,
   }) async {
     try {
@@ -40,7 +40,7 @@ class ProductRepository {
           await _apiServices.postApi(body, ProductUrl.add, isJson: true);
 
       if (response != null && response["status"] == true) {
-        ApiModel res = ApiModel.fromJson(response);
+        ProAddresponseModel res = ProAddresponseModel.fromJson(response);
 
         return Right(res);
       } else {
