@@ -29,6 +29,8 @@ class ProductController extends GetxController {
   RxList<Datum> detailList = <Datum>[].obs;
   RxList<SizeData> sizeList = <SizeData>[].obs;
   final formkey = GlobalKey<FormState>();
+
+  final formkey1 = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController artnoController = TextEditingController();
   TextEditingController mrpController = TextEditingController();
@@ -53,7 +55,6 @@ class ProductController extends GetxController {
   // Update status (Active/Inactive) for a specific index
   void setStatus(int index, String status) {
     statuses[index] = status;
-    print(status);
   }
 
   //loading
@@ -261,24 +262,18 @@ class ProductController extends GetxController {
     final addedItem = ProductitemAddModel(
       proId: productId,
       status: sdStatus.name,
-      mrp: 25,
-      // colorId:sdColor.id,
+      mrp: int.tryParse(mrpController.text),
+      colorId: int.tryParse('${sdColor.id}'),
       isDisplay: 0,
       size: 1,
-      subCatId: 2,
-      stock: 10,
-      stateId: 4,
-      image1: "String",
-      image2: "String",
-      image3: "String",
-      image4: "String",
-      image5: "String",
-
-      //  proId:  productId,
-      //  mrp: mrpController.text,
-      //  status: sdStatus.id,
-      //  subCatId: sdSubCat.id,
-      //  stock: stockController.text,
+      subCatId: int.tryParse('${sdSubCat.id}'),
+      stock: int.tryParse(stockController.text),
+      stateId: int.tryParse('${sdState.id}'),
+      image1: "String.jpg",
+      image2: "String.jpg",
+      image3: "String.jpg",
+      image4: "String.jpg",
+      image5: "String.jpg",
     );
     final res = await _repo.addProductItem(data: addedItem);
     res.fold(

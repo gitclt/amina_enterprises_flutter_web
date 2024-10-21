@@ -50,7 +50,7 @@ class ItemSelectTable extends StatelessWidget {
       ),
       SingleChildScrollView(
         child: SizedBox(
-          height: size.height * 0.1,
+          height: size.height * 0.17,
           child: ListView.builder(
               itemCount: controller.sizeList.length,
               itemBuilder: (context, index) {
@@ -84,14 +84,13 @@ class ItemSelectTable extends StatelessWidget {
                             color: bgColor),
                         ColumnWidget(
                             text: BorderlessTextfeild(
-                              textController: controller.mrpController,
-                            ),
+                                textController: item.mrpController),
                             width: size.width * 0.1,
                             alignment: Alignment.center,
                             color: bgColor),
                         ColumnWidget(
                             text: BorderlessTextfeild(
-                                textController: controller.stockController),
+                                textController: item.stockController),
                             width: size.width * 0.1,
                             alignment: Alignment.center,
                             color: bgColor),

@@ -18,7 +18,7 @@ class ProductTabTwo extends GetView<ProductController> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Form(
-      // key: controller.formkey,
+       key: controller.formkey1,
       child: SingleChildScrollView(
         physics: const ScrollPhysics(),
         child: Wrap(

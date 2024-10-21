@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 ProductsizeModel productsizeModelFromJson(String str) =>
@@ -50,16 +51,19 @@ class SizeData {
   String? procCategory;
   int? catId;
   RxBool isSelect;
+  TextEditingController? mrpController;
+  TextEditingController? stockController;
 
-  SizeData({
-    this.id,
-    this.size,
-    this.mainCategory,
-    this.mainCatId,
-    this.procCategory,
-    this.catId,
-    required this.isSelect
-  });
+  SizeData(
+      {this.id,
+      this.size,
+      this.mainCategory,
+      this.mainCatId,
+      this.procCategory,
+      this.catId,
+      required this.isSelect,
+      this.mrpController,
+      this.stockController});
 
   factory SizeData.fromJson(Map<String, dynamic> json) => SizeData(
         id: json["id"],
@@ -69,6 +73,8 @@ class SizeData {
         procCategory: json["proc_category"],
         catId: json["cat_id"],
         isSelect: false.obs,
+        mrpController: TextEditingController(text: '0'),
+        stockController: TextEditingController(text: '0'),
       );
 
   Map<String, dynamic> toJson() => {
@@ -78,6 +84,5 @@ class SizeData {
         "main_cat_id": mainCatId,
         "proc_category": procCategory,
         "cat_id": catId,
-        
       };
 }
