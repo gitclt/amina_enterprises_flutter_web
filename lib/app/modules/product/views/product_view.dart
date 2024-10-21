@@ -15,7 +15,6 @@ import 'package:amina_enterprises_flutter_web/app/core/extention.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 import '../controllers/product_controller.dart';
@@ -39,12 +38,11 @@ class ProductView extends GetView<ProductController> {
               },
               label: 'add_new'.tr,
             ),
-            10.height,
             Obx(() {
               switch (controller.rxRequestStatus.value) {
                 case Status.loading:
                   return SizedBox(
-                    height: size.height * 0.3,
+                    height: size.height * 0.4,
                     child: ShimmerBuilder(
                       rowCount: 10,
                       sizes: [
@@ -117,7 +115,7 @@ class ProductView extends GetView<ProductController> {
                         ),
                         SingleChildScrollView(
                           child: SizedBox(
-                            height: size.height * 0.55,
+                            height: size.height * 0.53,
                             child: Obx(
                               () => ListView.builder(
                                   itemCount: controller.data.length,
@@ -175,8 +173,7 @@ class ProductView extends GetView<ProductController> {
                                                 color: bgColor),
                                             ColumnWidget(
                                                 text: columnText(
-                                                    item.brand ?? '',
-                                                    fontSize),
+                                                    item.brand ?? '', fontSize),
                                                 width: size.width * 0.15,
                                                 alignment: Alignment.centerLeft,
                                                 color: bgColor),
