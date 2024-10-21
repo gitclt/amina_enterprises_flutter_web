@@ -7,7 +7,7 @@ import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/a
 import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/attributes_table.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:get/get.dart';
 
 class ProductTabTwo extends GetView<ProductController> {
@@ -17,7 +17,7 @@ class ProductTabTwo extends GetView<ProductController> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Form(
-       key: controller.formkey1,
+      key: controller.formkey1,
       child: SingleChildScrollView(
         physics: const ScrollPhysics(),
         child: Wrap(
@@ -28,9 +28,11 @@ class ProductTabTwo extends GetView<ProductController> {
                   : 50,
           runSpacing: 20,
           children: [
-            controller.detailList.isEmpty
-                ? const SizedBox()
-                : AttributesTable(controller: controller),
+            Obx(
+              () => controller.detailList.isEmpty
+                  ? const SizedBox()
+                  : AttributesTable(controller: controller),
+            ),
             Row(
               children: [
                 Container(
@@ -124,6 +126,38 @@ class ProductTabTwo extends GetView<ProductController> {
             ),
             SizedBox(
               height: size.height * 0.03,
+            ),
+            InkWell(
+              onTap: () {},
+              child: Row(
+                children: [
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          const Text(
+                            'Upload Image',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: AppColor.textGrayColor,
+                            ),
+                          ),
+                          Text(
+                            '*',
+                            style: TextStyle(color: AppColor.primary),
+                          ).paddingOnly(left: 5)
+                        ],
+                      ),
+                    ],
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(color: AppColor.boxBorderColor)),
+                    child: svgWidget('assets/svg_icons/demmy_image.svg'),
+                  )
+                ],
+              ),
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,

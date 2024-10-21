@@ -11,11 +11,10 @@ import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/b
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/color/color_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/construction/construction_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/main_category/main_category_repository.dart';
+import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/pro_sub_category/pro_sub_category_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/product_category/pro_category_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/size/size_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/state/state_repository.dart';
-import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/sub_category/sub_category_repository.dart';
-import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/utils.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -80,7 +79,7 @@ class ProductController extends GetxController {
   final catrepo = ProCategoryRepository();
   final brandrepo = BrandRepository();
   final constructionrepo = ConstructionRepository();
-  final subCatrepo = SubCategoryRepository();
+  final subCatrepo = ProSubCategoryRepository();
   final colorrepo = ColorRepository();
   final staterepo = StateRepository();
 
@@ -389,7 +388,7 @@ class ProductController extends GetxController {
   void getSubcategory() async {
     isSubCatLoading(true);
     subcatDropList.clear();
-    final res = await subCatrepo.getSubCategoryList();
+    final res = await subCatrepo.getList();
     res.fold((failure) {
       isSubCatLoading(false);
       Utils.snackBar('Error', failure.message);
@@ -398,8 +397,8 @@ class ProductController extends GetxController {
       isSubCatLoading(false);
 
       for (var item in resData.data!) {
-        subcatDropList.add(
-            DropDownModel(id: item.subcatId.toString(), name: item.subcatname));
+        subcatDropList
+            .add(DropDownModel(id: item.id.toString(), name: item.name));
       }
     });
   }
