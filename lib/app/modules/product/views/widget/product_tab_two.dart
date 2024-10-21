@@ -29,7 +29,9 @@ class ProductTabTwo extends GetView<ProductController> {
                   : 50,
           runSpacing: 20,
           children: [
-            AttributesTable(controller: controller),
+            controller.detailList.isEmpty
+                ? const SizedBox()
+                : AttributesTable(controller: controller),
             Row(
               children: [
                 Container(
@@ -47,14 +49,15 @@ class ProductTabTwo extends GetView<ProductController> {
                           svgWidget('assets/svg_icons/shoe.svg'),
                         ],
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          columnText('404', 20),
-                          boldText('Gents / V- Strap',
-                              fontWeight: FontWeight.w400)
-                        ],
-                      )
+                      // Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     columnText(
+                      //         controller.detailList.first.product ?? '', 20),
+                      //     boldText(controller.detailList.first.status ?? '',
+                      //         fontWeight: FontWeight.w400)
+                      //   ],
+                      // )
                     ],
                   ),
                 ),
@@ -94,9 +97,11 @@ class ProductTabTwo extends GetView<ProductController> {
                 return null;
               },
             ),
-            ItemSelectTable(
-              controller: controller,
-            ),
+            controller.sizeList.isEmpty
+                ? const SizedBox()
+                : ItemSelectTable(
+                    controller: controller,
+                  ),
             Row(
               children: [
                 DropDown3Widget(
@@ -133,7 +138,7 @@ class ProductTabTwo extends GetView<ProductController> {
                   onClick: () {
                     if (controller.formkey.currentState!.validate()) {
                       if (controller.editId == '') {
-                        controller.addProduct();
+                        controller.addProductItem();
                       } else {
                         //  controller.edit();
                       }

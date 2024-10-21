@@ -89,4 +89,11 @@ class SettingsUrl {
   static String divisionAddApi = '$baseUrl/division/Postdivision';
   static String divisionEditApi = '$baseUrl/division/Updatedivision';
   static String divisionDeleteApi = '$baseUrl/division/Deletedivision';
+
+    //size
+
+  static String sizeListApi = '$baseUrl/Size/view_size';
+  // static String sizeAddApi = '$baseUrl/division/Postdivision';
+  // static String sizeEditApi = '$baseUrl/division/Updatedivision';
+  // static String sizeDeleteApi = '$baseUrl/division/Deletedivision';
 }

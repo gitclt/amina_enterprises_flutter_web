@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class BorderlessTextfeild extends StatelessWidget {
-  const BorderlessTextfeild({super.key});
+   final TextEditingController? textController;
+  final FormFieldValidator? validator;
+  const BorderlessTextfeild({super.key,
+    this.textController,
+    this.validator,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +20,8 @@ class BorderlessTextfeild extends StatelessWidget {
         ),
       ),
       child: TextFormField(
+         controller: textController,
+        validator: validator,
         decoration: const InputDecoration(
           border: InputBorder.none, // Removes the default border
           contentPadding: EdgeInsets.all(8), // Padding inside the TextFormField

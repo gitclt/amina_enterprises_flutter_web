@@ -21,9 +21,7 @@ class CheckBoxButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(2),
               border: Border.all(
                 width: 1.5,
-                color: selectItem
-                    ? const Color(0xffD80005)
-                    : AppColor.tabTextColor,
+                color: selectItem ? AppColor.primary : AppColor.tabTextColor,
               ),
             ),
             child: Container(

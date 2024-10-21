@@ -146,7 +146,7 @@ class ProductView extends GetView<ProductController> {
                                             Expanded(
                                               child: ColumnWidget(
                                                   text: columnText(
-                                                      item.productName ?? '',
+                                                      item.product ?? '',
                                                       fontSize),
                                                   width: size.width * 0.3,
                                                   alignment:
@@ -155,14 +155,14 @@ class ProductView extends GetView<ProductController> {
                                             ),
                                             ColumnWidget(
                                                 text: columnText(
-                                                    item.proCatName ?? '',
+                                                    item.proCat ?? '',
                                                     fontSize),
                                                 width: size.width * 0.15,
                                                 alignment: Alignment.centerLeft,
                                                 color: bgColor),
                                             ColumnWidget(
                                                 text: columnText(
-                                                    item.constructionName ?? '',
+                                                    item.construction ?? '',
                                                     fontSize),
                                                 width: size.width * 0.15,
                                                 alignment: Alignment.centerLeft,
@@ -175,7 +175,7 @@ class ProductView extends GetView<ProductController> {
                                                 color: bgColor),
                                             ColumnWidget(
                                                 text: columnText(
-                                                    item.brandName ?? '',
+                                                    item.brand ?? '',
                                                     fontSize),
                                                 width: size.width * 0.15,
                                                 alignment: Alignment.centerLeft,

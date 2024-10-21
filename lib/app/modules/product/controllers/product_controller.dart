@@ -1,6 +1,9 @@
 import 'package:amina_enterprises_flutter_web/app/constants/const_valus.dart';
+import 'package:amina_enterprises_flutter_web/app/data/model/product/pro_item_add_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/product/product_add_model.dart';
+import 'package:amina_enterprises_flutter_web/app/data/model/product/product_detail_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/product/product_model.dart';
+import 'package:amina_enterprises_flutter_web/app/data/model/settings/size/size_model.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/dropdown_entity.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/product/product_repository.dart';
@@ -9,6 +12,7 @@ import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/c
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/construction/construction_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/main_category/main_category_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/product_category/pro_category_repository.dart';
+import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/size/size_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/state/state_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/sub_category/sub_category_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
@@ -20,11 +24,15 @@ class ProductController extends GetxController {
   final rxRequestStatus = Status.completed.obs;
 
   RxString error = ''.obs;
-  final _repo = ProductRepository();
+
   RxList<ProductData> data = <ProductData>[].obs;
+  RxList<Datum> detailList = <Datum>[].obs;
+  RxList<SizeData> sizeList = <SizeData>[].obs;
   final formkey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController artnoController = TextEditingController();
+  TextEditingController mrpController = TextEditingController();
+  TextEditingController stockController = TextEditingController();
   // Define an observable boolean for the checkbox state
   var isChecked = false.obs;
   var islaunchChecked = false.obs;
@@ -45,6 +53,7 @@ class ProductController extends GetxController {
   // Update status (Active/Inactive) for a specific index
   void setStatus(int index, String status) {
     statuses[index] = status;
+    print(status);
   }
 
   //loading
@@ -58,12 +67,14 @@ class ProductController extends GetxController {
   RxBool isStateLoading = false.obs;
 
   String editId = '';
-  String productId = '';
+  int productId = 0;
   final int pageSize = 10;
   var currentPage = 1.obs;
   var totalPages = 1.obs;
 
 //repositoy
+  final _repo = ProductRepository();
+  final sizerepo = SizeRepository();
   final mainCatrepo = MainCategoryRepository();
   final catrepo = ProCategoryRepository();
   final brandrepo = BrandRepository();
@@ -116,6 +127,7 @@ class ProductController extends GetxController {
     for (var v in AppConstValue().statusTypes) {
       statusDropList.add(DropDownModel(id: v.id.toString(), name: v.name));
     }
+    getSize();
     getMainCat();
     getCat();
     getBrand();
@@ -130,8 +142,7 @@ class ProductController extends GetxController {
   void get() async {
     setRxRequestStatus(Status.loading);
     data.clear();
-    final res =
-        await _repo.getProductList(pageSize, currentPage.value, productId);
+    final res = await _repo.getProductList(pageSize, currentPage.value);
     res.fold((failure) {
       setRxRequestStatus(Status.completed);
       setError(error.toString());
@@ -141,6 +152,39 @@ class ProductController extends GetxController {
         data.addAll(resData.data!);
         totalPages.value = 50;
         // (resData.totalCount! / pageSize).ceil();
+      }
+    });
+  }
+
+  void getdetails() async {
+    setRxRequestStatus(Status.loading);
+    detailList.clear();
+    final res = await _repo.getProductDetails(proId: productId);
+    res.fold((failure) {
+      setRxRequestStatus(Status.completed);
+      setError(error.toString());
+    }, (resData) {
+      setRxRequestStatus(Status.completed);
+      if (resData.data != null) {
+        detailList.addAll(resData.data!);
+      }
+    });
+  }
+
+  // void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
+  // void setError(String value) => error.value = value;
+
+  void getSize() async {
+    setRxRequestStatus(Status.loading);
+    sizeList.clear();
+    final res = await sizerepo.getList();
+    res.fold((failure) {
+      setRxRequestStatus(Status.completed);
+      setError(error.toString());
+    }, (resData) {
+      setRxRequestStatus(Status.completed);
+      if (resData.data != null) {
+        sizeList.addAll(resData.data!);
       }
     });
   }
@@ -199,12 +243,59 @@ class ProductController extends GetxController {
       (resData) {
         if (resData.status!) {
           isLoading(false);
-          productId = resData.data!.id.toString();
+          productId = resData.data!.id!;
           selectedTab.value = 1;
 
           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
 
-          get();
+          getdetails();
+
+          // clrValue();
+        }
+      },
+    );
+  }
+
+  void addProductItem() async {
+    isLoading(true);
+    final addedItem = ProductitemAddModel(
+      proId: productId,
+      status: sdStatus.name,
+      mrp: 25,
+      // colorId:sdColor.id,
+      isDisplay: 0,
+      size: 1,
+      subCatId: 2,
+      stock: 10,
+      stateId: 4,
+      image1: "String",
+      image2: "String",
+      image3: "String",
+      image4: "String",
+      image5: "String",
+
+      //  proId:  productId,
+      //  mrp: mrpController.text,
+      //  status: sdStatus.id,
+      //  subCatId: sdSubCat.id,
+      //  stock: stockController.text,
+    );
+    final res = await _repo.addProductItem(data: addedItem);
+    res.fold(
+      (failure) {
+        isLoading(false);
+        Utils.snackBar('Error', failure.message);
+        setError(error.toString());
+      },
+      (resData) {
+        if (resData.status!) {
+          isLoading(false);
+          // productId = resData.data!.id.toString();
+          // selectedTab.value = 1;
+
+          Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
+
+          getdetails();
 
           // clrValue();
         }

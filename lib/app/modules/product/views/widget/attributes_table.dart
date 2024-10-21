@@ -64,13 +64,13 @@ class AttributesTable extends StatelessWidget {
           height: size.height * 0.1,
           child: Obx(
             () => ListView.builder(
-                itemCount: controller.data.length,
+                itemCount: controller.detailList.length,
                 itemBuilder: (context, index) {
                   const evenColor = Colors.white;
                   const oddColor = AppColor.boxBorderColor;
 
                   final bgColor = index % 2 == 0 ? oddColor : evenColor;
-                  final item = controller.data[index];
+                  final item = controller.detailList[index];
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -86,38 +86,32 @@ class AttributesTable extends StatelessWidget {
                             color: bgColor,
                           ),
                           ColumnWidget(
-                              text:
-                                  columnText(item.productName ?? '', fontSize),
+                              text: columnText(item.color ?? '', fontSize),
                               width: size.width * 0.1,
                               alignment: Alignment.center,
                               color: bgColor),
                           ColumnWidget(
-                              text:
-                                  columnText(item.productName ?? '', fontSize),
+                              text: columnText(item.color ?? '', fontSize),
                               width: size.width * 0.1,
                               alignment: Alignment.center,
                               color: bgColor),
                           ColumnWidget(
-                              text:
-                                  columnText(item.productName ?? '', fontSize),
+                              text: columnText(item.color ?? '', fontSize),
                               width: size.width * 0.1,
                               alignment: Alignment.center,
                               color: bgColor),
                           ColumnWidget(
-                              text:
-                                  columnText(item.productName ?? '', fontSize),
+                              text: columnText(item.mrp.toString(), fontSize),
                               width: size.width * 0.1,
                               alignment: Alignment.center,
                               color: bgColor),
                           ColumnWidget(
-                              text:
-                                  columnText(item.productName ?? '', fontSize),
+                              text: columnText(item.status ?? '', fontSize),
                               width: size.width * 0.1,
                               alignment: Alignment.center,
                               color: bgColor),
                           ColumnWidget(
-                              text:
-                                  columnText(item.productName ?? '', fontSize),
+                              text: columnText(item.status ?? '', fontSize),
                               width: size.width * 0.1,
                               alignment: Alignment.center,
                               color: bgColor),

@@ -1,3 +1,4 @@
+import 'package:amina_enterprises_flutter_web/app/common_widgets/container/check_box_button.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/active_status_button.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/table/column_header_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/table/column_widget.dart';
@@ -51,41 +52,46 @@ class ItemSelectTable extends StatelessWidget {
         child: SizedBox(
           height: size.height * 0.1,
           child: ListView.builder(
-              itemCount: 3,
+              itemCount: controller.sizeList.length,
               itemBuilder: (context, index) {
                 const evenColor = Colors.white;
                 const oddColor = AppColor.boxBorderColor;
 
                 final bgColor = index % 2 == 0 ? oddColor : evenColor;
-
+                final item = controller.sizeList[index];
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
                         ColumnWidget(
-                          text: Obx(() => Checkbox(
-                                value: controller.isChecked.value,
-                                onChanged: (value) {
-                                  controller.toggleCheckbox();
-                                },
-                              )),
+                          text: Obx(
+                            () => CheckBoxButton(
+                              selectItem: item.isSelect.value,
+                              act: () {
+                                item.isSelect.value = !item.isSelect.value;
+                              },
+                            ),
+                          ),
                           alignment: Alignment.center,
                           width: size.width * 0.1,
                           color: bgColor,
                         ),
                         ColumnWidget(
-                            text: columnText('1', fontSize),
+                            text: columnText(item.size ?? '', fontSize),
                             width: size.width * 0.1,
                             alignment: Alignment.center,
                             color: bgColor),
                         ColumnWidget(
-                            text: const BorderlessTextfeild(),
+                            text: BorderlessTextfeild(
+                              textController: controller.mrpController,
+                            ),
                             width: size.width * 0.1,
                             alignment: Alignment.center,
                             color: bgColor),
                         ColumnWidget(
-                            text: const BorderlessTextfeild(),
+                            text: BorderlessTextfeild(
+                                textController: controller.stockController),
                             width: size.width * 0.1,
                             alignment: Alignment.center,
                             color: bgColor),
