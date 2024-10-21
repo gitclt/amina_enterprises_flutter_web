@@ -33,8 +33,8 @@ class ProductController extends GetxController {
   final formkey1 = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController artnoController = TextEditingController();
-  TextEditingController mrpController = TextEditingController();
-  TextEditingController stockController = TextEditingController();
+  // TextEditingController mrpController = TextEditingController();
+  // TextEditingController stockController = TextEditingController();
   // Define an observable boolean for the checkbox state
   var isChecked = false.obs;
   var islaunchChecked = false.obs;
@@ -259,22 +259,26 @@ class ProductController extends GetxController {
 
   void addProductItem() async {
     isLoading(true);
-    final addedItem = ProductitemAddModel(
-      proId: productId,
-      status: sdStatus.name,
-      mrp: int.tryParse(mrpController.text),
-      colorId: int.tryParse('${sdColor.id}'),
-      isDisplay: 0,
-      size: 1,
-      subCatId: int.tryParse('${sdSubCat.id}'),
-      stock: int.tryParse(stockController.text),
-      stateId: int.tryParse('${sdState.id}'),
-      image1: "String.jpg",
-      image2: "String.jpg",
-      image3: "String.jpg",
-      image4: "String.jpg",
-      image5: "String.jpg",
-    );
+    final selectedItem =
+        sizeList.where((e) => e.isSelect.value == true).toList();
+    final addedItem = selectedItem
+        .map((item) => ProductitemAddModel(
+              proId: productId,
+              status: sdStatus.name,
+              mrp: int.tryParse(item.mrpController?.text ?? '0'),
+              colorId: int.tryParse('${sdColor.id}'),
+              isDisplay: 0,
+              size: int.tryParse('${item.size}'),
+              subCatId: int.tryParse('${sdSubCat.id}'),
+              stock: int.tryParse(item.stockController?.text ?? '0'),
+              stateId: int.tryParse('${sdState.id}'),
+              image1: "String.jpg",
+              image2: "String.jpg",
+              image3: "String.jpg",
+              image4: "String.jpg",
+              image5: "String.jpg",
+            ))
+        .toList();
     final res = await _repo.addProductItem(data: addedItem);
     res.fold(
       (failure) {

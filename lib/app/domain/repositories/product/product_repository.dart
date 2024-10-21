@@ -54,7 +54,7 @@ class ProductRepository {
   }
 
   Future<Either<Failure, ApiModel>> addProductItem({
-    required ProductitemAddModel data,
+    List<ProductitemAddModel>? data,
   }) async {
     try {
       var body = json.encode(
