@@ -33,8 +33,8 @@ class ProductController extends GetxController {
   final formkey1 = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController artnoController = TextEditingController();
-  // TextEditingController mrpController = TextEditingController();
-  // TextEditingController stockController = TextEditingController();
+  TextEditingController mrpController = TextEditingController();
+  TextEditingController stockController = TextEditingController();
   // Define an observable boolean for the checkbox state
   var isChecked = false.obs;
   var islaunchChecked = false.obs;
@@ -66,6 +66,7 @@ class ProductController extends GetxController {
   RxBool isSubCatLoading = false.obs;
   RxBool isColorLoading = false.obs;
   RxBool isStateLoading = false.obs;
+  RxBool isSizeLoading = false.obs;
 
   String editId = '';
   int productId = 0;
@@ -100,6 +101,8 @@ class ProductController extends GetxController {
   RxList<DropDownModel> colorDropList = <DropDownModel>[].obs;
   DropDownModel sdState = DropDownModel();
   RxList<DropDownModel> stateDropList = <DropDownModel>[].obs;
+  DropDownModel sdSize = DropDownModel();
+  RxList<DropDownModel> sizeDropList = <DropDownModel>[].obs;
 
   var selectedTab = 0.obs;
   // selectedTab.animateTo(1);
@@ -136,6 +139,7 @@ class ProductController extends GetxController {
     getcolor();
     getSubcategory();
     getState();
+    getSizeList();
   }
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
@@ -156,8 +160,6 @@ class ProductController extends GetxController {
       }
     });
   }
-
-
 
   void getdetails() async {
     setRxRequestStatus(Status.loading);
@@ -197,8 +199,8 @@ class ProductController extends GetxController {
     productId = data.id!.toInt();
     nameController = TextEditingController(text: data.product);
     artnoController = TextEditingController(text: data.artNo);
-    sdMainCat =
-        DropDownModel(id: data.mainCategoryId.toString(), name: data.mainCategory);
+    sdMainCat = DropDownModel(
+        id: data.mainCategoryId.toString(), name: data.mainCategory);
     sdCat = DropDownModel(id: data.categoryId.toString(), name: data.category);
     sdConstruction = DropDownModel(
         id: data.constructionId.toString(), name: data.construction);
@@ -317,6 +319,70 @@ class ProductController extends GetxController {
 
           getdetails();
           update();
+          // clrValue();
+        }
+      },
+    );
+  }
+
+  //edit
+  editIteamClick(
+    ProductDetail data,
+  ) async {
+    productId = data.proId!;
+    sdSubCat =
+        DropDownModel(id: data.subCatId.toString(), name: data.subcategory);
+    sdColor = DropDownModel(id: data.color, name: data.color);
+    mrpController = TextEditingController(text: data.mrp.toString());
+    stockController = TextEditingController(text: data.stock.toString());
+    sdSize = DropDownModel(id: data.sizeId.toString(), name: data.size);
+    editId = data.id.toString();
+  }
+
+  editProductItem() async {
+    isLoading(true);
+//  final selectedItem =
+//         sizeList.where((e) => e.isSelect.value == true).toList();
+    final addedItem =
+        //  selectedItem
+//         .map((item) =>
+        ProductitemAddModel(
+      id: editId,
+      colorId: int.tryParse(
+        sdColor.id.toString(),
+      ),
+      mrp: int.tryParse(mrpController.text),
+      stock: int.tryParse(stockController.text),
+      size: int.tryParse("${sdSize.id}"),
+      proId: productId,
+      stateId: int.tryParse('${sdState.id}'),
+      subCatId: int.tryParse('${sdSubCat.id}'),
+      status: sdStatus.name,
+      isDisplay: 0,
+      image1: "String.jpg",
+      image2: "String.jpg",
+      image3: "String.jpg",
+      image4: "String.jpg",
+      image5: "String.jpg",
+    );
+    //  )
+    //   .toList();
+    final res = await _repo.editProductItem(data: addedItem);
+    res.fold(
+      (failure) {
+        isLoading(false);
+        Utils.snackBar('Error', failure.message);
+        setError(error.toString());
+      },
+      (resData) {
+        if (resData.status!) {
+          isLoading(false);
+          selectedTab.value = 1;
+          // Get.rootDelegate.toNamed(Routes.product);
+          Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
+          getdetails();
+          // get();
+
           // clrValue();
         }
       },
@@ -505,7 +571,7 @@ class ProductController extends GetxController {
 
   void getState() async {
     isStateLoading(true);
-    colorDropList.clear();
+    stateDropList.clear();
     final res = await staterepo.getList();
     res.fold((failure) {
       isStateLoading(false);
@@ -517,6 +583,24 @@ class ProductController extends GetxController {
       for (var item in resData.data!) {
         stateDropList
             .add(DropDownModel(id: item.id.toString(), name: item.name));
+      }
+    });
+  }
+
+  void getSizeList() async {
+    isSizeLoading(true);
+    sizeDropList.clear();
+    final res = await sizerepo.getList();
+    res.fold((failure) {
+      isSizeLoading(false);
+      Utils.snackBar('Error', failure.message);
+      setError(error.toString());
+    }, (resData) {
+      isSizeLoading(false);
+
+      for (var item in resData.data!) {
+        sizeDropList
+            .add(DropDownModel(id: item.id.toString(), name: item.size));
       }
     });
   }

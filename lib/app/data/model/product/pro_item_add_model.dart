@@ -12,6 +12,7 @@ String productitemAddModelToJson(List<ProductitemAddModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class ProductitemAddModel {
+  String? id;
   int? proId;
   int? colorId;
   int? size;
@@ -29,6 +30,7 @@ class ProductitemAddModel {
   int? addedBy;
 
   ProductitemAddModel({
+    this.id,
     this.proId,
     this.colorId,
     this.size,
@@ -48,6 +50,7 @@ class ProductitemAddModel {
 
   factory ProductitemAddModel.fromJson(Map<String, dynamic> json) =>
       ProductitemAddModel(
+        id: json["id"],
         proId: json["pro_id"],
         colorId: json["color_id"],
         size: json["size"],
@@ -66,6 +69,7 @@ class ProductitemAddModel {
       );
 
   Map<String, dynamic> toJson() => {
+        "id":id,
         "pro_id": proId,
         "color_id": colorId,
         "size": size,

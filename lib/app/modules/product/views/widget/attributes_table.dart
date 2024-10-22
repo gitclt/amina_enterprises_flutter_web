@@ -6,6 +6,7 @@ import 'package:amina_enterprises_flutter_web/app/common_widgets/table/column_wi
 import 'package:amina_enterprises_flutter_web/app/common_widgets/text/text_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/product/controllers/product_controller.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/pro_item_edit_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
@@ -86,7 +87,7 @@ class AttributesTable extends StatelessWidget {
                             color: bgColor,
                           ),
                           ColumnWidget(
-                              text: columnText(item.color ?? '', fontSize),
+                              text: columnText(item.subcategory ?? '', fontSize),
                               width: size.width * 0.1,
                               alignment: Alignment.center,
                               color: bgColor),
@@ -96,7 +97,7 @@ class AttributesTable extends StatelessWidget {
                               alignment: Alignment.center,
                               color: bgColor),
                           ColumnWidget(
-                              text: columnText(item.color ?? '', fontSize),
+                              text: columnText(item.size ?? '', fontSize),
                               width: size.width * 0.1,
                               alignment: Alignment.center,
                               color: bgColor),
@@ -106,7 +107,7 @@ class AttributesTable extends StatelessWidget {
                               alignment: Alignment.center,
                               color: bgColor),
                           ColumnWidget(
-                              text: columnText(item.status ?? '', fontSize),
+                              text: columnText(item.stock.toString(), fontSize),
                               width: size.width * 0.1,
                               alignment: Alignment.center,
                               color: bgColor),
@@ -132,7 +133,16 @@ class AttributesTable extends StatelessWidget {
                                 }
                               },
                               edit: () async {
-                                //  controller.editClick(item);
+                                await controller.editIteamClick(item);
+                                showDialog(
+                                   
+                                    context: context,
+                                    builder: (_) {
+                                      return ProductEditPopup(
+                                        onChange: () {},
+                                        controller: controller,
+                                      );
+                                    });
                               },
                               color: bgColor,
                             ),

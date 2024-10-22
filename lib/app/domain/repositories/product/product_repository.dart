@@ -97,6 +97,27 @@ class ProductRepository {
     }
   }
 
+  Future<Either<Failure, ApiModel>> editProductItem({
+    ProductitemAddModel? data,
+  }) async {
+    try {
+      var body = json.encode(
+        data,
+      );
+      dynamic response = await _apiServices
+          .putApi(body, ProductUrl.productDetailsedit, isJson: true);
+
+      if (response != null && response["status"] == true) {
+        ApiModel res = ApiModel.fromJson(response);
+
+        return Right(res);
+      } else {
+        return Left(Failure(response["message"].toString()));
+      }
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
   // Future<Either<Failure, ApiModel>> updateCustomer(
   //     {required String editId,
   //     required String name,

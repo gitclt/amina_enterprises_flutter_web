@@ -5,7 +5,6 @@ import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/product/controllers/product_controller.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class ProductTabOne extends GetView<ProductController> {
