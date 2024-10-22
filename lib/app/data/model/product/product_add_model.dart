@@ -11,6 +11,7 @@ String productAddModelToJson(ProductAddModel data) =>
     json.encode(data.toJson());
 
 class ProductAddModel {
+  String? id;
   String? name;
   String? constructionId;
   String? categoryId;
@@ -21,6 +22,7 @@ class ProductAddModel {
   String? mainCategoryId;
 
   ProductAddModel({
+    this.id,
     this.name,
     this.constructionId,
     this.categoryId,
@@ -33,6 +35,7 @@ class ProductAddModel {
 
   factory ProductAddModel.fromJson(Map<String, dynamic> json) =>
       ProductAddModel(
+        id: json["id"],
         name: json["name"],
         constructionId: json["construction_id"],
         categoryId: json["category_id"],
@@ -44,6 +47,7 @@ class ProductAddModel {
       );
 
   Map<String, dynamic> toJson() => {
+        "id":id,
         "name": name,
         "construction_id": constructionId,
         "category_id": categoryId,

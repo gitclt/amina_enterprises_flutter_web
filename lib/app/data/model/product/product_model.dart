@@ -45,6 +45,9 @@ class ProductData {
   int? newLaunch;
   String? artNo;
   int? mainCategoryId;
+  String? mainCategory;
+  int? categoryId;
+  String? category;
 
   ProductData({
     this.id,
@@ -58,6 +61,9 @@ class ProductData {
     this.newLaunch,
     this.artNo,
     this.mainCategoryId,
+    this.mainCategory,
+    this.categoryId,
+    this.category,
   });
 
   factory ProductData.fromJson(Map<String, dynamic> json) => ProductData(
@@ -72,6 +78,9 @@ class ProductData {
         newLaunch: json["new_launch"],
         artNo: json["art_no"],
         mainCategoryId: json["main_category_id"],
+        mainCategory: json["main_category"],
+        categoryId: json["category_id"],
+        category: json["category"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -86,5 +95,8 @@ class ProductData {
         "new_launch": newLaunch,
         "art_no": artNo,
         "main_category_id": mainCategoryId,
+        "main_category": mainCategory,
+        "category_id": categoryId,
+        "category": category,
       };
 }

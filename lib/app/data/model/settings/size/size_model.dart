@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -53,6 +54,7 @@ class SizeData {
   RxBool isSelect;
   TextEditingController? mrpController;
   TextEditingController? stockController;
+  String? status;
 
   SizeData(
       {this.id,
@@ -63,7 +65,9 @@ class SizeData {
       this.catId,
       required this.isSelect,
       this.mrpController,
-      this.stockController});
+      this.stockController,
+    this.status
+      });
 
   factory SizeData.fromJson(Map<String, dynamic> json) => SizeData(
         id: json["id"],
@@ -75,6 +79,7 @@ class SizeData {
         isSelect: false.obs,
         mrpController: TextEditingController(text: '0'),
         stockController: TextEditingController(text: '0'),
+        status: json["status"], 
       );
 
   Map<String, dynamic> toJson() => {

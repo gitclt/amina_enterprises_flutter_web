@@ -14,5 +14,6 @@ class ProductUrl {
   // static String productDetailsdelete = '$baseUrl/Product/Delete_product';
 
   //product item
-   static String proAddItem = '$baseUrl/Product_item_/product_item_add';
+  static String proAddItem = '$baseUrl/Product_item_/product_item_add';
+   static String deleteItem = '$baseUrl/Product_item_/Delete_productitem';
 }

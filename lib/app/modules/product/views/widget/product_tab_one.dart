@@ -184,7 +184,7 @@ class ProductTabOne extends GetView<ProductController> {
                     if (controller.editId == '') {
                       controller.addProduct();
                     } else {
-                      //  controller.edit();
+                       controller.editProduct();
                     }
                   }
                 },

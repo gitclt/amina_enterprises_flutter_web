@@ -9,7 +9,7 @@ class RadioBox extends StatelessWidget {
   final int index; // Pass index to track status for the specific row
   final ProductController controller;
 
-  RadioBox({
+  const RadioBox({super.key, 
     required this.label,
     required this.value,
     required this.index,
@@ -23,36 +23,26 @@ class RadioBox extends StatelessWidget {
             controller.setStatus(
                 index, value); // Set selected status based on the index
           },
-          child: Container(
-            // padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            // decoration: BoxDecoration(
-            //   border: Border.all(color: Colors.grey),
-            //   borderRadius: BorderRadius.circular(4),
-            //   color: controller.statuses[index] == value
-            //       ? Colors.blue
-            //       : Colors.transparent,
-            // ),
-            child: Row(
-              children: [
-                Icon(
-                  controller.statuses[index] == value
-                      ? Icons.check_box
-                      : Icons.check_box_outline_blank,
-                  color: controller.statuses[index] == value
-                      ? AppColor.primary
-                      : Colors.grey,
+          child: Row(
+            children: [
+              Icon(
+                controller.statuses[index] == value
+                    ? Icons.check_box
+                    : Icons.check_box_outline_blank,
+                color: controller.statuses[index] == value
+                    ? AppColor.primary
+                    : Colors.grey,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                label,
+                style: const TextStyle(
+                  color:
+                      
+                      Colors.black,
                 ),
-                const SizedBox(width: 8),
-                Text(
-                  label,
-                  style: const TextStyle(
-                    color:
-                        
-                        Colors.black,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ));
   }

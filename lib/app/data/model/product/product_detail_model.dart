@@ -12,7 +12,7 @@ String productDetailModelToJson(ProductDetailModel data) =>
 
 class ProductDetailModel {
   bool? status;
-  List<Datum>? data;
+  List<ProductDetail>? data;
 
   ProductDetailModel({
     this.status,
@@ -24,7 +24,7 @@ class ProductDetailModel {
         status: json["status"],
         data: json["data"] == null
             ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+            : List<ProductDetail>.from(json["data"]!.map((x) => ProductDetail.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -35,13 +35,12 @@ class ProductDetailModel {
       };
 }
 
-class Datum {
+class ProductDetail {
   int? id;
   int? proId;
   String? product;
   String? color;
   String? status;
-  int? brandId;
   int? isDisplay;
   String? image1;
   String? image2;
@@ -49,14 +48,16 @@ class Datum {
   String? image4;
   String? image5;
   int? mrp;
+  int? sizeId;
+  String? size;
+  int? stock;
 
-  Datum({
+  ProductDetail({
     this.id,
     this.proId,
     this.product,
     this.color,
     this.status,
-    this.brandId,
     this.isDisplay,
     this.image1,
     this.image2,
@@ -64,15 +65,17 @@ class Datum {
     this.image4,
     this.image5,
     this.mrp,
+    this.sizeId,
+    this.size,
+    this.stock,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory ProductDetail.fromJson(Map<String, dynamic> json) => ProductDetail(
         id: json["id"],
         proId: json["pro_id"],
         product: json["product"],
         color: json["color"],
         status: json["status"],
-        brandId: json["brand_id"],
         isDisplay: json["is_display"],
         image1: json["image1"],
         image2: json["image2"],
@@ -80,6 +83,9 @@ class Datum {
         image4: json["image4"],
         image5: json["image5"],
         mrp: json["mrp"],
+        sizeId: json["size_id"],
+        size: json["size"],
+        stock: json["stock"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -88,7 +94,6 @@ class Datum {
         "product": product,
         "color": color,
         "status": status,
-        "brand_id": brandId,
         "is_display": isDisplay,
         "image1": image1,
         "image2": image2,
@@ -96,5 +101,8 @@ class Datum {
         "image4": image4,
         "image5": image5,
         "mrp": mrp,
+        "size_id": sizeId,
+        "size": size,
+        "stock": stock,
       };
 }

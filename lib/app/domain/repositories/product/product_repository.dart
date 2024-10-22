@@ -53,6 +53,28 @@ class ProductRepository {
     }
   }
 
+  Future<Either<Failure, ApiModel>> updateProduct({
+    required ProductAddModel data,
+  }) async {
+    try {
+      var body = json.encode(
+        data,
+      );
+      dynamic response =
+          await _apiServices.putApi(body, ProductUrl.edit, isJson: true);
+
+      if (response != null && response["status"] == true) {
+        ApiModel res = ApiModel.fromJson(response);
+
+        return Right(res);
+      } else {
+        return Left(Failure(response["message"].toString()));
+      }
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
   Future<Either<Failure, ApiModel>> addProductItem({
     List<ProductitemAddModel>? data,
   }) async {
@@ -74,6 +96,7 @@ class ProductRepository {
       return Left(Failure(e.toString()));
     }
   }
+
   // Future<Either<Failure, ApiModel>> updateCustomer(
   //     {required String editId,
   //     required String name,
@@ -127,6 +150,26 @@ class ProductRepository {
     var body = {"id": id};
     try {
       dynamic response = await _apiServices.deleteApi(body, ProductUrl.delete);
+
+      if (response != null && response["status"] == true) {
+        ApiModel res = ApiModel.fromJson(response);
+
+        return Right(res);
+      } else {
+        return Left(Failure(response["message"].toString()));
+      }
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
+  Future<Either<Failure, ApiModel>> deleteProductItem({
+    required String id,
+  }) async {
+    var body = {"id": id};
+    try {
+      dynamic response =
+          await _apiServices.deleteApi(body, ProductUrl.deleteItem);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);

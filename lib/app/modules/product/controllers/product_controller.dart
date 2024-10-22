@@ -15,6 +15,7 @@ import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/p
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/product_category/pro_category_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/size/size_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/state/state_repository.dart';
+import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/utils.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -25,7 +26,7 @@ class ProductController extends GetxController {
   RxString error = ''.obs;
 
   RxList<ProductData> data = <ProductData>[].obs;
-  RxList<Datum> detailList = <Datum>[].obs;
+  RxList<ProductDetail> detailList = <ProductDetail>[].obs;
   RxList<SizeData> sizeList = <SizeData>[].obs;
   final formkey = GlobalKey<FormState>();
 
@@ -156,6 +157,8 @@ class ProductController extends GetxController {
     });
   }
 
+
+
   void getdetails() async {
     setRxRequestStatus(Status.loading);
     detailList.clear();
@@ -189,36 +192,57 @@ class ProductController extends GetxController {
     });
   }
 
-  // //edit
-  // void editClick(DesignationData data) async {
-  //   nameController = TextEditingController(text: data.designation);
-  //   editId = data.id.toString();
-  //   Get.rootDelegate.toNamed(Routes.designationAdd);
-  // }
+  //edit
+  void editClick(ProductData data) async {
+    productId = data.id!.toInt();
+    nameController = TextEditingController(text: data.product);
+    artnoController = TextEditingController(text: data.artNo);
+    sdMainCat =
+        DropDownModel(id: data.mainCategoryId.toString(), name: data.mainCategory);
+    sdCat = DropDownModel(id: data.categoryId.toString(), name: data.category);
+    sdConstruction = DropDownModel(
+        id: data.constructionId.toString(), name: data.construction);
+    sdBrand = DropDownModel(id: data.brandId.toString(), name: data.brand);
+    sdStatus = DropDownModel(id: data.status.toString(), name: data.status);
+    // data.newLaunch == 0 ? islaunchChecked = true : islaunchChecked = false;
 
-  // editDesignation() async {
-  //   isLoading(true);
-  //   final res =
-  //       await _repo.editDesignation(id: editId, name: nameController.text);
-  //   res.fold(
-  //     (failure) {
-  //       isLoading(false);
-  //       Utils.snackBar('Error', failure.message);
-  //       setError(error.toString());
-  //     },
-  //     (resData) {
-  //       if (resData.status!) {
-  //         isLoading(false);
-  //         Get.rootDelegate.toNamed(Routes.designation);
-  //         Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
+    editId = data.id.toString();
+    Get.rootDelegate.toNamed(Routes.productAdd);
+  }
 
-  //         get();
+  editProduct() async {
+    isLoading(true);
+    final addedItem = ProductAddModel(
+        id: editId,
+        name: nameController.text,
+        artNo: artnoController.text,
+        activeStatus: sdStatus.id,
+        brandId: sdBrand.id,
+        categoryId: sdCat.id,
+        constructionId: sdConstruction.id,
+        mainCategoryId: sdMainCat.id,
+        newLaunch: islaunchChecked.value == true ? '1' : '0');
+    final res = await _repo.updateProduct(data: addedItem);
+    res.fold(
+      (failure) {
+        isLoading(false);
+        Utils.snackBar('Error', failure.message);
+        setError(error.toString());
+      },
+      (resData) {
+        if (resData.status!) {
+          isLoading(false);
+          selectedTab.value = 1;
+          // Get.rootDelegate.toNamed(Routes.product);
+          Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
+          getdetails();
+          // get();
 
-  //         // clrValue();
-  //       }
-  //     },
-  //   );
-  // }
+          // clrValue();
+        }
+      },
+    );
+  }
 
   //add
 
@@ -267,7 +291,7 @@ class ProductController extends GetxController {
               mrp: int.tryParse(item.mrpController?.text ?? '0'),
               colorId: int.tryParse('${sdColor.id}'),
               isDisplay: 0,
-              size: int.tryParse('${item.size}'),
+              size: int.tryParse('${item.id}'),
               subCatId: int.tryParse('${sdSubCat.id}'),
               stock: int.tryParse(item.stockController?.text ?? '0'),
               stateId: int.tryParse('${sdState.id}'),
@@ -288,18 +312,64 @@ class ProductController extends GetxController {
       (resData) {
         if (resData.status!) {
           isLoading(false);
-          // productId = resData.data!.id.toString();
-          // selectedTab.value = 1;
 
           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
 
           getdetails();
-
+          update();
           // clrValue();
         }
       },
     );
   }
+
+  // void addProductItem() async {
+  //   isLoading(true);
+
+  //   final selectedItem =
+  //       sizeList.where((e) => e.isSelect.value == true).toList();
+
+  //   final addedItem = selectedItem.asMap().entries.map((entry) {
+  //     final index = entry.key;
+  //     final item = entry.value;
+  //     return ProductitemAddModel(
+  //       proId: productId,
+  //       status: statuses[index], // Get the status for each item
+  //       mrp: int.tryParse(item.mrpController?.text ?? '0'),
+  //       colorId: int.tryParse('${sdColor.id}'),
+  //       isDisplay: 0,
+  //       size: int.tryParse(item.id.toString()), // Make sure size is set
+  //       subCatId: int.tryParse('${sdSubCat.id}'),
+  //       stock: int.tryParse(item.stockController?.text ?? '0'),
+  //       stateId: int.tryParse('${sdState.id}'),
+  //       image1: "String.jpg",
+  //       image2: "String.jpg",
+  //       image3: "String.jpg",
+  //       image4: "String.jpg",
+  //       image5: "String.jpg",
+  //     );
+  //   }).toList();
+
+  //   final res = await _repo.addProductItem(data: addedItem);
+  //   res.fold(
+  //     (failure) {
+  //       isLoading(false);
+  //       Utils.snackBar('Error', failure.message);
+  //       setError(failure.toString());
+  //     },
+  //     (resData) {
+  //       if (resData.status!) {
+  //         isLoading(false);
+  //         Utils.snackBar('Success', resData.message ?? '', type: 'success');
+
+  //         // Refresh logic here
+  //         sizeList.clear(); // Clear or reset size list
+  //         getdetails();
+  //         update(); // Ensure the UI is rebuilt
+  //       }
+  //     },
+  //   );
+  // }
 
   //delete
   void delete(String id) async {
@@ -310,6 +380,18 @@ class ProductController extends GetxController {
     }, (resData) {
       Utils.snackBar('Product', resData.message!);
       get();
+    });
+  }
+
+  //delete
+  void deleteProductItem(String id) async {
+    final res = await _repo.deleteProductItem(id: id);
+    res.fold((failure) {
+      Utils.snackBar('Product Iteam Error', failure.message);
+      setError(error.toString());
+    }, (resData) {
+      Utils.snackBar('Product Item', resData.message!);
+      getdetails();
     });
   }
 

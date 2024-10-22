@@ -95,11 +95,14 @@ class ItemSelectTable extends StatelessWidget {
                             alignment: Alignment.center,
                             color: bgColor),
                         // Status radio buttons with individual Obx
+                        // //whether checkbox is clicked
+                        // item.status = active/inactive
                         Expanded(
                             child: ColumnWidget(
                                 text: Row(
                                   children: [
                                     RadioBox(
+                                     
                                       label: "Active",
                                       value: "Active",
                                       index: index,
@@ -109,6 +112,7 @@ class ItemSelectTable extends StatelessWidget {
                                     RadioBox(
                                       label: "Inactive",
                                       value: "Inactive",
+
                                       index: index,
                                       controller: controller,
                                     )

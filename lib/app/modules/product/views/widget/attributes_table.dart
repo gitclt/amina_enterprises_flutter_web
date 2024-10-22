@@ -127,12 +127,12 @@ class AttributesTable extends StatelessWidget {
                                     theamColor: AppColor.red);
 
                                 if (returnResponse == true) {
-                                  // controller
-                                  //     .delete(item.id.toString());
+                                  controller
+                                      .deleteProductItem(item.id.toString());
                                 }
                               },
                               edit: () async {
-                                // controller.editClick(item);
+                                //  controller.editClick(item);
                               },
                               color: bgColor,
                             ),

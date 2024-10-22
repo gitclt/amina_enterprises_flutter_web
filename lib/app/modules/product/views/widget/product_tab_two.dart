@@ -170,11 +170,11 @@ class ProductTabTwo extends GetView<ProductController> {
                       : size.width * 0.25,
                   onClick: () {
                     if (controller.formkey.currentState!.validate()) {
-                      if (controller.editId == '') {
-                        controller.addProductItem();
-                      } else {
-                        //  controller.edit();
-                      }
+                      // if (controller.editId == '') {
+                      controller.addProductItem();
+                      // } else {
+
+                      // }
                     }
                   },
                   label: controller.editId == '' ? 'Save' : 'Update',

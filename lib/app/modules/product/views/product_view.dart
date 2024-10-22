@@ -195,7 +195,7 @@ class ProductView extends GetView<ProductController> {
                                                 }
                                               },
                                               edit: () async {
-                                                // controller.editClick(item);
+                                               controller.editClick(item);
                                               },
                                               color: bgColor,
                                             )
