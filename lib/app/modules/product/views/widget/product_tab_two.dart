@@ -4,8 +4,8 @@ import 'package:amina_enterprises_flutter_web/app/common_widgets/svg_icons/svg_w
 import 'package:amina_enterprises_flutter_web/app/common_widgets/text/text_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/product/controllers/product_controller.dart';
-import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/attributes_select_table.dart';
-import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/attributes_table.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/pro_item_table_view.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/product_size_table.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 

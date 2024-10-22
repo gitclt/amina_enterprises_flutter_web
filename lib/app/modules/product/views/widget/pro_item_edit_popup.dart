@@ -178,27 +178,67 @@ class ProductEditPopup extends StatelessWidget {
                       },
                     ),
                    
-                    Obx(() => SizedBox(
-                          width: Responsive.isDesktop(context)
-                              ? size.width * 0.73 / 2
-                              : size.width * .8,
-                          height: size.height * 0.075,
-                          child: Row(
+               
+
+                      // Adding the custom radio buttons with checkbox-like style
+                    SizedBox(
+                      width: Responsive.isDesktop(context)
+                          ? size.width * 0.73 / 2
+                          : size.width * .8,
+                      height: size.height * 0.075,
+                      child: Obx(() => Row(
                             children: [
-                              Checkbox(
-                                activeColor: AppColor.primary,
-                                value: controller.islaunchChecked.value,
-                                onChanged: (value) {
-                                  controller.launchCheckbox();
+                              // Active radio button (styled as checkbox)
+                              GestureDetector(
+                                onTap: () {
+                                  controller.isActive.value = true;
+                                  
                                 },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      controller.isActive.value
+                                          ? Icons.check_box
+                                          : Icons.check_box_outline_blank,
+                                      color: controller.isActive.value
+                                          ? AppColor.primary
+                                          : Colors.grey,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    const Text(
+                                      'Active',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              const SizedBox(
-                                width: 5,
+                              const SizedBox(width: 20),
+                              // Inactive radio button (styled as checkbox)
+                              GestureDetector(
+                                onTap: () {
+                                  controller.isActive.value = false;
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      !controller.isActive.value
+                                          ? Icons.check_box
+                                          : Icons.check_box_outline_blank,
+                                      color: !controller.isActive.value
+                                          ? AppColor.primary
+                                          : Colors.grey,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    const Text(
+                                      'Inactive',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              const Text('New Launch')
                             ],
-                          ),
-                        )),
+                          )),
+                    ),
                     SizedBox(
                       height: size.height * 0.03,
                     ),

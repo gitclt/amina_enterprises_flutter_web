@@ -87,7 +87,8 @@ class AttributesTable extends StatelessWidget {
                             color: bgColor,
                           ),
                           ColumnWidget(
-                              text: columnText(item.subcategory ?? '', fontSize),
+                              text:
+                                  columnText(item.subcategory ?? '', fontSize),
                               width: size.width * 0.1,
                               alignment: Alignment.center,
                               color: bgColor),
@@ -135,7 +136,6 @@ class AttributesTable extends StatelessWidget {
                               edit: () async {
                                 await controller.editIteamClick(item);
                                 showDialog(
-                                   
                                     context: context,
                                     builder: (_) {
                                       return ProductEditPopup(

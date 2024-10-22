@@ -38,6 +38,7 @@ class ProductController extends GetxController {
   // Define an observable boolean for the checkbox state
   var isChecked = false.obs;
   var islaunchChecked = false.obs;
+  var isActive = false.obs;
 
   // Toggle the checkbox value
   void toggleCheckbox() {
@@ -206,7 +207,7 @@ class ProductController extends GetxController {
         id: data.constructionId.toString(), name: data.construction);
     sdBrand = DropDownModel(id: data.brandId.toString(), name: data.brand);
     sdStatus = DropDownModel(id: data.status.toString(), name: data.status);
-    // data.newLaunch == 0 ? islaunchChecked = true : islaunchChecked = false;
+    data.newLaunch == 1 ? islaunchChecked.value = true : false;
 
     editId = data.id.toString();
     Get.rootDelegate.toNamed(Routes.productAdd);
@@ -218,7 +219,7 @@ class ProductController extends GetxController {
         id: editId,
         name: nameController.text,
         artNo: artnoController.text,
-        activeStatus: sdStatus.id,
+        activeStatus: sdStatus.name,
         brandId: sdBrand.id,
         categoryId: sdCat.id,
         constructionId: sdConstruction.id,
@@ -289,7 +290,7 @@ class ProductController extends GetxController {
     final addedItem = selectedItem
         .map((item) => ProductitemAddModel(
               proId: productId,
-              status: sdStatus.name,
+              status: item.status!.value == true ? 'Active' : 'Inactive',
               mrp: int.tryParse(item.mrpController?.text ?? '0'),
               colorId: int.tryParse('${sdColor.id}'),
               isDisplay: 0,
@@ -337,6 +338,8 @@ class ProductController extends GetxController {
     stockController = TextEditingController(text: data.stock.toString());
     sdSize = DropDownModel(id: data.sizeId.toString(), name: data.size);
     editId = data.id.toString();
+    sdState = DropDownModel(id: data.stateId.toString(), name: data.state);
+
   }
 
   editProductItem() async {
@@ -357,7 +360,8 @@ class ProductController extends GetxController {
       proId: productId,
       stateId: int.tryParse('${sdState.id}'),
       subCatId: int.tryParse('${sdSubCat.id}'),
-      status: sdStatus.name,
+      status: isActive.value == true ? 'Active' : 'Inactive',
+      // status: sdStatus.name,
       isDisplay: 0,
       image1: "String.jpg",
       image2: "String.jpg",
@@ -379,6 +383,7 @@ class ProductController extends GetxController {
           isLoading(false);
           selectedTab.value = 1;
           // Get.rootDelegate.toNamed(Routes.product);
+          Get.back();
           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
           getdetails();
           // get();
@@ -389,53 +394,7 @@ class ProductController extends GetxController {
     );
   }
 
-  // void addProductItem() async {
-  //   isLoading(true);
-
-  //   final selectedItem =
-  //       sizeList.where((e) => e.isSelect.value == true).toList();
-
-  //   final addedItem = selectedItem.asMap().entries.map((entry) {
-  //     final index = entry.key;
-  //     final item = entry.value;
-  //     return ProductitemAddModel(
-  //       proId: productId,
-  //       status: statuses[index], // Get the status for each item
-  //       mrp: int.tryParse(item.mrpController?.text ?? '0'),
-  //       colorId: int.tryParse('${sdColor.id}'),
-  //       isDisplay: 0,
-  //       size: int.tryParse(item.id.toString()), // Make sure size is set
-  //       subCatId: int.tryParse('${sdSubCat.id}'),
-  //       stock: int.tryParse(item.stockController?.text ?? '0'),
-  //       stateId: int.tryParse('${sdState.id}'),
-  //       image1: "String.jpg",
-  //       image2: "String.jpg",
-  //       image3: "String.jpg",
-  //       image4: "String.jpg",
-  //       image5: "String.jpg",
-  //     );
-  //   }).toList();
-
-  //   final res = await _repo.addProductItem(data: addedItem);
-  //   res.fold(
-  //     (failure) {
-  //       isLoading(false);
-  //       Utils.snackBar('Error', failure.message);
-  //       setError(failure.toString());
-  //     },
-  //     (resData) {
-  //       if (resData.status!) {
-  //         isLoading(false);
-  //         Utils.snackBar('Success', resData.message ?? '', type: 'success');
-
-  //         // Refresh logic here
-  //         sizeList.clear(); // Clear or reset size list
-  //         getdetails();
-  //         update(); // Ensure the UI is rebuilt
-  //       }
-  //     },
-  //   );
-  // }
+  
 
   //delete
   void delete(String id) async {

@@ -1,5 +1,4 @@
 import 'package:amina_enterprises_flutter_web/app/common_widgets/container/check_box_button.dart';
-import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/active_status_button.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/table/column_header_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/table/column_widget.dart';
 
@@ -94,33 +93,64 @@ class ItemSelectTable extends StatelessWidget {
                             width: size.width * 0.1,
                             alignment: Alignment.center,
                             color: bgColor),
-                        // Status radio buttons with individual Obx
-                        // //whether checkbox is clicked
-                        // item.status = active/inactive
                         Expanded(
-                            child: ColumnWidget(
-                                text: Row(
-                                  children: [
-                                    RadioBox(
-                                     
-                                      label: "Active",
-                                      value: "Active",
-                                      index: index,
-                                      controller: controller,
+                          child: ColumnWidget(
+                            text: Obx(
+                              () => Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      item.status!.value = true;
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          item.status!.value
+                                              ? Icons.check_box
+                                              : Icons.check_box_outline_blank,
+                                          color: item.status!.value
+                                              ? AppColor.primary
+                                              : Colors.grey,
+                                        ),
+                                        const SizedBox(width: 8),
+                                        const Text(
+                                          'Active',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                      ],
                                     ),
-                                    const SizedBox(height: 10),
-                                    RadioBox(
-                                      label: "Inactive",
-                                      value: "Inactive",
-
-                                      index: index,
-                                      controller: controller,
-                                    )
-                                  ],
-                                ),
-                                width: size.width * 0.1,
-                                alignment: Alignment.center,
-                                color: bgColor)),
+                                  ),
+                                  const SizedBox(width: 20),
+                                  GestureDetector(
+                                    onTap: () {
+                                      item.status!.value = false;
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          !item.status!.value
+                                              ? Icons.check_box
+                                              : Icons.check_box_outline_blank,
+                                          color: !item.status!.value
+                                              ? AppColor.primary
+                                              : Colors.grey,
+                                        ),
+                                        const SizedBox(width: 8),
+                                        const Text(
+                                          'Inactive',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            width: size.width * 0.1,
+                            alignment: Alignment.center,
+                            color: bgColor,
+                          ),
+                        ),
                       ],
                     )
                   ],
