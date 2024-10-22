@@ -339,17 +339,12 @@ class ProductController extends GetxController {
     sdSize = DropDownModel(id: data.sizeId.toString(), name: data.size);
     editId = data.id.toString();
     sdState = DropDownModel(id: data.stateId.toString(), name: data.state);
-
   }
 
   editProductItem() async {
     isLoading(true);
-//  final selectedItem =
-//         sizeList.where((e) => e.isSelect.value == true).toList();
-    final addedItem =
-        //  selectedItem
-//         .map((item) =>
-        ProductitemAddModel(
+
+    final addedItem = ProductitemAddModel(
       id: editId,
       colorId: int.tryParse(
         sdColor.id.toString(),
@@ -361,7 +356,6 @@ class ProductController extends GetxController {
       stateId: int.tryParse('${sdState.id}'),
       subCatId: int.tryParse('${sdSubCat.id}'),
       status: isActive.value == true ? 'Active' : 'Inactive',
-      // status: sdStatus.name,
       isDisplay: 0,
       image1: "String.jpg",
       image2: "String.jpg",
@@ -369,8 +363,7 @@ class ProductController extends GetxController {
       image4: "String.jpg",
       image5: "String.jpg",
     );
-    //  )
-    //   .toList();
+
     final res = await _repo.editProductItem(data: addedItem);
     res.fold(
       (failure) {
@@ -393,8 +386,6 @@ class ProductController extends GetxController {
       },
     );
   }
-
-  
 
   //delete
   void delete(String id) async {
@@ -568,6 +559,9 @@ class ProductController extends GetxController {
     editId = '';
     nameController.clear();
     artnoController.clear();
+    mrpController.clear();
+    stockController.clear();
+    detailList.clear();
     sdStatus = DropDownModel(); // Reset selected dropdowns
     sdMainCat = DropDownModel();
     sdCat = DropDownModel();

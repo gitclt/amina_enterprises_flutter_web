@@ -9,11 +9,7 @@ class ProductUrl {
 
   //product detail
   static String productDetailsview = '$baseUrl/Product_item_/product_item_view';
-  // static String productDetailsadd = '$baseUrl/Product/product_add';
    static String productDetailsedit = '$baseUrl/Product_item_/Edit_item';
-  // static String productDetailsdelete = '$baseUrl/Product/Delete_product';
-
-  //product item
   static String proAddItem = '$baseUrl/Product_item_/product_item_add';
    static String deleteItem = '$baseUrl/Product_item_/Delete_productitem';
 }
