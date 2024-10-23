@@ -41,8 +41,10 @@ abstract class Routes {
       _Paths.home + _Paths.mainCategory + _Paths.mainCategoryAdd;
   static const division = _Paths.home + _Paths.division;
   static const divisionAdd = _Paths.home + _Paths.division + _Paths.divisionAdd;
-  static const product =  _Paths.home + _Paths.product;
-    static const productAdd = _Paths.home + _Paths.product + _Paths.productAdd;
+  static const product = _Paths.home + _Paths.product;
+  static const productAdd = _Paths.home + _Paths.product + _Paths.productAdd;
+  static const size =_Paths.home  + _Paths.size;
+  static const sizeAdd = _Paths.home + _Paths.size + _Paths.sizeAdd;
 }
 
 abstract class _Paths {
@@ -81,4 +83,6 @@ abstract class _Paths {
   static const divisionAdd = '/division';
   static const product = '/product';
   static const productAdd = '/product-add';
+  static const size = '/size';
+  static const sizeAdd = '/size-add';
 }

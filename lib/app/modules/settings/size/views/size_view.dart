@@ -3,7 +3,6 @@ import 'package:amina_enterprises_flutter_web/app/common_widgets/container/simpl
 import 'package:amina_enterprises_flutter_web/app/common_widgets/general_exception.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/internet_exceptions_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/padding/common_padding.dart';
-import 'package:amina_enterprises_flutter_web/app/common_widgets/pagination/pagination_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/popup/common_popup.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/shimmer/table_loader.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/table/column_header_widget.dart';
@@ -17,10 +16,10 @@ import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../controllers/product_controller.dart';
+import '../controllers/size_controller.dart';
 
-class ProductView extends GetView<ProductController> {
-  const ProductView({super.key});
+class SizeView extends GetView<SizeController> {
+  const SizeView({super.key});
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -31,18 +30,20 @@ class ProductView extends GetView<ProductController> {
         child: Column(
           children: [
             HomeAppBar(
-              title: 'Settings / Product / View',
-              onClick: () {
-                controller.clear();
-                Get.rootDelegate.toNamed(Routes.productAdd);
+              title: 'Settings / Product Size / View',
+              onClick: () async {
+                 controller.clear();
+
+                Get.rootDelegate.toNamed(Routes.sizeAdd);
               },
               label: 'add_new'.tr,
             ),
+            10.height,
             Obx(() {
               switch (controller.rxRequestStatus.value) {
                 case Status.loading:
                   return SizedBox(
-                    height: size.height * 0.4,
+                    height: size.height * 0.5,
                     child: ShimmerBuilder(
                       rowCount: 10,
                       sizes: [
@@ -76,46 +77,31 @@ class ProductView extends GetView<ProductController> {
                 case Status.completed:
                   return PageContainer(
                     child: Column(
-                      // crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          // crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ColumnHeaderWidget(
-                              width: size.width * 0.05,
+                              width: size.width * 0.1,
                               label: 'Sl No.',
                             ),
+                            ColumnHeaderWidget(
+                              label: 'Size',
+                              width: size.width * 0.3,
+                            ),
+                            ColumnHeaderWidget(
+                              label: 'Product Category',
+                              width: size.width * 0.3,
+                            ),
                             Expanded(
-                              child: ColumnHeaderWidget(
-                                label: 'Name',
-                                width: size.width * 0.3,
-                              ),
-                            ),
-                            ColumnHeaderWidget(
-                              label: 'Category',
-                              width: size.width * 0.15,
-                            ),
-                            ColumnHeaderWidget(
-                              label: 'Construction',
-                              width: size.width * 0.15,
-                            ),
-                            ColumnHeaderWidget(
-                              label: 'Art no.',
-                              width: size.width * 0.1,
-                            ),
-                            ColumnHeaderWidget(
-                              label: 'Brand',
-                              width: size.width * 0.15,
-                            ),
-                            ColumnHeaderWidget(
+                                child: ColumnHeaderWidget(
                               label: '',
-                              width: size.width * 0.10,
-                            )
+                              width: size.width * 0.5,
+                            ))
                           ],
                         ),
                         SingleChildScrollView(
                           child: SizedBox(
-                            height: size.height * 0.53,
+                            height: size.height * 0.55,
                             child: Obx(
                               () => ListView.builder(
                                   itemCount: controller.data.length,
@@ -138,66 +124,46 @@ class ProductView extends GetView<ProductController> {
                                                 fontSize,
                                               ),
                                               alignment: Alignment.center,
-                                              width: size.width * 0.05,
+                                              width: size.width * 0.1,
                                               color: bgColor,
                                             ),
+                                            ColumnWidget(
+                                                text: columnText(
+                                                    item.size ?? '', fontSize),
+                                                width: size.width * 0.3,
+                                                alignment: Alignment.center,
+                                                color: bgColor),
+                                            ColumnWidget(
+                                                text: columnText(
+                                                    item.procCategory ?? '',
+                                                    fontSize),
+                                                width: size.width * 0.3,
+                                                alignment: Alignment.center,
+                                                color: bgColor),
                                             Expanded(
-                                              child: ColumnWidget(
-                                                  text: columnText(
-                                                      item.product ?? '',
-                                                      fontSize),
-                                                  width: size.width * 0.3,
-                                                  alignment:
-                                                      Alignment.centerLeft,
-                                                  color: bgColor),
-                                            ),
-                                            ColumnWidget(
-                                                text: columnText(
-                                                    item.proCat ?? '',
-                                                    fontSize),
-                                                width: size.width * 0.15,
-                                                alignment: Alignment.centerLeft,
-                                                color: bgColor),
-                                            ColumnWidget(
-                                                text: columnText(
-                                                    item.construction ?? '',
-                                                    fontSize),
-                                                width: size.width * 0.15,
-                                                alignment: Alignment.centerLeft,
-                                                color: bgColor),
-                                            ColumnWidget(
-                                                text: columnText(
-                                                    item.artNo ?? '', fontSize),
-                                                width: size.width * 0.1,
-                                                alignment: Alignment.centerLeft,
-                                                color: bgColor),
-                                            ColumnWidget(
-                                                text: columnText(
-                                                    item.brand ?? '', fontSize),
-                                                width: size.width * 0.15,
-                                                alignment: Alignment.centerLeft,
-                                                color: bgColor),
-                                            IconsColumnWidget(
-                                              width: size.width * 0.10,
-                                              delete: () async {
-                                                dynamic returnResponse =
-                                                    await commonDialog(
-                                                        title: "Delete",
-                                                        subTitle:
-                                                            "Are you sure want to delete this item?",
-                                                        titleIcon: Icons.delete,
-                                                        theamColor:
-                                                            AppColor.red);
+                                              child: IconsColumnWidget(
+                                                width: size.width * 0.5,
+                                                delete: () async {
+                                                  dynamic returnResponse =
+                                                      await commonDialog(
+                                                          title: "Delete",
+                                                          subTitle:
+                                                              "Are you sure want to delete this item?",
+                                                          titleIcon:
+                                                              Icons.delete,
+                                                          theamColor:
+                                                              AppColor.red);
 
-                                                if (returnResponse == true) {
-                                                  controller.delete(
-                                                      item.id.toString());
-                                                }
-                                              },
-                                              edit: () async {
-                                               controller.editClick(item);
-                                              },
-                                              color: bgColor,
+                                                  if (returnResponse == true) {
+                                                    controller.delete(
+                                                        item.id.toString());
+                                                  }
+                                                },
+                                                edit: () async {
+                                                  controller.editClick(item);
+                                                },
+                                                color: bgColor,
+                                              ),
                                             )
                                           ],
                                         )
@@ -206,12 +172,7 @@ class ProductView extends GetView<ProductController> {
                                   }),
                             ),
                           ),
-                        ),
-                        10.height,
-                        Obx(() => PaginationWidget(
-                            totalPages: controller.totalPages.value,
-                            currentPage: controller.currentPage.value,
-                            onPageSelected: controller.changePage))
+                        )
                       ],
                     ),
                   );

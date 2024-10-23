@@ -79,7 +79,7 @@ class DropDown3Widget extends StatelessWidget {
               children: [
                 Container(
                   width: Responsive.isDesktop(context)
-                      ? width ?? size.width * 0.73 / 2
+                      ? width ?? size.width * 0.7 / 2
                       : size.width * .9,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),

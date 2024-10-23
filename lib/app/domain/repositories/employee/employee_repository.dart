@@ -73,7 +73,7 @@ class EmployeeRepository {
   }) async {
     var body = {"id": id};
     try {
-      dynamic response = await _apiServices.postApi(body, AppEmpUrl.delete);
+      dynamic response = await _apiServices.deleteApi(body, AppEmpUrl.delete);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);

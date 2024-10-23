@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
+import 'package:flutter/material.dart';
 
 class IconsColumnWidget extends StatelessWidget {
   final Color? color;
@@ -16,7 +16,7 @@ class IconsColumnWidget extends StatelessWidget {
     return Container(
       width: width,
       height: size.height * 0.053,
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         color: color,
         border: Border.all(color: AppColor.dividerColor, width: 1.0),
@@ -28,9 +28,9 @@ class IconsColumnWidget extends StatelessWidget {
               onTap: edit,
               child: Container(
                 width: Responsive.isDesktop(context)
-                    ? size.width * .018
+                    ? size.width * .02
                     : size.width * 0.025,
-                height: size.width * 0.040,
+                height: size.height * 0.05,
                 decoration: BoxDecoration(
                     color: AppColor.white,
                     border: Border.all(color: AppColor.dividerColor),

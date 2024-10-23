@@ -6,6 +6,7 @@ import 'package:amina_enterprises_flutter_web/app/common_widgets/table/column_wi
 import 'package:amina_enterprises_flutter_web/app/common_widgets/text/text_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/product/controllers/product_controller.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/pro_item_edit_popup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
@@ -64,13 +65,13 @@ class AttributesTable extends StatelessWidget {
           height: size.height * 0.1,
           child: Obx(
             () => ListView.builder(
-                itemCount: controller.data.length,
+                itemCount: controller.detailList.length,
                 itemBuilder: (context, index) {
                   const evenColor = Colors.white;
                   const oddColor = AppColor.boxBorderColor;
 
                   final bgColor = index % 2 == 0 ? oddColor : evenColor;
-                  final item = controller.data[index];
+                  final item = controller.detailList[index];
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -87,37 +88,32 @@ class AttributesTable extends StatelessWidget {
                           ),
                           ColumnWidget(
                               text:
-                                  columnText(item.productName ?? '', fontSize),
+                                  columnText(item.subcategory ?? '', fontSize),
                               width: size.width * 0.1,
                               alignment: Alignment.center,
                               color: bgColor),
                           ColumnWidget(
-                              text:
-                                  columnText(item.productName ?? '', fontSize),
+                              text: columnText(item.color ?? '', fontSize),
                               width: size.width * 0.1,
                               alignment: Alignment.center,
                               color: bgColor),
                           ColumnWidget(
-                              text:
-                                  columnText(item.productName ?? '', fontSize),
+                              text: columnText(item.size ?? '', fontSize),
                               width: size.width * 0.1,
                               alignment: Alignment.center,
                               color: bgColor),
                           ColumnWidget(
-                              text:
-                                  columnText(item.productName ?? '', fontSize),
+                              text: columnText(item.mrp.toString(), fontSize),
                               width: size.width * 0.1,
                               alignment: Alignment.center,
                               color: bgColor),
                           ColumnWidget(
-                              text:
-                                  columnText(item.productName ?? '', fontSize),
+                              text: columnText(item.stock.toString(), fontSize),
                               width: size.width * 0.1,
                               alignment: Alignment.center,
                               color: bgColor),
                           ColumnWidget(
-                              text:
-                                  columnText(item.productName ?? '', fontSize),
+                              text: columnText(item.status ?? '', fontSize),
                               width: size.width * 0.1,
                               alignment: Alignment.center,
                               color: bgColor),
@@ -133,12 +129,20 @@ class AttributesTable extends StatelessWidget {
                                     theamColor: AppColor.red);
 
                                 if (returnResponse == true) {
-                                  // controller
-                                  //     .delete(item.id.toString());
+                                  controller
+                                      .deleteProductItem(item.id.toString());
                                 }
                               },
                               edit: () async {
-                                // controller.editClick(item);
+                                await controller.editIteamClick(item);
+                                showDialog(
+                                    context: context,
+                                    builder: (_) {
+                                      return ProductEditPopup(
+                                        onChange: () {},
+                                        controller: controller,
+                                      );
+                                    });
                               },
                               color: bgColor,
                             ),

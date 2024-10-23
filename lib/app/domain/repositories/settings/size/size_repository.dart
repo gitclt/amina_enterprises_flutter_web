@@ -1,23 +1,25 @@
 import 'dart:convert';
 
-import 'package:dartz/dartz.dart';
 import 'package:amina_enterprises_flutter_web/app/core/failure/failure.dart';
 import 'package:amina_enterprises_flutter_web/app/data/app_url/settings/settings_url.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/api_model.dart';
-import 'package:amina_enterprises_flutter_web/app/data/model/settings/sub_category/sub_category_list_model.dart';
+import 'package:amina_enterprises_flutter_web/app/data/model/settings/size/size_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/network/network_api_services.dart';
+import 'package:dartz/dartz.dart';
 
-class SubCategoryRepository {
-  final _apiServices = NetworkApiServices();
-//view
-  Future<Either<Failure, SubCategoryListModel>> getSubCategoryList(
-      {String? catId}) async {
+class SizeRepository extends NetworkApiServices {
+  // final _apiServices = NetworkApiServices();
+
+  Future<Either<Failure, ProductsizeModel>> getList(
+      // {
+      // String? stateId,
+      // }
+      ) async {
     try {
-      dynamic response = await _apiServices
-          .getApi("${SettingsUrl.subCategoryListApi}?cat_id=$catId");
+      dynamic response = await getApi(SettingsUrl.sizeListApi);
 
       if (response != null && response["status"] == true) {
-        SubCategoryListModel res = SubCategoryListModel.fromJson(response);
+        ProductsizeModel res = ProductsizeModel.fromJson(response);
 
         return Right(res);
       } else {
@@ -29,14 +31,13 @@ class SubCategoryRepository {
   }
 
   //add
-
-  Future<Either<Failure, ApiModel>> addSubCategory(
-      {required String name, required String catId}) async {
+  Future<Either<Failure, ApiModel>> add(
+      String size, String mainCatId, String catId) async {
     try {
-      var body = json.encode({"Name": name, "Cat_id": catId});
-
-      dynamic response = await _apiServices
-          .postApi(body, SettingsUrl.subCategoryAddApi, isJson: true);
+      var data = json
+          .encode({"size": size, "main_cat_id": mainCatId, "cat_id": catId});
+      dynamic response =
+          await postApi(data, SettingsUrl.sizeAddApi, isJson: true);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);
@@ -49,21 +50,15 @@ class SubCategoryRepository {
       return Left(Failure(e.toString()));
     }
   }
-  //edit
 
-  Future<Either<Failure, ApiModel>> editSubCategory({
-    required String id,
-    required String name,
-  }) async {
+  //edit
+  Future<Either<Failure, ApiModel>> edit(
+      String id, String size, String mainCatId, String catId) async {
     try {
-      var data = {
-        "id": id,
-        "name": name,
-      };
-      dynamic response = await _apiServices.postApi(
-        data,
-        SettingsUrl.subCategoryEditApi,
-      );
+      var data = json.encode(
+          {"id": id, "size": size, "main_cat_id": mainCatId, "cat_id": catId});
+      dynamic response =
+          await putApi(data, SettingsUrl.sizeEditApi, isJson: true);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);
@@ -78,13 +73,10 @@ class SubCategoryRepository {
   }
 
   //delete
-  Future<Either<Failure, ApiModel>> deleteSubCategory({
-    required String id,
-  }) async {
-    var body = {"id": id};
+  Future<Either<Failure, ApiModel>> delete({String? id}) async {
     try {
-      dynamic response =
-          await _apiServices.postApi(body, SettingsUrl.subCategoryDeleteApi);
+      var body = {"id": id};
+      dynamic response = await deleteApi(body, SettingsUrl.sizeDeleteApi);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);

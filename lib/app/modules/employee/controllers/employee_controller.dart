@@ -92,7 +92,7 @@ class EmployeeController extends GetxController {
       setRxRequestStatus(Status.completed);
       if (resData.data != null) {
         data.addAll(resData.data!);
-        totalPages.value = resData.totalPages ?? 1;
+        totalPages.value = (resData.totalPages ?? 1 / pageSize).ceil();
       }
     });
   }
@@ -324,10 +324,10 @@ class EmployeeController extends GetxController {
   void delete(String id) async {
     final res = await _repo.deleteEmployee(id: id);
     res.fold((failure) {
-      Utils.snackBar('Construction Error', failure.message);
+      Utils.snackBar('Employee Error', failure.message);
       setError(error.toString());
     }, (resData) {
-      Utils.snackBar('Construction', resData.message!);
+      Utils.snackBar('Employeee', resData.message!);
       get();
     });
   }

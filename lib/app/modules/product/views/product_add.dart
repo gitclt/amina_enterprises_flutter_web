@@ -1,6 +1,5 @@
 import 'package:amina_enterprises_flutter_web/app/common_widgets/appbar/common_home_appbar.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/container/simple_container.dart';
-
 import 'package:amina_enterprises_flutter_web/app/core/extention.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/product/controllers/product_controller.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/product_tab_one.dart';
@@ -28,57 +27,45 @@ class ProductAdd extends GetView<ProductController> {
               label: 'view_all'.tr,
               onClick: () {},
             ),
-            10.height,
             PageContainer(
-              child:
-          
-                   Form(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 15,
-                    left: 10,
-                    right: 10,
-                  ),
-                  child: 
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Custom Tab Navigation
-                      Row(
-                        children: List.generate(2, (index) {
-                          return GestureDetector(
-                            onTap: () {
-                              controller.changeTab(
-                                  index); // Method to change tab index
-                            },
-                            child: Obx(() => TittleCard(
-                                  label: controller.tablabel[index],
-                                  isSelected: controller.selectedTab.value ==
-                                      index, // Highlight if selected
-                                )),
-                          );
-                        }),
-                      ),
+              child: Form(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Custom Tab Navigation
+                    Row(
+                      children: List.generate(2, (index) {
+                        return GestureDetector(
+                          onTap: () {
+                            controller
+                                .changeTab(index); // Method to change tab index
+                          },
+                          child: Obx(() => TittleCard(
+                                label: controller.tablabel[index],
+                                isSelected: controller.selectedTab.value ==
+                                    index, // Highlight if selected
+                              )),
+                        );
+                      }),
+                    ),
 
-                      20.height,
+                    20.height,
 
-                      // Tab Content
-                      SizedBox(
-                        height: 500,
-                        child: Obx(() => IndexedStack(
-                              index: controller.selectedTab
-                                  .value, // Show selected tab content
-                              children: const [
-                                ProductTabOne(), // First Tab Content
-                                ProductTabTwo(), // Second Tab Content
-                              ],
-                            )),
-                      ),
-                    ],
-                  ),
+                    // Tab Content
+                    SizedBox(
+                      height: 500,
+                      child: Obx(() => IndexedStack(
+                            index: controller
+                                .selectedTab.value, // Show selected tab content
+                            children: const [
+                              ProductTabOne(), // First Tab Content
+                              ProductTabTwo(), // Second Tab Content
+                            ],
+                          )),
+                    ),
+                  ],
                 ),
               ),
-          
             ),
           ],
         ),

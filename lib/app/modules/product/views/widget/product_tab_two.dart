@@ -4,11 +4,11 @@ import 'package:amina_enterprises_flutter_web/app/common_widgets/svg_icons/svg_w
 import 'package:amina_enterprises_flutter_web/app/common_widgets/text/text_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/product/controllers/product_controller.dart';
-import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/attributes_select_table.dart';
-import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/attributes_table.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/pro_item_table_view.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/product_size_table.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:get/get.dart';
 
 class ProductTabTwo extends GetView<ProductController> {
@@ -18,7 +18,7 @@ class ProductTabTwo extends GetView<ProductController> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Form(
-      // key: controller.formkey,
+      key: controller.formkey1,
       child: SingleChildScrollView(
         physics: const ScrollPhysics(),
         child: Wrap(
@@ -29,7 +29,11 @@ class ProductTabTwo extends GetView<ProductController> {
                   : 50,
           runSpacing: 20,
           children: [
-            AttributesTable(controller: controller),
+            Obx(
+              () => controller.detailList.isEmpty
+                  ? const SizedBox()
+                  : AttributesTable(controller: controller),
+            ),
             Row(
               children: [
                 Container(
@@ -50,8 +54,8 @@ class ProductTabTwo extends GetView<ProductController> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          columnText('404', 20),
-                          boldText('Gents / V- Strap',
+                          columnText(controller.nameController.text, 20),
+                          boldText(controller.artnoController.text,
                               fontWeight: FontWeight.w400)
                         ],
                       )
@@ -94,20 +98,22 @@ class ProductTabTwo extends GetView<ProductController> {
                 return null;
               },
             ),
-            ItemSelectTable(
-              controller: controller,
-            ),
+            controller.sizeList.isEmpty
+                ? const SizedBox()
+                : ItemSelectTable(
+                    controller: controller,
+                  ),
             Row(
               children: [
                 DropDown3Widget(
                   label: 'State',
                   hint: '--Select State--',
                   selectedItem:
-                      controller.sdStatus.id == null ? null : controller.sdStatus,
-                  items: controller.statusDropList,
+                      controller.sdState.id == null ? null : controller.sdState,
+                  items: controller.stateDropList,
                   onChanged: (data) async {
                     if (data == null) return;
-                    controller.sdStatus = data;
+                    controller.sdState = data;
                   },
                   validator: (value) {
                     if (value == null) {
@@ -121,22 +127,60 @@ class ProductTabTwo extends GetView<ProductController> {
             SizedBox(
               height: size.height * 0.03,
             ),
-            CommonButton(
-              isLoading: controller.isLoading.value,
-              width: Responsive.isDesktop(context)
-                  ? size.width * .1
-                  : size.width * 0.25,
-              onClick: () {
-                if (controller.formkey.currentState!.validate()) {
-                  if (controller.editId == '') {
-                    controller.addProduct();
-                  } else {
-                    //  controller.edit();
-                  }
-                }
-              },
-              label: controller.editId == '' ? 'Save' : 'Update',
-            ).paddingOnly(right: 40),
+            InkWell(
+              onTap: () {},
+              child: Row(
+                children: [
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          const Text(
+                            'Upload Image',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: AppColor.textGrayColor,
+                            ),
+                          ),
+                          Text(
+                            '*',
+                            style: TextStyle(color: AppColor.primary),
+                          ).paddingOnly(left: 5)
+                        ],
+                      ),
+                    ],
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(color: AppColor.boxBorderColor)),
+                    child: svgWidget('assets/svg_icons/demmy_image.svg'),
+                  )
+                ],
+              ),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                CommonButton(
+                  isLoading: controller.isLoading.value,
+                  width: Responsive.isDesktop(context)
+                      ? size.width * .1
+                      : size.width * 0.25,
+                  onClick: () {
+                    if (controller.formkey.currentState!.validate()) {
+                      // if (controller.editId == '') {
+                      controller.addProductItem();
+                      // } else {
+
+                      // }
+                    }
+                  },
+                  label: controller.editId == '' ? 'Save' : 'Update',
+                ),
+              ],
+            )
           ],
         ),
       ),
