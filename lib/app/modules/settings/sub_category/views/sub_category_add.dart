@@ -43,22 +43,6 @@ class SubCategoryAdd extends GetView<SubCategoryController> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        AddTextFieldWidget(
-                          width: Responsive.isDesktop(context)
-                              ? size.width * 0.35
-                              : size.width * .32,
-                          textController: controller.nameController,
-                          label: 'Name',
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Enter  Name';
-                            }
-                            return null;
-                          },
-                        ).paddingOnly(left: 15),
-                        SizedBox(
-                          width: size.width * 0.035,
-                        ),
                         Obx(
                           () => DropDown3Widget(
                             label: 'Category',
@@ -80,6 +64,22 @@ class SubCategoryAdd extends GetView<SubCategoryController> {
                             },
                           ),
                         ),
+                        SizedBox(
+                          width: size.width * 0.035,
+                        ),
+                        AddTextFieldWidget(
+                          width: Responsive.isDesktop(context)
+                              ? size.width * 0.35
+                              : size.width * .32,
+                          textController: controller.nameController,
+                          label: 'Name',
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter  Name';
+                            }
+                            return null;
+                          },
+                        ).paddingOnly(left: 15),
                       ],
                     ),
                     CommonButton(
