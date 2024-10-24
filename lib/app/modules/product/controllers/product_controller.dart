@@ -136,7 +136,7 @@ class ProductController extends GetxController {
     getMainCat();
     getCat();
     getBrand();
-    getconstruction();
+    // getconstruction();
     getcolor();
     getSubcategory();
     getState();
@@ -204,10 +204,13 @@ class ProductController extends GetxController {
         id: data.mainCategoryId.toString(), name: data.mainCategory);
     sdCat = DropDownModel(id: data.categoryId.toString(), name: data.category);
     sdConstruction = DropDownModel(
-        id: data.constructionId.toString(), name: data.construction);
+      id: '1',// data.constructionId.toString(),
+      name: '',  //  data.construction
+    );
     sdBrand = DropDownModel(id: data.brandId.toString(), name: data.brand);
     sdStatus = DropDownModel(id: data.status.toString(), name: data.status);
     data.newLaunch == 1 ? islaunchChecked.value = true : false;
+    sdSubCat = DropDownModel(id: data.status, name: data.status);
 
     editId = data.id.toString();
     Get.rootDelegate.toNamed(Routes.productAdd);
@@ -222,7 +225,8 @@ class ProductController extends GetxController {
         activeStatus: sdStatus.name,
         brandId: sdBrand.id,
         categoryId: sdCat.id,
-        constructionId: sdConstruction.id,
+        constructionId: '1',
+        //  sdConstruction.id,
         mainCategoryId: sdMainCat.id,
         newLaunch: islaunchChecked.value == true ? '1' : '0');
     final res = await _repo.updateProduct(data: addedItem);
@@ -256,7 +260,8 @@ class ProductController extends GetxController {
         artNo: artnoController.text,
         brandId: sdBrand.id,
         categoryId: sdCat.id,
-        constructionId: sdConstruction.id,
+        constructionId: '1',
+        //  sdConstruction.id,
         mainCategoryId: sdMainCat.id,
         name: nameController.text,
         newLaunch: islaunchChecked.value == true ? '1' : '0');

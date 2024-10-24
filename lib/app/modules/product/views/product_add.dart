@@ -5,6 +5,7 @@ import 'package:amina_enterprises_flutter_web/app/modules/product/controllers/pr
 import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/product_tab_one.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/product_tab_two.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/tab_tittle_card.dart';
+import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,7 +26,9 @@ class ProductAdd extends GetView<ProductController> {
               title:
                   'Home / Product / ${controller.editId == '' ? 'Add' : 'Update'}',
               label: 'view_all'.tr,
-              onClick: () {},
+              onClick: () {
+                Get.rootDelegate.toNamed(Routes.product);
+              },
             ),
             PageContainer(
               child: Form(
@@ -58,8 +61,8 @@ class ProductAdd extends GetView<ProductController> {
                             index: controller
                                 .selectedTab.value, // Show selected tab content
                             children: const [
-                              ProductTabOne(), // First Tab Content
-                              ProductTabTwo(), // Second Tab Content
+                              ProductTabOne(), 
+                              ProductTabTwo(), 
                             ],
                           )),
                     ),

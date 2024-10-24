@@ -88,7 +88,7 @@ class DistrictRepository extends NetworkApiServices {
     var body = {"id": id};
     try {
       dynamic response =
-          await _apiServices.deleteApi(body, SettingsUrl.districtDeleteApi);
+          await _apiServices.postApi(body, SettingsUrl.districtDeleteApi);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);
