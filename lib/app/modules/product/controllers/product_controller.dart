@@ -204,14 +204,15 @@ class ProductController extends GetxController {
         id: data.mainCategoryId.toString(), name: data.mainCategory);
     sdCat = DropDownModel(id: data.categoryId.toString(), name: data.category);
     sdConstruction = DropDownModel(
-      id: '1',// data.constructionId.toString(),
-      name: '',  //  data.construction
+      id: '1', // data.constructionId.toString(),
+      name: '', //  data.construction
     );
     sdBrand = DropDownModel(id: data.brandId.toString(), name: data.brand);
     sdStatus = DropDownModel(id: data.status.toString(), name: data.status);
     data.newLaunch == 1 ? islaunchChecked.value = true : false;
-    sdSubCat = DropDownModel(id: data.status, name: data.status);
-
+    // sdSubCat = DropDownModel(id: data.subCatId.toString(), name: data.subCat);
+    // sdColor = DropDownModel(id: data.colorId.toString(), name: data.color);
+    // sdState = DropDownModel(id: data.stateId.toString(), name: data.stateName);
     editId = data.id.toString();
     Get.rootDelegate.toNamed(Routes.productAdd);
   }
