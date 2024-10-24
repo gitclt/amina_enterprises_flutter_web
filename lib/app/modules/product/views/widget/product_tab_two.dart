@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:amina_enterprises_flutter_web/app/common_widgets/button/common_button.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/dropdown/drop_down3_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/svg_icons/svg_widget.dart';
@@ -128,10 +130,13 @@ class ProductTabTwo extends GetView<ProductController> {
               height: size.height * 0.03,
             ),
             InkWell(
-              onTap: () {},
+              // onTap: () {
+              //   controller.pickImage();
+              // },
               child: Row(
                 children: [
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
@@ -148,14 +153,49 @@ class ProductTabTwo extends GetView<ProductController> {
                           ).paddingOnly(left: 5)
                         ],
                       ),
+                      SizedBox(
+                        height: size.height * 0.03,
+                      ),
+
+                      // Row(
+                      //   children: [
+                      //     ImageContainer(
+                      //         controller: controller, index: 1), // For image1
+                      //     ImageContainer(
+                      //         controller: controller, index: 2), // For image2
+                      //     ImageContainer(
+                      //         controller: controller, index: 3), // For image3
+                      //     ImageContainer(
+                      //         controller: controller, index: 4), // For image4
+                      //   ],
+                      // ),
+                      Row(
+                        children: [
+                          ImageContainer(
+                            controller: controller,
+                            ontap: () {
+                              controller.pickImage(1);
+                            },
+                          ),
+                          ImageContainer(controller: controller,
+                            ontap: () {
+                              controller.pickImage(2);
+                            },
+                          ),
+                          ImageContainer(controller: controller,
+                            ontap: () {
+                              controller.pickImage(3);
+                            },
+                          ),
+                          ImageContainer(controller: controller,
+                            ontap: () {
+                              controller.pickImage(4);
+                            },
+                          ),
+                        ],
+                      ),
                     ],
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        border: Border.all(color: AppColor.boxBorderColor)),
-                    child: svgWidget('assets/svg_icons/demmy_image.svg'),
-                  )
                 ],
               ),
             ),
@@ -187,3 +227,122 @@ class ProductTabTwo extends GetView<ProductController> {
     );
   }
 }
+
+class ImageContainer extends StatelessWidget {
+ final VoidCallback ontap;
+  const ImageContainer({
+    super.key,
+    required this.controller,
+    required this.ontap,
+  });
+
+  final ProductController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: InkWell(
+        onTap: ontap,
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(color: AppColor.boxBorderColor),
+          ),
+          child:
+           Obx(() {
+            if (GetPlatform.isWeb) {
+              // Show selected image bytes for web
+              if (controller.pickedFileBytes.value != null) {
+                return Image.memory(
+                  controller.pickedFileBytes.value!,
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.cover,
+                );
+              }
+            } else {
+              // Show selected image file for mobile/desktop
+              if (controller.pickedFilePath.value.isNotEmpty) {
+                return Image.file(
+                  File(controller.pickedFilePath.value),
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.cover,
+                );
+              }
+            }
+            // Default placeholder when no image is selected
+            return svgWidget('assets/svg_icons/demmy_image.svg', size: 100);
+          }),
+        ),
+      ),
+    );
+  }
+}
+
+// class ImageContainer extends StatelessWidget {
+//   final ProductController controller;
+//   final int index; // Pass the index to identify the image slot (1, 2, 3, or 4)
+
+//   const ImageContainer({
+//     Key? key,
+//     required this.controller,
+//     required this.index,
+//   }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//      String? imagePath = '';
+//     return Padding(
+//       padding: const EdgeInsets.all(8.0),
+//       child: GestureDetector(
+//         onTap: () {
+//           controller
+//               .pickImage(index); // Pass the index to pick the correct image
+//         },
+//         child: Container(
+//           padding: const EdgeInsets.all(10),
+//           decoration: BoxDecoration(
+//             borderRadius: BorderRadius.circular(4),
+//             border: Border.all(color: AppColor.boxBorderColor),
+//           ),
+//           child:
+//             Obx(() {
+//           //   String? imagePath = '';
+//           //   if (index == 1) imagePath = controller.imageName1;
+//           //   if (index == 2) imagePath = controller.imageName2;
+//           //   if (index == 3) imagePath = controller.imageName3;
+//           //   if (index == 4) imagePath = controller.imageName4;
+
+//             if (GetPlatform.isWeb) {
+//               // For web, check if bytes are available
+//               if (controller.pickedFileBytes.value != null) {
+//                 return Image.memory(
+//                   controller.pickedFileBytes.value!,
+//                   width: 100,
+//                   height: 100,
+//                   fit: BoxFit.cover,
+//                 );
+//               }
+//             } else {
+//               // For mobile/desktop, check if file path is available
+//               if (imagePath != null && imagePath.isNotEmpty) {
+//                 return Image.file(
+//                   File(imagePath),
+//                   width: 100,
+//                   height: 100,
+//                   fit: BoxFit.cover,
+//                 );
+//               }
+//             }
+
+//             // Default placeholder when no image is selected
+//             return svgWidget('assets/svg_icons/demmy_image.svg', size: 100);
+//           }),
+//         ),
+//       ),
+//     );
+//   }
+// }

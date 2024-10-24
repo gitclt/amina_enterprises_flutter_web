@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:amina_enterprises_flutter_web/app/constants/const_valus.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/product/pro_item_add_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/product/product_add_model.dart';
@@ -17,8 +21,10 @@ import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/s
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/state/state_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/utils.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ProductController extends GetxController {
   final rxRequestStatus = Status.completed.obs;
@@ -74,6 +80,16 @@ class ProductController extends GetxController {
   final int pageSize = 10;
   var currentPage = 1.obs;
   var totalPages = 1.obs;
+  String imageName1 = '';
+  String imageName2 = '';
+  String imageName3 = '';
+  String imageName4 = '';
+
+  var pickedFilePath = ''.obs;
+  var pickedFileBytes = Rx<Uint8List?>(null); // For web platform
+  var encodedData = ''.obs; // Base64 encoded image
+  // Uint8List? pickedImageBytes;
+  // String encodedData = '';
 
 //repositoy
   final _repo = ProductRepository();
@@ -210,9 +226,7 @@ class ProductController extends GetxController {
     sdBrand = DropDownModel(id: data.brandId.toString(), name: data.brand);
     sdStatus = DropDownModel(id: data.status.toString(), name: data.status);
     data.newLaunch == 1 ? islaunchChecked.value = true : false;
-    // sdSubCat = DropDownModel(id: data.subCatId.toString(), name: data.subCat);
-    // sdColor = DropDownModel(id: data.colorId.toString(), name: data.color);
-    // sdState = DropDownModel(id: data.stateId.toString(), name: data.stateName);
+
     editId = data.id.toString();
     Get.rootDelegate.toNamed(Routes.productAdd);
   }
@@ -289,44 +303,117 @@ class ProductController extends GetxController {
     );
   }
 
+//   void addProductItem() async {
+//     isLoading(true);
+//     final selectedItem =
+//         sizeList.where((e) => e.isSelect.value == true).toList();
+//     final addedItem = selectedItem
+//         .map((item) => ProductitemAddModel(
+//               proId: productId,
+//               status: item.status!.value == true ? 'Active' : 'Inactive',
+//               mrp: int.tryParse(item.mrpController?.text ?? '0'),
+//               colorId: int.tryParse('${sdColor.id}'),
+//               isDisplay: 0,
+//               size: int.tryParse('${item.id}'),
+//               subCatId: int.tryParse('${sdSubCat.id}'),
+//               stock: int.tryParse(item.stockController?.text ?? '0'),
+//               stateId: int.tryParse('${sdState.id}'),
+//               image1: imageName,
+//               image2: "String.jpg",
+//               image3: "String.jpg",
+//               image4: "String.jpg",
+//               image5: "String.jpg",
+//             ))
+//         .toList();
+//     final res = await _repo.addProductItem(data: addedItem);
+//     res.fold(
+//       (failure) {
+//         isLoading(false);
+//         Utils.snackBar('Error', failure.message);
+//         setError(error.toString());
+//       },
+//       (resData) {
+//         if (resData.status!) {
+//           isLoading(false);
+//           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
+//  _repo.uploadToServerImage(
+//                 data: encodedData.value,
+//                 imagename: imageName);
+//     res.fold(
+//       (failure) {
+//         isLoading(false);
+//         Utils.snackBar('Error', failure.message);
+//         setError(error.toString());
+//       },
+//       (resData) {
+//         if (resData.status!) {
+//           isLoading(false);
+//           Get.rootDelegate.toNamed(Routes.brand);
+//           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
+//         }
+//       },
+//     );
+//           getdetails();
+//           update();
+//           // clrValue();
+//         }
+//       },
+//     );
+//   }
+
   void addProductItem() async {
     isLoading(true);
     final selectedItem =
         sizeList.where((e) => e.isSelect.value == true).toList();
-    final addedItem = selectedItem
-        .map((item) => ProductitemAddModel(
-              proId: productId,
-              status: item.status!.value == true ? 'Active' : 'Inactive',
-              mrp: int.tryParse(item.mrpController?.text ?? '0'),
-              colorId: int.tryParse('${sdColor.id}'),
-              isDisplay: 0,
-              size: int.tryParse('${item.id}'),
-              subCatId: int.tryParse('${sdSubCat.id}'),
-              stock: int.tryParse(item.stockController?.text ?? '0'),
-              stateId: int.tryParse('${sdState.id}'),
-              image1: "String.jpg",
-              image2: "String.jpg",
-              image3: "String.jpg",
-              image4: "String.jpg",
-              image5: "String.jpg",
-            ))
-        .toList();
+
+    final addedItem = selectedItem.map((item) {
+      return ProductitemAddModel(
+        proId: productId,
+        status: item.status!.value == true ? 'Active' : 'Inactive',
+        mrp: int.tryParse(item.mrpController?.text ?? '0'),
+        colorId: int.tryParse('${sdColor.id}'),
+        isDisplay: 0,
+        size: int.tryParse('${item.id}'),
+        subCatId: int.tryParse('${sdSubCat.id}'),
+        stock: int.tryParse(item.stockController?.text ?? '0'),
+        stateId: int.tryParse('${sdState.id}'),
+        image1: imageName1,
+        image2: imageName2,
+        image3: imageName3,
+        image4: imageName4,
+      );
+    }).toList();
+
     final res = await _repo.addProductItem(data: addedItem);
+
     res.fold(
       (failure) {
         isLoading(false);
         Utils.snackBar('Error', failure.message);
-        setError(error.toString());
+        setError(failure.message);
       },
       (resData) {
         if (resData.status!) {
           isLoading(false);
 
-          Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
-
-          getdetails();
-          update();
-          // clrValue();
+          _repo.uploadToServerImage(
+              data: encodedData.value, imagename: imageName1);
+          // print("data::${encodedData.value}");
+          res.fold(
+            (failure) {
+              isLoading(false);
+              Utils.snackBar('Error', failure.message);
+            },
+            (resData) {
+              if (resData.status!) {
+                // Get.rootDelegate.toNamed(Routes.);
+                Utils.snackBar('Success', resData.message ?? '',
+                    type: 'success');
+                getdetails();
+                update();
+              }
+            },
+          );
         }
       },
     );
@@ -560,6 +647,71 @@ class ProductController extends GetxController {
       }
     });
   }
+
+  // //image  Pic
+
+
+
+  void pickImage(int imageIndex) async {
+    String dateFormat = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
+    if (GetPlatform.isWeb) {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.image,
+        allowMultiple: false,
+      );
+
+      if (result != null) {
+        pickedFileBytes.value = result.files.single.bytes;
+        pickedFilePath.value = result.files.single.name;
+        PlatformFile file = result.files.first;
+
+        // Set imageName based on the image index
+        if (imageIndex == 1) {
+          imageName1 = "$dateFormat.${file.name.split('.').last}";
+        } else if (imageIndex == 2) {
+          imageName2 = "$dateFormat.${file.name.split('.').last}";
+        } else if (imageIndex == 3) {
+          imageName3 = "$dateFormat.${file.name.split('.').last}";
+        } else if (imageIndex == 4) {
+          imageName4 = "$dateFormat.${file.name.split('.').last}";
+        }
+
+        encodedData.value = base64Encode(pickedFileBytes.value!);
+      } else {
+        pickedFilePath.value = '';
+      }
+    } else {
+      // Handle file picking for mobile/desktop
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.image,
+        allowMultiple: false,
+      );
+
+      if (result != null) {
+        pickedFilePath.value = result.files.single.path!;
+        var pickedImageBytes = await File(pickedFilePath.value).readAsBytes();
+
+        // Set imageName based on the image index
+        if (imageIndex == 1) {
+          imageName1 = "$dateFormat.${pickedFilePath.value.split('.').last}";
+        } else if (imageIndex == 2) {
+          imageName2 = "$dateFormat.${pickedFilePath.value.split('.').last}";
+        } else if (imageIndex == 3) {
+          imageName3 = "$dateFormat.${pickedFilePath.value.split('.').last}";
+        } else if (imageIndex == 4) {
+          imageName4 = "$dateFormat.${pickedFilePath.value.split('.').last}";
+        }
+
+        encodedData.value = base64Encode(pickedImageBytes);
+      } else {
+        pickedFilePath.value = '';
+      }
+    }
+  }
+
+
+  
 
   clear() {
     editId = '';
