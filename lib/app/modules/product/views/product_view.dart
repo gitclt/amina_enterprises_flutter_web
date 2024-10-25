@@ -34,6 +34,8 @@ class ProductView extends GetView<ProductController> {
               title: 'Settings / Product / View',
               onClick: () {
                 controller.clear();
+                controller.isIndex.value = 0;
+                controller.tabcontroller.animateTo(0);
                 Get.rootDelegate.toNamed(Routes.productAdd);
               },
               label: 'add_new'.tr,

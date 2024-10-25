@@ -22,11 +22,12 @@ import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/s
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/utils.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class ProductController extends GetxController {
+class ProductController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   final rxRequestStatus = Status.completed.obs;
 
   RxString error = ''.obs;
@@ -36,6 +37,8 @@ class ProductController extends GetxController {
   RxList<SizeData> sizeList = <SizeData>[].obs;
   final formkey = GlobalKey<FormState>();
 
+  var isIndex = 0.obs;
+  late TabController tabcontroller;
   final formkey1 = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController artnoController = TextEditingController();
@@ -136,7 +139,7 @@ class ProductController extends GetxController {
   DropDownModel sdSize = DropDownModel();
   RxList<DropDownModel> sizeDropList = <DropDownModel>[].obs;
 
-  var selectedTab = 0.obs;
+  // var selectedTab = 0.obs;
   // selectedTab.animateTo(1);
 
   List<String> tablabel = ['Basic Information', 'Attributes'];
@@ -148,13 +151,14 @@ class ProductController extends GetxController {
     }
   }
 
-  void changeTab(int index) {
-    selectedTab.value = index;
-  }
+  // void changeTab(int index) {
+  //   selectedTab.value = index;
+  // }
 
   @override
   void onInit() {
     get();
+    tabcontroller = TabController(vsync: this, length: 2);
     initialValues();
     super.onInit();
   }
@@ -248,11 +252,13 @@ class ProductController extends GetxController {
 
   editProduct() async {
     isLoading(true);
+    isIndex.value = 0;
+    tabcontroller.animateTo(0);
     final addedItem = ProductAddModel(
         id: editId,
         name: nameController.text,
         artNo: artnoController.text,
-        activeStatus: sdStatus.name,
+        status: sdStatus.name,
         brandId: sdBrand.id,
         categoryId: sdCat.id,
         constructionId: '1',
@@ -269,7 +275,9 @@ class ProductController extends GetxController {
       (resData) {
         if (resData.status!) {
           isLoading(false);
-          selectedTab.value = 1;
+          isIndex.value = 1;
+          tabcontroller.animateTo(1);
+          // selectedTab.value = 1;
           // Get.rootDelegate.toNamed(Routes.product);
           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
           getdetails();
@@ -286,7 +294,7 @@ class ProductController extends GetxController {
   void addProduct() async {
     isLoading(true);
     final addedItem = ProductAddModel(
-        activeStatus: sdStatus.id,
+        status: sdStatus.id,
         artNo: artnoController.text,
         brandId: sdBrand.id,
         categoryId: sdCat.id,
@@ -306,8 +314,8 @@ class ProductController extends GetxController {
         if (resData.status!) {
           isLoading(false);
           productId = resData.data!.id!;
-          selectedTab.value = 1;
-
+          isIndex.value = 1;
+          tabcontroller.animateTo(1);
           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
 
           getdetails();
@@ -417,7 +425,7 @@ class ProductController extends GetxController {
             {"img": encodedData4.value, "imgName": imageName4},
           ];
           _repo.uploadToServerImage(images: images);
-          print("data::${images}");
+          
           res.fold(
             (failure) {
               isLoading(false);
@@ -456,7 +464,6 @@ class ProductController extends GetxController {
     pickedFilePath2.value = data.image2Url ?? '';
     pickedFilePath3.value = data.image3Url ?? '';
     pickedFilePath4.value = data.image4Url ?? '';
-
   }
 
   editProductItem() async {
@@ -492,7 +499,7 @@ class ProductController extends GetxController {
       (resData) {
         if (resData.status!) {
           isLoading(false);
-          selectedTab.value = 1;
+          // selectedTab.value = 1;
           // Get.rootDelegate.toNamed(Routes.product);
           Get.back();
           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');

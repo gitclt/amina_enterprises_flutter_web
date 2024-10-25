@@ -40,7 +40,7 @@ class ProductTabTwo extends GetView<ProductController> {
               children: [
                 Container(
                   padding: const EdgeInsets.all(15),
-                  width: size.width * 0.13,
+                  // width: size.width * 0.13,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(color: AppColor.boxBorderColor)),
@@ -126,9 +126,9 @@ class ProductTabTwo extends GetView<ProductController> {
                 ),
               ],
             ),
-            SizedBox(
-              height: size.height * 0.03,
-            ),
+            // SizedBox(
+            //   height: size.height * 0.03,
+            // ),
             InkWell(
               // onTap: () {
               //   controller.pickImage();
@@ -154,10 +154,8 @@ class ProductTabTwo extends GetView<ProductController> {
                         ],
                       ),
                       SizedBox(
-                        height: size.height * 0.03,
+                        height: size.height * 0.01,
                       ),
-
-                      
                       Row(
                         children: [
                           ImageContainer(
@@ -190,7 +188,6 @@ class ProductTabTwo extends GetView<ProductController> {
                           ),
                         ],
                       ),
-
                     ],
                   ),
                 ],
@@ -206,7 +203,7 @@ class ProductTabTwo extends GetView<ProductController> {
                       ? size.width * .1
                       : size.width * 0.25,
                   onClick: () {
-                    if (controller.formkey.currentState!.validate()) {
+                    if (controller.formkey1.currentState!.validate()) {
                       // if (controller.editId == '') {
                       controller.addProductItem();
                       // } else {
@@ -330,6 +327,3 @@ class ImageContainer extends StatelessWidget {
     );
   }
 }
-
-
-

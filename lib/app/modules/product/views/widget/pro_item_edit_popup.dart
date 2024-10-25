@@ -32,7 +32,7 @@ class ProductEditPopup extends StatelessWidget {
           decoration: const BoxDecoration(color: Colors.white),
           constraints: BoxConstraints(
               maxWidth: MediaQuery.of(context).size.width * 0.6,
-              maxHeight: MediaQuery.of(context).size.width * 0.4),
+              maxHeight: MediaQuery.of(context).size.width * 0.5),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,13 +77,13 @@ class ProductEditPopup extends StatelessWidget {
                                     Uri.parse(controller.pickedFilePath1.value)
                                         .isAbsolute
                                 ? Container(
-                                  padding: const EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
                                       border: Border.all(
                                           color: AppColor.boxBorderColor),
                                     ),
-                                  child: Image.network(
+                                    child: Image.network(
                                       errorBuilder:
                                           (context, exception, stackTrack) =>
                                               Column(
@@ -109,7 +109,7 @@ class ProductEditPopup extends StatelessWidget {
                                       height: 100,
                                       fit: BoxFit.cover,
                                     ),
-                                )
+                                  )
                                 : Container(
                                     padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
@@ -126,13 +126,13 @@ class ProductEditPopup extends StatelessWidget {
                                     Uri.parse(controller.pickedFilePath2.value)
                                         .isAbsolute
                                 ? Container(
-                                  padding: const EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
                                       border: Border.all(
                                           color: AppColor.boxBorderColor),
                                     ),
-                                  child: Image.network(
+                                    child: Image.network(
                                       errorBuilder:
                                           (context, exception, stackTrack) =>
                                               Column(
@@ -157,7 +157,7 @@ class ProductEditPopup extends StatelessWidget {
                                       height: 100,
                                       fit: BoxFit.cover,
                                     ),
-                                )
+                                  )
                                 : Container(
                                     padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
@@ -174,13 +174,13 @@ class ProductEditPopup extends StatelessWidget {
                                     Uri.parse(controller.pickedFilePath3.value)
                                         .isAbsolute
                                 ? Container(
-                                  padding: const EdgeInsets.all(10),
+                                    padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
                                       border: Border.all(
                                           color: AppColor.boxBorderColor),
                                     ),
-                                  child: Image.network(
+                                    child: Image.network(
                                       errorBuilder:
                                           (context, exception, stackTrack) =>
                                               Column(
@@ -205,7 +205,7 @@ class ProductEditPopup extends StatelessWidget {
                                       height: 100,
                                       fit: BoxFit.cover,
                                     ),
-                                )
+                                  )
                                 : Container(
                                     padding: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
