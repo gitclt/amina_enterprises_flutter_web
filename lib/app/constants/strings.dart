@@ -3,9 +3,9 @@ import 'package:amina_enterprises_flutter_web/app/data/model/auth/auth_model.dar
 
 const String kBaseUrl = s1;
 const String kBaseUrlForImage = "$kBaseUrl/public/assets/web";
-const bool isStaging = true;
+const bool isStaging = false;
 
-const String s1 = "https://kvn.gitonline.in/api";
+const String s1 = "http://amina.gitdgtl.com/api";
 
 class LocalStorageKey {
   static String token = "USER_TOKEN";
