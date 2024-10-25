@@ -1,9 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:amina_enterprises_flutter_web/app/common_widgets/cards/dash_card_widgets.dart';
+import 'package:amina_enterprises_flutter_web/app/common_widgets/cards/dash_cards.dart';
+import 'package:amina_enterprises_flutter_web/app/common_widgets/padding/common_padding.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
-
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../controllers/settings_controller.dart';
 
@@ -13,8 +15,7 @@ class SettingsView extends GetView<SettingsController> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColor.scaffoldBgColor,
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
+        body: CommonPagePadding(
           child: SingleChildScrollView(
             child: Wrap(
               spacing: Responsive.isDesktop(context)
@@ -24,74 +25,80 @@ class SettingsView extends GetView<SettingsController> {
                       : 10,
               runSpacing: 15,
               children: [
-                // ReportMainCard(header: 'Master Settings', child: [
-                //   ReporCard(
-                //     lable: 'Employee',
-                //     onTap: () {
-                //       Get.rootDelegate.toNamed(Routes.viewEmployee);
-                //     },
-                //   ),
-                //   ReporCard(
-                //     lable: 'Product',
-                //     onTap: () {
-                //       Get.rootDelegate.toNamed(Routes.product);
-                //     },
-                //   ),
-                //   ReporCard(
-                //     lable: 'Role',
-                //     onTap: () {
-                //       Get.rootDelegate.toNamed(Routes.role);
-                //     },
-                //   ),
-                //   ReporCard(
-                //     lable: 'Product Category',
-                //     onTap: () {
-                //       Get.rootDelegate.toNamed(Routes.productCategory);
-                //     },
-                //   ),
-                //   ReporCard(
-                //     lable: 'Product Sub-Category',
-                //     onTap: () {
-                //       Get.rootDelegate.toNamed(Routes.productSubCategory);
-                //     },
-                //   ),
-                //   ReporCard(
-                //     lable: 'Product Group',
-                //     onTap: () {
-                //       Get.rootDelegate.toNamed(Routes.productGroup);
-                //     },
-                //   ),
-                //   ReporCard(
-                //     lable: 'Product Sub-Group',
-                //     onTap: () {
-                //       Get.rootDelegate.toNamed(Routes.productSubGroup);
-                //     },
-                //   ),
-                //   ReporCard(
-                //     lable: 'Product Application',
-                //     onTap: () {
-                //       Get.rootDelegate.toNamed(Routes.productApplication);
-                //     },
-                //   ),
-                //   ReporCard(
-                //     lable: 'Place',
-                //     onTap: () {
-                //       Get.rootDelegate.toNamed(Routes.place);
-                //     },
-                //   ),
-                //   ReporCard(
-                //     lable: 'Branch',
-                //     onTap: () {
-                //       Get.rootDelegate.toNamed(Routes.branch);
-                //     },
-                //   ),
-                //   ReporCard(
-                //     lable: 'Designation',
-                //     onTap: () {
-                //       Get.rootDelegate.toNamed(Routes.designation);
-                //     },
-                //   ),
-                // ])
+                DashHeaderCardWidgets(header: 'Master Settings', child: [
+                  // DashCards(
+                  //   lable: 'Role',
+                  //   onTap: () {
+                  //     Get.rootDelegate.toNamed(Routes.role);
+                  //   },
+                  // ),
+                  DashCards(
+                    lable: 'Designation',
+                    onTap: () {
+                      Get.rootDelegate.toNamed(Routes.designation);
+                    },
+                  ),
+                  DashCards(
+                    lable: 'State',
+                    onTap: () {
+                      Get.rootDelegate.toNamed(Routes.state);
+                    },
+                  ),
+                  DashCards(
+                    lable: 'District',
+                    onTap: () {
+                      Get.rootDelegate.toNamed(Routes.district);
+                    },
+                  ),
+                  DashCards(
+                    lable: 'Color',
+                    onTap: () {
+                      Get.rootDelegate.toNamed(Routes.color);
+                    },
+                  ),
+                  DashCards(
+                    lable: 'Brand',
+                    onTap: () {
+                      Get.rootDelegate.toNamed(Routes.brand);
+                    },
+                  ),
+                  DashCards(
+                    lable: 'Construction',
+                    onTap: () {
+                      Get.rootDelegate.toNamed(Routes.construction);
+                    },
+                  ),
+                  DashCards(
+                    lable: 'Category',
+                    onTap: () {
+                      Get.rootDelegate.toNamed(Routes.category);
+                    },
+                  ),
+                  DashCards(
+                    lable: 'Sub Category',
+                    onTap: () {
+                      Get.rootDelegate.toNamed(Routes.subCategory);
+                    },
+                  ),
+                  DashCards(
+                    lable: 'Main Category',
+                    onTap: () {
+                      Get.rootDelegate.toNamed(Routes.mainCategory);
+                    },
+                  ),
+                  DashCards(
+                    lable: 'Division',
+                    onTap: () {
+                      Get.rootDelegate.toNamed(Routes.division);
+                    },
+                  ),
+                  DashCards(
+                    lable: 'Product Size',
+                    onTap: () {
+                      Get.rootDelegate.toNamed(Routes.size);
+                    },
+                  ),
+                ])
               ],
             ),
           ),

@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
+
 import 'package:amina_enterprises_flutter_web/app/data/local/user_preference/user_prefrence_view_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/network/app_exceptions.dart';
 import 'package:amina_enterprises_flutter_web/app/data/network/base_api_services.dart';
+import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 class NetworkApiServices extends BaseApiServices {
   @override
@@ -160,6 +161,94 @@ class NetworkApiServices extends BaseApiServices {
     }
     if (kDebugMode) {
       //  print(responseJson);
+    }
+    return responseJson;
+  }
+
+  @override
+  Future deleteApi(
+    data,
+    String url,
+  ) async {
+    if (kDebugMode) {
+      print(url);
+      print(data);
+    }
+
+    dynamic responseJson;
+    try {
+      final value = await UserPreference().getUser();
+
+      if (value == null) {
+        final userPreference = UserPreference();
+        await userPreference.removeUser();
+
+        userPreference.goToSplash();
+        return;
+      }
+      Get.printInfo(info: "XApiKey: ${value ?? ""}");
+      final headers = {
+        "XApiKey": "$value",
+      };
+      final response = await http
+          .delete(
+            Uri.parse(url),
+            body: data,
+            headers: headers,
+          )
+          .timeout(const Duration(seconds: 10));
+
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw InternetException('');
+    } on RequestTimeOut {
+      throw RequestTimeOut('');
+    }
+    if (kDebugMode) {
+      print(responseJson);
+    }
+    return responseJson;
+  }
+
+  @override
+  Future putApi(data, String url, {bool isJson = false}) async {
+    if (kDebugMode) {
+      print(url);
+      print(data);
+    }
+
+    dynamic responseJson;
+    try {
+      final value = await UserPreference().getUser();
+
+      if (value == null) {
+        final userPreference = UserPreference();
+        await userPreference.removeUser();
+
+        userPreference.goToSplash();
+        return;
+      }
+      Get.printInfo(info: "XApiKey: ${value ?? ""}");
+      final headers = {
+        "XApiKey": "$value",
+        if (isJson) "Content-Type": "application/json",
+      };
+      final response = await http
+          .put(
+            Uri.parse(url),
+            body: data,
+            headers: headers,
+          )
+          .timeout(const Duration(seconds: 10));
+
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw InternetException('');
+    } on RequestTimeOut {
+      throw RequestTimeOut('');
+    }
+    if (kDebugMode) {
+      print(responseJson);
     }
     return responseJson;
   }

@@ -1,9 +1,9 @@
-import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/dropdown_entity.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
+import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DropDown3Widget extends StatelessWidget {
   final List<DropDownModel> items;
@@ -38,11 +38,11 @@ class DropDown3Widget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final enabledBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(5),
       borderSide: const BorderSide(color: AppColor.textGrayColor, width: 0.5),
     );
     final disabledBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(5),
       borderSide: BorderSide(
         color: const Color.fromARGB(255, 159, 158, 158).withOpacity(0.3),
       ),
@@ -74,12 +74,12 @@ class DropDown3Widget extends StatelessWidget {
         if (label != null) const SizedBox(height: 10),
         Flexible(
           child: SizedBox(
-            height: size.height * 0.055,
+            height: size.height * 0.058,
             child: Stack(
               children: [
                 Container(
                   width: Responsive.isDesktop(context)
-                      ? width ?? size.width * 0.73 / 2
+                      ? width ?? size.width * 0.7 / 2
                       : size.width * .9,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),

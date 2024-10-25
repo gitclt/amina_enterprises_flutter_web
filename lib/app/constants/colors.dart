@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/strings.dart';
+import 'package:flutter/material.dart';
 
 class AppColor {
   static Color primary = isStaging == true
-      ? const Color(0xff6a5acd)
+      ? const Color(0xffAF601A)
       : const Color(0xFFff0000); //0xff51CDF1 //8874a3
   static Color background = Colors.white;
   static Color secondaryBackground = const Color(0xffF4F6FF);
   static const Color textGrayColor = Color(0xff666666);
-  static const Color scaffoldBgColor = Color(0xffEDF3F5);
+  static const Color scaffoldBgColor = Color(0xffF5F6FA);
   static Color green = const Color(0xff038900);
   static Color red = const Color(0xffff0000);
   static Color violet = const Color(0xff673698);
@@ -29,4 +29,5 @@ class AppColor {
   static const Color greyColor = Color(0xFFB7B7B7);
   static const Color tabTextColor = Color(0xFF666666);
   static const appointTextColor = Color(0xFFDD1D2E);
+  static const boxBorderColor = Color(0xFFE9ECEF);
 }

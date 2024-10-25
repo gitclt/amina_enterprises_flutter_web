@@ -9,7 +9,6 @@ import 'package:amina_enterprises_flutter_web/app/common_widgets/text/text_widge
 import 'package:amina_enterprises_flutter_web/app/common_widgets/text_form_field.dart/add_new_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/settings/role/controllers/role_controller.dart';
-import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
 
 class RoleAddView extends GetView<RoleController> {
@@ -50,7 +49,7 @@ class RoleAddView extends GetView<RoleController> {
                           ? size.width * 0.35
                           : size.width * .32,
                       textController: controller.nameController,
-                      label: 'KVN Role',
+                      label: 'Role',
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Enter Role Name';

@@ -1,8 +1,8 @@
+import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
+import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
-import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
 
 class AddTextFieldWidget extends StatelessWidget {
   final String label;
@@ -76,7 +76,7 @@ class AddTextFieldWidget extends StatelessWidget {
           width: Responsive.isDesktop(context)
               ? width ?? size.width * 0.73 / 2
               : size.width * .8,
-          height: height ?? size.height * 0.07,
+          height: height ?? size.height * 0.075,
           child: TextFormField(
             //  initialValue: initialValue,
             controller: textController,
@@ -120,6 +120,14 @@ class AddTextFieldWidget extends StatelessWidget {
                 border: OutlineInputBorder(
                   borderSide: const BorderSide(
                       color: AppColor.textGrayColor, width: .5),
+                  borderRadius: BorderRadius.circular(borderRadius),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: AppColor.red, width: .5),
+                  borderRadius: BorderRadius.circular(borderRadius),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: AppColor.red, width: .5),
                   borderRadius: BorderRadius.circular(borderRadius),
                 ),
                 focusedBorder: OutlineInputBorder(

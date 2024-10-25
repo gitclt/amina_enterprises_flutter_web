@@ -1,21 +1,21 @@
-import 'package:get/get.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/strings.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/auth/auth_model.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
+import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class UserPreference {
   Future<bool> saveUser(
     UserData userData,
-    List<Branch> branch,
-    List<Privilage> privilages,
+    // List<Branch> branch,
+    // List<Privilage> privilages,
   ) async {
-    LocalStorageKey.roleId = userData.roleId ?? '0';
-    LocalStorageKey.userName = userData.employeeName ?? 'Error';
-    LocalStorageKey.roleName = userData.rolename ?? 'Error';
-    LocalStorageKey.empId = userData.employeeId ?? 'Error';
-    LocalStorageKey.userBranch = branch;
-    LocalStorageKey.privilage = privilages;
+    LocalStorageKey.roleId = userData.roleId.toString();
+    LocalStorageKey.userName = userData.name ?? 'Error';
+    // LocalStorageKey.roleName = userData.rolename ?? 'Error';
+    // LocalStorageKey.empId = userData.employeeId ?? 'Error';
+    // LocalStorageKey.userBranch = branch;
+    // LocalStorageKey.privilage = privilages;
     return true;
   }
 
@@ -37,10 +37,10 @@ class UserPreference {
     await box1.add(token);
   }
 
-  Future<void> addMac(String macId) async {
+  Future<void> addMac(String type) async {
     final box1 = Hive.box('token');
 
-    await box1.put('macId', macId);
+    await box1.put('macId', type);
   }
 
   Future<bool> removeUser() async {

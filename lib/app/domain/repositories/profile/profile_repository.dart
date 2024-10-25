@@ -8,16 +8,9 @@ class ProfileRepository {
   final _apiServices = NetworkApiServices();
 
   Future<Either<Failure, UserResponse>> getProfileView(String token) async {
-    // dynamic response = await _apiServices.postApi(null, AppAuthUrl.profileApi);
-
-    // return AuthModel.fromJson(response);
-    var formData = {
-      "empid": token,
-    };
     try {
-      dynamic response = await _apiServices.postApi(
-        formData,
-        AppAuthUrl.profileApi,
+      dynamic response = await _apiServices.getApi(
+        "${AppAuthUrl.profileApi}?encKey=$token",
       );
 
       if (response != null && response["status"] == true) {

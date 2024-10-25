@@ -1,11 +1,10 @@
-import 'package:amina_enterprises_flutter_web/app/modules/home/controllers/sidemenu_state.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/core/assets/image_assets.dart';
 import 'package:amina_enterprises_flutter_web/app/core/extention.dart';
-
+import 'package:amina_enterprises_flutter_web/app/modules/home/controllers/sidemenu_state.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/home/views/widget/text_with_icon_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SidemenuView extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -30,23 +29,18 @@ class _SidemenuViewState extends State<SidemenuView> {
       color: AppColor.white,
       child: Column(
         children: [
-          Container(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.17,
-            decoration: BoxDecoration(color: AppColor.primary.withOpacity(0.7)),
-            child: Column(
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Image.asset(
-                    ImageAssets.mainLogo,
-                    width: MediaQuery.of(context).size.width * .09,
-                    height: MediaQuery.of(context).size.width * .06,
-                  ),
-                  //  whiteText('admin'.tr, fontSize: 14)
-                ]),
-          ),
+          Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Image.asset(
+                  ImageAssets.mainLogo,
+                  width: MediaQuery.of(context).size.width * .1,
+                  height: MediaQuery.of(context).size.width * .08,
+                  color: AppColor.appointTextColor,
+                ),
+                //  whiteText('admin'.tr, fontSize: 14)
+              ]),
           Expanded(
             child: ListView.separated(
               separatorBuilder: (context, index) => 5.height,

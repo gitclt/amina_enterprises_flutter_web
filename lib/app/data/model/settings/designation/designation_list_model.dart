@@ -41,22 +41,22 @@ class DesignationListModel {
 }
 
 class DesignationData {
-  int? id;
-  String? name;
+  String? id;
+  String? designation;
 
   DesignationData({
     this.id,
-    this.name,
+    this.designation,
   });
 
   factory DesignationData.fromJson(Map<String, dynamic> json) =>
       DesignationData(
         id: json["id"],
-        name: json["name"],
+        designation: json["designation"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "name": name,
+        "designation": designation,
       };
 }

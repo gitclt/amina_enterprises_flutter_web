@@ -1,17 +1,17 @@
-# amina_enterprises_flutter_web
+https://documenter.getpostman.com/view/1521886/2sAXxTaq6o
 
-A new Flutter project.
 
-## Getting Started
+Sql
+---------
 
-This project is a starting point for a Flutter application.
+103.20.213.74
+admin_amina
+amina
+Varun@123
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# amina_enterprises_flutter_web
+FTP
+--------
+103.20.213.74
+admin_amina
+amina
+Varun@123

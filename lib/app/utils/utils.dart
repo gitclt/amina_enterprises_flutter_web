@@ -2,7 +2,7 @@ import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-
+import 'package:intl/intl.dart';
 
 class Utils {
   static void fieldFocusChange(
@@ -11,6 +11,19 @@ class Utils {
     FocusScope.of(context).requestFocus(nextFocus);
   }
 
+  static dateConvert(String? date) {
+    if (date == null) return;
+
+    DateFormat format = DateFormat("dd-MM-yyyy");
+    DateTime dateTime = format.parse(date);
+    return dateTime;
+  }
+
+  String getFormattedTimestamp() {
+    final now = DateTime.now();
+    final formatted = now.millisecondsSinceEpoch.toString();
+    return formatted;
+  }
 //   static snackBar(
 //     String title,
 //     String message,
