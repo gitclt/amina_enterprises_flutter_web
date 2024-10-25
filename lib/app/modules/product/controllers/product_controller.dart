@@ -80,11 +80,26 @@ class ProductController extends GetxController {
   final int pageSize = 10;
   var currentPage = 1.obs;
   var totalPages = 1.obs;
+// Separate state for each image
+  var pickedFileBytes1 = Rxn<Uint8List>();
+  var pickedFileBytes2 = Rxn<Uint8List>();
+  var pickedFileBytes3 = Rxn<Uint8List>();
+  var pickedFileBytes4 = Rxn<Uint8List>();
+
+  var pickedFilePath1 = ''.obs;
+  var pickedFilePath2 = ''.obs;
+  var pickedFilePath3 = ''.obs;
+  var pickedFilePath4 = ''.obs;
+
+  var encodedData1 = ''.obs;
+  var encodedData2 = ''.obs;
+  var encodedData3 = ''.obs;
+  var encodedData4 = ''.obs;
+
   String imageName1 = '';
   String imageName2 = '';
   String imageName3 = '';
   String imageName4 = '';
-
   var pickedFilePath = ''.obs;
   var pickedFileBytes = Rx<Uint8List?>(null); // For web platform
   var encodedData = ''.obs; // Base64 encoded image
@@ -395,10 +410,14 @@ class ProductController extends GetxController {
       (resData) {
         if (resData.status!) {
           isLoading(false);
-
-          _repo.uploadToServerImage(
-              data: encodedData.value, imagename: imageName1);
-          // print("data::${encodedData.value}");
+          List<Map<String, String>> images = [
+            {"img": encodedData1.value, "imgName": imageName1},
+            {"img": encodedData2.value, "imgName": imageName2},
+            {"img": encodedData3.value, "imgName": imageName3},
+            {"img": encodedData4.value, "imgName": imageName4},
+          ];
+          _repo.uploadToServerImage(images: images);
+          print("data::${images}");
           res.fold(
             (failure) {
               isLoading(false);
@@ -432,6 +451,12 @@ class ProductController extends GetxController {
     sdSize = DropDownModel(id: data.sizeId.toString(), name: data.size);
     editId = data.id.toString();
     sdState = DropDownModel(id: data.stateId.toString(), name: data.state);
+    // Update picked file paths with existing image URLs (or empty if none)
+    pickedFilePath1.value = data.image1Url ?? '';
+    pickedFilePath2.value = data.image2Url ?? '';
+    pickedFilePath3.value = data.image3Url ?? '';
+    pickedFilePath4.value = data.image4Url ?? '';
+
   }
 
   editProductItem() async {
@@ -450,7 +475,7 @@ class ProductController extends GetxController {
       subCatId: int.tryParse('${sdSubCat.id}'),
       status: isActive.value == true ? 'Active' : 'Inactive',
       isDisplay: 0,
-      image1: "String.jpg",
+      image1: "string.jpg",
       image2: "String.jpg",
       image3: "String.jpg",
       image4: "String.jpg",
@@ -648,12 +673,12 @@ class ProductController extends GetxController {
     });
   }
 
-  // //image  Pic
-
-
-
+// Function to pick image and generate a unique name
   void pickImage(int imageIndex) async {
     String dateFormat = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
+    // Generate a unique identifier using the current timestamp
+    String uniqueId = DateTime.now().millisecondsSinceEpoch.toString();
 
     if (GetPlatform.isWeb) {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -662,56 +687,71 @@ class ProductController extends GetxController {
       );
 
       if (result != null) {
-        pickedFileBytes.value = result.files.single.bytes;
-        pickedFilePath.value = result.files.single.name;
-        PlatformFile file = result.files.first;
+        PlatformFile file = result.files.single;
 
-        // Set imageName based on the image index
+        // Update the specific image's state based on the imageIndex
         if (imageIndex == 1) {
-          imageName1 = "$dateFormat.${file.name.split('.').last}";
+          pickedFileBytes1.value = file.bytes;
+          pickedFilePath1.value = file.name;
+          imageName1 = "$dateFormat-$uniqueId.${file.name.split('.').last}";
+          encodedData1.value = base64Encode(pickedFileBytes1.value!);
         } else if (imageIndex == 2) {
-          imageName2 = "$dateFormat.${file.name.split('.').last}";
+          pickedFileBytes2.value = file.bytes;
+          pickedFilePath2.value = file.name;
+          imageName2 = "$dateFormat-$uniqueId.${file.name.split('.').last}";
+          encodedData2.value = base64Encode(pickedFileBytes2.value!);
         } else if (imageIndex == 3) {
-          imageName3 = "$dateFormat.${file.name.split('.').last}";
+          pickedFileBytes3.value = file.bytes;
+          pickedFilePath3.value = file.name;
+          imageName3 = "$dateFormat-$uniqueId.${file.name.split('.').last}";
+          encodedData3.value = base64Encode(pickedFileBytes3.value!);
         } else if (imageIndex == 4) {
-          imageName4 = "$dateFormat.${file.name.split('.').last}";
+          pickedFileBytes4.value = file.bytes;
+          pickedFilePath4.value = file.name;
+          imageName4 = "$dateFormat-$uniqueId.${file.name.split('.').last}";
+          encodedData4.value = base64Encode(pickedFileBytes4.value!);
         }
-
-        encodedData.value = base64Encode(pickedFileBytes.value!);
-      } else {
-        pickedFilePath.value = '';
       }
     } else {
-      // Handle file picking for mobile/desktop
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         type: FileType.image,
         allowMultiple: false,
       );
 
       if (result != null) {
-        pickedFilePath.value = result.files.single.path!;
-        var pickedImageBytes = await File(pickedFilePath.value).readAsBytes();
-
-        // Set imageName based on the image index
+        // Update the specific image's state based on the imageIndex
         if (imageIndex == 1) {
-          imageName1 = "$dateFormat.${pickedFilePath.value.split('.').last}";
+          pickedFilePath1.value = result.files.single.path!;
+          var pickedImageBytes1 =
+              await File(pickedFilePath1.value).readAsBytes();
+          imageName1 =
+              "$dateFormat-$uniqueId.${pickedFilePath1.value.split('.').last}";
+          encodedData1.value = base64Encode(pickedImageBytes1);
         } else if (imageIndex == 2) {
-          imageName2 = "$dateFormat.${pickedFilePath.value.split('.').last}";
+          pickedFilePath2.value = result.files.single.path!;
+          var pickedImageBytes2 =
+              await File(pickedFilePath2.value).readAsBytes();
+          imageName2 =
+              "$dateFormat-$uniqueId.${pickedFilePath2.value.split('.').last}";
+          encodedData2.value = base64Encode(pickedImageBytes2);
         } else if (imageIndex == 3) {
-          imageName3 = "$dateFormat.${pickedFilePath.value.split('.').last}";
+          pickedFilePath3.value = result.files.single.path!;
+          var pickedImageBytes3 =
+              await File(pickedFilePath3.value).readAsBytes();
+          imageName3 =
+              "$dateFormat-$uniqueId.${pickedFilePath3.value.split('.').last}";
+          encodedData3.value = base64Encode(pickedImageBytes3);
         } else if (imageIndex == 4) {
-          imageName4 = "$dateFormat.${pickedFilePath.value.split('.').last}";
+          pickedFilePath4.value = result.files.single.path!;
+          var pickedImageBytes4 =
+              await File(pickedFilePath4.value).readAsBytes();
+          imageName4 =
+              "$dateFormat-$uniqueId.${pickedFilePath4.value.split('.').last}";
+          encodedData4.value = base64Encode(pickedImageBytes4);
         }
-
-        encodedData.value = base64Encode(pickedImageBytes);
-      } else {
-        pickedFilePath.value = '';
       }
     }
   }
-
-
-  
 
   clear() {
     editId = '';

@@ -99,15 +99,15 @@ class ProductRepository {
 
   //image Upload
   Future<Either<Failure, ApiModel>> uploadToServerImage({
-    required String data,
-    required String imagename,
+required List<Map<String, String>> images,
     
   }) async {
     try {
-      var body = json.encode([
-        {"img": data, "imgName": imagename},
+      // var body = json.encode([
+      //   {"img": data, "imgName": imagename},
      
-      ]);
+      // ]);
+       var body = json.encode(images);
       dynamic response =
           await _apiServices.postApi(body, ProductUrl.addImage, isJson: true);
 
