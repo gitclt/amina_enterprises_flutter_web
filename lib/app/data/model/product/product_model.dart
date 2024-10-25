@@ -48,6 +48,13 @@ class ProductData {
   String? mainCategory;
   int? categoryId;
   String? category;
+   int? stateId;
+  String? stateName;
+  int? itemId;
+  int? subCatId;
+  String? subCat;
+  int? colorId;
+  String? color;
 
   ProductData({
     this.id,
@@ -64,6 +71,13 @@ class ProductData {
     this.mainCategory,
     this.categoryId,
     this.category,
+      this.stateId,
+    this.stateName,
+    this.itemId,
+    this.subCatId,
+    this.subCat,
+    this.colorId,
+    this.color,
   });
 
   factory ProductData.fromJson(Map<String, dynamic> json) => ProductData(
@@ -81,6 +95,13 @@ class ProductData {
         mainCategory: json["main_category"],
         categoryId: json["category_id"],
         category: json["category"],
+         stateId: json["state_id"],
+        stateName: json["state_name"],
+        itemId: json["item_id"],
+        subCatId: json["sub_cat_id"],
+        subCat: json["sub_cat"],
+        colorId: json["color_id"],
+        color: json["color"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -98,5 +119,12 @@ class ProductData {
         "main_category": mainCategory,
         "category_id": categoryId,
         "category": category,
+        "state_id": stateId,
+        "state_name": stateName,
+        "item_id": itemId,
+        "sub_cat_id": subCatId,
+        "sub_cat": subCat,
+        "color_id": colorId,
+        "color": color,
       };
 }

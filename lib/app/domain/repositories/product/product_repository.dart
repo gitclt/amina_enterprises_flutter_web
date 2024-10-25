@@ -97,6 +97,32 @@ class ProductRepository {
     }
   }
 
+  //image Upload
+  Future<Either<Failure, ApiModel>> uploadToServerImage({
+required List<Map<String, String>> images,
+    
+  }) async {
+    try {
+      // var body = json.encode([
+      //   {"img": data, "imgName": imagename},
+     
+      // ]);
+       var body = json.encode(images);
+      dynamic response =
+          await _apiServices.postApi(body, ProductUrl.addImage, isJson: true);
+
+      if (response != null && response["status"] == true) {
+        ApiModel res = ApiModel.fromJson(response);
+
+        return Right(res);
+      } else {
+        return Left(Failure(response["message"].toString()));
+      }
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
   Future<Either<Failure, ApiModel>> editProductItem({
     ProductitemAddModel? data,
   }) async {
@@ -118,52 +144,7 @@ class ProductRepository {
       return Left(Failure(e.toString()));
     }
   }
-  // Future<Either<Failure, ApiModel>> updateCustomer(
-  //     {required String editId,
-  //     required String name,
-  //     required String code,
-  //     required String password,
-  //     required String cusType,
-  //     required String mobile,
-  //     required String email,
-  //     required String place,
-  //     required String state,
-  //     required String districtId,
-  //     required String address,
-  //     required String pincode,
-  //     required String status,
-  //     String? empid}) async {
-  //   try {
-  //     var body = json.encode({
-  //       "id": editId,
-  //       "name": name,
-  //       "code": code,
-  //       "customer_type": cusType,
-  //       "password": password,
-  //       "mobile": mobile,
-  //       "email": email,
-  //       "place": place,
-  //       "state_id": state,
-  //       "district_id": districtId,
-  //       "pincode": pincode,
-  //       "address": address,
-  //       "status": status,
-  //       "created_emp_id": empid,
-  //     });
-  //     dynamic response =
-  //         await _apiServices.putApi(body, AppCusUrl.edit, isJson: true);
-
-  //     if (response != null && response["status"] == true) {
-  //       ApiModel res = ApiModel.fromJson(response);
-
-  //       return Right(res);
-  //     } else {
-  //       return Left(Failure(response["message"].toString()));
-  //     }
-  //   } catch (e) {
-  //     return Left(Failure(e.toString()));
-  //   }
-  // }
+  
 
   Future<Either<Failure, ApiModel>> deleteProduct({
     required String id,

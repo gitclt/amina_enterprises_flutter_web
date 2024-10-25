@@ -19,9 +19,6 @@ class CustomerController extends GetxController {
   final districtRepo = DistrictRepository();
   RxList<Customer> data = <Customer>[].obs;
   final formkey = GlobalKey<FormState>();
-  final int pageSize = 10;
-  var currentPage = 1.obs;
-  var totalPages = 1.obs;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController codeController = TextEditingController();
@@ -74,12 +71,18 @@ class CustomerController extends GetxController {
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
   void setError(String value) => error.value = value;
 
+  final int pageSize = 20;
+  var currentPage = 1.obs;
+  var totalPages = 1.obs;
+
   void get() async {
     setRxRequestStatus(Status.loading);
     data.clear();
     final res = await _repo.getCustomerList(
       stateid: sdSearchState.id ?? '',
       districtId: sdSearchDistrict.id ?? '',
+      page: currentPage.toString(),
+      pageSize: pageSize.toString(),
     );
     res.fold((failure) {
       setRxRequestStatus(Status.completed);

@@ -1,5 +1,6 @@
 import 'package:amina_enterprises_flutter_web/app/common_widgets/button/common_button.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/dropdown/drop_down3_widget.dart';
+import 'package:amina_enterprises_flutter_web/app/common_widgets/svg_icons/svg_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/text_form_field.dart/add_new_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/product/controllers/product_controller.dart';
@@ -54,8 +55,219 @@ class ProductEditPopup extends StatelessWidget {
                           : 50,
                   runSpacing: 20,
                   children: [
-                    // Obx(
-                    //             () =>
+                    //       Row(children: [
+                    //           controller.pickedFilePath1.isEmpty
+
+                    //                       ? NetworkImage(controller.pickedFilePath1.value)
+                    //                       :     Container(
+                    //   padding: const EdgeInsets.all(10),
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(4),
+                    //     border: Border.all(color: AppColor.boxBorderColor),
+                    //   ),
+                    //   child:
+                    //  svgWidget('assets/svg_icons/demmy_image.svg', size: 100),
+                    //   ),
+
+                    //            ],)  ,
+
+                    Obx(() => Row(
+                          children: [
+                            controller.pickedFilePath1.isNotEmpty &&
+                                    Uri.parse(controller.pickedFilePath1.value)
+                                        .isAbsolute
+                                ? Container(
+                                  padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: Border.all(
+                                          color: AppColor.boxBorderColor),
+                                    ),
+                                  child: Image.network(
+                                      errorBuilder:
+                                          (context, exception, stackTrack) =>
+                                              Column(
+                                        children: [
+                                          Center(
+                                            child: Icon(
+                                              Icons.error,
+                                              color: AppColor.primary,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          const Text(
+                                            'Image not found',
+                                            style: TextStyle(fontSize: 10),
+                                          ),
+                                        ],
+                                      ),
+                                      controller.pickedFilePath1
+                                          .value, // Load from network
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ),
+                                )
+                                : Container(
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: Border.all(
+                                          color: AppColor.boxBorderColor),
+                                    ),
+                                    child: svgWidget(
+                                        'assets/svg_icons/demmy_image.svg',
+                                        size: 100), // Placeholder
+                                  ),
+                            const SizedBox(width: 10), // Spacing between images
+                            controller.pickedFilePath2.isNotEmpty &&
+                                    Uri.parse(controller.pickedFilePath2.value)
+                                        .isAbsolute
+                                ? Container(
+                                  padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: Border.all(
+                                          color: AppColor.boxBorderColor),
+                                    ),
+                                  child: Image.network(
+                                      errorBuilder:
+                                          (context, exception, stackTrack) =>
+                                              Column(
+                                        children: [
+                                          Center(
+                                            child: Icon(
+                                              Icons.error,
+                                              color: AppColor.primary,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          const Text(
+                                            'Image not found',
+                                            style: TextStyle(fontSize: 10),
+                                          ),
+                                        ],
+                                      ),
+                                      controller.pickedFilePath2.value,
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ),
+                                )
+                                : Container(
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: Border.all(
+                                          color: AppColor.boxBorderColor),
+                                    ),
+                                    child: svgWidget(
+                                        'assets/svg_icons/demmy_image.svg',
+                                        size: 100),
+                                  ),
+                            const SizedBox(width: 10), // Spacing between images
+                            controller.pickedFilePath3.isNotEmpty &&
+                                    Uri.parse(controller.pickedFilePath3.value)
+                                        .isAbsolute
+                                ? Container(
+                                  padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: Border.all(
+                                          color: AppColor.boxBorderColor),
+                                    ),
+                                  child: Image.network(
+                                      errorBuilder:
+                                          (context, exception, stackTrack) =>
+                                              Column(
+                                        children: [
+                                          Center(
+                                            child: Icon(
+                                              Icons.error,
+                                              color: AppColor.primary,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          const Text(
+                                            'Image not found',
+                                            style: TextStyle(fontSize: 10),
+                                          ),
+                                        ],
+                                      ),
+                                      controller.pickedFilePath3.value,
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ),
+                                )
+                                : Container(
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: Border.all(
+                                          color: AppColor.boxBorderColor),
+                                    ),
+                                    child: svgWidget(
+                                        'assets/svg_icons/demmy_image.svg',
+                                        size: 100),
+                                  ),
+                            const SizedBox(width: 10), // Spacing between images
+                            controller.pickedFilePath4.isNotEmpty &&
+                                    Uri.parse(controller.pickedFilePath4.value)
+                                        .isAbsolute
+                                ? Container(
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: Border.all(
+                                          color: AppColor.boxBorderColor),
+                                    ),
+                                    child: Image.network(
+                                      errorBuilder:
+                                          (context, exception, stackTrack) =>
+                                              Column(
+                                        children: [
+                                          Center(
+                                            child: Icon(
+                                              Icons.error,
+                                              color: AppColor.primary,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          const Text(
+                                            'Image not found',
+                                            style: TextStyle(fontSize: 10),
+                                          ),
+                                        ],
+                                      ),
+                                      controller.pickedFilePath4.value,
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )
+                                : Container(
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: Border.all(
+                                          color: AppColor.boxBorderColor),
+                                    ),
+                                    child: svgWidget(
+                                        'assets/svg_icons/demmy_image.svg',
+                                        size: 100),
+                                  ),
+                          ],
+                        )),
+
                     DropDown3Widget(
                       width: Responsive.isDesktop(context)
                           ? size.width * 0.22
@@ -86,8 +298,9 @@ class ProductEditPopup extends StatelessWidget {
                           : size.width * .32,
                       label: 'Color',
                       hint: '--Select Color--',
-                      selectedItem:
-                          controller.sdColor.id == null ? null : controller.sdColor,
+                      selectedItem: controller.sdColor.id == null
+                          ? null
+                          : controller.sdColor,
                       items: controller.colorDropList,
                       onChanged: (data) async {
                         if (data == null) return;
@@ -177,10 +390,8 @@ class ProductEditPopup extends StatelessWidget {
                         return null;
                       },
                     ),
-                   
-               
 
-                      // Adding the custom radio buttons with checkbox-like style
+                    // Adding the custom radio buttons with checkbox-like style
                     SizedBox(
                       width: Responsive.isDesktop(context)
                           ? size.width * 0.73 / 2
@@ -192,7 +403,6 @@ class ProductEditPopup extends StatelessWidget {
                               GestureDetector(
                                 onTap: () {
                                   controller.isActive.value = true;
-                                  
                                 },
                                 child: Row(
                                   children: [

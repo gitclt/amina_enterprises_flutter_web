@@ -62,12 +62,12 @@ class SettingsView extends GetView<SettingsController> {
                       Get.rootDelegate.toNamed(Routes.brand);
                     },
                   ),
-                  DashCards(
-                    lable: 'Construction',
-                    onTap: () {
-                      Get.rootDelegate.toNamed(Routes.construction);
-                    },
-                  ),
+                  // DashCards(
+                  //   lable: 'Construction',
+                  //   onTap: () {
+                  //     Get.rootDelegate.toNamed(Routes.construction);
+                  //   },
+                  // ),
                   DashCards(
                     lable: 'Category',
                     onTap: () {

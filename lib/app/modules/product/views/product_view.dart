@@ -96,7 +96,7 @@ class ProductView extends GetView<ProductController> {
                               width: size.width * 0.15,
                             ),
                             ColumnHeaderWidget(
-                              label: 'Construction',
+                              label: 'Main Category',
                               width: size.width * 0.15,
                             ),
                             ColumnHeaderWidget(
@@ -160,7 +160,7 @@ class ProductView extends GetView<ProductController> {
                                                 color: bgColor),
                                             ColumnWidget(
                                                 text: columnText(
-                                                    item.construction ?? '',
+                                                    item.mainCategory ?? '',
                                                     fontSize),
                                                 width: size.width * 0.15,
                                                 alignment: Alignment.centerLeft,
@@ -195,7 +195,7 @@ class ProductView extends GetView<ProductController> {
                                                 }
                                               },
                                               edit: () async {
-                                               controller.editClick(item);
+                                                controller.editClick(item);
                                               },
                                               color: bgColor,
                                             )
