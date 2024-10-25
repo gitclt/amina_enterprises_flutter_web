@@ -23,7 +23,7 @@ class ProductAdd extends GetView<ProductController> {
           HomeAppBar(
             title:
                 'Home / Product / ${controller.editId == '' ? 'Add' : 'Update'}',
-            label: 'view_all'.tr,
+             label: 'view_all'.tr,
             onClick: () {
               controller.isIndex.value = 0;
               controller.tabcontroller.animateTo(0);

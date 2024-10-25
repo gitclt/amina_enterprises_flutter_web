@@ -425,7 +425,7 @@ class ProductController extends GetxController
             {"img": encodedData4.value, "imgName": imageName4},
           ];
           _repo.uploadToServerImage(images: images);
-          
+
           res.fold(
             (failure) {
               isLoading(false);
@@ -436,6 +436,8 @@ class ProductController extends GetxController
                 // Get.rootDelegate.toNamed(Routes.);
                 Utils.snackBar('Success', resData.message ?? '',
                     type: 'success');
+                clearProductItem();
+                getSize();
                 getdetails();
                 update();
               }
@@ -444,6 +446,15 @@ class ProductController extends GetxController
         }
       },
     );
+  }
+
+  clearProductItem() {
+    sizeList.clear();
+    stockController = TextEditingController(text: '');
+    mrpController = TextEditingController(text: '');
+    sdSubCat = DropDownModel(id: '', name: '');
+    sdColor = DropDownModel(id: '', name: '');
+    sdState = DropDownModel(id: '', name: '');
   }
 
   //edit
