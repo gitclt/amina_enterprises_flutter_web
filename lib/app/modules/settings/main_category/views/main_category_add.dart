@@ -65,7 +65,7 @@ class MainCategoryAdd extends GetView<MainCategoryController> {
                           textController: controller.imgCtr,
                           readonly: true,
                           onTap: () {
-                            controller.picImage();
+                            controller.pickImage();
                           },
                           label: 'Image',
                           validator: (value) {

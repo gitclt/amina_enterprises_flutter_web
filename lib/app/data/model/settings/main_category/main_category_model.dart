@@ -27,7 +27,8 @@ class MainCategoryModel {
         message: json["message"],
         data: json["data"] == null
             ? []
-            : List<MainCategory>.from(json["data"]!.map((x) => MainCategory.fromJson(x))),
+            : List<MainCategory>.from(
+                json["data"]!.map((x) => MainCategory.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,22 +44,21 @@ class MainCategory {
   int? id;
   String? name;
   String? image;
+  String? imageurl;
 
-  MainCategory({
-    this.id,
-    this.name,
-    this.image,
-  });
+  MainCategory({this.id, this.name, this.image, this.imageurl});
 
   factory MainCategory.fromJson(Map<String, dynamic> json) => MainCategory(
         id: json["id"],
         name: json["name"],
         image: json["image"],
+        imageurl: json["imageurl"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "image": image,
+        "imageurl": imageurl,
       };
 }

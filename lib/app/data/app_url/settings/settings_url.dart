@@ -26,7 +26,7 @@ class SettingsUrl {
   // brand
 
   static String brandView = '$baseUrl/Brand/view_brand';
-  static String brandAdd = '$baseUrl/Brand/brand_add';
+  static String brandAdd = '$baseUrl/Brand/add_brand';
   static String brandEdit = '$baseUrl/Brand/Edit_brand';
   static String brandDelete = '$baseUrl/Brand/Delete_brand';
 

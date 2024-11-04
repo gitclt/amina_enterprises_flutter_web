@@ -83,15 +83,20 @@ class BrandView extends GetView<BrandController> {
                               width: size.width * 0.12,
                               label: 'Sl No.',
                             ),
-                            ColumnHeaderWidget(
-                              label: 'Name',
-                              width: size.width * 0.3,
-                            ),
                             Expanded(
-                                child: ColumnHeaderWidget(
+                              child: ColumnHeaderWidget(
+                                label: 'Name',
+                                width: size.width * 0.3,
+                              ),
+                            ),
+                            ColumnHeaderWidget(
+                              label: 'Image',
+                              width: size.width * 0.24,
+                            ),
+                            ColumnHeaderWidget(
                               label: '',
-                              width: size.width * 0.5,
-                            ))
+                              width: size.width * 0.11,
+                            )
                           ],
                         ),
                         SingleChildScrollView(
@@ -122,36 +127,40 @@ class BrandView extends GetView<BrandController> {
                                               width: size.width * 0.12,
                                               color: bgColor,
                                             ),
-                                            ColumnWidget(
-                                                text: columnText(
-                                                    item.name ?? '', fontSize),
-                                                width: size.width * 0.3,
-                                                alignment: Alignment.center,
-                                                color: bgColor),
                                             Expanded(
-                                              child: IconsColumnWidget(
-                                                width: size.width * 0.5,
-                                                delete: () async {
-                                                  dynamic returnResponse =
-                                                      await commonDialog(
-                                                          title: "Delete",
-                                                          subTitle:
-                                                              "Are you sure want to delete this item?",
-                                                          titleIcon:
-                                                              Icons.delete,
-                                                          theamColor:
-                                                              AppColor.red);
+                                              child: ColumnWidget(
+                                                  text: columnText(
+                                                      item.name ?? '',
+                                                      fontSize),
+                                                  width: size.width * 0.3,
+                                                  alignment: Alignment.center,
+                                                  color: bgColor),
+                                            ),
+                                            ImageColumnWidget(
+                                                imgName: item.imageurl ?? '',
+                                                width: size.width * 0.24,
+                                                color: bgColor),
+                                            IconsColumnWidget(
+                                              width: size.width * 0.11,
+                                              delete: () async {
+                                                dynamic returnResponse =
+                                                    await commonDialog(
+                                                        title: "Delete",
+                                                        subTitle:
+                                                            "Are you sure want to delete this item?",
+                                                        titleIcon: Icons.delete,
+                                                        theamColor:
+                                                            AppColor.red);
 
-                                                  if (returnResponse == true) {
-                                                    controller.delete(
-                                                        item.id.toString());
-                                                  }
-                                                },
-                                                edit: () async {
-                                                  controller.editClick(item);
-                                                },
-                                                color: bgColor,
-                                              ),
+                                                if (returnResponse == true) {
+                                                  controller.delete(
+                                                      item.id.toString());
+                                                }
+                                              },
+                                              edit: () async {
+                                                controller.editClick(item);
+                                              },
+                                              color: bgColor,
                                             )
                                           ],
                                         )
