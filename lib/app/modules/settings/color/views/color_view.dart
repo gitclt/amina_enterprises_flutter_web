@@ -85,7 +85,11 @@ class ColorView extends GetView<ColorController> {
                             ),
                             ColumnHeaderWidget(
                               label: 'Name',
-                              width: size.width * 0.3,
+                              width: size.width * 0.25,
+                            ),
+                            ColumnHeaderWidget(
+                              label: 'Color Code',
+                              width: size.width * 0.25,
                             ),
                             Expanded(
                                 child: ColumnHeaderWidget(
@@ -125,7 +129,13 @@ class ColorView extends GetView<ColorController> {
                                             ColumnWidget(
                                                 text: columnText(
                                                     item.name ?? '', fontSize),
-                                                width: size.width * 0.3,
+                                                width: size.width * 0.25,
+                                                alignment: Alignment.center,
+                                                color: bgColor),
+                                                  ColumnWidget(
+                                                text: columnText(
+                                                    item.colorCode ?? '', fontSize),
+                                                width: size.width * 0.25,
                                                 alignment: Alignment.center,
                                                 color: bgColor),
                                             Expanded(

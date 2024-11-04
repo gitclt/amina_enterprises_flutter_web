@@ -144,47 +144,7 @@ class MainCategoryView extends GetView<MainCategoryController> {
                                                     width: size.width * 0.33,
                                                     color: bgColor),
                                               ),
-                                              // ColumnWidget(
-                                              //   width: size.width * 0.24,
-                                              //   text: CircleAvatar(
-                                              //     child: Image.network(
-                                              //       item.image ?? '',
-                                              //       fit: BoxFit.cover,
-                                              //       errorBuilder: (context,
-                                              //           error, stackTrace) {
-                                              //         return Container(
-                                              //           color: Colors.grey[
-                                              //               200], // Background color for placeholder
-                                              //           child: const Center(
-                                              //             child: Icon(
-                                              //               Icons.error,
-                                              //               color: Colors.red,
-                                              //               size:
-                                              //                   30, // Adjust size as needed
-                                              //             ),
-                                              //           ),
-                                              //         );
-                                              //       },
-                                              //     ),
-                                              //   ),
-                                              //   //  CircleAvatar(
-                                              //   //   radius: 20,
-                                              //   //   backgroundColor:
-                                              //   //       Colors.black12,
-                                              //   //   backgroundImage: item.image !=
-                                              //   //           'http://192.168.1.101:8087/'
-                                              //   //       //  &&
-                                              //   //       // controller.fileType != 'pdf'
-                                              //   //       ? NetworkImage(
-                                              //   //           item.image ?? '')
-                                              //   //       : null,
-                                              //   // ),
-                                              // ),
-                                              // //  columnText(
-                                              // //     item.image ?? '',
-                                              // //     fontSize),
-                                              // // width: size.width * 0.24,
-                                              // // color: bgColor),
+                                          
                                               ImageColumnWidget(
                                                   imgName: item.imageurl ?? '',
                                                   width: size.width * 0.24,

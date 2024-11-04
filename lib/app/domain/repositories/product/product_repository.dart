@@ -54,7 +54,7 @@ class ProductRepository {
   }
 
   Future<Either<Failure, ApiModel>> updateProduct({
-    required ProductAddModel data,
+    required ProductEditData  data,
   }) async {
     try {
       var body = json.encode(

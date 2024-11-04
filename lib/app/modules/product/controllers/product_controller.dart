@@ -254,17 +254,21 @@ class ProductController extends GetxController
     isLoading(true);
     isIndex.value = 0;
     tabcontroller.animateTo(0);
-    final addedItem = ProductAddModel(
-        id: editId,
-        name: nameController.text,
-        artNo: artnoController.text,
-        status: sdStatus.name,
-        brandId: sdBrand.id,
-        categoryId: sdCat.id,
-        constructionId: '1',
-        //  sdConstruction.id,
-        mainCategoryId: sdMainCat.id,
-        newLaunch: islaunchChecked.value == true ? '1' : '0');
+    final addedItem = ProductEditData(
+        product: Product(
+            id: editId,
+            name: nameController.text,
+            artNo: artnoController.text,
+            activeStatus: int.tryParse('${sdStatus.name}'),
+            // status: sdStatus.name,
+            brandId: int.tryParse('${sdBrand.id}'),
+            categoryId: int.tryParse('${sdCat.id}'),
+            constructionId: 1,
+            //  sdConstruction.id,
+
+            mainCategoryId: sdMainCat.id,
+            newLaunch:
+                int.tryParse(islaunchChecked.value == true ? '1' : '0')));
     final res = await _repo.updateProduct(data: addedItem);
     res.fold(
       (failure) {

@@ -14,6 +14,7 @@ class ColorController extends GetxController {
   RxList<Color> data = <Color>[].obs;
   final formkey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
+   TextEditingController colorCodeController = TextEditingController();
   RxBool isLoading = false.obs;
   String editId = '';
   @override
@@ -42,13 +43,15 @@ class ColorController extends GetxController {
   //edit
   void editClick(Color data) async {
     nameController = TextEditingController(text: data.name);
+        colorCodeController = TextEditingController(text: data.colorCode);
     editId = data.id.toString();
+
     Get.rootDelegate.toNamed(Routes.colorAdd);
   }
 
   edit() async {
     isLoading(true);
-    final res = await _repo.edit(id: editId, name: nameController.text);
+    final res = await _repo.edit(id: editId, name: nameController.text,code: colorCodeController.text);
     res.fold(
       (failure) {
         isLoading(false);
@@ -73,7 +76,7 @@ class ColorController extends GetxController {
 
   void add() async {
     isLoading(true);
-    final res = await _repo.add(nameController.text);
+    final res = await _repo.add(nameController.text,colorCodeController.text);
     res.fold(
       (failure) {
         isLoading(false);
@@ -109,5 +112,6 @@ class ColorController extends GetxController {
   clear() {
     editId = '';
     nameController.clear();
+      colorCodeController.clear();
   }
 }
