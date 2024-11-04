@@ -17,7 +17,7 @@ class ProductAddModel {
   String? categoryId;
   String? brandId;
   String? artNo;
-  String? activeStatus;
+  String? status;
   String? newLaunch;
   String? mainCategoryId;
 
@@ -28,7 +28,7 @@ class ProductAddModel {
     this.categoryId,
     this.brandId,
     this.artNo,
-    this.activeStatus,
+    this.status,
     this.newLaunch,
     this.mainCategoryId,
   });
@@ -41,7 +41,7 @@ class ProductAddModel {
         categoryId: json["category_id"],
         brandId: json["brand_id"],
         artNo: json["art_no"],
-        activeStatus: json["active_status"],
+        status: json["status"],
         newLaunch: json["new_launch"],
         mainCategoryId: json["main_category_id"],
       );
@@ -53,7 +53,7 @@ class ProductAddModel {
         "category_id": categoryId,
         "brand_id": brandId,
         "art_no": artNo,
-        "active_status": activeStatus,
+        "status": status,
         "new_launch": newLaunch,
         "main_category_id": mainCategoryId,
       };

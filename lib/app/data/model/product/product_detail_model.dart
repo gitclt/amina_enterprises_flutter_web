@@ -55,6 +55,11 @@ class ProductDetail {
   int? subCatId;
   int? stateId;
   String? state;
+    String? image1Url;
+  String? image2Url;
+  String? image3Url;
+  String? image4Url;
+  dynamic image5Url;
 
   ProductDetail({
     this.id,
@@ -76,6 +81,11 @@ class ProductDetail {
     this.subCatId,
      this.stateId,
     this.state,
+      this.image1Url,
+    this.image2Url,
+    this.image3Url,
+    this.image4Url,
+    this.image5Url,
   });
 
   factory ProductDetail.fromJson(Map<String, dynamic> json) => ProductDetail(
@@ -98,6 +108,11 @@ class ProductDetail {
         subCatId: json["sub_cat_id"],
         stateId: json["state_id"],
         state: json["state"],
+                image1Url: json["image1_url"],
+        image2Url: json["image2_url"],
+        image3Url: json["image3_url"],
+        image4Url: json["image4_url"],
+        image5Url: json["image5_url"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -120,5 +135,10 @@ class ProductDetail {
         "sub_cat_id": subCatId,
         "state_id": stateId,
         "state": state,
+         "image1_url": image1Url,
+        "image2_url": image2Url,
+        "image3_url": image3Url,
+        "image4_url": image4Url,
+        "image5_url": image5Url,
       };
 }

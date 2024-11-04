@@ -2,7 +2,7 @@
 
 const String kBaseUrl = s1;
 const String kBaseUrlForImage = "$kBaseUrl/public/assets/web";
-const bool isStaging = true;
+const bool isStaging = false;
 
 const String s1 = "http://amina.gitdgtl.com/api";
 

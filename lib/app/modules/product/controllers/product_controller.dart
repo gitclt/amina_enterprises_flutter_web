@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:amina_enterprises_flutter_web/app/constants/const_valus.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/product/pro_item_add_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/product/product_add_model.dart';
@@ -17,10 +21,13 @@ import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/s
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/state/state_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/utils.dart';
-import 'package:flutter/widgets.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
-class ProductController extends GetxController {
+class ProductController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   final rxRequestStatus = Status.completed.obs;
 
   RxString error = ''.obs;
@@ -30,6 +37,8 @@ class ProductController extends GetxController {
   RxList<SizeData> sizeList = <SizeData>[].obs;
   final formkey = GlobalKey<FormState>();
 
+  var isIndex = 0.obs;
+  late TabController tabcontroller;
   final formkey1 = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController artnoController = TextEditingController();
@@ -74,6 +83,31 @@ class ProductController extends GetxController {
   final int pageSize = 10;
   var currentPage = 1.obs;
   var totalPages = 1.obs;
+// Separate state for each image
+  var pickedFileBytes1 = Rxn<Uint8List>();
+  var pickedFileBytes2 = Rxn<Uint8List>();
+  var pickedFileBytes3 = Rxn<Uint8List>();
+  var pickedFileBytes4 = Rxn<Uint8List>();
+
+  var pickedFilePath1 = ''.obs;
+  var pickedFilePath2 = ''.obs;
+  var pickedFilePath3 = ''.obs;
+  var pickedFilePath4 = ''.obs;
+
+  var encodedData1 = ''.obs;
+  var encodedData2 = ''.obs;
+  var encodedData3 = ''.obs;
+  var encodedData4 = ''.obs;
+
+  String imageName1 = '';
+  String imageName2 = '';
+  String imageName3 = '';
+  String imageName4 = '';
+  var pickedFilePath = ''.obs;
+  var pickedFileBytes = Rx<Uint8List?>(null); // For web platform
+  var encodedData = ''.obs; // Base64 encoded image
+  // Uint8List? pickedImageBytes;
+  // String encodedData = '';
 
 //repositoy
   final _repo = ProductRepository();
@@ -105,7 +139,7 @@ class ProductController extends GetxController {
   DropDownModel sdSize = DropDownModel();
   RxList<DropDownModel> sizeDropList = <DropDownModel>[].obs;
 
-  var selectedTab = 0.obs;
+  // var selectedTab = 0.obs;
   // selectedTab.animateTo(1);
 
   List<String> tablabel = ['Basic Information', 'Attributes'];
@@ -117,13 +151,14 @@ class ProductController extends GetxController {
     }
   }
 
-  void changeTab(int index) {
-    selectedTab.value = index;
-  }
+  // void changeTab(int index) {
+  //   selectedTab.value = index;
+  // }
 
   @override
   void onInit() {
     get();
+    tabcontroller = TabController(vsync: this, length: 2);
     initialValues();
     super.onInit();
   }
@@ -136,7 +171,7 @@ class ProductController extends GetxController {
     getMainCat();
     getCat();
     getBrand();
-    getconstruction();
+    // getconstruction();
     getcolor();
     getSubcategory();
     getState();
@@ -204,7 +239,9 @@ class ProductController extends GetxController {
         id: data.mainCategoryId.toString(), name: data.mainCategory);
     sdCat = DropDownModel(id: data.categoryId.toString(), name: data.category);
     sdConstruction = DropDownModel(
-        id: data.constructionId.toString(), name: data.construction);
+      id: '1', // data.constructionId.toString(),
+      name: '', //  data.construction
+    );
     sdBrand = DropDownModel(id: data.brandId.toString(), name: data.brand);
     sdStatus = DropDownModel(id: data.status.toString(), name: data.status);
     data.newLaunch == 1 ? islaunchChecked.value = true : false;
@@ -215,14 +252,17 @@ class ProductController extends GetxController {
 
   editProduct() async {
     isLoading(true);
+    isIndex.value = 0;
+    tabcontroller.animateTo(0);
     final addedItem = ProductAddModel(
         id: editId,
         name: nameController.text,
         artNo: artnoController.text,
-        activeStatus: sdStatus.name,
+        status: sdStatus.name,
         brandId: sdBrand.id,
         categoryId: sdCat.id,
-        constructionId: sdConstruction.id,
+        constructionId: '1',
+        //  sdConstruction.id,
         mainCategoryId: sdMainCat.id,
         newLaunch: islaunchChecked.value == true ? '1' : '0');
     final res = await _repo.updateProduct(data: addedItem);
@@ -235,7 +275,9 @@ class ProductController extends GetxController {
       (resData) {
         if (resData.status!) {
           isLoading(false);
-          selectedTab.value = 1;
+          isIndex.value = 1;
+          tabcontroller.animateTo(1);
+          // selectedTab.value = 1;
           // Get.rootDelegate.toNamed(Routes.product);
           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
           getdetails();
@@ -252,11 +294,12 @@ class ProductController extends GetxController {
   void addProduct() async {
     isLoading(true);
     final addedItem = ProductAddModel(
-        activeStatus: sdStatus.id,
+        status: sdStatus.id,
         artNo: artnoController.text,
         brandId: sdBrand.id,
         categoryId: sdCat.id,
-        constructionId: sdConstruction.id,
+        constructionId: '1',
+        //  sdConstruction.id,
         mainCategoryId: sdMainCat.id,
         name: nameController.text,
         newLaunch: islaunchChecked.value == true ? '1' : '0');
@@ -271,8 +314,8 @@ class ProductController extends GetxController {
         if (resData.status!) {
           isLoading(false);
           productId = resData.data!.id!;
-          selectedTab.value = 1;
-
+          isIndex.value = 1;
+          tabcontroller.animateTo(1);
           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
 
           getdetails();
@@ -283,44 +326,121 @@ class ProductController extends GetxController {
     );
   }
 
+//   void addProductItem() async {
+//     isLoading(true);
+//     final selectedItem =
+//         sizeList.where((e) => e.isSelect.value == true).toList();
+//     final addedItem = selectedItem
+//         .map((item) => ProductitemAddModel(
+//               proId: productId,
+//               status: item.status!.value == true ? 'Active' : 'Inactive',
+//               mrp: int.tryParse(item.mrpController?.text ?? '0'),
+//               colorId: int.tryParse('${sdColor.id}'),
+//               isDisplay: 0,
+//               size: int.tryParse('${item.id}'),
+//               subCatId: int.tryParse('${sdSubCat.id}'),
+//               stock: int.tryParse(item.stockController?.text ?? '0'),
+//               stateId: int.tryParse('${sdState.id}'),
+//               image1: imageName,
+//               image2: "String.jpg",
+//               image3: "String.jpg",
+//               image4: "String.jpg",
+//               image5: "String.jpg",
+//             ))
+//         .toList();
+//     final res = await _repo.addProductItem(data: addedItem);
+//     res.fold(
+//       (failure) {
+//         isLoading(false);
+//         Utils.snackBar('Error', failure.message);
+//         setError(error.toString());
+//       },
+//       (resData) {
+//         if (resData.status!) {
+//           isLoading(false);
+//           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
+//  _repo.uploadToServerImage(
+//                 data: encodedData.value,
+//                 imagename: imageName);
+//     res.fold(
+//       (failure) {
+//         isLoading(false);
+//         Utils.snackBar('Error', failure.message);
+//         setError(error.toString());
+//       },
+//       (resData) {
+//         if (resData.status!) {
+//           isLoading(false);
+//           Get.rootDelegate.toNamed(Routes.brand);
+//           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
+//         }
+//       },
+//     );
+//           getdetails();
+//           update();
+//           // clrValue();
+//         }
+//       },
+//     );
+//   }
+
   void addProductItem() async {
     isLoading(true);
     final selectedItem =
         sizeList.where((e) => e.isSelect.value == true).toList();
-    final addedItem = selectedItem
-        .map((item) => ProductitemAddModel(
-              proId: productId,
-              status: item.status!.value == true ? 'Active' : 'Inactive',
-              mrp: int.tryParse(item.mrpController?.text ?? '0'),
-              colorId: int.tryParse('${sdColor.id}'),
-              isDisplay: 0,
-              size: int.tryParse('${item.id}'),
-              subCatId: int.tryParse('${sdSubCat.id}'),
-              stock: int.tryParse(item.stockController?.text ?? '0'),
-              stateId: int.tryParse('${sdState.id}'),
-              image1: "String.jpg",
-              image2: "String.jpg",
-              image3: "String.jpg",
-              image4: "String.jpg",
-              image5: "String.jpg",
-            ))
-        .toList();
+
+    final addedItem = selectedItem.map((item) {
+      return ProductitemAddModel(
+        proId: productId,
+        status: item.status!.value == true ? 'Active' : 'Inactive',
+        mrp: int.tryParse(item.mrpController?.text ?? '0'),
+        colorId: int.tryParse('${sdColor.id}'),
+        isDisplay: 0,
+        size: int.tryParse('${item.id}'),
+        subCatId: int.tryParse('${sdSubCat.id}'),
+        stock: int.tryParse(item.stockController?.text ?? '0'),
+        stateId: int.tryParse('${sdState.id}'),
+        image1: imageName1,
+        image2: imageName2,
+        image3: imageName3,
+        image4: imageName4,
+      );
+    }).toList();
+
     final res = await _repo.addProductItem(data: addedItem);
+
     res.fold(
       (failure) {
         isLoading(false);
         Utils.snackBar('Error', failure.message);
-        setError(error.toString());
+        setError(failure.message);
       },
       (resData) {
         if (resData.status!) {
           isLoading(false);
-
-          Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
-
-          getdetails();
-          update();
-          // clrValue();
+          List<Map<String, String>> images = [
+            {"img": encodedData1.value, "imgName": imageName1},
+            {"img": encodedData2.value, "imgName": imageName2},
+            {"img": encodedData3.value, "imgName": imageName3},
+            {"img": encodedData4.value, "imgName": imageName4},
+          ];
+          _repo.uploadToServerImage(images: images);
+          
+          res.fold(
+            (failure) {
+              isLoading(false);
+              Utils.snackBar('Error', failure.message);
+            },
+            (resData) {
+              if (resData.status!) {
+                // Get.rootDelegate.toNamed(Routes.);
+                Utils.snackBar('Success', resData.message ?? '',
+                    type: 'success');
+                getdetails();
+                update();
+              }
+            },
+          );
         }
       },
     );
@@ -339,6 +459,11 @@ class ProductController extends GetxController {
     sdSize = DropDownModel(id: data.sizeId.toString(), name: data.size);
     editId = data.id.toString();
     sdState = DropDownModel(id: data.stateId.toString(), name: data.state);
+    // Update picked file paths with existing image URLs (or empty if none)
+    pickedFilePath1.value = data.image1Url ?? '';
+    pickedFilePath2.value = data.image2Url ?? '';
+    pickedFilePath3.value = data.image3Url ?? '';
+    pickedFilePath4.value = data.image4Url ?? '';
   }
 
   editProductItem() async {
@@ -357,7 +482,7 @@ class ProductController extends GetxController {
       subCatId: int.tryParse('${sdSubCat.id}'),
       status: isActive.value == true ? 'Active' : 'Inactive',
       isDisplay: 0,
-      image1: "String.jpg",
+      image1: "string.jpg",
       image2: "String.jpg",
       image3: "String.jpg",
       image4: "String.jpg",
@@ -374,7 +499,7 @@ class ProductController extends GetxController {
       (resData) {
         if (resData.status!) {
           isLoading(false);
-          selectedTab.value = 1;
+          // selectedTab.value = 1;
           // Get.rootDelegate.toNamed(Routes.product);
           Get.back();
           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
@@ -553,6 +678,86 @@ class ProductController extends GetxController {
             .add(DropDownModel(id: item.id.toString(), name: item.size));
       }
     });
+  }
+
+// Function to pick image and generate a unique name
+  void pickImage(int imageIndex) async {
+    String dateFormat = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
+    // Generate a unique identifier using the current timestamp
+    String uniqueId = DateTime.now().millisecondsSinceEpoch.toString();
+
+    if (GetPlatform.isWeb) {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.image,
+        allowMultiple: false,
+      );
+
+      if (result != null) {
+        PlatformFile file = result.files.single;
+
+        // Update the specific image's state based on the imageIndex
+        if (imageIndex == 1) {
+          pickedFileBytes1.value = file.bytes;
+          pickedFilePath1.value = file.name;
+          imageName1 = "$dateFormat-$uniqueId.${file.name.split('.').last}";
+          encodedData1.value = base64Encode(pickedFileBytes1.value!);
+        } else if (imageIndex == 2) {
+          pickedFileBytes2.value = file.bytes;
+          pickedFilePath2.value = file.name;
+          imageName2 = "$dateFormat-$uniqueId.${file.name.split('.').last}";
+          encodedData2.value = base64Encode(pickedFileBytes2.value!);
+        } else if (imageIndex == 3) {
+          pickedFileBytes3.value = file.bytes;
+          pickedFilePath3.value = file.name;
+          imageName3 = "$dateFormat-$uniqueId.${file.name.split('.').last}";
+          encodedData3.value = base64Encode(pickedFileBytes3.value!);
+        } else if (imageIndex == 4) {
+          pickedFileBytes4.value = file.bytes;
+          pickedFilePath4.value = file.name;
+          imageName4 = "$dateFormat-$uniqueId.${file.name.split('.').last}";
+          encodedData4.value = base64Encode(pickedFileBytes4.value!);
+        }
+      }
+    } else {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.image,
+        allowMultiple: false,
+      );
+
+      if (result != null) {
+        // Update the specific image's state based on the imageIndex
+        if (imageIndex == 1) {
+          pickedFilePath1.value = result.files.single.path!;
+          var pickedImageBytes1 =
+              await File(pickedFilePath1.value).readAsBytes();
+          imageName1 =
+              "$dateFormat-$uniqueId.${pickedFilePath1.value.split('.').last}";
+          encodedData1.value = base64Encode(pickedImageBytes1);
+        } else if (imageIndex == 2) {
+          pickedFilePath2.value = result.files.single.path!;
+          var pickedImageBytes2 =
+              await File(pickedFilePath2.value).readAsBytes();
+          imageName2 =
+              "$dateFormat-$uniqueId.${pickedFilePath2.value.split('.').last}";
+          encodedData2.value = base64Encode(pickedImageBytes2);
+        } else if (imageIndex == 3) {
+          pickedFilePath3.value = result.files.single.path!;
+          var pickedImageBytes3 =
+              await File(pickedFilePath3.value).readAsBytes();
+          imageName3 =
+              "$dateFormat-$uniqueId.${pickedFilePath3.value.split('.').last}";
+          encodedData3.value = base64Encode(pickedImageBytes3);
+        } else if (imageIndex == 4) {
+          pickedFilePath4.value = result.files.single.path!;
+          var pickedImageBytes4 =
+              await File(pickedFilePath4.value).readAsBytes();
+          imageName4 =
+              "$dateFormat-$uniqueId.${pickedFilePath4.value.split('.').last}";
+          encodedData4.value = base64Encode(pickedImageBytes4);
+        }
+      }
+    }
   }
 
   clear() {
