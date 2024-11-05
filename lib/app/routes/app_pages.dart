@@ -1,4 +1,3 @@
-import 'package:amina_enterprises_flutter_web/app/modules/settings/size/views/size_add.dart';
 import 'package:get/get.dart';
 
 import '../modules/customer/bindings/customer_binding.dart';
@@ -18,6 +17,8 @@ import '../modules/product/views/product_add.dart';
 import '../modules/product/views/product_view.dart';
 import '../modules/root/bindings/root_binding.dart';
 import '../modules/root/views/root_view.dart';
+import '../modules/route_setting/bindings/route_setting_binding.dart';
+import '../modules/route_setting/views/route_setting_view.dart';
 import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/brand/bindings/brand_binding.dart';
 import '../modules/settings/brand/views/brand_add.dart';
@@ -46,6 +47,7 @@ import '../modules/settings/main_category/views/main_category_view.dart';
 import '../modules/settings/role/bindings/role_binding.dart';
 import '../modules/settings/role/views/role_view.dart';
 import '../modules/settings/size/bindings/size_binding.dart';
+import '../modules/settings/size/views/size_add.dart';
 import '../modules/settings/size/views/size_view.dart';
 import '../modules/settings/state/bindings/state_binding.dart';
 import '../modules/settings/state/views/state_add.dart';
@@ -270,6 +272,11 @@ class AppPages {
                       binding: EmployeeBinding(),
                     ),
                   ]),
+                    GetPage(
+                name: _Paths.routeSetting,
+                page: () => const RouteSettingView(),
+                binding: RouteSettingBinding(),
+              ),
               GetPage(
                 name: _Paths.role,
                 page: () => const RoleView(),
@@ -292,5 +299,6 @@ class AppPages {
             ],
           ),
         ]),
+  
   ];
 }
