@@ -32,10 +32,12 @@ class SizeRepository extends NetworkApiServices {
 
   //add
   Future<Either<Failure, ApiModel>> add(
-      String size, String mainCatId, String catId) async {
+      String size, String mainCatId, String catId, String type) async {
     try {
       var data = json
-          .encode({"size": size, "main_cat_id": mainCatId, "cat_id": catId});
+          .encode({"size": size, "main_cat_id": mainCatId, "cat_id": catId,
+        "type": type
+      });
       dynamic response =
           await postApi(data, SettingsUrl.sizeAddApi, isJson: true);
 
@@ -53,10 +55,12 @@ class SizeRepository extends NetworkApiServices {
 
   //edit
   Future<Either<Failure, ApiModel>> edit(
-      String id, String size, String mainCatId, String catId) async {
+      String id, String size, String mainCatId, String catId,String type) async {
     try {
       var data = json.encode(
-          {"id": id, "size": size, "main_cat_id": mainCatId, "cat_id": catId});
+          {"id": id, "size": size, "main_cat_id": mainCatId, "cat_id": catId,
+          "type":type
+          });
       dynamic response =
           await putApi(data, SettingsUrl.sizeEditApi, isJson: true);
 

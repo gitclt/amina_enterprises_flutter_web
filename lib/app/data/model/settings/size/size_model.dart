@@ -50,6 +50,7 @@ class SizeData {
   int? mainCatId;
   String? procCategory;
   int? catId;
+   String? type;
   RxBool isSelect;
   TextEditingController? mrpController;
   TextEditingController? stockController;
@@ -62,6 +63,7 @@ class SizeData {
       this.mainCatId,
       this.procCategory,
       this.catId,
+      this.type,
       required this.isSelect,
       this.mrpController,
       this.stockController,
@@ -75,6 +77,7 @@ class SizeData {
         mainCatId: json["main_cat_id"],
         procCategory: json["proc_category"],
         catId: json["cat_id"],
+        type: json["type"],
         isSelect: false.obs,
         mrpController: TextEditingController(text: '0'),
         stockController: TextEditingController(text: '0'),
@@ -88,5 +91,6 @@ class SizeData {
         "main_cat_id": mainCatId,
         "proc_category": procCategory,
         "cat_id": catId,
+        "type":type
       };
 }
