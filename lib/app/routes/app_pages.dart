@@ -1,3 +1,4 @@
+import 'package:amina_enterprises_flutter_web/app/modules/route_setting/views/route_setting_add.dart';
 import 'package:get/get.dart';
 
 import '../modules/customer/bindings/customer_binding.dart';
@@ -272,11 +273,17 @@ class AppPages {
                       binding: EmployeeBinding(),
                     ),
                   ]),
+              GetPage(
+                  name: _Paths.routeSetting,
+                  page: () => const RouteSettingView(),
+                  binding: RouteSettingBinding(),
+                  children: [
                     GetPage(
-                name: _Paths.routeSetting,
-                page: () => const RouteSettingView(),
-                binding: RouteSettingBinding(),
-              ),
+                      name: _Paths.routeSettingAdd,
+                      page: () => const RouteSettingAdd(),
+                      binding: RouteSettingBinding(),
+                    ),
+                  ]),
               GetPage(
                 name: _Paths.role,
                 page: () => const RoleView(),
@@ -299,6 +306,5 @@ class AppPages {
             ],
           ),
         ]),
-  
   ];
 }

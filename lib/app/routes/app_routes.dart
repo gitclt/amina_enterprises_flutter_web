@@ -46,6 +46,7 @@ abstract class Routes {
   static const size = _Paths.home + _Paths.size;
   static const sizeAdd = _Paths.home + _Paths.size + _Paths.sizeAdd;
   static const routeSetting = _Paths.home + _Paths.routeSetting;
+  static const routeSettingAdd = _Paths.home + _Paths.routeSetting + _Paths.routeSettingAdd;
 }
 
 abstract class _Paths {
@@ -87,4 +88,5 @@ abstract class _Paths {
   static const size = '/size';
   static const sizeAdd = '/size-add';
   static const routeSetting = '/route-setting';
+  static const routeSettingAdd = '/route-setting-add';
 }

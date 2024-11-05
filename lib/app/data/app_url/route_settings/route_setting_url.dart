@@ -8,5 +8,5 @@ class RouteSettingUrl {
 
   static String routeSettingAddApi = '$baseUrl/';
   static String routeSettingEditApi = '$baseUrl/';
-  static String routeSettingDeleteApi = '$baseUrl/';
+  static String routeSettingDeleteApi = '$baseUrl/Route/Delete_route_name';
 }

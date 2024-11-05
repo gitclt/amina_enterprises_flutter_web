@@ -12,6 +12,7 @@ import 'package:amina_enterprises_flutter_web/app/common_widgets/text/text_widge
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/core/extention.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
+import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 
 import 'package:flutter/material.dart';
 
@@ -23,18 +24,18 @@ class RouteSettingView extends GetView<RouteSettingController> {
   const RouteSettingView({super.key});
   @override
   Widget build(BuildContext context) {
-     var size = MediaQuery.of(context).size;
+    var size = MediaQuery.of(context).size;
     var fontSize = size.width * 0.008;
     return Scaffold(
-       backgroundColor: AppColor.scaffoldBgColor,
+      backgroundColor: AppColor.scaffoldBgColor,
       body: CommonPagePadding(
         child: Column(
           children: [
             HomeAppBar(
               title: 'Dashboard / RouteSetting',
               onClick: () {
-               controller.clear();
-                // Get.rootDelegate.toNamed(Routes.stateAdd);
+                controller.clear();
+                 Get.rootDelegate.toNamed(Routes.routeSettingAdd);
               },
               label: 'add_new'.tr,
             ),
@@ -70,7 +71,7 @@ class RouteSettingView extends GetView<RouteSettingController> {
                     );
                   } else {
                     return GeneralExceptionWidget(onPress: () {
-                    controller.get();
+                      controller.get();
                     });
                   }
 
@@ -85,7 +86,7 @@ class RouteSettingView extends GetView<RouteSettingController> {
                               label: 'Sl No.',
                             ),
                             ColumnHeaderWidget(
-                              label: 'State Name',
+                              label: 'Route Name',
                               width: size.width * 0.3,
                             ),
                             Expanded(
@@ -173,4 +174,3 @@ class RouteSettingView extends GetView<RouteSettingController> {
     );
   }
 }
-
