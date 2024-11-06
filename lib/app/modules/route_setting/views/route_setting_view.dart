@@ -35,7 +35,7 @@ class RouteSettingView extends GetView<RouteSettingController> {
               title: 'Dashboard / RouteSetting',
               onClick: () {
                 controller.clear();
-                 Get.rootDelegate.toNamed(Routes.routeSettingAdd);
+                Get.rootDelegate.toNamed(Routes.routeSettingAdd);
               },
               label: 'add_new'.tr,
             ),
@@ -89,6 +89,10 @@ class RouteSettingView extends GetView<RouteSettingController> {
                               label: 'Route Name',
                               width: size.width * 0.3,
                             ),
+                            ColumnHeaderWidget(
+                              label: 'No.of Customer',
+                              width: size.width * 0.3,
+                            ),
                             Expanded(
                                 child: ColumnHeaderWidget(
                               label: '',
@@ -124,6 +128,12 @@ class RouteSettingView extends GetView<RouteSettingController> {
                                               width: size.width * 0.12,
                                               color: bgColor,
                                             ),
+                                            ColumnWidget(
+                                                text: columnText(
+                                                    item.name ?? '', fontSize),
+                                                width: size.width * 0.3,
+                                                alignment: Alignment.center,
+                                                color: bgColor),
                                             ColumnWidget(
                                                 text: columnText(
                                                     item.name ?? '', fontSize),
