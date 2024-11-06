@@ -107,10 +107,6 @@ class EmployeeView extends GetView<EmployeeController> {
                               label: 'Address',
                               width: size.width * 0.1,
                             ),
-                            ColumnHeaderWidget(
-                              label: '',
-                              width: size.width * 0.1,
-                            ),
                             Expanded(
                                 child: ColumnHeaderWidget(
                               label: '',
@@ -178,13 +174,6 @@ class EmployeeView extends GetView<EmployeeController> {
                                                 text: columnText(
                                                     item.address ?? '',
                                                     fontSize),
-                                                width: size.width * 0.1,
-                                                alignment: Alignment.center,
-                                                color: bgColor),
-                                            ColumnWidget(
-                                                text: InkWell(
-                                                  child: Text('Edit Route'),
-                                                ),
                                                 width: size.width * 0.1,
                                                 alignment: Alignment.center,
                                                 color: bgColor),
