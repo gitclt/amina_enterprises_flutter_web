@@ -15,12 +15,13 @@ import 'package:amina_enterprises_flutter_web/app/core/extention.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
-import '../controllers/employee_controller.dart';
+import '../controllers/route_assign_controller.dart';
 
-class EmployeeView extends GetView<EmployeeController> {
-  const EmployeeView({super.key});
+class RouteAssignView extends GetView<RouteAssignController> {
+  const RouteAssignView({super.key});
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -31,11 +32,11 @@ class EmployeeView extends GetView<EmployeeController> {
         child: Column(
           children: [
             HomeAppBar(
-              title: 'Home / Employee / View',
+              title: 'Home / RouteAssign / View',
               onClick: () async {
-                controller.clear();
+                // controller.clear();
 
-                Get.rootDelegate.toNamed(Routes.employeeAdd);
+                Get.rootDelegate.toNamed(Routes.routeAssignAdd);
               },
               label: 'add_new'.tr,
             ),
@@ -202,12 +203,12 @@ class EmployeeView extends GetView<EmployeeController> {
                                                               AppColor.red);
 
                                                   if (returnResponse == true) {
-                                                    controller.delete(
-                                                        item.id.toString());
+                                                    // controller.delete(
+                                                    //     item.id.toString());
                                                   }
                                                 },
                                                 edit: () async {
-                                                  controller.editClick(item);
+                                                  // controller.editClick(item);
                                                 },
                                                 color: bgColor,
                                               ),

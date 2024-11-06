@@ -1,4 +1,4 @@
-import 'package:amina_enterprises_flutter_web/app/modules/route_setting/views/route_setting_add.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/route_assign/views/route_assign_add.dart';
 import 'package:get/get.dart';
 
 import '../modules/customer/bindings/customer_binding.dart';
@@ -18,7 +18,10 @@ import '../modules/product/views/product_add.dart';
 import '../modules/product/views/product_view.dart';
 import '../modules/root/bindings/root_binding.dart';
 import '../modules/root/views/root_view.dart';
+import '../modules/route_assign/bindings/route_assign_binding.dart';
+import '../modules/route_assign/views/route_assign_view.dart';
 import '../modules/route_setting/bindings/route_setting_binding.dart';
+import '../modules/route_setting/views/route_setting_add.dart';
 import '../modules/route_setting/views/route_setting_view.dart';
 import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/brand/bindings/brand_binding.dart';
@@ -282,6 +285,17 @@ class AppPages {
                       name: _Paths.routeSettingAdd,
                       page: () => const RouteSettingAdd(),
                       binding: RouteSettingBinding(),
+                    ),
+                  ]),
+              GetPage(
+                  name: _Paths.routeAssign,
+                  page: () => const RouteAssignView(),
+                  binding: RouteAssignBinding(),
+                  children: [
+                    GetPage(
+                      name: _Paths.routeAssignAdd,
+                      page: () => const RouteAssignAdd(),
+                      binding: RouteAssignBinding(),
                     ),
                   ]),
               GetPage(

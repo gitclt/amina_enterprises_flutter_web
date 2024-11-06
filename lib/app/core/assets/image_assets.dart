@@ -24,4 +24,5 @@ class SvgAssets {
   static const String settings = 'assets/svg_icons/settings.svg';
   static const String product = 'assets/svg_icons/product.svg';
   static const String routeSetting = 'assets/svg_icons/Routing.svg';
+  static const String routeAssign = 'assets/svg_icons/route_assign.svg';
 }
