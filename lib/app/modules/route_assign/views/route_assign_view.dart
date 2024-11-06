@@ -13,6 +13,7 @@ import 'package:amina_enterprises_flutter_web/app/common_widgets/text/text_widge
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/core/extention.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/route_assign/views/widget/assign_route_button.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
@@ -105,7 +106,7 @@ class RouteAssignView extends GetView<RouteAssignController> {
                               width: size.width * 0.08,
                             ),
                             ColumnHeaderWidget(
-                              label: 'Address',
+                              label: 'Status',
                               width: size.width * 0.1,
                             ),
                             ColumnHeaderWidget(
@@ -176,16 +177,44 @@ class RouteAssignView extends GetView<RouteAssignController> {
                                                 alignment: Alignment.center,
                                                 color: bgColor),
                                             ColumnWidget(
-                                                text: columnText(
-                                                    item.address ?? '',
-                                                    fontSize),
+                                                text: Row(
+                                                  children: [
+                                                    SizedBox(
+                                                      width: size.width * 0.01,
+                                                    ),
+                                                    CircleAvatar(
+                                                      radius: 2.5,
+                                                      backgroundColor:
+                                                          item.activeStatus ==
+                                                                  "1"
+                                                              ? AppColor.green
+                                                              : AppColor.grey,
+                                                    ),
+                                                    SizedBox(
+                                                      width: size.width * 0.01,
+                                                    ),
+                                                    Text(
+                                                      item.activeStatus == "1"
+                                                          ? "Active"
+                                                          : "Inactive",
+                                                    )
+                                                  ],
+                                                ),
                                                 width: size.width * 0.1,
                                                 alignment: Alignment.center,
                                                 color: bgColor),
                                             ColumnWidget(
-                                                text: InkWell(
-                                                  child: Text('Edit Route'),
-                                                ),
+                                                text: item.name == ''
+                                                    ? AssignRouteButton(
+                                                        label: 'Assign Route',
+                                                        color: AppColor.red,
+                                                        ontap: () {},
+                                                      )
+                                                    : AssignRouteButton(
+                                                        label: 'Edit Route',
+                                                        color: AppColor.green,
+                                                        ontap: () {},
+                                                      ),
                                                 width: size.width * 0.1,
                                                 alignment: Alignment.center,
                                                 color: bgColor),
@@ -237,3 +266,4 @@ class RouteAssignView extends GetView<RouteAssignController> {
     );
   }
 }
+
