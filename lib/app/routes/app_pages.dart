@@ -1,4 +1,4 @@
-import 'package:amina_enterprises_flutter_web/app/modules/settings/route/views/route_add.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/settings/place/views/place_add.dart';
 import 'package:get/get.dart';
 
 import '../modules/customer/bindings/customer_binding.dart';
@@ -49,9 +49,12 @@ import '../modules/settings/division/views/division_view.dart';
 import '../modules/settings/main_category/bindings/main_category_binding.dart';
 import '../modules/settings/main_category/views/main_category_add.dart';
 import '../modules/settings/main_category/views/main_category_view.dart';
+import '../modules/settings/place/bindings/place_binding.dart';
+import '../modules/settings/place/views/place_view.dart';
 import '../modules/settings/role/bindings/role_binding.dart';
 import '../modules/settings/role/views/role_view.dart';
 import '../modules/settings/route/bindings/route_binding.dart';
+import '../modules/settings/route/views/route_add.dart';
 import '../modules/settings/route/views/route_view.dart';
 import '../modules/settings/size/bindings/size_binding.dart';
 import '../modules/settings/size/views/size_add.dart';
@@ -331,8 +334,21 @@ class AppPages {
                       binding: RouteBinding(),
                     ),
                   ]),
+                   GetPage(
+                name: _Paths.place,
+                page: () => const PlaceView(),
+                binding: PlaceBinding(),
+                children: [
+                   GetPage(
+                      name: _Paths.placeAdd,
+                      page: () => const PlaceAdd(),
+                      binding: PlaceBinding(),
+                    ),
+                ]
+              ),
             ],
           ),
         ]),
+   
   ];
 }

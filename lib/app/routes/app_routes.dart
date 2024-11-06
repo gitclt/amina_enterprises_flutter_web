@@ -52,7 +52,9 @@ abstract class Routes {
   static const routeAssignAdd =
       _Paths.home + _Paths.routeAssign + _Paths.routeAssignAdd;
   static const route = _Paths.home + _Paths.route;
-  static const routeAdd =  _Paths.home + _Paths.route + _Paths.routeAdd;
+  static const routeAdd = _Paths.home + _Paths.route + _Paths.routeAdd;
+  static const place =  _Paths.home + _Paths.place;
+  static const placeAdd = _Paths.home + _Paths.place + _Paths.placeAdd;
 }
 
 abstract class _Paths {
@@ -99,4 +101,6 @@ abstract class _Paths {
   static const routeAssignAdd = '/route-assign-add';
   static const route = '/route';
   static const routeAdd = '/route-add';
+  static const place = '/place';
+  static const placeAdd = '/place-add';
 }
