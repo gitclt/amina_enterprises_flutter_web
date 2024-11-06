@@ -88,27 +88,6 @@ class CustomerAdd extends GetView<CustomerController> {
                       return null;
                     },
                   ),
-                  DropDown3Widget(
-                    width: Responsive.isDesktop(context)
-                        ? size.width * 0.18
-                        : size.width * .32,
-                    label: 'Status',
-                    hint: '--Select Status--',
-                    selectedItem: controller.sdStatus.id == null
-                        ? null
-                        : controller.sdStatus,
-                    items: controller.statusDropList,
-                    onChanged: (data) async {
-                      if (data == null) return;
-                      controller.sdStatus = data;
-                    },
-                    validator: (value) {
-                      if (value == null) {
-                        return 'Select Status';
-                      }
-                      return null;
-                    },
-                  ),
                   AddTextFieldWidget(
                     width: Responsive.isDesktop(context)
                         ? size.width * 0.18

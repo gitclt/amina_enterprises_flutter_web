@@ -44,7 +44,7 @@ class CustomerRepository {
       required String districtId,
       required String address,
       required String pincode,
-      required String status,
+   
       required String empid}) async {
     try {
       var body = json.encode({
@@ -59,7 +59,7 @@ class CustomerRepository {
         "district_id": districtId,
         "pincode": pincode,
         "address": address,
-        "status": status,
+       
         "created_emp_id": empid,
       });
       dynamic response =
@@ -90,7 +90,7 @@ class CustomerRepository {
       required String districtId,
       required String address,
       required String pincode,
-      required String status,
+    
       String? empid}) async {
     try {
       var body = json.encode({
@@ -106,7 +106,7 @@ class CustomerRepository {
         "district_id": districtId,
         "pincode": pincode,
         "address": address,
-        "status": status,
+     
         "created_emp_id": empid,
       });
       dynamic response =

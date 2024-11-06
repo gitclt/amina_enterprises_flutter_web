@@ -26,6 +26,8 @@ class RouteSettingRepository  extends NetworkApiServices {
     }
   }
 
+
+
 //add
   Future<Either<Failure, ApiModel>> add(
     String name,

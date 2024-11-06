@@ -40,12 +40,12 @@ class CustomerController extends GetxController {
   DropDownModel sdState = DropDownModel();
   DropDownModel sdDistrict = DropDownModel();
   DropDownModel sdType = DropDownModel();
-  DropDownModel sdStatus = DropDownModel();
+  
 
   RxList<DropDownModel> searchStateDropList = <DropDownModel>[].obs;
   RxList<DropDownModel> searchDistrictDropList = <DropDownModel>[].obs;
   RxList<DropDownModel> typeDropList = <DropDownModel>[].obs;
-  RxList<DropDownModel> statusDropList = <DropDownModel>[].obs;
+
 
   RxBool isSearchStateLoading = false.obs;
   RxBool isSearchDistrictLoading = false.obs;
@@ -62,9 +62,7 @@ class CustomerController extends GetxController {
     for (var v in AppConstValue().custemerTypes) {
       typeDropList.add(DropDownModel(id: v.id.toString(), name: v.name));
     }
-    for (var v in AppConstValue().statusTypes) {
-      statusDropList.add(DropDownModel(id: v.id.toString(), name: v.name));
-    }
+    
     super.onInit();
   }
 
@@ -194,7 +192,7 @@ class CustomerController extends GetxController {
     sdState = DropDownModel(id: data.stateId.toString(), name: data.state);
     sdDistrict =
         DropDownModel(id: data.districtId.toString(), name: data.district);
-    sdStatus = DropDownModel(id: data.status, name: data.status);
+  
     editId = data.id.toString();
     Get.rootDelegate.toNamed(Routes.customerAdd);
   }
@@ -214,7 +212,7 @@ class CustomerController extends GetxController {
         districtId: sdDistrict.id.toString(),
         pincode: pincodeController.text.trim(),
         state: sdState.id.toString(),
-        status: sdStatus.id.toString(),
+      
         empid: '1');
     res.fold(
       (failure) {
@@ -252,7 +250,7 @@ class CustomerController extends GetxController {
         districtId: sdDistrict.id.toString(),
         pincode: pincodeController.text.trim(),
         state: sdState.id.toString(),
-        status: sdStatus.id.toString(),
+       
         empid: '1');
 
     res.fold(
@@ -294,7 +292,7 @@ class CustomerController extends GetxController {
     sdType = DropDownModel(id: '', name: '--Select Type--');
     sdDistrict = DropDownModel(id: '', name: '--Select District--');
     sdState = DropDownModel(id: '', name: '--Select State--');
-    sdStatus = DropDownModel(id: '', name: '--Select Status--');
+  
     passwordController.clear();
     emailController.clear();
     mobileController.clear();

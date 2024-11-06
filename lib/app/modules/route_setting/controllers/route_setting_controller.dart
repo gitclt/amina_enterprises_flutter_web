@@ -1,6 +1,8 @@
+import 'package:amina_enterprises_flutter_web/app/data/model/customer/customer_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/route_settings/route_setting_model.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/dropdown_entity.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
+import 'package:amina_enterprises_flutter_web/app/domain/repositories/customer/customer_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/route_settings/route_setting_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/district/distrct_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/state/state_repository.dart';
@@ -14,12 +16,15 @@ class RouteSettingController extends GetxController {
 
   RxString error = ''.obs;
   final _repo = RouteSettingRepository();
+  final customerRepo = CustomerRepository();
   RxList<RouteSetting> data = <RouteSetting>[].obs;
+  RxList<Customer> customerdata = <Customer>[].obs;
   final formkey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   DropDownModel dropDownState = DropDownModel();
   DropDownModel dropDownDistrict = DropDownModel();
   RxBool isStateLoading = false.obs;
+  RxBool isCustomerLoading = false.obs;
   RxBool isDisLoading = false.obs;
   RxList<DropDownModel> stateDropList = <DropDownModel>[].obs;
   RxList<DropDownModel> districtDropList = <DropDownModel>[].obs;
@@ -50,6 +55,42 @@ class RouteSettingController extends GetxController {
       setRxRequestStatus(Status.completed);
       if (resData.data != null) {
         data.addAll(resData.data!);
+      }
+    });
+  }
+
+  void changePage(int page) {
+    if (page > 0 && page <= totalPages.value) {
+      currentPage.value = page; // Update current page
+      get(); // Fetch the employee list for the new page
+    }
+  }
+
+  //customer_filterList
+  final int pageSize = 10;
+  var currentPage = 1.obs;
+  var totalPages = 1.obs;
+
+  void getCustomer() async {
+    //  isCustomerLoading(true);
+    setRxRequestStatus(Status.loading);
+    customerdata.clear();
+    final res = await customerRepo.getCustomerList(
+      stateid: dropDownState.id ?? '',
+      districtId: dropDownDistrict.id ?? '',
+      page: currentPage.toString(),
+      pageSize: pageSize.toString(),
+    );
+    res.fold((failure) {
+      //  isCustomerLoading(false);
+      setRxRequestStatus(Status.completed);
+      setError(error.toString());
+    }, (resData) {
+      //  isCustomerLoading(false);
+      setRxRequestStatus(Status.completed);
+      if (resData.data != null) {
+        customerdata.addAll(resData.data!);
+        totalPages.value = (resData.totalCount! / pageSize).ceil();
       }
     });
   }
@@ -86,7 +127,7 @@ class RouteSettingController extends GetxController {
 
   //add
 
-  void add() async {
+  void addRoute() async {
     isLoading(true);
     final res = await _repo.add(nameController.text);
     res.fold(
