@@ -16,7 +16,7 @@ class CustomerModel {
   String? message;
   int? totalCount;
   int? totalPages;
-  List<Customer>? data;
+  List<CustomerData>? data;
 
   CustomerModel({
     this.status,
@@ -33,7 +33,7 @@ class CustomerModel {
         totalPages: json["totalPages"],
         data: json["data"] == null
             ? []
-            : List<Customer>.from(json["data"]!.map((x) => Customer.fromJson(x))),
+            : List<CustomerData>.from(json["data"]!.map((x) => CustomerData.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -47,7 +47,7 @@ class CustomerModel {
       };
 }
 
-class Customer {
+class CustomerData {
   int? id;
   String? name;
   String? mobile;
@@ -67,10 +67,10 @@ class Customer {
   int? createdEmpId;
   int? creditDays;
   double? targetAmount;
-  List<Division>? divisions;
+  List<DivisionData>? divisions;
     RxBool? isSelect;
 
-  Customer({
+  CustomerData({
     this.id,
     this.name,
     this.mobile,
@@ -94,7 +94,7 @@ class Customer {
 this.isSelect
   });
 
-  factory Customer.fromJson(Map<String, dynamic> json) => Customer(
+  factory CustomerData.fromJson(Map<String, dynamic> json) => CustomerData(
         id: json["id"],
         name: json["name"],
         mobile: json["mobile"],
@@ -117,8 +117,8 @@ this.isSelect
         targetAmount: json["target_amount"]?.toDouble(),
         divisions: json["divisions"] == null
             ? []
-            : List<Division>.from(
-                json["divisions"]!.map((x) => Division.fromJson(x))),
+            : List<DivisionData>.from(
+                json["divisions"]!.map((x) =>  DivisionData.fromJson(x))),
                    isSelect: false.obs,
       );
 
@@ -148,20 +148,20 @@ this.isSelect
       };
 }
 
-class Division {
+class DivisionData {
   int? cusId;
   int? divisionId;
   String? divisionName;
   int? status;
 
-  Division({
+  DivisionData({
     this.cusId,
     this.divisionId,
     this.divisionName,
     this.status,
   });
 
-  factory Division.fromJson(Map<String, dynamic> json) => Division(
+  factory  DivisionData.fromJson(Map<String, dynamic> json) =>  DivisionData(
         cusId: json["cus_id"],
         divisionId: json["division_id"],
         divisionName: json["division_name"],

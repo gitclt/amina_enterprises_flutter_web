@@ -1,4 +1,5 @@
 import 'package:amina_enterprises_flutter_web/app/constants/const_valus.dart';
+import 'package:amina_enterprises_flutter_web/app/data/model/customer/customer_add_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/customer/customer_model.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/dropdown_entity.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
@@ -19,7 +20,7 @@ class CustomerController extends GetxController {
   final stateRepo = StateRepository();
   final districtRepo = DistrictRepository();
   final divisionRepo = DivisionRepository();
-  RxList<Customer> data = <Customer>[].obs;
+  RxList<CustomerData> data = <CustomerData>[].obs;
   final formkey = GlobalKey<FormState>();
 
   TextEditingController nameController = TextEditingController();
@@ -63,6 +64,7 @@ class CustomerController extends GetxController {
     getState();
 
     get();
+    getDivision();
     getSearchState();
     for (var v in AppConstValue().custemerTypes) {
       typeDropList.add(DropDownModel(id: v.id.toString(), name: v.name));
@@ -201,7 +203,7 @@ class CustomerController extends GetxController {
   }
 
   //edit
-  void editClick(Customer data) async {
+  void editClick(CustomerData data) async {
     nameController = TextEditingController(text: data.name);
     codeController = TextEditingController(text: data.code);
     sdType = DropDownModel(id: data.customerType, name: data.customerType);
@@ -215,7 +217,12 @@ class CustomerController extends GetxController {
     sdState = DropDownModel(id: data.stateId.toString(), name: data.state);
     sdDistrict =
         DropDownModel(id: data.districtId.toString(), name: data.district);
-
+    if (data.divisions != null) {
+      dropdownDivisionList(data.divisions!
+          .map((v) =>
+              DropDownModel(id: v.divisionId.toString(), name: v.divisionName))
+          .toList());
+    }
     editId = data.id.toString();
     Get.rootDelegate.toNamed(Routes.customerAdd);
   }
@@ -223,19 +230,28 @@ class CustomerController extends GetxController {
   edit() async {
     isLoading(true);
     final res = await _repo.updateCustomer(
-        editId: editId,
-        name: nameController.text.trim(),
-        code: codeController.text.trim(),
-        cusType: sdType.id.toString(),
-        password: passwordController.text.trim(),
-        email: emailController.text.trim(),
-        mobile: mobileController.text.trim(),
-        address: addressController.text.trim(),
-        place: placeController.text.trim(),
-        districtId: sdDistrict.id.toString(),
-        pincode: pincodeController.text.trim(),
-        state: sdState.id.toString(),
-        empid: '1');
+        add: CustomerAddModel(
+            customer: Customer(
+              id: editId,
+              name: nameController.text.trim(),
+              code: codeController.text.trim(),
+              customerType: sdType.id.toString(),
+              password: passwordController.text.trim(),
+              email: emailController.text.trim(),
+              mobile: mobileController.text.trim(),
+              address: addressController.text.trim(),
+              place: placeController.text.trim(),
+              districtId: int.tryParse('${sdDistrict.id}'),
+              pincode: int.tryParse(pincodeController.text.trim()),
+              stateId: int.tryParse('${sdState.id}'),
+              createdEmpId: 1,
+            ),
+            divisions: dropdownDivisionList
+                .map((f) => Division(
+                      divisionId: int.tryParse('${f.id}'),
+                    ))
+                .toList()));
+
     res.fold(
       (failure) {
         isLoading(false);
@@ -261,18 +277,25 @@ class CustomerController extends GetxController {
   void add() async {
     isLoading(true);
     final res = await _repo.addCustomer(
-        name: nameController.text.trim(),
-        code: codeController.text.trim(),
-        cusType: sdType.id.toString(),
-        password: passwordController.text.trim(),
-        email: emailController.text.trim(),
-        mobile: mobileController.text.trim(),
-        address: addressController.text.trim(),
-        place: placeController.text.trim(),
-        districtId: sdDistrict.id.toString(),
-        pincode: pincodeController.text.trim(),
-        state: sdState.id.toString(),
-        empid: '1');
+        add: CustomerAddModel(
+            customer: Customer(
+                name: nameController.text.trim(),
+                code: codeController.text.trim(),
+                customerType: sdType.id.toString(),
+                password: passwordController.text.trim(),
+                email: emailController.text.trim(),
+                mobile: mobileController.text.trim(),
+                address: addressController.text.trim(),
+                place: placeController.text.trim(),
+                districtId: int.tryParse('${sdDistrict.id}'),
+                pincode: int.tryParse(pincodeController.text.trim()),
+                stateId: int.tryParse('${sdState.id}'),
+                createdEmpId: 1),
+            divisions: dropdownDivisionList
+                .map((f) => Division(
+                      divisionId: int.tryParse('${f.id}'),
+                    ))
+                .toList()));
 
     res.fold(
       (failure) {

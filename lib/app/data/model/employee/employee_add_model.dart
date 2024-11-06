@@ -107,6 +107,7 @@ class Employee {
         "state_id": stateId,
         "location": location,
         "role_id": roleId,
+        
         "active_status": activeStatus,
         "addedby": addedby,
         "designation_id": designationId,

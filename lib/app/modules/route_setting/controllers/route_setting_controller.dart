@@ -18,7 +18,7 @@ class RouteSettingController extends GetxController {
   final _repo = RouteSettingRepository();
   final customerRepo = CustomerRepository();
   RxList<RouteSetting> data = <RouteSetting>[].obs;
-  RxList<Customer> customerdata = <Customer>[].obs;
+  RxList<CustomerData> customerdata = <CustomerData>[].obs;
   final formkey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   DropDownModel dropDownState = DropDownModel();
@@ -38,6 +38,7 @@ class RouteSettingController extends GetxController {
   void onInit() {
     get();
     getState();
+    
     super.onInit();
   }
 
