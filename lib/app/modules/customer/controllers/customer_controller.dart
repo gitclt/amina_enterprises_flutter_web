@@ -4,6 +4,7 @@ import 'package:amina_enterprises_flutter_web/app/domain/entity/dropdown_entity.
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/customer/customer_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/district/distrct_repository.dart';
+import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/division/division_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/state/state_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/utils.dart';
@@ -17,6 +18,7 @@ class CustomerController extends GetxController {
   final _repo = CustomerRepository();
   final stateRepo = StateRepository();
   final districtRepo = DistrictRepository();
+  final divisionRepo = DivisionRepository();
   RxList<Customer> data = <Customer>[].obs;
   final formkey = GlobalKey<FormState>();
 
@@ -32,6 +34,7 @@ class CustomerController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isStateLoading = false.obs;
   RxBool isDistrictLoading = false.obs;
+  RxBool isDivisionLoading = false.obs;
   String editId = '';
 
 //list
@@ -40,12 +43,14 @@ class CustomerController extends GetxController {
   DropDownModel sdState = DropDownModel();
   DropDownModel sdDistrict = DropDownModel();
   DropDownModel sdType = DropDownModel();
-  
+  // division
+
+  RxList<DropDownModel> divisionDropList = <DropDownModel>[].obs;
+  RxList<DropDownModel> dropdownDivisionList = <DropDownModel>[].obs;
 
   RxList<DropDownModel> searchStateDropList = <DropDownModel>[].obs;
   RxList<DropDownModel> searchDistrictDropList = <DropDownModel>[].obs;
   RxList<DropDownModel> typeDropList = <DropDownModel>[].obs;
-
 
   RxBool isSearchStateLoading = false.obs;
   RxBool isSearchDistrictLoading = false.obs;
@@ -62,7 +67,7 @@ class CustomerController extends GetxController {
     for (var v in AppConstValue().custemerTypes) {
       typeDropList.add(DropDownModel(id: v.id.toString(), name: v.name));
     }
-    
+
     super.onInit();
   }
 
@@ -158,6 +163,24 @@ class CustomerController extends GetxController {
     });
   }
 
+  getDivision() async {
+    isDivisionLoading(true);
+    divisionDropList.clear();
+    final res = await divisionRepo.getList();
+    res.fold((failure) {
+      isDivisionLoading(false);
+      Utils.snackBar('State', failure.message);
+      setError(error.toString());
+    }, (resData) {
+      isDivisionLoading(false);
+
+      for (var d in resData.data!) {
+        divisionDropList
+            .add(DropDownModel(id: d.id.toString(), name: d.division));
+      }
+    });
+  }
+
   void getDistrict() async {
     isDistrictLoading(true);
     sdDistrict = DropDownModel(id: '', name: '--Select District--');
@@ -192,7 +215,7 @@ class CustomerController extends GetxController {
     sdState = DropDownModel(id: data.stateId.toString(), name: data.state);
     sdDistrict =
         DropDownModel(id: data.districtId.toString(), name: data.district);
-  
+
     editId = data.id.toString();
     Get.rootDelegate.toNamed(Routes.customerAdd);
   }
@@ -212,7 +235,6 @@ class CustomerController extends GetxController {
         districtId: sdDistrict.id.toString(),
         pincode: pincodeController.text.trim(),
         state: sdState.id.toString(),
-      
         empid: '1');
     res.fold(
       (failure) {
@@ -250,7 +272,6 @@ class CustomerController extends GetxController {
         districtId: sdDistrict.id.toString(),
         pincode: pincodeController.text.trim(),
         state: sdState.id.toString(),
-       
         empid: '1');
 
     res.fold(
@@ -292,7 +313,7 @@ class CustomerController extends GetxController {
     sdType = DropDownModel(id: '', name: '--Select Type--');
     sdDistrict = DropDownModel(id: '', name: '--Select District--');
     sdState = DropDownModel(id: '', name: '--Select State--');
-  
+
     passwordController.clear();
     emailController.clear();
     mobileController.clear();

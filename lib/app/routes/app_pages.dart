@@ -1,4 +1,4 @@
-import 'package:amina_enterprises_flutter_web/app/modules/route_assign/views/route_assign_add.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/settings/route/views/route_add.dart';
 import 'package:get/get.dart';
 
 import '../modules/customer/bindings/customer_binding.dart';
@@ -19,6 +19,7 @@ import '../modules/product/views/product_view.dart';
 import '../modules/root/bindings/root_binding.dart';
 import '../modules/root/views/root_view.dart';
 import '../modules/route_assign/bindings/route_assign_binding.dart';
+import '../modules/route_assign/views/route_assign_add.dart';
 import '../modules/route_assign/views/route_assign_view.dart';
 import '../modules/route_setting/bindings/route_setting_binding.dart';
 import '../modules/route_setting/views/route_setting_add.dart';
@@ -50,6 +51,8 @@ import '../modules/settings/main_category/views/main_category_add.dart';
 import '../modules/settings/main_category/views/main_category_view.dart';
 import '../modules/settings/role/bindings/role_binding.dart';
 import '../modules/settings/role/views/role_view.dart';
+import '../modules/settings/route/bindings/route_binding.dart';
+import '../modules/settings/route/views/route_view.dart';
 import '../modules/settings/size/bindings/size_binding.dart';
 import '../modules/settings/size/views/size_add.dart';
 import '../modules/settings/size/views/size_view.dart';
@@ -315,6 +318,17 @@ class AppPages {
                       page: () => const SizeAdd(),
                       transition: Transition.noTransition,
                       binding: SizeBinding(),
+                    ),
+                  ]),
+              GetPage(
+                  name: _Paths.route,
+                  page: () => const RouteView(),
+                  binding: RouteBinding(),
+                  children: [
+                    GetPage(
+                      name: _Paths.routeAdd,
+                      page: () => const RouteAdd(),
+                      binding: RouteBinding(),
                     ),
                   ]),
             ],

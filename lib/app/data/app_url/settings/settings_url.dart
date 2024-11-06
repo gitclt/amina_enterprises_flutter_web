@@ -96,4 +96,11 @@ class SettingsUrl {
   static String sizeAddApi = '$baseUrl/Size/size_add';
   static String sizeEditApi = '$baseUrl/Size/Edit_size';
   static String sizeDeleteApi = '$baseUrl/Size/Delete_size';
+  
+  //route
+
+  static String routeListApi = '$baseUrl/Route/view_route_name';
+  static String routeAddApi = '$baseUrl/Route/route_name_add';
+  static String routeEditApi = '$baseUrl/Route/Edit_route_name';
+  static String routeDeleteApi = '$baseUrl/Route/Delete_route_name';
 }
