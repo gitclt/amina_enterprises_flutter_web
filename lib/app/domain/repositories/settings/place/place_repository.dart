@@ -3,21 +3,21 @@ import 'dart:convert';
 import 'package:amina_enterprises_flutter_web/app/core/failure/failure.dart';
 import 'package:amina_enterprises_flutter_web/app/data/app_url/settings/settings_url.dart';
 import 'package:amina_enterprises_flutter_web/app/data/model/api_model.dart';
-import 'package:amina_enterprises_flutter_web/app/data/model/settings/district/district_model.dart';
+import 'package:amina_enterprises_flutter_web/app/data/model/settings/place/place_model.dart';
 import 'package:amina_enterprises_flutter_web/app/data/network/network_api_services.dart';
 import 'package:dartz/dartz.dart';
 
 class PlaceRepository extends NetworkApiServices {
   final _apiServices = NetworkApiServices();
 
-  Future<Either<Failure, DistrictModel>> getList({
+  Future<Either<Failure, PlaceModel>> getList({
     String? stateId,
   }) async {
     try {
       dynamic response = await getApi(SettingsUrl.placeListApi);
 
       if (response != null && response["status"] == true) {
-        DistrictModel res = DistrictModel.fromJson(response);
+        PlaceModel res = PlaceModel.fromJson(response);
 
         return Right(res);
       } else {

@@ -1,4 +1,4 @@
-import 'package:amina_enterprises_flutter_web/app/data/model/settings/district/district_model.dart';
+import 'package:amina_enterprises_flutter_web/app/data/model/settings/place/place_model.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/dropdown_entity.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/district/distrct_repository.dart';
@@ -15,7 +15,7 @@ class PlaceController extends GetxController {
   RxString error = ''.obs;
   final _repo = PlaceRepository();
   final stateRepo = StateRepository();
-  RxList<DistrictData> data = <DistrictData>[].obs;
+  RxList<Place> data = <Place>[].obs;
   final formkey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   DropDownModel dropDownState = DropDownModel();
@@ -73,10 +73,12 @@ class PlaceController extends GetxController {
   }
 
   //edit
-  void editClick(DistrictData data) async {
-    nameController = TextEditingController(text: data.district);
+  void editClick(Place data) async {
+    nameController = TextEditingController(text: data.name);
     dropDownState =
         DropDownModel(id: data.stateId.toString(), name: data.state);
+    dropDownDistrict =
+        DropDownModel(id: data.stateId.toString(), name: data.district);
     editId = data.id.toString();
 
     Get.rootDelegate.toNamed(Routes.placeAdd);
@@ -87,7 +89,8 @@ class PlaceController extends GetxController {
     final res = await _repo.edit(
         id: editId,
         name: nameController.text,
-        stateId: dropDownState.id.toString());
+        stateId: dropDownState.id.toString(),
+        districtId: dropDownDistrict.id.toString());
     res.fold(
       (failure) {
         isLoading(false);

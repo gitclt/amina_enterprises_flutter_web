@@ -25,7 +25,7 @@ class PlaceAdd extends GetView<PlaceController> {
           HomeAppBar(
             title: 'Home / Master / Place / Add',
             onClick: () {
-              Get.rootDelegate.toNamed(Routes.district);
+              Get.rootDelegate.toNamed(Routes.place);
             },
             label: 'view_all'.tr,
           ),
@@ -59,14 +59,14 @@ class PlaceAdd extends GetView<PlaceController> {
                           onChanged: (data) async {
                             if (data == null) return;
                             controller.dropDownState = data;
-                             controller.getDistrict();
+                            controller.getDistrict();
                           },
                         ),
                       ),
                       SizedBox(
                         width: size.width * 0.03,
                       ),
-                       Obx(
+                      Obx(
                         () => DropDown3Widget(
                           width: size.width * 0.23,
                           label: 'District',

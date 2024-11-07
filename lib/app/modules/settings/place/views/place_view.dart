@@ -145,8 +145,7 @@ class PlaceView extends GetView<PlaceController> {
                                                 color: bgColor),
                                             ColumnWidget(
                                                 text: columnText(
-                                                    item.district ?? '',
-                                                    fontSize),
+                                                    item.name ?? '', fontSize),
                                                 width: size.width * 0.15,
                                                 alignment: Alignment.center,
                                                 color: bgColor),

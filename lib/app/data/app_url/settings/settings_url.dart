@@ -106,8 +106,8 @@ class SettingsUrl {
 
   //place
 
-  static String placeListApi = '$baseUrl/';
+  static String placeListApi = '$baseUrl/place/view_place';
   static String placeAddApi = '$baseUrl/place/place_add';
   static String placeEditApi = '$baseUrl/place/Edit_place';
-  static String placeDeleteApi = '$baseUrl/';
+  static String placeDeleteApi = '$baseUrl/place/Delete_place';
 }
