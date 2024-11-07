@@ -17,7 +17,7 @@ class ProductRepository {
   Future<Either<Failure, ProductModel>> getProductList(
       int pageSize, int currentPage) async {
     try {
-      dynamic response = await _apiServices.getApi(ProductUrl.view);
+      dynamic response = await _apiServices.getApi('${ProductUrl.view}?pageSize=$pageSize&page=$currentPage',);
 
       if (response != null && response["status"] == true) {
         ProductModel res = ProductModel.fromJson(response);
@@ -32,7 +32,7 @@ class ProductRepository {
   }
 
   Future<Either<Failure, ProAddresponseModel>> addProduct({
-    required ProductAddModel data,
+    required ProductEditData data,
   }) async {
     try {
       var body = json.encode(

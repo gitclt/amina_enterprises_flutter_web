@@ -68,7 +68,7 @@ String productEditDataToJson(ProductEditData data) => json.encode(data.toJson())
 
 class ProductEditData {
     Product? product;
-    List<Division>? divisions;
+    List<DivisionData>? divisions;
 
     ProductEditData({
         this.product,
@@ -77,7 +77,7 @@ class ProductEditData {
 
     factory ProductEditData.fromJson(Map<String, dynamic> json) => ProductEditData(
         product: json["product"] == null ? null : Product.fromJson(json["product"]),
-        divisions: json["divisions"] == null ? [] : List<Division>.from(json["divisions"]!.map((x) => Division.fromJson(x))),
+        divisions: json["divisions"] == null ? [] : List<DivisionData>.from(json["divisions"]!.map((x) => DivisionData.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
@@ -86,14 +86,14 @@ class ProductEditData {
     };
 }
 
-class Division {
+class DivisionData {
     int? divisionId;
 
-    Division({
+    DivisionData({
         this.divisionId,
     });
 
-    factory Division.fromJson(Map<String, dynamic> json) => Division(
+    factory DivisionData.fromJson(Map<String, dynamic> json) => DivisionData(
         divisionId: json["division_id"],
     );
 

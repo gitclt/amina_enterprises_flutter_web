@@ -11,15 +11,24 @@ String productModelToJson(ProductModel data) => json.encode(data.toJson());
 
 class ProductModel {
   bool? status;
+  String? message;
+  int? totalCount;
+  int? totalPages;
   List<ProductData>? data;
 
   ProductModel({
     this.status,
+    this.message,
+    this.totalCount,
+    this.totalPages,
     this.data,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         status: json["status"],
+        message: json["message"],
+        totalCount: json["totalCount"],
+        totalPages: json["totalPages"],
         data: json["data"] == null
             ? []
             : List<ProductData>.from(json["data"]!.map((x) => ProductData.fromJson(x))),
@@ -27,6 +36,9 @@ class ProductModel {
 
   Map<String, dynamic> toJson() => {
         "status": status,
+        "message": message,
+        "totalCount": totalCount,
+        "totalPages": totalPages,
         "data": data == null
             ? []
             : List<dynamic>.from(data!.map((x) => x.toJson())),
@@ -48,13 +60,7 @@ class ProductData {
   String? mainCategory;
   int? categoryId;
   String? category;
-   int? stateId;
-  String? stateName;
-  int? itemId;
-  int? subCatId;
-  String? subCat;
-  int? colorId;
-  String? color;
+  List<Division>? divisions;
 
   ProductData({
     this.id,
@@ -71,13 +77,7 @@ class ProductData {
     this.mainCategory,
     this.categoryId,
     this.category,
-      this.stateId,
-    this.stateName,
-    this.itemId,
-    this.subCatId,
-    this.subCat,
-    this.colorId,
-    this.color,
+    this.divisions,
   });
 
   factory ProductData.fromJson(Map<String, dynamic> json) => ProductData(
@@ -95,13 +95,10 @@ class ProductData {
         mainCategory: json["main_category"],
         categoryId: json["category_id"],
         category: json["category"],
-         stateId: json["state_id"],
-        stateName: json["state_name"],
-        itemId: json["item_id"],
-        subCatId: json["sub_cat_id"],
-        subCat: json["sub_cat"],
-        colorId: json["color_id"],
-        color: json["color"],
+        divisions: json["divisions"] == null
+            ? []
+            : List<Division>.from(
+                json["divisions"]!.map((x) => Division.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -119,12 +116,32 @@ class ProductData {
         "main_category": mainCategory,
         "category_id": categoryId,
         "category": category,
-        "state_id": stateId,
-        "state_name": stateName,
-        "item_id": itemId,
-        "sub_cat_id": subCatId,
-        "sub_cat": subCat,
-        "color_id": colorId,
-        "color": color,
+        "divisions": divisions == null
+            ? []
+            : List<dynamic>.from(divisions!.map((x) => x.toJson())),
+      };
+}
+
+class Division {
+  int? proId;
+  int? divisionId;
+  String? divisionName;
+
+  Division({
+    this.proId,
+    this.divisionId,
+    this.divisionName,
+  });
+
+  factory Division.fromJson(Map<String, dynamic> json) => Division(
+        proId: json["pro_id"],
+        divisionId: json["division_id"],
+        divisionName: json["division_name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "pro_id": proId,
+        "division_id": divisionId,
+        "division_name": divisionName,
       };
 }
