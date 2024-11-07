@@ -1,3 +1,4 @@
+import 'package:amina_enterprises_flutter_web/app/modules/employee/views/route_assign_add.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/settings/place/views/place_add.dart';
 import 'package:get/get.dart';
 
@@ -18,9 +19,9 @@ import '../modules/product/views/product_add.dart';
 import '../modules/product/views/product_view.dart';
 import '../modules/root/bindings/root_binding.dart';
 import '../modules/root/views/root_view.dart';
-import '../modules/route_assign/bindings/route_assign_binding.dart';
-import '../modules/route_assign/views/route_assign_add.dart';
-import '../modules/route_assign/views/route_assign_view.dart';
+// import '../modules/route_assign/bindings/route_assign_binding.dart';
+// import '../modules/route_assign/views/route_assign_add.dart';
+// import '../modules/route_assign/views/route_assign_view.dart';
 import '../modules/route_setting/bindings/route_setting_binding.dart';
 import '../modules/route_setting/views/route_setting_add.dart';
 import '../modules/route_setting/views/route_setting_view.dart';
@@ -281,6 +282,11 @@ class AppPages {
                       transition: Transition.noTransition,
                       binding: EmployeeBinding(),
                     ),
+                          GetPage(
+                            name: _Paths.routeAssignAdd,
+                            page: () => const RouteAssignAdd(),
+                            binding: EmployeeBinding(),
+                          ),
                   ]),
               GetPage(
                   name: _Paths.routeSetting,
@@ -293,17 +299,17 @@ class AppPages {
                       binding: RouteSettingBinding(),
                     ),
                   ]),
-              GetPage(
-                  name: _Paths.routeAssign,
-                  page: () => const RouteAssignView(),
-                  binding: RouteAssignBinding(),
-                  children: [
-                    GetPage(
-                      name: _Paths.routeAssignAdd,
-                      page: () => const RouteAssignAdd(),
-                      binding: RouteAssignBinding(),
-                    ),
-                  ]),
+              // GetPage(
+              //     name: _Paths.routeAssign,
+              //     page: () => const EmployeeView(),
+              //     binding: RouteAssignBinding(),
+              //     children: [
+              //       GetPage(
+              //         name: _Paths.routeAssignAdd,
+              //         page: () => const RouteAssignAdd(),
+              //         binding: RouteAssignBinding(),
+              //       ),
+              //     ]),
               GetPage(
                 name: _Paths.role,
                 page: () => const RoleView(),
@@ -334,21 +340,19 @@ class AppPages {
                       binding: RouteBinding(),
                     ),
                   ]),
-                   GetPage(
-                name: _Paths.place,
-                page: () => const PlaceView(),
-                binding: PlaceBinding(),
-                children: [
-                   GetPage(
+              GetPage(
+                  name: _Paths.place,
+                  page: () => const PlaceView(),
+                  binding: PlaceBinding(),
+                  children: [
+                    GetPage(
                       name: _Paths.placeAdd,
                       page: () => const PlaceAdd(),
                       binding: PlaceBinding(),
                     ),
-                ]
-              ),
+                  ]),
             ],
           ),
         ]),
-   
   ];
 }

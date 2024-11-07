@@ -48,9 +48,9 @@ abstract class Routes {
   static const routeSetting = _Paths.home + _Paths.routeSetting;
   static const routeSettingAdd =
       _Paths.home + _Paths.routeSetting + _Paths.routeSettingAdd;
-  static const routeAssign = _Paths.home + _Paths.routeAssign;
+  // static const routeAssign = _Paths.home + _Paths.routeAssign;
   static const routeAssignAdd =
-      _Paths.home + _Paths.routeAssign + _Paths.routeAssignAdd;
+      _Paths.home + _Paths.employee + _Paths.routeAssignAdd;
   static const route = _Paths.home + _Paths.route;
   static const routeAdd = _Paths.home + _Paths.route + _Paths.routeAdd;
   static const place =  _Paths.home + _Paths.place;
@@ -97,7 +97,7 @@ abstract class _Paths {
   static const sizeAdd = '/size-add';
   static const routeSetting = '/route-setting';
   static const routeSettingAdd = '/route-setting-add';
-  static const routeAssign = '/route-assign';
+  // static const routeAssign = '/route-assign';
   static const routeAssignAdd = '/route-assign-add';
   static const route = '/route';
   static const routeAdd = '/route-add';

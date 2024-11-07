@@ -12,19 +12,16 @@ String routeSettingModelToJson(RouteSettingModel data) =>
 
 class RouteSettingModel {
   bool? status;
-  String? message;
   List<RouteSetting>? data;
 
   RouteSettingModel({
     this.status,
-    this.message,
     this.data,
   });
 
   factory RouteSettingModel.fromJson(Map<String, dynamic> json) =>
       RouteSettingModel(
         status: json["status"],
-        message: json["message"],
         data: json["data"] == null
             ? []
             : List<RouteSetting>.from(json["data"]!.map((x) => RouteSetting.fromJson(x))),
@@ -32,7 +29,6 @@ class RouteSettingModel {
 
   Map<String, dynamic> toJson() => {
         "status": status,
-        "message": message,
         "data": data == null
             ? []
             : List<dynamic>.from(data!.map((x) => x.toJson())),
@@ -40,21 +36,25 @@ class RouteSettingModel {
 }
 
 class RouteSetting {
-  int? id;
-  String? name;
+  int? rootId;
+  String? rootName;
+  int? customerCount;
 
   RouteSetting({
-    this.id,
-    this.name,
+    this.rootId,
+    this.rootName,
+    this.customerCount,
   });
 
   factory RouteSetting.fromJson(Map<String, dynamic> json) => RouteSetting(
-        id: json["id"],
-        name: json["name"],
+        rootId: json["root_id"],
+        rootName: json["root_name"],
+        customerCount: json["customer_count"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
+        "root_id": rootId,
+        "root_name": rootName,
+        "customer_count": customerCount,
       };
 }

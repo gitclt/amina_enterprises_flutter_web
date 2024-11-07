@@ -98,8 +98,8 @@ class RouteSettingController extends GetxController {
 
   //edit
   void editClick(RouteSetting data) async {
-    nameController = TextEditingController(text: data.name);
-    editId = data.id.toString();
+    nameController = TextEditingController(text: data.rootName);
+    editId = data.rootId.toString();
     Get.rootDelegate.toNamed(Routes.routeSettingAdd);
   }
 

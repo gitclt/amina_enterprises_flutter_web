@@ -4,6 +4,7 @@ import 'package:amina_enterprises_flutter_web/app/data/model/employee/employee_m
 import 'package:amina_enterprises_flutter_web/app/domain/entity/dropdown_entity.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/employee/employee_repository.dart';
+import 'package:amina_enterprises_flutter_web/app/domain/repositories/route_settings/route_setting_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/designation/designation_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/district/distrct_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/division/division_repository.dart';
@@ -19,10 +20,12 @@ class EmployeeController extends GetxController {
   final rxRequestStatus = Status.completed.obs;
   RxBool isLoading = false.obs;
   RxBool isStateLoading = false.obs;
+  RxBool isRouteLoading = false.obs;
   RxBool isDisLoading = false.obs;
   RxBool isDivisionLoading = false.obs;
   RxString error = ''.obs;
   final _repo = EmployeeRepository();
+  final routerepo = RouteSettingRepository();
 
   final formkey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
@@ -33,17 +36,37 @@ class EmployeeController extends GetxController {
   TextEditingController addressController = TextEditingController();
   TextEditingController jDateController = TextEditingController();
   TextEditingController locController = TextEditingController();
+  TextEditingController mondayController = TextEditingController();
+  TextEditingController tuesdayController = TextEditingController();
+  TextEditingController wednesday= TextEditingController();
+  TextEditingController thursdayController = TextEditingController();
+   TextEditingController fridayController = TextEditingController();
+  TextEditingController saturday = TextEditingController();
+  TextEditingController sundayController = TextEditingController();
   DropDownModel dropDownState = DropDownModel();
   DropDownModel dropDownDistrict = DropDownModel();
   DropDownModel dropDownRole = DropDownModel();
   DropDownModel dropDownDesignate = DropDownModel();
   DropDownModel dropDownStatus = DropDownModel();
+  DropDownModel dropDownRoute = DropDownModel();
 
   RxList<DropDownModel> stateDropList = <DropDownModel>[].obs;
   RxList<DropDownModel> districtDropList = <DropDownModel>[].obs;
   RxList<DropDownModel> designationDropList = <DropDownModel>[].obs;
   RxList<DropDownModel> roleDropList = <DropDownModel>[].obs;
   RxList<DropDownModel> statusDropList = <DropDownModel>[].obs;
+  RxList<DropDownModel> routeDropList = <DropDownModel>[].obs;
+  
+
+  List<String> daysOfWeek = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+  ];
 
 // division
 
@@ -72,10 +95,33 @@ class EmployeeController extends GetxController {
     getDesignation();
     getDivision();
     getRole();
+    getRoute();
     for (var st in AppConstValue().status) {
       statusDropList.add(DropDownModel(id: st.id, name: st.name));
     }
+
+
     super.onInit();
+  }
+
+
+ 
+  getRoute() async {
+    isRouteLoading(true);
+    routeDropList.clear();
+    final res = await routerepo.getList();
+    res.fold((failure) {
+      isRouteLoading(false);
+      Utils.snackBar('State', failure.message);
+      setError(error.toString());
+    }, (resData) {
+      isRouteLoading(false);
+
+      for (var route in resData.data!) {
+        routeDropList.add(
+            DropDownModel(id: route.rootId.toString(), name: route.rootName));
+      }
+    });
   }
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;

@@ -130,13 +130,13 @@ class RouteSettingView extends GetView<RouteSettingController> {
                                             ),
                                             ColumnWidget(
                                                 text: columnText(
-                                                    item.name ?? '', fontSize),
+                                                    item.rootName ?? '', fontSize),
                                                 width: size.width * 0.3,
                                                 alignment: Alignment.center,
                                                 color: bgColor),
                                             ColumnWidget(
                                                 text: columnText(
-                                                    item.name ?? '', fontSize),
+                                                    item.customerCount.toString() , fontSize),
                                                 width: size.width * 0.3,
                                                 alignment: Alignment.center,
                                                 color: bgColor),
@@ -156,7 +156,7 @@ class RouteSettingView extends GetView<RouteSettingController> {
 
                                                   if (returnResponse == true) {
                                                     controller.delete(
-                                                        item.id.toString());
+                                                        item.rootId.toString());
                                                   }
                                                 },
                                                 edit: () async {

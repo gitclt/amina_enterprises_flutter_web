@@ -4,7 +4,7 @@ class RouteSettingUrl {
   static String baseUrl = kBaseUrl;
   //RouteSettings
 
-  static String routeSettingListApi = '$baseUrl/';
+  static String routeSettingListApi = '$baseUrl/Route/view_route_master';
   static String routeSettingAddApi = '$baseUrl/Route/route_master_add';
   static String routeSettingEditApi = '$baseUrl/';
   static String routeSettingDeleteApi = '$baseUrl/';

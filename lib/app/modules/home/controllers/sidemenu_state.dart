@@ -90,7 +90,7 @@ class SidemenuState {
         svgIcon: SvgAssets.routeAssign,
         items: [],
         onClick: () {
-          Get.rootDelegate.toNamed(Routes.routeAssign);
+          Get.rootDelegate.toNamed(Routes.employee);
         },
       ),
     );
