@@ -30,17 +30,10 @@ class PlaceRepository extends NetworkApiServices {
 
 //add
   Future<Either<Failure, ApiModel>> add(
-    String name,
-    String stateId,
-    String districtId
-  ) async {
+      String name, String stateId, String districtId) async {
     try {
-      var data = json.encode({
-        "name": name,
-        "state_id": stateId,
-        
-        "district_id": districtId
-      });
+      var data = json.encode(
+          {"name": name, "state_id": stateId, "district_id": districtId});
       dynamic response = await _apiServices
           .postApi(data, SettingsUrl.placeAddApi, isJson: true);
 
@@ -58,18 +51,17 @@ class PlaceRepository extends NetworkApiServices {
 
   //edit
 
-  Future<Either<Failure, ApiModel>> edit({
-    required String id,
-    required String name,
-    required String stateId,
-        String? districtId
-  }) async {
+  Future<Either<Failure, ApiModel>> edit(
+      {required String id,
+      required String name,
+      required String stateId,
+      String? districtId}) async {
     try {
       var data = json.encode({
         "id": id,
         "name": name,
         "state_id": stateId,
-          "district_id": districtId
+        "district_id": districtId
       });
       dynamic response = await _apiServices
           .putApi(data, SettingsUrl.placeEditApi, isJson: true);
@@ -93,7 +85,7 @@ class PlaceRepository extends NetworkApiServices {
     var body = {"id": id};
     try {
       dynamic response =
-          await _apiServices.postApi(body, SettingsUrl.placeDeleteApi);
+          await _apiServices.deleteApi(body, SettingsUrl.placeDeleteApi);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);
