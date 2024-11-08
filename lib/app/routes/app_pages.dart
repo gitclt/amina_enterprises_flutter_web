@@ -361,7 +361,7 @@ class AppPages {
                 binding: OrderBinding(),
                 children: [
                     GetPage(
-                      name: _Paths.order,
+                      name: _Paths.orderAdd,
                       page: () => const OrderAdd(),
                       binding: OrderBinding(),
                     ),
