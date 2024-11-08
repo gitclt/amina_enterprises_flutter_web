@@ -1,5 +1,4 @@
-import 'package:amina_enterprises_flutter_web/app/modules/employee/views/route_assign_add.dart';
-import 'package:amina_enterprises_flutter_web/app/modules/settings/place/views/place_add.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/order/views/order_add.dart';
 import 'package:get/get.dart';
 
 import '../modules/customer/bindings/customer_binding.dart';
@@ -10,18 +9,18 @@ import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/employee/bindings/employee_binding.dart';
 import '../modules/employee/views/employee_add.dart';
 import '../modules/employee/views/employee_view.dart';
+import '../modules/employee/views/route_assign_add.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/order/bindings/order_binding.dart';
+import '../modules/order/views/order_view.dart';
 import '../modules/product/bindings/product_binding.dart';
 import '../modules/product/views/product_add.dart';
 import '../modules/product/views/product_view.dart';
 import '../modules/root/bindings/root_binding.dart';
 import '../modules/root/views/root_view.dart';
-// import '../modules/route_assign/bindings/route_assign_binding.dart';
-// import '../modules/route_assign/views/route_assign_add.dart';
-// import '../modules/route_assign/views/route_assign_view.dart';
 import '../modules/route_setting/bindings/route_setting_binding.dart';
 import '../modules/route_setting/views/route_setting_add.dart';
 import '../modules/route_setting/views/route_setting_view.dart';
@@ -51,6 +50,7 @@ import '../modules/settings/main_category/bindings/main_category_binding.dart';
 import '../modules/settings/main_category/views/main_category_add.dart';
 import '../modules/settings/main_category/views/main_category_view.dart';
 import '../modules/settings/place/bindings/place_binding.dart';
+import '../modules/settings/place/views/place_add.dart';
 import '../modules/settings/place/views/place_view.dart';
 import '../modules/settings/role/bindings/role_binding.dart';
 import '../modules/settings/role/views/role_view.dart';
@@ -67,6 +67,10 @@ import '../modules/settings/sub_category/bindings/sub_category_binding.dart';
 import '../modules/settings/sub_category/views/sub_category_add.dart';
 import '../modules/settings/sub_category/views/sub_category_view.dart';
 import '../modules/settings/views/settings_view.dart';
+
+// import '../modules/route_assign/bindings/route_assign_binding.dart';
+// import '../modules/route_assign/views/route_assign_add.dart';
+// import '../modules/route_assign/views/route_assign_view.dart';
 
 part 'app_routes.dart';
 
@@ -282,11 +286,11 @@ class AppPages {
                       transition: Transition.noTransition,
                       binding: EmployeeBinding(),
                     ),
-                          GetPage(
-                            name: _Paths.routeAssignAdd,
-                            page: () => const RouteAssignAdd(),
-                            binding: EmployeeBinding(),
-                          ),
+                    GetPage(
+                      name: _Paths.routeAssignAdd,
+                      page: () => const RouteAssignAdd(),
+                      binding: EmployeeBinding(),
+                    ),
                   ]),
               GetPage(
                   name: _Paths.routeSetting,
@@ -351,8 +355,21 @@ class AppPages {
                       binding: PlaceBinding(),
                     ),
                   ]),
+                   GetPage(
+                name: _Paths.order,
+                page: () => const OrderView(),
+                binding: OrderBinding(),
+                children: [
+                    GetPage(
+                      name: _Paths.order,
+                      page: () => const OrderAdd(),
+                      binding: OrderBinding(),
+                    ),
+                  ]
+              ),
             ],
           ),
         ]),
+   
   ];
 }

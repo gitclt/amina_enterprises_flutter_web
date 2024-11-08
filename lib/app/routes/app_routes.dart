@@ -53,8 +53,10 @@ abstract class Routes {
       _Paths.home + _Paths.employee + _Paths.routeAssignAdd;
   static const route = _Paths.home + _Paths.route;
   static const routeAdd = _Paths.home + _Paths.route + _Paths.routeAdd;
-  static const place =  _Paths.home + _Paths.place;
+  static const place = _Paths.home + _Paths.place;
   static const placeAdd = _Paths.home + _Paths.place + _Paths.placeAdd;
+  static const order =  _Paths.home + _Paths.order;
+    static const orderAdd = _Paths.home + _Paths.order + _Paths.orderAdd;
 }
 
 abstract class _Paths {
@@ -103,4 +105,6 @@ abstract class _Paths {
   static const routeAdd = '/route-add';
   static const place = '/place';
   static const placeAdd = '/place-add';
+  static const order = '/order';
+   static const orderAdd = '/order-add';
 }
