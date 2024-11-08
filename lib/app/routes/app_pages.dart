@@ -1,4 +1,4 @@
-import 'package:amina_enterprises_flutter_web/app/modules/order/views/order_add.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/order/views/order_detail.dart';
 import 'package:get/get.dart';
 
 import '../modules/customer/bindings/customer_binding.dart';
@@ -361,8 +361,8 @@ class AppPages {
                 binding: OrderBinding(),
                 children: [
                     GetPage(
-                      name: _Paths.orderAdd,
-                      page: () => const OrderAdd(),
+                      name: _Paths.orderDetail,
+                      page: () => const OrderDetail(),
                       binding: OrderBinding(),
                     ),
                   ]

@@ -42,8 +42,6 @@ class OrderView extends GetView<OrderController> {
             title: 'Home / Order / View',
             onClick: () async {
               // controller.clear();
-
-              Get.rootDelegate.toNamed(Routes.orderAdd);
             },
             label: 'add_new'.tr,
           ),
@@ -362,7 +360,9 @@ class OrderView extends GetView<OrderController> {
                                                   //     .delete(item.id.toString());
                                                 }
                                               },
-                                              edit: () async {
+                                              view: () async {
+                                                Get.rootDelegate
+                                                    .toNamed(Routes.orderAdd);
                                                 // controller.editClick(item);
                                               },
                                               color: bgColor,
