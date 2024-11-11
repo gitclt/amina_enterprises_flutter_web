@@ -184,6 +184,7 @@ class PlaceView extends GetView<PlaceController> {
                         )
                       ],
                     ),
+                    
                   );
               }
             })

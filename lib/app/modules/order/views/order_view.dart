@@ -361,6 +361,9 @@ class OrderView extends GetView<OrderController> {
                                                 }
                                               },
                                               view: () async {
+                                            await    controller.getOrderDetail(
+                                                    orderId:
+                                                        item.id.toString());
                                                 Get.rootDelegate
                                                     .toNamed(Routes.orderAdd);
                                                 // controller.editClick(item);

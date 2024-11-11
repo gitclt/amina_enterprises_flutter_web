@@ -1,7 +1,13 @@
 import 'package:amina_enterprises_flutter_web/app/common_widgets/appbar/common_home_appbar.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/button/common_button.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/container/simple_container.dart';
+import 'package:amina_enterprises_flutter_web/app/common_widgets/dropdown/drop_down3_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/padding/common_padding.dart';
+import 'package:amina_enterprises_flutter_web/app/common_widgets/popup/common_popup.dart';
+import 'package:amina_enterprises_flutter_web/app/common_widgets/table/column_header_widget.dart';
+import 'package:amina_enterprises_flutter_web/app/common_widgets/table/column_icons.dart';
+import 'package:amina_enterprises_flutter_web/app/common_widgets/table/column_widget.dart';
+import 'package:amina_enterprises_flutter_web/app/common_widgets/text/text_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/order/controllers/order_controller.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
@@ -14,7 +20,7 @@ class OrderDetail extends GetView<OrderController> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-   // var fontSize = size.width * 0.008;
+    var fontSize = size.width * 0.008;
     return Scaffold(
         backgroundColor: AppColor.scaffoldBgColor,
         body: CommonPagePadding(
@@ -30,6 +36,141 @@ class OrderDetail extends GetView<OrderController> {
           PageContainer(
             child: Column(
               children: [
+                Wrap(children: [
+                  
+                ]),
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        ColumnHeaderWidget(
+                          width: size.width * 0.1,
+                          label: 'Sl No.',
+                        ),
+                        ColumnHeaderWidget(
+                          label: 'Name',
+                          width: size.width * 0.15,
+                        ),
+                        ColumnHeaderWidget(
+                          label: 'Quandity',
+                          width: size.width * 0.15,
+                        ),
+                        ColumnHeaderWidget(
+                          label: 'Amount',
+                          width: size.width * 0.15,
+                        ),
+                        Expanded(
+                            child: ColumnHeaderWidget(
+                          label: '',
+                          width: size.width * 0.5,
+                        ))
+                      ],
+                    ),
+                    SingleChildScrollView(
+                      child: SizedBox(
+                        height: size.height * 0.2,
+                        child: Obx(
+                          () => ListView.builder(
+                              itemCount: controller.orderDetailList.length,
+                              itemBuilder: (context, index) {
+                                const evenColor = Colors.white;
+                                const oddColor = AppColor.boxBorderColor;
+
+                                final bgColor =
+                                    index % 2 == 0 ? oddColor : evenColor;
+                                final item = controller.orderDetailList[index];
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        ColumnWidget(
+                                          text: columnText(
+                                            (index + 1).toString(),
+                                            fontSize,
+                                          ),
+                                          alignment: Alignment.center,
+                                          width: size.width * 0.1,
+                                          color: bgColor,
+                                        ),
+                                        ColumnWidget(
+                                            text: columnText(
+                                                item.productName ?? '',
+                                                fontSize),
+                                            width: size.width * 0.15,
+                                            alignment: Alignment.center,
+                                            color: bgColor),
+                                        ColumnWidget(
+                                            text: columnText(
+                                                item.qty.toString(), fontSize),
+                                            width: size.width * 0.15,
+                                            alignment: Alignment.center,
+                                            color: bgColor),
+                                        ColumnWidget(
+                                            text: columnText(
+                                                item.price.toString(),
+                                                fontSize),
+                                            width: size.width * 0.15,
+                                            alignment: Alignment.center,
+                                            color: bgColor),
+                                        Expanded(
+                                          child: IconsColumnWidget(
+                                            width: size.width * 0.5,
+                                            delete: () async {
+                                              dynamic returnResponse =
+                                                  await commonDialog(
+                                                      title: "Delete",
+                                                      subTitle:
+                                                          "Are you sure want to delete this item?",
+                                                      titleIcon: Icons.delete,
+                                                      theamColor: AppColor.red);
+
+                                              if (returnResponse == true) {
+                                                // controller
+                                                //     .delete(item.id.toString());
+                                              }
+                                            },
+                                            edit: () async {
+                                              // controller.editClick(item);
+                                            },
+                                            color: bgColor,
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                );
+                              }),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    DropDown3Widget(
+                      width: size.width * 0.18,
+                      label: 'Status',
+                      hint: '--Select Status--',
+                      selectedItem: controller.dropDownStatus.id == null
+                          ? null
+                          : controller.dropDownStatus,
+                      items: controller.statusDropList,
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Select Status';
+                        }
+                        return null;
+                      },
+                      onChanged: (data) async {
+                        if (data == null) return;
+                        controller.dropDownStatus = data;
+                      },
+                    ),
+                  ],
+                ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.end,
