@@ -134,7 +134,8 @@ class Customer {
   String? customerName;
   String? customerType;
   String? address;
-  int? place;
+  int? placeId;
+  String? place;
   int? stateId;
   int? districtId;
 
@@ -143,6 +144,7 @@ class Customer {
     this.customerName,
     this.customerType,
     this.address,
+    this.placeId,
     this.place,
     this.stateId,
     this.districtId,
@@ -153,6 +155,7 @@ class Customer {
         customerName: json["customer_name"],
         customerType: json["customer_type"],
         address: json["address"],
+        placeId: json["place_id"],
         place: json["place"],
         stateId: json["state_id"],
         districtId: json["district_id"],
@@ -163,6 +166,7 @@ class Customer {
         "customer_name": customerName,
         "customer_type": customerType,
         "address": address,
+        "place_id": placeId,
         "place": place,
         "state_id": stateId,
         "district_id": districtId,

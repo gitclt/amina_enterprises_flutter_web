@@ -12,10 +12,12 @@ String routeAddModelToJson(List<RouteAddModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class RouteAddModel {
+    int? editId;
   int? customerId;
   int? rootId;
 
   RouteAddModel({
+    this.editId,
     this.customerId,
     this.rootId,
   });

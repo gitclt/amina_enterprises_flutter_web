@@ -92,6 +92,7 @@ class CustomerController extends GetxController {
       stateid: sdSearchState.id ?? '',
       districtId: sdSearchDistrict.id ?? '',
       placeId:'',
+      routeId: '',
       page: currentPage.toString(),
       pageSize: pageSize.toString(),
     );

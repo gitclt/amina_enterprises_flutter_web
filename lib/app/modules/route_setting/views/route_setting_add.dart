@@ -6,7 +6,6 @@ import 'package:amina_enterprises_flutter_web/app/modules/route_setting/controll
 import 'package:amina_enterprises_flutter_web/app/modules/route_setting/views/route_setting_tab.dart/tab_one.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/route_setting/views/route_setting_tab.dart/tab_two.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/route_setting/views/route_setting_tab.dart/tab_three.dart';
-import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

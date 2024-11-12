@@ -17,10 +17,11 @@ class CustomerRepository {
     String? placeId,
     required String page,
     required String pageSize,
+    String? routeId,
   }) async {
     try {
       dynamic response = await _apiServices.getApi(
-          '${AppCusUrl.view}?state_id=$stateid&district_id=$districtId&place_id=$placeId&page=$page&pageSize=$pageSize');
+          '${AppCusUrl.view}?state_id=$stateid&district_id=$districtId&place_id=$placeId&page=$page&pageSize=$pageSize&route_id=$routeId');
 
       if (response != null && response["status"] == true) {
         CustomerModel res = CustomerModel.fromJson(response);

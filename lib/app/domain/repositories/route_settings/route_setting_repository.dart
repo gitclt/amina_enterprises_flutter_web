@@ -51,9 +51,33 @@ class RouteSettingRepository extends NetworkApiServices {
     }
   }
 
+  
+//updateroute
+  Future<Either<Failure, ApiModel>> updateRoute({
+    List<RouteAddModel>? data,
+  }) async {
+    try {
+      var body = json.encode(
+        data,
+      );
+      dynamic response = await _apiServices
+          .putApi(body, RouteSettingUrl.routeSettingUpdateApi, isJson: true);
+
+      if (response != null && response["status"] == true) {
+        ApiModel res = ApiModel.fromJson(response);
+
+        return Right(res);
+      } else {
+        return Left(Failure(response["message"].toString()));
+      }
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
   //edit
 
-  Future<Either<Failure, ApiModel>> edit({
+  Future<Either<Failure, ApiModel>> editRouteName({
     required String id,
     required String name,
   }) async {
@@ -63,7 +87,7 @@ class RouteSettingRepository extends NetworkApiServices {
         "name": name,
       });
       dynamic response = await _apiServices
-          .putApi(data, RouteSettingUrl.routeSettingEditApi, isJson: true);
+          .putApi(data, RouteSettingUrl.routeNameEditApi, isJson: true);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);

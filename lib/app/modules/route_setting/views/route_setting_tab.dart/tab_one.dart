@@ -50,7 +50,7 @@ class TabOne extends GetView<RouteSettingController> {
                       if (controller.editId == '') {
                         controller.addRouteName();
                       } else {
-                        controller.edit();
+                         controller.editName();
                       }
                     }
                   },

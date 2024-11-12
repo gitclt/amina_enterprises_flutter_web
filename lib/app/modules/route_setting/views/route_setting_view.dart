@@ -160,7 +160,7 @@ class RouteSettingView extends GetView<RouteSettingController> {
                                                   }
                                                 },
                                                 edit: () async {
-                                                  controller.editClick(item);
+                                                  controller.editClickName(item);
                                                 },
                                                 color: bgColor,
                                               ),

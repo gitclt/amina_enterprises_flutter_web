@@ -105,7 +105,7 @@ class TabTwo extends GetView<RouteSettingController> {
                                   ),
                                   ColumnWidget(
                                     text: columnText(
-                                        item.customerName ?? '', fontSize),
+                                        item.place ?? '', fontSize),
                                     width: size.width * 0.15,
                                     alignment: Alignment.center,
                                     color: bgColor,
@@ -151,8 +151,8 @@ class TabTwo extends GetView<RouteSettingController> {
                       width: Responsive.isDesktop(context)
                           ? size.width * .1
                           : size.width * 0.25,
-                      onClick: () {
-                        controller.get();
+                      onClick: () async{
+                     await   controller.get();
                         Get.rootDelegate.toNamed(Routes.routeSetting);
                         // controller.addRoute();
                       },

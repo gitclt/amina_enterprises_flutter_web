@@ -56,7 +56,8 @@ class RouteSettingController extends GetxController
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
   void setError(String value) => error.value = value;
 
-  void get({String? rootid}) async {
+  Future<void> get({String? rootid}) async {
+    data.clear();
     setRxRequestStatus(Status.loading);
     data.clear();
     final res = await _repo.getList(rootid: rootid ?? '');
@@ -88,12 +89,12 @@ class RouteSettingController extends GetxController
     setRxRequestStatus(Status.loading);
     customerdata.clear();
     final res = await customerRepo.getCustomerList(
-      stateid: dropDownState.id ?? '',
-      districtId: dropDownDistrict.id ?? '',
-      placeId: dropDownPlace.id ?? '',
-      page: currentPage.toString(),
-      pageSize: pageSize.toString(),
-    );
+        stateid: dropDownState.id ?? '',
+        districtId: dropDownDistrict.id ?? '',
+        placeId: dropDownPlace.id ?? '',
+        page: currentPage.toString(),
+        pageSize: pageSize.toString(),
+        routeId: routeId.toString());
     res.fold((failure) {
       //  isCustomerLoading(false);
       setRxRequestStatus(Status.completed);
@@ -106,36 +107,6 @@ class RouteSettingController extends GetxController
         totalPages.value = (resData.totalCount! / pageSize).ceil();
       }
     });
-  }
-
-  //edit
-  void editClick(RouteSetting data) async {
-    nameController = TextEditingController(text: data.rootName);
-    editId = data.rootId.toString();
-    Get.rootDelegate.toNamed(Routes.routeSettingAdd);
-  }
-
-  edit() async {
-    isLoading(true);
-    final res = await _repo.edit(id: editId, name: nameController.text);
-    res.fold(
-      (failure) {
-        isLoading(false);
-        Utils.snackBar('Error', failure.message);
-        setError(error.toString());
-      },
-      (resData) {
-        if (resData.status!) {
-          isLoading(false);
-          Get.rootDelegate.toNamed(Routes.routeSetting);
-          Utils.snackBar('Success', resData.message ?? '', type: 'success');
-
-          get();
-
-          // clrValue();
-        }
-      },
-    );
   }
 
   //add
@@ -160,6 +131,36 @@ class RouteSettingController extends GetxController
           // getdetails();
 
           // clrValue();
+        }
+      },
+    );
+  }
+
+  //editroutename
+  void editClickName(RouteSetting data) async {
+    nameController = TextEditingController(text: data.rootName);
+    editId = data.rootId.toString();
+    routeId = data.rootId!;
+    // int.tryParse('${data.rootId}');
+    Get.rootDelegate.toNamed(Routes.routeSettingAdd);
+  }
+
+  editName() async {
+    isLoading(true);
+    final res =
+        await _repo.editRouteName(id: editId, name: nameController.text);
+    res.fold(
+      (failure) {
+        isLoading(false);
+        Utils.snackBar('Error', failure.message);
+        setError(error.toString());
+      },
+      (resData) {
+        if (resData.status!) {
+          isLoading(false);
+          isIndex.value = 1;
+          tabcontroller.animateTo(1);
+          Utils.snackBar('Success', resData.message ?? '', type: 'success');
         }
       },
     );
@@ -256,14 +257,50 @@ class RouteSettingController extends GetxController
           isLoading(false);
           isIndex.value = 2;
           tabcontroller.animateTo(2);
-          // Get.rootDelegate.toNamed(Routes.route);
           Utils.snackBar('Success', resData.message ?? '', type: 'success');
 
-           get(rootid:routeId.toString());
-
-          // clrValue();
+          get(rootid: routeId.toString());
         }
       },
     );
+  }
+  //updateroute
+
+  // void editClick(RouteSetting data) async {
+  //   nameController = TextEditingController(text: data.rootName);
+  //   editId = data.rootId.toString();
+  //   Get.rootDelegate.toNamed(Routes.routeSettingAdd);
+  // }
+
+  updateRoute() async {
+    //   isLoading(true);
+    //   final selectedItem =
+    //       customerdata.where((e) => e.isSelect!.value == true).toList();
+
+    //   final addedItem = selectedItem.map((item) {
+    //     return RouteAddModel(
+    //       editId: editId,
+    //       customerId: item.id, rootId: routeId);
+    //   }).toList();
+    //   final res = await _repo.updateRoute(data: addedItem);
+    //   res.fold(
+    //     (failure) {
+    //       isLoading(false);
+    //       Utils.snackBar('Error', failure.message);
+    //       setError(error.toString());
+    //     },
+    //     (resData) {
+    //       if (resData.status!) {
+    //         isLoading(false);
+    //            isIndex.value = 2;
+    //         tabcontroller.animateTo(2);
+    //         Utils.snackBar('Success', resData.message ?? '', type: 'success');
+
+    //         get();
+
+    //         // clrValue();
+    //       }
+    //     },
+    //   );
   }
 }

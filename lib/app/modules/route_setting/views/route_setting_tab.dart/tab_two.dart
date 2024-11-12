@@ -207,7 +207,7 @@ class TabThree extends GetView<RouteSettingController> {
                           ),
                           SingleChildScrollView(
                             child: SizedBox(
-                              height: size.height * 0.05,
+                              height: size.height * 0.1,
                               child: Obx(
                                 () => ListView.builder(
                                     itemCount: controller.customerdata.length,
@@ -299,16 +299,11 @@ class TabThree extends GetView<RouteSettingController> {
                                 ? size.width * .1
                                 : size.width * 0.25,
                             onClick: () {
-                              // if (controller.formkey.currentState!.validate()) {
-                              //   if (controller.editId == '') {
-                                  controller.addRoute();
-                              //   } else {
-                              //     // controller.editProduct();
-                              //   }
-                              // }
+                             
+                                controller.addRoute();
+                            
                             },
-                            label:
-                                controller.editId == '' ? 'Add' : 'Update',
+                            label:'Add' ,
                           )
                         ],
                       ),
