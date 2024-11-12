@@ -83,17 +83,17 @@ class SidemenuState {
         },
       ),
     );
-    menus.add(
-      MenuEntity(
-        id: 3,
-        menu: 'ROUTE ASSIGN',
-        svgIcon: SvgAssets.routeAssign,
-        items: [],
-        onClick: () {
-          Get.rootDelegate.toNamed(Routes.employee);
-        },
-      ),
-    );
+    // menus.add(
+    //   MenuEntity(
+    //     id: 3,
+    //     menu: 'ROUTE ASSIGN',
+    //     svgIcon: SvgAssets.routeAssign,
+    //     items: [],
+    //     onClick: () {
+    //       Get.rootDelegate.toNamed(Routes.employee);
+    //     },
+    //   ),
+    // );
     menus.add(
       MenuEntity(
         id: 0,

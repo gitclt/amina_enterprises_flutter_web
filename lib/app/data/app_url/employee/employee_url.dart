@@ -6,4 +6,7 @@ class AppEmpUrl {
   static String add = '$baseUrl/employee/Postemployee';
   static String edit = '$baseUrl/employee/EditEmployee';
   static String delete = '$baseUrl/employee/Deleteemployee';
+
+  static String assignRoute = '$baseUrl/Route/emp_route_add';
+  static String assignRouteUpdate = '$baseUrl/Route/emp_route_edit';
 }

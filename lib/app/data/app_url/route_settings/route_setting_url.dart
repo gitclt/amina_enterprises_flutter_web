@@ -7,7 +7,7 @@ class RouteSettingUrl {
   static String routeSettingListApi = '$baseUrl/Route/view_route_master';
   static String routeSettingAddApi = '$baseUrl/Route/route_master_add';
   static String routeSettingUpdateApi = '$baseUrl/';
-  static String routeSettingDeleteApi = '$baseUrl/';
+  static String routeSettingDeleteApi = '$baseUrl/Route/Delete_route_master';
   
 
   //route name

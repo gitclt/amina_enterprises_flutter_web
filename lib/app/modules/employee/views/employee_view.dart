@@ -139,7 +139,6 @@ class EmployeeView extends GetView<EmployeeController> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                     
                                         Row(
                                           children: [
                                             ColumnWidget(
@@ -204,23 +203,23 @@ class EmployeeView extends GetView<EmployeeController> {
                                                 alignment: Alignment.center,
                                                 color: bgColor),
                                             ColumnWidget(
-                                                text: item.name == ''
+                                                text: item.route!.isEmpty
                                                     ? AssignRouteButton(
                                                         label: 'Assign Route',
                                                         color: AppColor.red,
                                                         ontap: () {
-                                                          Get.rootDelegate
-                                                              .toNamed(Routes
-                                                                  .routeAssignAdd);
+                                                          controller
+                                                              .addRouteClick(
+                                                                  item);
                                                         },
                                                       )
                                                     : AssignRouteButton(
                                                         label: 'Edit Route',
                                                         color: AppColor.green,
                                                         ontap: () {
-                                                          Get.rootDelegate
-                                                              .toNamed(Routes
-                                                                  .routeAssignAdd);
+                                                          controller
+                                                              .editRouteClick(
+                                                                  item);
                                                         },
                                                       ),
                                                 width: size.width * 0.1,

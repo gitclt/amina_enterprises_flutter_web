@@ -34,15 +34,33 @@ class RouteAssignAdd extends GetView<EmployeeController> {
           PageContainer(
             child: Column(
               children: [
-                const Row(
+                Row(
                   children: [
-                    CircleAvatar(),
+                    const CircleAvatar(),
                     Column(
-                      children: [Text("code"), Text("name")],
+                      children: [
+                        SizedBox(
+                          width: size.width * 0.1,
+                        ),
+                        Text(controller.codeController.text),
+                        SizedBox(
+                          height: size.height * 0.01,
+                        ),
+                        Text(controller.nameController.text)
+                      ],
                     ),
                     Column(
-                      children: [Text("email"), Text("Phone")],
-                    )
+                      children: [
+                        Text(controller.emailController.text),
+                        SizedBox(
+                          height: size.height * 0.01,
+                        ),
+                        Text(controller.mobileController.text)
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height * 0.1,
+                    ),
                   ],
                 ),
                 Row(
@@ -50,24 +68,11 @@ class RouteAssignAdd extends GetView<EmployeeController> {
                     SizedBox(
                       width: size.width * 0.01,
                     ),
-                    CircleAvatar(
-                        radius: 4,
-                        backgroundColor:
-                            // item.activeStatus ==
-                            //         "1"
-                            // ?
-                            AppColor.green
-                        // : AppColor.grey,
-                        ),
+                    CircleAvatar(radius: 4, backgroundColor: AppColor.green),
                     SizedBox(
                       width: size.width * 0.001,
                     ),
-                    const Text(
-                        // item.activeStatus == "1"
-                        //     ?
-                        "Active"
-                        // : "Inactive",
-                        )
+                    const Text("Active")
                   ],
                 ),
               ],
@@ -80,61 +85,249 @@ class RouteAssignAdd extends GetView<EmployeeController> {
             child: Obx(() => SingleChildScrollView(
                   physics: const ScrollPhysics(),
                   child: Wrap(
-                    spacing:
-                        Responsive.isDesktop(context) ? size.width * 0.03 : 50,
-                    runSpacing: 20,
-                    children: [
-                      ...List.generate(controller.daysOfWeek.length, (index) {
-                        String day = controller.daysOfWeek[index];
-                        return SizedBox(
-                          width: size.width * 0.17,
-                          child: DropDown3Widget(
-                            width: size.width * 0.18,
-                            label: day,
-                            // visible: true,
-                            hint: "",
-                            selectedItem: controller.dropDownRoute,
-                            items: controller.routeDropList,
-                            onChanged: (data) async {
-                              if (data == null) return;
-                              controller.dropDownRoute = data;
+                      spacing: Responsive.isDesktop(context)
+                          ? size.width * 0.03
+                          : 50,
+                      runSpacing: 20,
+                      children: [
+//                       DropDown3Widget(
+//   width: size.width * 0.18,
+//   label: "Monday",
+//   hint: "",
+//   selectedItem: controller.dropDownMonday,
+//   items: controller.mondayList,
+//   onChanged: (data) async {
+//     if (data == null) {
+//       controller.dropDownMonday = DropDownModel();
+//       return;
+//     }
+//     controller.dropDownMonday = data;
+//   },
+// ),
 
-                              controller.mondayController.text =
-                                  data.id.toString();
+                        DropDown3Widget(
+                          width: size.width * 0.18,
+                          label: 'Monday',
+                          hint: '',
+                          selectedItem: controller.dropDownMonday.id == null
+                              ? null
+                              : controller.dropDownMonday,
+                          items: controller.mondayList,
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Select ';
+                            }
+                            return null;
+                          },
+                          onChanged: (data) async {
+                            if (data == null) return;
+                            controller.dropDownMonday = data;
+                          },
+                        ),
+                        DropDown3Widget(
+                          width: size.width * 0.18,
+                          label: 'Tuesday',
+                          hint: '',
+                          selectedItem: controller.dropDownTuesday.id == null
+                              ? null
+                              : controller.dropDownTuesday,
+                          items: controller.tuesList,
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Select ';
+                            }
+                            return null;
+                          },
+                          onChanged: (data) async {
+                            if (data == null) return;
+                            controller.dropDownTuesday = data;
+                          },
+                        ),
 
-                              // print('${controller.mondayController.text}');
-                            },
-                          ),
-                        );
-                      }),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          CommonButton(
-                            isLoading: controller.isLoading.value,
-                            width: Responsive.isDesktop(context)
-                                ? size.width * .1
-                                : size.width * 0.25,
-                            onClick: () {
-                              if (controller.formkey.currentState!.validate()) {
+                        DropDown3Widget(
+                          width: size.width * 0.18,
+                          label: 'Wensday',
+                          hint: '',
+                          selectedItem: controller.dropDownWednesday.id == null
+                              ? null
+                              : controller.dropDownWednesday,
+                          items: controller.wednesList,
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Select ';
+                            }
+                            return null;
+                          },
+                          onChanged: (data) async {
+                            if (data == null) return;
+                            controller.dropDownWednesday = data;
+                          },
+                        ),
+                        DropDown3Widget(
+                          width: size.width * 0.18,
+                          label: 'Thusday',
+                          hint: '',
+                          selectedItem: controller.dropDownThursday.id == null
+                              ? null
+                              : controller.dropDownThursday,
+                          items: controller.thusList,
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Select ';
+                            }
+                            return null;
+                          },
+                          onChanged: (data) async {
+                            if (data == null) return;
+                            controller.dropDownThursday = data;
+                          },
+                        ),
+                        DropDown3Widget(
+                          width: size.width * 0.18,
+                          label: 'Friday',
+                          hint: '',
+                          selectedItem: controller.dropDownFriday.id == null
+                              ? null
+                              : controller.dropDownFriday,
+                          items: controller.friList,
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Select ';
+                            }
+                            return null;
+                          },
+                          onChanged: (data) async {
+                            if (data == null) return;
+                            controller.dropDownFriday = data;
+                          },
+                        ),
+                        DropDown3Widget(
+                          width: size.width * 0.18,
+                          label: 'Saturday',
+                          hint: '',
+                          selectedItem: controller.dropDownSaturday.id == null
+                              ? null
+                              : controller.dropDownSaturday,
+                          items: controller.saturList,
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Select ';
+                            }
+                            return null;
+                          },
+                          onChanged: (data) async {
+                            if (data == null) return;
+                            controller.dropDownSaturday = data;
+                          },
+                        ),
+                        //                   children: [
+                        // ...List.generate(controller.daysOfWeek.length, (index) {
+                        //   String day = controller.daysOfWeek[index];
+                        //   return SizedBox(
+                        //     width: size.width * 0.17,
+                        //     child: DropDown3Widget(
+                        //       width: size.width * 0.18,
+                        //       label: day,
+                        //       hint: '-- Select Route --',
+                        //       selectedItem: controller.dropDownRoute ,
+                        //       items: controller.routeDropList,
+                        //       onChanged: (data) async {
+                        //         if (data == null) return;
+                        //         controller.dropDownRoute = data;
+
+                        //         // Update route ID based on the selected day
+                        //         switch (day) {
+                        //           case "Monday":
+                        //             controller.monRouteId.value = data.id.toString();
+                        //             break;
+                        //           case "Tuesday":
+                        //             controller.tueRouteId.value = data.id.toString();
+                        //             break;
+                        //           case "Wednesday":
+                        //             controller.wedRouteId.value = data.id.toString();
+                        //             break;
+                        //           case "Thursday":
+                        //             controller.thuRouteId.value = data.id.toString();
+                        //             break;
+                        //           case "Friday":
+                        //             controller.friRouteId.value = data.id.toString();
+                        //             break;
+                        //           case "Saturday":
+                        //             controller.satRouteId.value = data.id.toString();
+                        //             break;
+                        //         }
+                        //       },
+                        //     ),
+                        //   );
+                        // }),
+
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            CommonButton(
+                              isLoading: controller.isLoading.value,
+                              width: Responsive.isDesktop(context)
+                                  ? size.width * .1
+                                  : size.width * 0.25,
+                              onClick: () {
                                 if (controller.editId == '') {
-                                  controller.add();
+                                  controller.assignRoute( );
                                 } else {
-                                  controller.edit();
+                                  controller.assignRouteUpdate();
                                 }
-                              }
-                            },
-                            label:
-                                controller.editId == '' ? 'Submit' : 'Update',
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                )),
+                              },
+                              label:
+                                  controller.editId == '' ? 'Submit' : 'Update',
+                            ),
+                          ],
+                        ),
+                      ]
+                      // children: [
+                      //   ...List.generate(controller.daysOfWeek.length, (index) {
+                      //     String day = controller.daysOfWeek[index];
+                      //     return SizedBox(
+                      //       width: size.width * 0.17,
+                      //       child: DropDown3Widget(
+                      //         width: size.width * 0.18,
+                      //         label: day,
+                      //         // visible: true,
+                      //         hint: "",
+                      //         selectedItem: controller.dropDownRoute,
+                      //         items: controller.routeDropList,
+                      //         onChanged: (data) async {
+                      //           if (data == null) return;
+                      //           controller.dropDownRoute = data;
 
-           
+                      //           controller.mondayController.text =
+                      //               data.id.toString();
+
+                      //         },
+                      //       ),
+                      //     );
+                      //   }),
+                      //   Row(
+                      //     crossAxisAlignment: CrossAxisAlignment.end,
+                      //     mainAxisAlignment: MainAxisAlignment.end,
+                      //     children: [
+                      //       CommonButton(
+                      //         isLoading: controller.isLoading.value,
+                      //         width: Responsive.isDesktop(context)
+                      //             ? size.width * .1
+                      //             : size.width * 0.25,
+                      //         onClick: () {
+
+                      //               controller.assignRoute();
+
+                      //         },
+                      //         label:
+                      //             controller.editId == '' ? 'Submit' : 'Update',
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ],
+                      ),
+                )),
           )
         ]),
       ),

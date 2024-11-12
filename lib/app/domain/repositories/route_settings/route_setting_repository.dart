@@ -105,7 +105,7 @@ class RouteSettingRepository extends NetworkApiServices {
   Future<Either<Failure, ApiModel>> delete({
     required String id,
   }) async {
-    var body = {"id": id};
+    var body = {"root_id": id};
     try {
       dynamic response = await _apiServices.deleteApi(
           body, RouteSettingUrl.routeSettingDeleteApi);
