@@ -6,6 +6,7 @@ import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/customer/customer_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/district/distrct_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/division/division_repository.dart';
+import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/place/place_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/state/state_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/utils.dart';
@@ -19,6 +20,7 @@ class CustomerController extends GetxController {
   final _repo = CustomerRepository();
   final stateRepo = StateRepository();
   final districtRepo = DistrictRepository();
+  final placeRepo = PlaceRepository();
   final divisionRepo = DivisionRepository();
   RxList<CustomerData> data = <CustomerData>[].obs;
   final formkey = GlobalKey<FormState>();
@@ -27,7 +29,7 @@ class CustomerController extends GetxController {
   TextEditingController codeController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController placeController = TextEditingController();
+  // TextEditingController placeController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController pincodeController = TextEditingController();
@@ -35,6 +37,7 @@ class CustomerController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isStateLoading = false.obs;
   RxBool isDistrictLoading = false.obs;
+  RxBool isPlaceLoading = false.obs;
   RxBool isDivisionLoading = false.obs;
   String editId = '';
 
@@ -43,6 +46,7 @@ class CustomerController extends GetxController {
   DropDownModel sdSearchDistrict = DropDownModel();
   DropDownModel sdState = DropDownModel();
   DropDownModel sdDistrict = DropDownModel();
+  DropDownModel sdPlace = DropDownModel();
   DropDownModel sdType = DropDownModel();
   // division
 
@@ -58,6 +62,7 @@ class CustomerController extends GetxController {
 
   RxList<DropDownModel> stateDropList = <DropDownModel>[].obs;
   RxList<DropDownModel> districtDropList = <DropDownModel>[].obs;
+  RxList<DropDownModel> placeDropList = <DropDownModel>[].obs;
 
   @override
   void onInit() {
@@ -86,6 +91,7 @@ class CustomerController extends GetxController {
     final res = await _repo.getCustomerList(
       stateid: sdSearchState.id ?? '',
       districtId: sdSearchDistrict.id ?? '',
+      placeId:'',
       page: currentPage.toString(),
       pageSize: pageSize.toString(),
     );
@@ -202,6 +208,26 @@ class CustomerController extends GetxController {
     });
   }
 
+  void getPlace() async {
+    isPlaceLoading(true);
+    sdPlace = DropDownModel(id: '', name: '--Select Place--');
+    placeDropList.clear();
+    final res = await placeRepo.getList(
+        stateId: sdState.id ?? '', districtId: sdDistrict.id ?? '');
+    res.fold((failure) {
+      isPlaceLoading(false);
+      Utils.snackBar('Place', failure.message);
+      setError(error.toString());
+    }, (resData) {
+      isPlaceLoading(false);
+
+      for (var place in resData.data!) {
+        placeDropList
+            .add(DropDownModel(id: place.id.toString(), name: place.name));
+      }
+    });
+  }
+
   //edit
   void editClick(CustomerData data) async {
     nameController = TextEditingController(text: data.name);
@@ -211,12 +237,14 @@ class CustomerController extends GetxController {
     emailController = TextEditingController(text: data.email);
     mobileController = TextEditingController(text: data.mobile);
     addressController = TextEditingController(text: data.address);
-    placeController = TextEditingController(text: data.place);
+    // placeController = TextEditingController(text: data.place);
     //Controller = TextEditingController(text: data.name);
     pincodeController = TextEditingController(text: data.pincode.toString());
     sdState = DropDownModel(id: data.stateId.toString(), name: data.state);
     sdDistrict =
         DropDownModel(id: data.districtId.toString(), name: data.district);
+        sdPlace =
+        DropDownModel(id: data.place.toString(), name: data.place);
     if (data.divisions != null) {
       dropdownDivisionList(data.divisions!
           .map((v) =>
@@ -240,7 +268,7 @@ class CustomerController extends GetxController {
               email: emailController.text.trim(),
               mobile: mobileController.text.trim(),
               address: addressController.text.trim(),
-              place: placeController.text.trim(),
+              placeId:sdPlace.id,
               districtId: int.tryParse('${sdDistrict.id}'),
               pincode: int.tryParse(pincodeController.text.trim()),
               stateId: int.tryParse('${sdState.id}'),
@@ -286,7 +314,7 @@ class CustomerController extends GetxController {
                 email: emailController.text.trim(),
                 mobile: mobileController.text.trim(),
                 address: addressController.text.trim(),
-                place: placeController.text.trim(),
+                placeId:sdPlace.id,
                 districtId: int.tryParse('${sdDistrict.id}'),
                 pincode: int.tryParse(pincodeController.text.trim()),
                 stateId: int.tryParse('${sdState.id}'),
@@ -336,12 +364,12 @@ class CustomerController extends GetxController {
     sdType = DropDownModel(id: '', name: '--Select Type--');
     sdDistrict = DropDownModel(id: '', name: '--Select District--');
     sdState = DropDownModel(id: '', name: '--Select State--');
-
+    sdPlace = DropDownModel(id: '', name: '--Select Type--');
     passwordController.clear();
     emailController.clear();
     mobileController.clear();
     addressController.clear();
-    placeController.clear();
+    // placeController.clear();
     pincodeController.clear();
   }
 }

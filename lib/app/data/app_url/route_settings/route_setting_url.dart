@@ -8,4 +8,10 @@ class RouteSettingUrl {
   static String routeSettingAddApi = '$baseUrl/Route/route_master_add';
   static String routeSettingEditApi = '$baseUrl/';
   static String routeSettingDeleteApi = '$baseUrl/';
+  
+
+  //route name
+ static String routeNameAddApi = '$baseUrl/Route/route_name_add';
 }
+
+

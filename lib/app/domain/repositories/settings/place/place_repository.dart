@@ -11,10 +11,12 @@ class PlaceRepository extends NetworkApiServices {
   final _apiServices = NetworkApiServices();
 
   Future<Either<Failure, PlaceModel>> getList({
-    String? stateId,
+ String? stateId,
+ String? districtId,
+
   }) async {
     try {
-      dynamic response = await getApi(SettingsUrl.placeListApi);
+      dynamic response = await getApi('${SettingsUrl.placeListApi}?state_id=$stateId&district_id=$districtId');
 
       if (response != null && response["status"] == true) {
         PlaceModel res = PlaceModel.fromJson(response);

@@ -188,22 +188,47 @@ class CustomerAdd extends GetView<CustomerController> {
                       onChanged: (data) async {
                         if (data == null) return;
                         controller.sdDistrict = data;
+                        controller.getPlace();
                       },
                     ),
                   ),
-                  AddTextFieldWidget(
-                    width: Responsive.isDesktop(context)
-                        ? size.width * 0.18
-                        : size.width * .32,
-                    textController: controller.placeController,
-                    label: 'Place',
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Enter Place';
-                      }
-                      return null;
-                    },
+                  Obx(
+                    () => DropDown3Widget(
+                      width: Responsive.isDesktop(context)
+                          ? size.width * 0.18
+                          : size.width * .32,
+                      label: 'Place',
+                      hint: '--Select Place--',
+                      selectedItem: controller.sdPlace.id == null
+                          ? null
+                          : controller.sdPlace,
+                      items: controller.placeDropList,
+                      isLoading: controller.isPlaceLoading.value,
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Select Place';
+                        }
+                        return null;
+                      },
+                      onChanged: (data) async {
+                        if (data == null) return;
+                        controller.sdPlace = data;
+                      },
+                    ),
                   ),
+                  // AddTextFieldWidget(
+                  //   width: Responsive.isDesktop(context)
+                  //       ? size.width * 0.18
+                  //       : size.width * .32,
+                  //   textController: controller.placeController,
+                  //   label: 'Place',
+                  //   validator: (value) {
+                  //     if (value!.isEmpty) {
+                  //       return 'Enter Place';
+                  //     }
+                  //     return null;
+                  //   },
+                  // ),
                   AddTextFieldWidget(
                     width: Responsive.isDesktop(context)
                         ? size.width * 0.18
@@ -219,7 +244,7 @@ class CustomerAdd extends GetView<CustomerController> {
                       return null;
                     },
                   ),
-                   Obx(
+                  Obx(
                     () => DropDownMultiWidget(
                       width: size.width * 0.18,
                       label: "Division",

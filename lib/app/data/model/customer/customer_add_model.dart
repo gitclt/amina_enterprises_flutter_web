@@ -47,7 +47,7 @@ class Customer {
   String? email;
   String? mobile;
   String? address;
-  String? place;
+  String?  placeId;
   int? stateId;
   int? districtId;
   String? latitude;
@@ -68,7 +68,7 @@ class Customer {
     this.email,
     this.mobile,
     this.address,
-    this.place,
+    this.placeId,
     this.stateId,
     this.districtId,
     this.latitude,
@@ -90,7 +90,7 @@ class Customer {
         email: json["email"],
         mobile: json["mobile"],
         address: json["address"],
-        place: json["place"],
+        placeId: json["place_id"],
         stateId: json["state_id"],
         districtId: json["district_id"],
         latitude: json["latitude"],
@@ -112,7 +112,7 @@ class Customer {
         "email": email,
         "mobile": mobile,
         "address": address,
-        "place": place,
+        "place_id": placeId,
         "state_id": stateId,
         "district_id": districtId,
         "latitude": latitude,

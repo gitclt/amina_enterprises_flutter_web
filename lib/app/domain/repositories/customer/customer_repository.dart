@@ -14,12 +14,13 @@ class CustomerRepository {
   Future<Either<Failure, CustomerModel>> getCustomerList({
     String? stateid,
     String? districtId,
+    String? placeId,
     required String page,
     required String pageSize,
   }) async {
     try {
       dynamic response = await _apiServices.getApi(
-          '${AppCusUrl.view}?state_id=$stateid&district_id=$districtId&page=$page&pageSize=$pageSize');
+          '${AppCusUrl.view}?state_id=$stateid&district_id=$districtId&place_id=$placeId&page=$page&pageSize=$pageSize');
 
       if (response != null && response["status"] == true) {
         CustomerModel res = CustomerModel.fromJson(response);

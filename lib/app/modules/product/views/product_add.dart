@@ -1,5 +1,6 @@
 import 'package:amina_enterprises_flutter_web/app/common_widgets/appbar/common_home_appbar.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/container/simple_container.dart';
+import 'package:amina_enterprises_flutter_web/app/common_widgets/tabbar.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/product/controllers/product_controller.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/product/views/widget/product_tab_one.dart';
@@ -150,27 +151,3 @@ class ProductAdd extends GetView<ProductController> {
   }
 }
 
-Widget buildTab(
-    String label, Color borderColor, Color textColor, BuildContext context) {
-  return Tab(
-    child: Container(
-      width: Get.width * .15,
-      height: 43,
-      decoration: BoxDecoration(
-        color: borderColor,
-        borderRadius: const BorderRadius.all(Radius.circular(5)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-                color: textColor,
-                fontSize: Responsive.isDesktop(context) ? 12 : 10),
-          ),
-        ],
-      ),
-    ),
-  );
-}
