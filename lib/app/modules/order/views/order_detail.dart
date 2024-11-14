@@ -35,10 +35,46 @@ class OrderDetail extends GetView<OrderController> {
           ),
           PageContainer(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Wrap(children: [
-                  
-                ]),
+                Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.start,
+                    spacing: Responsive.isDesktop(context)
+                        ? size.width * 0.2
+                        : Responsive.isMobile(context)
+                            ? 50
+                            : 50,
+                    runSpacing: 20,
+                    children: [
+                      TittleText(
+                        title: 'Order ID',
+                        discription:
+                            controller.orderDetailList.first.orderNumber ?? '',
+                      ),
+                      TittleText(
+                        title: 'Customer name',
+                        discription:
+                            controller.orderDetailList.first.customer ?? '',
+                      ),
+                      TittleText(
+                        title: 'Item Count',
+                        discription: controller.orderDetailList.first.itemCount
+                            .toString(),
+                      ),
+                      TittleText(
+                        title: 'Date',
+                        discription: controller.orderDetailList.first.date!,
+                      ),
+                      TittleText(
+                        title: 'District',
+                        discription: controller.orderDetailList.first.district!,
+                      ),
+                      TittleText(
+                        title: 'Location',
+                        discription:
+                            controller.orderDetailList.first.placeId ?? '',
+                      ),
+                    ]).paddingOnly(bottom: 20),
                 Column(
                   children: [
                     Row(
@@ -78,7 +114,8 @@ class OrderDetail extends GetView<OrderController> {
 
                                 final bgColor =
                                     index % 2 == 0 ? oddColor : evenColor;
-                                final item = controller.orderDetailList[index];
+                                final item = controller
+                                    .orderDetailList.first.items![index];
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -197,5 +234,28 @@ class OrderDetail extends GetView<OrderController> {
             ),
           ),
         ])));
+  }
+}
+
+class TittleText extends StatelessWidget {
+  final String title, discription;
+  const TittleText({
+    super.key,
+    required this.title,
+    required this.discription,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.1,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          boldText(title, fontSize: 16),
+          normalText(discription, 14, fontWeight: FontWeight.w400)
+        ],
+      ),
+    );
   }
 }

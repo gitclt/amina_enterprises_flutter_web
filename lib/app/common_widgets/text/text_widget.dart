@@ -45,3 +45,20 @@ Text columnText(String label, double fontSize,
         color: color),
   );
 }
+
+
+Text normalText(String label, double fontSize,
+    {TextAlign? textAlign = TextAlign.center,
+    FontWeight? fontWeight = FontWeight.w400,
+    Color? color = AppColor.blackColor}) {
+  return Text(
+    label,
+    textAlign: textAlign,
+    overflow: TextOverflow.ellipsis,
+    style: TextStyle(
+        fontWeight: fontWeight,
+        fontFamily: 'Manrope',
+        fontSize: fontSize,
+        color: color),
+  );
+}

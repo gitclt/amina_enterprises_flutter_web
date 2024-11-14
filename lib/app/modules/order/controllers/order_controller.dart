@@ -18,7 +18,7 @@ class OrderController extends GetxController {
   TextEditingController fromDateController = TextEditingController();
   TextEditingController toDateController = TextEditingController();
   RxList<Order> data = <Order>[].obs;
-   RxList<Item> orderDetailList = <Item>[].obs;
+   RxList<Details> orderDetailList = <Details>[].obs;
      DropDownModel dropDownStatus = DropDownModel();
      RxList<DropDownModel> statusDropList = <DropDownModel>[].obs;
   final _repo = OrderRepository();
@@ -76,7 +76,7 @@ class OrderController extends GetxController {
     }, (resData) {
       setRxRequestStatus(Status.completed);
       if (resData.data != null) {
-      orderDetailList.addAll(resData.data!.first.items!);
+      orderDetailList.addAll(resData.data!);
       
       }
     });
@@ -125,5 +125,32 @@ class OrderController extends GetxController {
             .add(DropDownModel(id: d.id.toString(), name: d.district));
       }
     });
+  }
+
+
+  // Current step index
+  var currentStep = 0.obs;
+
+  // Total number of steps
+  final steps = [
+    'Order Placed',
+    'Order Approved',
+    'Paused',
+    'Start',
+    'Delivered',
+  ];
+
+  // Method to go to the next step
+  void goToNextStep() {
+    if (currentStep < steps.length - 1) {
+      currentStep++;
+    }
+  }
+
+  // Method to go to the previous step
+  void goToPreviousStep() {
+    if (currentStep > 0) {
+      currentStep--;
+    }
   }
 }
