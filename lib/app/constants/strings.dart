@@ -2,9 +2,9 @@
 
 const String kBaseUrl = s1;
 const String kBaseUrlForImage = "$kBaseUrl/public/assets/web";
-const bool isStaging = true;
+const bool isStaging = false;
 
-const String s1 = "http://192.168.1.101:8087/api";
+const String s1 = "https://amina.gitdgtl.com/api";
 
 class LocalStorageKey {
   static String token = "USER_TOKEN";
