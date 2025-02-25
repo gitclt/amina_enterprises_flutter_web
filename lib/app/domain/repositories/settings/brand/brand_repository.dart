@@ -29,10 +29,14 @@ class BrandRepository extends NetworkApiServices {
 //add
   Future<Either<Failure, ApiModel>> addBrand(
     String name,
+    String image,
+    String img,
   ) async {
     try {
       var body = json.encode({
         "name": name,
+         "image": image,
+          'image_data': img
       });
       dynamic response = await _apiServices.postApi(
         body,
@@ -57,11 +61,13 @@ class BrandRepository extends NetworkApiServices {
   Future<Either<Failure, ApiModel>> editBrand({
     required String id,
     required String name,
+    required String image,
   }) async {
     try {
        var body = json.encode({
         "id": id,
         "name": name,
+         "image": image,
       });
       dynamic response = await _apiServices.putApi(
         body,

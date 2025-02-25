@@ -29,10 +29,12 @@ class ColorRepository extends NetworkApiServices {
 //add
   Future<Either<Failure, ApiModel>> add(
     String name,
+    String colorcode
   ) async {
     try {
       var body = json.encode({
         "name": name,
+         "color_code":colorcode
       });
       dynamic response = await _apiServices
           .postApi(body, SettingsUrl.colorAddApi, isJson: true);
@@ -54,6 +56,7 @@ class ColorRepository extends NetworkApiServices {
   Future<Either<Failure, ApiModel>> edit({
     required String id,
     required String name,
+    required String code
   }) async {
     try {
       var body = json.encode({

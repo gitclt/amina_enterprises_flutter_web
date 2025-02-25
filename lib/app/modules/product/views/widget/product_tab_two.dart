@@ -21,203 +21,215 @@ class ProductTabTwo extends GetView<ProductController> {
     var size = MediaQuery.of(context).size;
     return Form(
       key: controller.formkey1,
-      child: SingleChildScrollView(
-        physics: const ScrollPhysics(),
-        child: Wrap(
-          spacing: Responsive.isDesktop(context)
-              ? size.width * 0.03
-              : Responsive.isMobile(context)
-                  ? 50
-                  : 50,
-          runSpacing: 20,
-          children: [
-            Obx(
-              () => controller.detailList.isEmpty
-                  ? const SizedBox()
-                  : AttributesTable(controller: controller),
-            ),
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(15),
-                  // width: size.width * 0.13,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: AppColor.boxBorderColor)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      child: Obx(() => controller.isLoading.value
+          ? const SizedBox()
+          : SingleChildScrollView(
+              physics: const ScrollPhysics(),
+              child: Wrap(
+                spacing: Responsive.isDesktop(context)
+                    ? size.width * 0.03
+                    : Responsive.isMobile(context)
+                        ? 50
+                        : 50,
+                runSpacing: 20,
+                children: [
+                  Obx(
+                    () => controller.detailList.isEmpty
+                        ? const SizedBox()
+                        : AttributesTable(controller: controller),
+                  ),
+                  Row(
                     children: [
-                      Column(
-                        children: [
-                          svgWidget('assets/svg_icons/shoe.svg'),
-                        ],
+                      Container(
+                        padding: const EdgeInsets.all(15),
+                        // width: size.width * 0.13,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: AppColor.boxBorderColor)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              children: [
+                                svgWidget('assets/svg_icons/shoe.svg'),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                columnText(controller.nameController.text, 20),
+                                boldText(controller.artnoController.text,
+                                    fontWeight: FontWeight.w400)
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          columnText(controller.nameController.text, 20),
-                          boldText(controller.artnoController.text,
-                              fontWeight: FontWeight.w400)
-                        ],
+                    ],
+                  ),
+                  Obx(() => DropDown3Widget(
+                        label: 'Sub Category',
+                        isLoading: controller.isSubCatLoading.value,
+                        hint: '--Select Category--',
+                        selectedItem: controller.sdSubCat.id == null
+                            ? null
+                            : controller.sdSubCat,
+                        items: controller.subcatDropList,
+                        onChanged: (data) async {
+                          if (data == null) return;
+                          controller.sdSubCat = data;
+                        },
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Select Sub Category';
+                          }
+                          return null;
+                        },
+                      )),
+
+                  Obx(() => DropDown3Widget(
+                        label: 'Color',
+                        isLoading: controller.isColorLoading.value,
+                        hint: '--Select Color--',
+                        selectedItem: controller.sdColor.id == null
+                            ? null
+                            : controller.sdColor,
+                        items: controller.colorDropList,
+                        onChanged: (data) async {
+                          if (data == null) return;
+                          controller.sdColor = data;
+                        },
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Select Color';
+                          }
+                          return null;
+                        },
+                      )),
+                  controller.sizeList.isEmpty
+                      ? const SizedBox()
+                      : ItemSelectTable(
+                          controller: controller,
+                        ),
+                  Row(
+                    children: [
+                      Obx(
+                        () => DropDown3Widget(
+                          isLoading: controller.isStateLoading.value,
+                          label: 'State',
+                          hint: '--Select State--',
+                          selectedItem: controller.sdState.id == null
+                              ? null
+                              : controller.sdState,
+                          items: controller.stateDropList,
+                          onChanged: (data) async {
+                            if (data == null) return;
+                            controller.sdState = data;
+                          },
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Select State';
+                            }
+                            return null;
+                          },
+                        ),
                       )
                     ],
                   ),
-                ),
-              ],
-            ),
-            DropDown3Widget(
-              label: 'Sub Category',
-              hint: '--Select Category--',
-              selectedItem:
-                  controller.sdSubCat.id == null ? null : controller.sdSubCat,
-              items: controller.subcatDropList,
-              onChanged: (data) async {
-                if (data == null) return;
-                controller.sdSubCat = data;
-              },
-              validator: (value) {
-                if (value == null) {
-                  return 'Select Sub Category';
-                }
-                return null;
-              },
-            ),
-            DropDown3Widget(
-              label: 'Color',
-              hint: '--Select Color--',
-              selectedItem:
-                  controller.sdColor.id == null ? null : controller.sdColor,
-              items: controller.colorDropList,
-              onChanged: (data) async {
-                if (data == null) return;
-                controller.sdColor = data;
-              },
-              validator: (value) {
-                if (value == null) {
-                  return 'Select Color';
-                }
-                return null;
-              },
-            ),
-            controller.sizeList.isEmpty
-                ? const SizedBox()
-                : ItemSelectTable(
-                    controller: controller,
-                  ),
-            Row(
-              children: [
-                DropDown3Widget(
-                  label: 'State',
-                  hint: '--Select State--',
-                  selectedItem:
-                      controller.sdState.id == null ? null : controller.sdState,
-                  items: controller.stateDropList,
-                  onChanged: (data) async {
-                    if (data == null) return;
-                    controller.sdState = data;
-                  },
-                  validator: (value) {
-                    if (value == null) {
-                      return 'Select State';
-                    }
-                    return null;
-                  },
-                ),
-              ],
-            ),
-            // SizedBox(
-            //   height: size.height * 0.03,
-            // ),
-            InkWell(
-              // onTap: () {
-              //   controller.pickImage();
-              // },
-              child: Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          const Text(
-                            'Upload Image',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              color: AppColor.textGrayColor,
+                  // SizedBox(
+                  //   height: size.height * 0.03,
+                  // ),
+                  InkWell(
+                    // onTap: () {
+                    //   controller.pickImage();
+                    // },
+                    child: Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                const Text(
+                                  'Upload Image',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColor.textGrayColor,
+                                  ),
+                                ),
+                                Text(
+                                  '*',
+                                  style: TextStyle(color: AppColor.primary),
+                                ).paddingOnly(left: 5)
+                              ],
                             ),
-                          ),
-                          Text(
-                            '*',
-                            style: TextStyle(color: AppColor.primary),
-                          ).paddingOnly(left: 5)
-                        ],
-                      ),
-                      SizedBox(
-                        height: size.height * 0.01,
-                      ),
-                      Row(
-                        children: [
-                          ImageContainer(
-                            controller: controller,
-                            ontap: () {
-                              controller.pickImage(1);
-                            },
-                            imageIndex: 1,
-                          ),
-                          ImageContainer(
-                            controller: controller,
-                            ontap: () {
-                              controller.pickImage(2);
-                            },
-                            imageIndex: 2,
-                          ),
-                          ImageContainer(
-                            controller: controller,
-                            ontap: () {
-                              controller.pickImage(3);
-                            },
-                            imageIndex: 3,
-                          ),
-                          ImageContainer(
-                            controller: controller,
-                            ontap: () {
-                              controller.pickImage(4);
-                            },
-                            imageIndex: 4,
-                          ),
-                        ],
-                      ),
-                    ],
+                            SizedBox(
+                              height: size.height * 0.01,
+                            ),
+                            Row(
+                              children: [
+                                ImageContainer(
+                                  controller: controller,
+                                  ontap: () {
+                                    controller.pickImage(1);
+                                  },
+                                  imageIndex: 1,
+                                ),
+                                ImageContainer(
+                                  controller: controller,
+                                  ontap: () {
+                                    controller.pickImage(2);
+                                  },
+                                  imageIndex: 2,
+                                ),
+                                ImageContainer(
+                                  controller: controller,
+                                  ontap: () {
+                                    controller.pickImage(3);
+                                  },
+                                  imageIndex: 3,
+                                ),
+                                ImageContainer(
+                                  controller: controller,
+                                  ontap: () {
+                                    controller.pickImage(4);
+                                  },
+                                  imageIndex: 4,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
+                  Obx(() => Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          CommonButton(
+                            isLoading: controller.isLoading.value,
+                            width: Responsive.isDesktop(context)
+                                ? size.width * .1
+                                : size.width * 0.25,
+                            onClick: () {
+                              if (controller.formkey1.currentState!
+                                  .validate()) {
+                                // if (controller.editId == '') {
+                                controller.addProductItem();
+                                // } else {
+
+                                // }
+                              }
+                            },
+                            label: controller.editId == '' ? 'Save' : 'Update',
+                          ),
+                        ],
+                      ))
                 ],
               ),
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CommonButton(
-                  isLoading: controller.isLoading.value,
-                  width: Responsive.isDesktop(context)
-                      ? size.width * .1
-                      : size.width * 0.25,
-                  onClick: () {
-                    if (controller.formkey1.currentState!.validate()) {
-                      // if (controller.editId == '') {
-                      controller.addProductItem();
-                      // } else {
-
-                      // }
-                    }
-                  },
-                  label: controller.editId == '' ? 'Save' : 'Update',
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
+            )),
     );
   }
 }

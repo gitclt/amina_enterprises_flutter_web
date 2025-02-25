@@ -56,7 +56,7 @@ class SidemenuState {
         svgIcon: SvgAssets.sales,
         items: [],
         onClick: () {
-          Get.rootDelegate.toNamed(Routes.dashboard);
+          Get.rootDelegate.toNamed(Routes.order);
         },
       ),
     );
@@ -72,6 +72,28 @@ class SidemenuState {
         },
       ),
     );
+    menus.add(
+      MenuEntity(
+        id: 3,
+        menu: 'ROUTE SETTINGS',
+        svgIcon: SvgAssets.routeSetting,
+        items: [],
+        onClick: () {
+          Get.rootDelegate.toNamed(Routes.routeSetting);
+        },
+      ),
+    );
+    // menus.add(
+    //   MenuEntity(
+    //     id: 3,
+    //     menu: 'ROUTE ASSIGN',
+    //     svgIcon: SvgAssets.routeAssign,
+    //     items: [],
+    //     onClick: () {
+    //       Get.rootDelegate.toNamed(Routes.employee);
+    //     },
+    //   ),
+    // );
     menus.add(
       MenuEntity(
         id: 0,

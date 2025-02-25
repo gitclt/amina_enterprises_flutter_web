@@ -1,14 +1,17 @@
+import 'package:amina_enterprises_flutter_web/app/common_widgets/appbar/common_appbar.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class IconsColumnWidget extends StatelessWidget {
   final Color? color;
   final double? width;
   final VoidCallback? edit;
+  final VoidCallback? view;
   final VoidCallback? delete;
   const IconsColumnWidget(
-      {super.key, this.color, this.width, this.edit, this.delete});
+      {super.key, this.color, this.width, this.edit, this.delete, this.view});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +26,32 @@ class IconsColumnWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
+          if (view != null)
+            InkWell(
+              onTap: view,
+              child: Container(
+                width: Responsive.isDesktop(context)
+                    ? size.width * .02
+                    : size.width * 0.025,
+                height: size.height * 0.05,
+                decoration: BoxDecoration(
+                    color: AppColor.white,
+                    border: Border.all(color: AppColor.dividerColor),
+                    borderRadius: BorderRadius.circular(5)),
+                child: Center(
+                  child: Icon(
+                    Icons.visibility,
+                    // color: AppColor.white,
+                    size: Responsive.isDesktop(context)
+                        ? size.width * .009
+                        : size.width * 0.015,
+                  ),
+                ),
+              ),
+            ),
+          const SizedBox(
+            width: 10,
+          ),
           if (edit != null)
             InkWell(
               onTap: edit,
@@ -44,11 +73,8 @@ class IconsColumnWidget extends StatelessWidget {
                         : size.width * 0.015,
                   ),
                 ),
-              ),
+              ).paddingOnly(left: 10),
             ),
-          const SizedBox(
-            width: 10,
-          ),
           if (delete != null)
             InkWell(
               onTap: delete,

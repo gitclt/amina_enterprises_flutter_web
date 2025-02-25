@@ -100,6 +100,27 @@ class SizeAdd extends GetView<SizeController> {
                           },
                         ),
                       ),
+                      Obx(
+                        () => DropDown3Widget(
+                          label: 'Type',
+                          hint: '--Select Type--',
+                          selectedItem: controller.dropDownType
+                              .value, // Set selected item from dropDownType
+                          items: controller.typeDropList,
+                          isLoading: controller.istypeLoading.value,
+                          validator: (value) {
+                            if (value == null) {
+                              return 'Select Type';
+                            }
+                            return null;
+                          },
+                          onChanged: (data) async {
+                            if (data == null) return;
+                            controller.dropDownType.value =
+                                data; // Update dropDownType value
+                          },
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(

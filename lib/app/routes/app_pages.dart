@@ -1,4 +1,4 @@
-import 'package:amina_enterprises_flutter_web/app/modules/settings/size/views/size_add.dart';
+import 'package:amina_enterprises_flutter_web/app/modules/order/views/order_detail.dart';
 import 'package:get/get.dart';
 
 import '../modules/customer/bindings/customer_binding.dart';
@@ -9,15 +9,21 @@ import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/employee/bindings/employee_binding.dart';
 import '../modules/employee/views/employee_add.dart';
 import '../modules/employee/views/employee_view.dart';
+import '../modules/employee/views/route_assign_add.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/order/bindings/order_binding.dart';
+import '../modules/order/views/order_view.dart';
 import '../modules/product/bindings/product_binding.dart';
 import '../modules/product/views/product_add.dart';
 import '../modules/product/views/product_view.dart';
 import '../modules/root/bindings/root_binding.dart';
 import '../modules/root/views/root_view.dart';
+import '../modules/route_setting/bindings/route_setting_binding.dart';
+import '../modules/route_setting/views/route_setting_add.dart';
+import '../modules/route_setting/views/route_setting_view.dart';
 import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/brand/bindings/brand_binding.dart';
 import '../modules/settings/brand/views/brand_add.dart';
@@ -43,9 +49,16 @@ import '../modules/settings/division/views/division_view.dart';
 import '../modules/settings/main_category/bindings/main_category_binding.dart';
 import '../modules/settings/main_category/views/main_category_add.dart';
 import '../modules/settings/main_category/views/main_category_view.dart';
+import '../modules/settings/place/bindings/place_binding.dart';
+import '../modules/settings/place/views/place_add.dart';
+import '../modules/settings/place/views/place_view.dart';
 import '../modules/settings/role/bindings/role_binding.dart';
 import '../modules/settings/role/views/role_view.dart';
+import '../modules/settings/route/bindings/route_binding.dart';
+import '../modules/settings/route/views/route_add.dart';
+import '../modules/settings/route/views/route_view.dart';
 import '../modules/settings/size/bindings/size_binding.dart';
+import '../modules/settings/size/views/size_add.dart';
 import '../modules/settings/size/views/size_view.dart';
 import '../modules/settings/state/bindings/state_binding.dart';
 import '../modules/settings/state/views/state_add.dart';
@@ -54,6 +67,10 @@ import '../modules/settings/sub_category/bindings/sub_category_binding.dart';
 import '../modules/settings/sub_category/views/sub_category_add.dart';
 import '../modules/settings/sub_category/views/sub_category_view.dart';
 import '../modules/settings/views/settings_view.dart';
+
+// import '../modules/route_assign/bindings/route_assign_binding.dart';
+// import '../modules/route_assign/views/route_assign_add.dart';
+// import '../modules/route_assign/views/route_assign_view.dart';
 
 part 'app_routes.dart';
 
@@ -269,7 +286,34 @@ class AppPages {
                       transition: Transition.noTransition,
                       binding: EmployeeBinding(),
                     ),
+                    GetPage(
+                      name: _Paths.routeAssignAdd,
+                      page: () => const RouteAssignAdd(),
+                      binding: EmployeeBinding(),
+                    ),
                   ]),
+              GetPage(
+                  name: _Paths.routeSetting,
+                  page: () => const RouteSettingView(),
+                  binding: RouteSettingBinding(),
+                  children: [
+                    GetPage(
+                      name: _Paths.routeSettingAdd,
+                      page: () => const RouteSettingAdd(),
+                      binding: RouteSettingBinding(),
+                    ),
+                  ]),
+              // GetPage(
+              //     name: _Paths.routeAssign,
+              //     page: () => const EmployeeView(),
+              //     binding: RouteAssignBinding(),
+              //     children: [
+              //       GetPage(
+              //         name: _Paths.routeAssignAdd,
+              //         page: () => const RouteAssignAdd(),
+              //         binding: RouteAssignBinding(),
+              //       ),
+              //     ]),
               GetPage(
                 name: _Paths.role,
                 page: () => const RoleView(),
@@ -289,8 +333,43 @@ class AppPages {
                       binding: SizeBinding(),
                     ),
                   ]),
+              GetPage(
+                  name: _Paths.route,
+                  page: () => const RouteView(),
+                  binding: RouteBinding(),
+                  children: [
+                    GetPage(
+                      name: _Paths.routeAdd,
+                      page: () => const RouteAdd(),
+                      binding: RouteBinding(),
+                    ),
+                  ]),
+              GetPage(
+                  name: _Paths.place,
+                  page: () => const PlaceView(),
+                  binding: PlaceBinding(),
+                  children: [
+                    GetPage(
+                      name: _Paths.placeAdd,
+                      page: () => const PlaceAdd(),
+                      binding: PlaceBinding(),
+                    ),
+                  ]),
+                   GetPage(
+                name: _Paths.order,
+                page: () => const OrderView(),
+                binding: OrderBinding(),
+                children: [
+                    GetPage(
+                      name: _Paths.orderDetail,
+                      page: () => const OrderDetail(),
+                      binding: OrderBinding(),
+                    ),
+                  ]
+              ),
             ],
           ),
         ]),
+   
   ];
 }

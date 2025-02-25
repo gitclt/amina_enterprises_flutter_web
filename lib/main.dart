@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-void main() async{
+void main() async {
   await Hive.initFlutter();
   await Hive.openBox('token');
   runApp(
@@ -14,7 +14,18 @@ void main() async{
       fallbackLocale: const Locale('en', 'US'),
       title: 'AMINA ENTERPRISES WEB',
       getPages: AppPages.routes,
-      theme: ThemeData(useMaterial3: false),
+      theme: ThemeData(
+        useMaterial3: false,
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.red,
+          brightness: Brightness.light,
+          backgroundColor: Colors.white,
+        ),
+        primaryColor: Colors.black,
+    
+        fontFamily: 'Neue Montreal',
+      ),
+      // theme: ThemeData(useMaterial3: false),
       debugShowCheckedModeBanner: false,
     ),
   );

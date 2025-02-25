@@ -3,9 +3,11 @@ import 'package:amina_enterprises_flutter_web/app/common_widgets/button/common_b
 import 'package:amina_enterprises_flutter_web/app/common_widgets/common_regex.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/container/simple_container.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/dropdown/drop_down3_widget.dart';
+import 'package:amina_enterprises_flutter_web/app/common_widgets/dropdown/drop_down_multi_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/padding/common_padding.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/text_form_field.dart/add_new_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
+import 'package:amina_enterprises_flutter_web/app/domain/entity/dropdown_entity.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/customer/controllers/customer_controller.dart';
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
@@ -84,27 +86,6 @@ class CustomerAdd extends GetView<CustomerController> {
                     validator: (value) {
                       if (value == null) {
                         return 'Select Type';
-                      }
-                      return null;
-                    },
-                  ),
-                  DropDown3Widget(
-                    width: Responsive.isDesktop(context)
-                        ? size.width * 0.18
-                        : size.width * .32,
-                    label: 'Status',
-                    hint: '--Select Status--',
-                    selectedItem: controller.sdStatus.id == null
-                        ? null
-                        : controller.sdStatus,
-                    items: controller.statusDropList,
-                    onChanged: (data) async {
-                      if (data == null) return;
-                      controller.sdStatus = data;
-                    },
-                    validator: (value) {
-                      if (value == null) {
-                        return 'Select Status';
                       }
                       return null;
                     },
@@ -207,22 +188,47 @@ class CustomerAdd extends GetView<CustomerController> {
                       onChanged: (data) async {
                         if (data == null) return;
                         controller.sdDistrict = data;
+                        controller.getPlace();
                       },
                     ),
                   ),
-                  AddTextFieldWidget(
-                    width: Responsive.isDesktop(context)
-                        ? size.width * 0.18
-                        : size.width * .32,
-                    textController: controller.placeController,
-                    label: 'Place',
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Enter Place';
-                      }
-                      return null;
-                    },
+                  Obx(
+                    () => DropDown3Widget(
+                      width: Responsive.isDesktop(context)
+                          ? size.width * 0.18
+                          : size.width * .32,
+                      label: 'Place',
+                      hint: '--Select Place--',
+                      selectedItem: controller.sdPlace.id == null
+                          ? null
+                          : controller.sdPlace,
+                      items: controller.placeDropList,
+                      isLoading: controller.isPlaceLoading.value,
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Select Place';
+                        }
+                        return null;
+                      },
+                      onChanged: (data) async {
+                        if (data == null) return;
+                        controller.sdPlace = data;
+                      },
+                    ),
                   ),
+                  // AddTextFieldWidget(
+                  //   width: Responsive.isDesktop(context)
+                  //       ? size.width * 0.18
+                  //       : size.width * .32,
+                  //   textController: controller.placeController,
+                  //   label: 'Place',
+                  //   validator: (value) {
+                  //     if (value!.isEmpty) {
+                  //       return 'Enter Place';
+                  //     }
+                  //     return null;
+                  //   },
+                  // ),
                   AddTextFieldWidget(
                     width: Responsive.isDesktop(context)
                         ? size.width * 0.18
@@ -237,6 +243,32 @@ class CustomerAdd extends GetView<CustomerController> {
                       }
                       return null;
                     },
+                  ),
+                  Obx(
+                    () => DropDownMultiWidget(
+                      width: size.width * 0.18,
+                      label: "Division",
+                      hint: '--Select Division--',
+                      items: controller.divisionDropList,
+                      selectedItem: controller.dropdownDivisionList.isEmpty
+                          ? []
+                          : controller.dropdownDivisionList,
+                      isLoading: controller.isDivisionLoading.value,
+                      validator: (value) {
+                        if (value == null) {
+                          return 'Select Branch';
+                        }
+                        return null;
+                      },
+                      onChanged: (data) {
+                        if (data.isEmpty) return;
+
+                        controller.dropdownDivisionList.clear();
+
+                        controller.dropdownDivisionList.addAll(data.map((e) =>
+                            DropDownModel(id: e!.id.toString(), name: e.name)));
+                      },
+                    ),
                   ),
                   SizedBox(
                     height: size.height * 0.03,

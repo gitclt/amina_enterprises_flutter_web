@@ -1,3 +1,7 @@
+
+
+
+
 // To parse this JSON data, do
 //
 //     final employeeModel = employeeModelFromJson(jsonString);
@@ -31,8 +35,7 @@ class EmployeeModel {
         totalPages: json["totalPages"],
         data: json["data"] == null
             ? []
-            : List<EmployeeData>.from(
-                json["data"]!.map((x) => EmployeeData.fromJson(x))),
+            : List<EmployeeData>.from(json["data"]!.map((x) => EmployeeData.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -47,102 +50,113 @@ class EmployeeModel {
 }
 
 class EmployeeData {
-  String? id;
-  String? code;
+  int? id;
   String? name;
-  String? email;
   String? mobile;
   String? password;
-  String? address;
-  String? stateId;
-  String? state;
+  String? email;
   String? location;
-  String? roleId;
+  int? roleId;
   String? role;
-  String? activeStatus;
-  DateTime? joiningDate;
-  String? districtId;
+  int? activeStatus;
+  String? joiningDate;
+  int? districtId;
+  String? address;
+  String? code;
+  int? stateId;
+  String? state;
   String? district;
-  String? designationId;
+  int? designationId;
   String? designation;
-  List<EmpDivision>? empDivisions;
+  String? routeAssigned;
+  List<EmpDivision>? divisions;
+  List<Route>? route;
+
   EmployeeData({
     this.id,
-    this.code,
     this.name,
-    this.email,
     this.mobile,
     this.password,
-    this.address,
-    this.stateId,
-    this.state,
+    this.email,
     this.location,
     this.roleId,
     this.role,
     this.activeStatus,
     this.joiningDate,
     this.districtId,
+    this.address,
+    this.code,
+    this.stateId,
+    this.state,
     this.district,
     this.designationId,
     this.designation,
-    this.empDivisions,
+    this.routeAssigned,
+    this.divisions,
+    this.route,
   });
 
   factory EmployeeData.fromJson(Map<String, dynamic> json) => EmployeeData(
-        id: json["id"].toString(),
-        code: json["code"],
+        id: json["id"],
         name: json["name"],
-        email: json["email"],
         mobile: json["mobile"],
         password: json["password"],
-        address: json["address"],
-        stateId: json["state_id"].toString(),
-        state: json["state"],
+        email: json["email"],
         location: json["location"],
-        roleId: json["role_id"].toString(),
+        roleId: json["role_id"],
         role: json["role"],
-        activeStatus: json["active_status"].toString(),
-        joiningDate: json["joining_date"] == null
-            ? null
-            : DateTime.parse(json["joining_date"]),
-        districtId: json["district_id"].toString(),
+        activeStatus: json["active_status"],
+        joiningDate: json["joining_date"],
+        districtId: json["district_id"],
+        address: json["address"],
+        code: json["code"],
+        stateId: json["state_id"],
+        state: json["state"],
         district: json["district"],
-        designationId: json["designation_id"].toString(),
+        designationId: json["designation_id"],
         designation: json["designation"],
-        empDivisions: json["divisions"] == null
+        routeAssigned: json["routeAssigned"],
+        divisions: json["divisions"] == null
             ? []
             : List<EmpDivision>.from(
                 json["divisions"]!.map((x) => EmpDivision.fromJson(x))),
+        route: json["route"] == null
+            ? []
+            : List<Route>.from(json["route"]!.map((x) => Route.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "code": code,
         "name": name,
-        "email": email,
         "mobile": mobile,
         "password": password,
-        "address": address,
-        "state_id": stateId,
-        "state": state,
+        "email": email,
         "location": location,
         "role_id": roleId,
         "role": role,
         "active_status": activeStatus,
-        "joining_date": joiningDate?.toIso8601String(),
+        "joining_date": joiningDate,
         "district_id": districtId,
+        "address": address,
+        "code": code,
+        "state_id": stateId,
+        "state": state,
         "district": district,
         "designation_id": designationId,
         "designation": designation,
-        "divisions": empDivisions == null
+        "routeAssigned": routeAssigned,
+        "divisions": divisions == null
             ? []
-            : List<dynamic>.from(empDivisions!.map((x) => x.toJson())),
+            : List<dynamic>.from(divisions!.map((x) => x.toJson())),
+        "route": route == null
+            ? []
+            : List<dynamic>.from(route!.map((x) => x.toJson())),
       };
 }
 
 class EmpDivision {
-  String? empId;
-  String? divisionId;
+  int? empId;
+  int? divisionId;
   String? divisionName;
 
   EmpDivision({
@@ -152,8 +166,8 @@ class EmpDivision {
   });
 
   factory EmpDivision.fromJson(Map<String, dynamic> json) => EmpDivision(
-        empId: json["emp_id"].toString(),
-        divisionId: json["division_id"].toString(),
+        empId: json["emp_id"],
+        divisionId: json["division_id"],
         divisionName: json["division_name"],
       );
 
@@ -161,5 +175,69 @@ class EmpDivision {
         "emp_id": empId,
         "division_id": divisionId,
         "division_name": divisionName,
+      };
+}
+
+class Route {
+  int? empId;
+  int? monRouteId;
+  String? monRouteName;
+  int? tueRouteId;
+  String? tueRouteName;
+  int? wedRouteId;
+  String? wedRouteName;
+  int? thuRouteId;
+  String? thuRouteName;
+  int? friRouteId;
+  String? friRouteName;
+  int? satRouteId;
+  String? satRouteName;
+
+  Route({
+    this.empId,
+    this.monRouteId,
+    this.monRouteName,
+    this.tueRouteId,
+    this.tueRouteName,
+    this.wedRouteId,
+    this.wedRouteName,
+    this.thuRouteId,
+    this.thuRouteName,
+    this.friRouteId,
+    this.friRouteName,
+    this.satRouteId,
+    this.satRouteName,
+  });
+
+  factory Route.fromJson(Map<String, dynamic> json) => Route(
+        empId: json["emp_id"],
+        monRouteId: json["mon_route_id"],
+        monRouteName: json["mon_route_name"],
+        tueRouteId: json["tue_route_id"],
+        tueRouteName: json["tue_route_name"],
+        wedRouteId: json["wed_route_id"],
+        wedRouteName: json["wed_route_name"],
+        thuRouteId: json["thu_route_id"],
+        thuRouteName: json["thu_route_name"],
+        friRouteId: json["fri_route_id"],
+        friRouteName: json["fri_route_name"],
+        satRouteId: json["sat_route_id"],
+        satRouteName: json["sat_route_name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "emp_id": empId,
+        "mon_route_id": monRouteId,
+        "mon_route_name": monRouteName,
+        "tue_route_id": tueRouteId,
+        "tue_route_name": tueRouteName,
+        "wed_route_id": wedRouteId,
+        "wed_route_name": wedRouteName,
+        "thu_route_id": thuRouteId,
+        "thu_route_name": thuRouteName,
+        "fri_route_id": friRouteId,
+        "fri_route_name": friRouteName,
+        "sat_route_id": satRouteId,
+        "sat_route_name": satRouteName,
       };
 }

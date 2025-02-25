@@ -98,6 +98,18 @@ class SettingsView extends GetView<SettingsController> {
                       Get.rootDelegate.toNamed(Routes.size);
                     },
                   ),
+                    DashCards(
+                    lable: 'Route',
+                    onTap: () {
+                      Get.rootDelegate.toNamed(Routes.route);
+                    },
+                  ),
+                    DashCards(
+                    lable: 'Place',
+                    onTap: () {
+                      Get.rootDelegate.toNamed(Routes.place);
+                    },
+                  ),
                 ])
               ],
             ),

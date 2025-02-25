@@ -14,6 +14,7 @@ import 'package:amina_enterprises_flutter_web/app/domain/repositories/product/pr
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/brand/brand_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/color/color_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/construction/construction_repository.dart';
+import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/division/division_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/main_category/main_category_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/pro_sub_category/pro_sub_category_repository.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/product_category/pro_category_repository.dart';
@@ -77,6 +78,7 @@ class ProductController extends GetxController
   RxBool isColorLoading = false.obs;
   RxBool isStateLoading = false.obs;
   RxBool isSizeLoading = false.obs;
+  RxBool isDivisionLoading = false.obs;
 
   String editId = '';
   int productId = 0;
@@ -119,6 +121,7 @@ class ProductController extends GetxController
   final subCatrepo = ProSubCategoryRepository();
   final colorrepo = ColorRepository();
   final staterepo = StateRepository();
+  final divisionRepo = DivisionRepository();
 
   DropDownModel sdStatus = DropDownModel();
   RxList<DropDownModel> statusDropList = <DropDownModel>[].obs;
@@ -175,6 +178,7 @@ class ProductController extends GetxController
     getcolor();
     getSubcategory();
     getState();
+    getDivision();
     getSizeList();
   }
 
@@ -191,8 +195,30 @@ class ProductController extends GetxController
       setRxRequestStatus(Status.completed);
       if (resData.data != null) {
         data.addAll(resData.data!);
-        totalPages.value = 50;
-        // (resData.totalCount! / pageSize).ceil();
+        // totalPages.value = 50;
+         totalPages.value = (resData.totalPages ?? 1 / pageSize).ceil();
+      }
+    });
+  }
+
+// division
+
+  RxList<DropDownModel> divisionDropList = <DropDownModel>[].obs;
+  RxList<DropDownModel> dropdownDivisionList = <DropDownModel>[].obs;
+  getDivision() async {
+    isDivisionLoading(true);
+    divisionDropList.clear();
+    final res = await divisionRepo.getList();
+    res.fold((failure) {
+      isDivisionLoading(false);
+      Utils.snackBar('State', failure.message);
+      setError(error.toString());
+    }, (resData) {
+      isDivisionLoading(false);
+
+      for (var d in resData.data!) {
+        divisionDropList
+            .add(DropDownModel(id: d.id.toString(), name: d.division));
       }
     });
   }
@@ -254,17 +280,21 @@ class ProductController extends GetxController
     isLoading(true);
     isIndex.value = 0;
     tabcontroller.animateTo(0);
-    final addedItem = ProductAddModel(
-        id: editId,
-        name: nameController.text,
-        artNo: artnoController.text,
-        status: sdStatus.name,
-        brandId: sdBrand.id,
-        categoryId: sdCat.id,
-        constructionId: '1',
-        //  sdConstruction.id,
-        mainCategoryId: sdMainCat.id,
-        newLaunch: islaunchChecked.value == true ? '1' : '0');
+    final addedItem = ProductEditData(
+        product: Product(
+            id: editId,
+            name: nameController.text,
+            artNo: artnoController.text,
+            activeStatus: int.tryParse('${sdStatus.name}'),
+            // status: sdStatus.name,
+            brandId: int.tryParse('${sdBrand.id}'),
+            categoryId: int.tryParse('${sdCat.id}'),
+            constructionId: 1,
+            //  sdConstruction.id,
+
+            mainCategoryId: sdMainCat.id,
+            newLaunch:
+                int.tryParse(islaunchChecked.value == true ? '1' : '0')));
     final res = await _repo.updateProduct(data: addedItem);
     res.fold(
       (failure) {
@@ -293,16 +323,22 @@ class ProductController extends GetxController
 
   void addProduct() async {
     isLoading(true);
-    final addedItem = ProductAddModel(
-        status: sdStatus.id,
-        artNo: artnoController.text,
-        brandId: sdBrand.id,
-        categoryId: sdCat.id,
-        constructionId: '1',
-        //  sdConstruction.id,
-        mainCategoryId: sdMainCat.id,
-        name: nameController.text,
-        newLaunch: islaunchChecked.value == true ? '1' : '0');
+    final addedItem = ProductEditData(
+        product: Product(
+            activeStatus: int.tryParse('${sdStatus.id}'),
+            artNo: artnoController.text,
+            brandId: int.tryParse('${sdBrand.id}'),
+            categoryId: int.tryParse('${sdCat.id}'),
+            constructionId: 1,
+            //  sdConstruction.id,
+            mainCategoryId: sdMainCat.id,
+            name: nameController.text,
+            newLaunch: islaunchChecked.value == true ? 1 : 0),
+             divisions: dropdownDivisionList
+                .map((f) => DivisionData(
+                      divisionId: int.tryParse('${f.id}'),
+                    ))
+                .toList());
     final res = await _repo.addProduct(data: addedItem);
     res.fold(
       (failure) {
@@ -425,7 +461,7 @@ class ProductController extends GetxController
             {"img": encodedData4.value, "imgName": imageName4},
           ];
           _repo.uploadToServerImage(images: images);
-          
+
           res.fold(
             (failure) {
               isLoading(false);
@@ -436,6 +472,8 @@ class ProductController extends GetxController
                 // Get.rootDelegate.toNamed(Routes.);
                 Utils.snackBar('Success', resData.message ?? '',
                     type: 'success');
+                clearProductItem();
+                getSize();
                 getdetails();
                 update();
               }
@@ -444,6 +482,15 @@ class ProductController extends GetxController
         }
       },
     );
+  }
+
+  clearProductItem() {
+    sizeList.clear();
+    stockController = TextEditingController(text: '');
+    mrpController = TextEditingController(text: '');
+    sdSubCat = DropDownModel(id: '', name: '');
+    sdColor = DropDownModel(id: '', name: '');
+    sdState = DropDownModel(id: '', name: '');
   }
 
   //edit

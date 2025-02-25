@@ -40,19 +40,27 @@ class BrandModel {
 class Brand {
   int? id;
   String? name;
+  String? image;
+  String? imageurl;
 
   Brand({
     this.id,
     this.name,
+    this.image,
+    this.imageurl,
   });
 
   factory Brand.fromJson(Map<String, dynamic> json) => Brand(
         id: json["id"],
         name: json["name"],
+        image: json["image"],
+        imageurl: json["imageurl"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
+        "image": image,
+        "imageurl": imageurl,
       };
 }

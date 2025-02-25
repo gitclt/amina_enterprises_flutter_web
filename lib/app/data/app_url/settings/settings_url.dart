@@ -26,7 +26,7 @@ class SettingsUrl {
   // brand
 
   static String brandView = '$baseUrl/Brand/view_brand';
-  static String brandAdd = '$baseUrl/Brand/brand_add';
+  static String brandAdd = '$baseUrl/Brand/add_brand';
   static String brandEdit = '$baseUrl/Brand/Edit_brand';
   static String brandDelete = '$baseUrl/Brand/Delete_brand';
 
@@ -96,4 +96,18 @@ class SettingsUrl {
   static String sizeAddApi = '$baseUrl/Size/size_add';
   static String sizeEditApi = '$baseUrl/Size/Edit_size';
   static String sizeDeleteApi = '$baseUrl/Size/Delete_size';
+
+  //route
+
+  static String routeListApi = '$baseUrl/Route/view_route_name';
+  static String routeAddApi = '$baseUrl/Route/route_name_add';
+  static String routeEditApi = '$baseUrl/Route/Edit_route_name';
+  static String routeDeleteApi = '$baseUrl/Route/Delete_route_name';
+
+  //place
+
+  static String placeListApi = '$baseUrl/place/view_place';
+  static String placeAddApi = '$baseUrl/place/place_add';
+  static String placeEditApi = '$baseUrl/place/Edit_place';
+  static String placeDeleteApi = '$baseUrl/place/Delete_place';
 }

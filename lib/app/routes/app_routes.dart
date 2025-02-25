@@ -43,8 +43,20 @@ abstract class Routes {
   static const divisionAdd = _Paths.home + _Paths.division + _Paths.divisionAdd;
   static const product = _Paths.home + _Paths.product;
   static const productAdd = _Paths.home + _Paths.product + _Paths.productAdd;
-  static const size =_Paths.home  + _Paths.size;
+  static const size = _Paths.home + _Paths.size;
   static const sizeAdd = _Paths.home + _Paths.size + _Paths.sizeAdd;
+  static const routeSetting = _Paths.home + _Paths.routeSetting;
+  static const routeSettingAdd =
+      _Paths.home + _Paths.routeSetting + _Paths.routeSettingAdd;
+  // static const routeAssign = _Paths.home + _Paths.routeAssign;
+  static const routeAssignAdd =
+      _Paths.home + _Paths.employee + _Paths.routeAssignAdd;
+  static const route = _Paths.home + _Paths.route;
+  static const routeAdd = _Paths.home + _Paths.route + _Paths.routeAdd;
+  static const place = _Paths.home + _Paths.place;
+  static const placeAdd = _Paths.home + _Paths.place + _Paths.placeAdd;
+  static const order =  _Paths.home + _Paths.order;
+    static const orderAdd = _Paths.home + _Paths.order + _Paths.orderDetail;
 }
 
 abstract class _Paths {
@@ -85,4 +97,14 @@ abstract class _Paths {
   static const productAdd = '/product-add';
   static const size = '/size';
   static const sizeAdd = '/size-add';
+  static const routeSetting = '/route-setting';
+  static const routeSettingAdd = '/route-setting-add';
+  // static const routeAssign = '/route-assign';
+  static const routeAssignAdd = '/route-assign-add';
+  static const route = '/route';
+  static const routeAdd = '/route-add';
+  static const place = '/place';
+  static const placeAdd = '/place-add';
+  static const order = '/order';
+   static const orderDetail = '/order-detail';
 }

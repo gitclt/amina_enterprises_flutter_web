@@ -49,6 +49,82 @@ class EmployeeRepository {
     }
   }
 
+  //add
+  Future<Either<Failure, ApiModel>> assignRoute(
+    {required String empId
+    ,String? monRouteId,
+    String? tueRouteId,
+    String? wedRouteId,
+    String? thuRouteId,
+    String? friRouteId,
+    String? satRouteId,
+    }
+  ) async {
+    try {
+      var data = json.encode(
+       {
+          "emp_id": empId,
+          "mon_route_id": monRouteId,
+          "tue_route_id": tueRouteId,
+          "wed_route_id": wedRouteId,
+          "thu_route_id": thuRouteId,
+          "fri_route_id": friRouteId,
+          "sat_route_id": satRouteId,
+          "addedby": 1
+        }
+      );
+      dynamic response = await _apiServices
+          .postApi(data, AppEmpUrl.assignRoute, isJson: true);
+
+      if (response != null && response["status"] == true) {
+        ApiModel res = ApiModel.fromJson(response);
+
+        return Right(res);
+      } else {
+        return Left(Failure(response["message"].toString()));
+      }
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+   Future<Either<Failure, ApiModel>> assignRouteUpdate({
+// required String editId,
+    required String empId,
+    String? monRouteId,
+    String? tueRouteId,
+    String? wedRouteId,
+    String? thuRouteId,
+    String? friRouteId,
+    String? satRouteId,
+    
+  }) async {
+    try {
+      var data = json.encode({
+        // "id": editId,
+        "emp_id": empId,
+        "mon_route_id": monRouteId,
+        "tue_route_id": tueRouteId,
+        "wed_route_id": wedRouteId,
+        "thu_route_id": thuRouteId,
+        "fri_route_id": friRouteId,
+        "sat_route_id": satRouteId,
+        "addedby": 1
+      });
+      dynamic response =
+          await _apiServices.postApi(data, AppEmpUrl.assignRouteUpdate, isJson: true);
+
+      if (response != null && response["status"] == true) {
+        ApiModel res = ApiModel.fromJson(response);
+
+        return Right(res);
+      } else {
+        return Left(Failure(response["message"].toString()));
+      }
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
+  }
+
   Future<Either<Failure, ApiModel>> updateEmployee(
       {required EmpAddModel update}) async {
     try {

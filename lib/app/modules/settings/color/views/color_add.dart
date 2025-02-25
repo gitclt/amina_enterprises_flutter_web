@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 class ColorAdd extends GetView<ColorController> {
   const ColorAdd({super.key});
 
-   @override
+  @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
@@ -34,25 +34,47 @@ class ColorAdd extends GetView<ColorController> {
           PageContainer(
             child: Form(
               key: controller.formkey,
-              child: Row(
-               
-                crossAxisAlignment: CrossAxisAlignment.end,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AddTextFieldWidget(
-                    width: Responsive.isDesktop(context)
-                        ? size.width * 0.35
-                        : size.width * .32,
-                    textController: controller.nameController,
-                    label: 'Name',
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Enter  Name';
-                      }
-                      return null;
-                    },
-                  ).paddingOnly(left: 15),
-                  SizedBox(
-                    width: size.width * 0.035,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AddTextFieldWidget(
+                        width: Responsive.isDesktop(context)
+                            ? size.width * 0.35
+                            : size.width * .32,
+                        textController: controller.nameController,
+                        label: 'Name',
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter  Name';
+                          }
+                          return null;
+                        },
+                      ).paddingOnly(left: 15),
+                      SizedBox(
+                        width: size.width * 0.035,
+                      ),
+                      AddTextFieldWidget(
+                        width: Responsive.isDesktop(context)
+                            ? size.width * 0.35
+                            : size.width * .32,
+                        textController: controller.colorCodeController,
+                        label: 'Color Code',
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter  ColorCode';
+                          }
+                          return null;
+                        },
+                      ).paddingOnly(left: 15),
+                      SizedBox(
+                        width: size.width * 0.035,
+                      ),
+                    ],
                   ),
                   CommonButton(
                     isLoading: controller.isLoading.value,
@@ -69,7 +91,7 @@ class ColorAdd extends GetView<ColorController> {
                       }
                     },
                     label: controller.editId == '' ? 'Create' : 'Update',
-                  )
+                  ).paddingOnly(right: 40, top: 30, left: 15),
                 ],
               ),
             ),

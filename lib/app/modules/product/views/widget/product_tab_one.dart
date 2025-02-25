@@ -1,7 +1,9 @@
 import 'package:amina_enterprises_flutter_web/app/common_widgets/button/common_button.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/dropdown/drop_down3_widget.dart';
+import 'package:amina_enterprises_flutter_web/app/common_widgets/dropdown/drop_down_multi_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/common_widgets/text_form_field.dart/add_new_widget.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
+import 'package:amina_enterprises_flutter_web/app/domain/entity/dropdown_entity.dart';
 import 'package:amina_enterprises_flutter_web/app/modules/product/controllers/product_controller.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +42,6 @@ class ProductTabOne extends GetView<ProductController> {
               return null;
             },
           ),
-
           DropDown3Widget(
             label: 'Category',
             hint: '--Select Category--',
@@ -57,26 +58,6 @@ class ProductTabOne extends GetView<ProductController> {
               return null;
             },
           ),
-
-          // DropDown3Widget(
-          //   label: 'Construction',
-          //   hint: '--Select Construction--',
-          //   selectedItem: controller.sdConstruction.id == null
-          //       ? null
-          //       : controller.sdConstruction,
-          //   items: controller.constructionDropList,
-          //   onChanged: (data) async {
-          //     if (data == null) return;
-          //     controller.sdConstruction = data;
-          //   },
-          //   validator: (value) {
-          //     if (value == null) {
-          //       return 'Select Construction';
-          //     }
-          //     return null;
-          //   },
-          // ),
-
           AddTextFieldWidget(
             textController: controller.artnoController,
             label: 'Art No',
@@ -88,7 +69,6 @@ class ProductTabOne extends GetView<ProductController> {
               return null;
             },
           ),
-
           DropDown3Widget(
             label: 'Brand',
             hint: '--Select Brand--',
@@ -106,7 +86,6 @@ class ProductTabOne extends GetView<ProductController> {
               return null;
             },
           ),
-     
           AddTextFieldWidget(
             textController: controller.nameController,
             label: 'Name',
@@ -118,7 +97,6 @@ class ProductTabOne extends GetView<ProductController> {
               return null;
             },
           ),
-
           DropDown3Widget(
             label: 'Status',
             hint: '--Select Status--',
@@ -136,7 +114,31 @@ class ProductTabOne extends GetView<ProductController> {
               return null;
             },
           ),
+          Obx(
+            () => DropDownMultiWidget(
+              label: "Division",
+              hint: '--Select Division--',
+              items: controller.divisionDropList,
+              selectedItem: controller.dropdownDivisionList.isEmpty
+                  ? []
+                  : controller.dropdownDivisionList,
+              isLoading: controller.isDivisionLoading.value,
+              validator: (value) {
+                if (value == null) {
+                  return 'Select Branch';
+                }
+                return null;
+              },
+              onChanged: (data) {
+                if (data.isEmpty) return;
 
+                controller.dropdownDivisionList.clear();
+
+                controller.dropdownDivisionList.addAll(data.map(
+                    (e) => DropDownModel(id: e!.id.toString(), name: e.name)));
+              },
+            ),
+          ),
           Obx(() => SizedBox(
                 width: Responsive.isDesktop(context)
                     ? size.width * 0.73 / 2

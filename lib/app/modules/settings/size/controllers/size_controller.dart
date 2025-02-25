@@ -26,6 +26,14 @@ class SizeController extends GetxController {
   DropDownModel dropDownCategory = DropDownModel();
   RxList<DropDownModel> categoryDropList = <DropDownModel>[].obs;
 
+  var dropDownType = Rxn<DropDownModel>();
+  var istypeLoading = false.obs;
+
+  List<DropDownModel> typeDropList = [
+    DropDownModel(id: 'pair', name: "pair"),
+    DropDownModel(id: 'carton', name: 'carton'),
+  ];
+
   String editId = '';
 
   @override
@@ -108,6 +116,7 @@ class SizeController extends GetxController {
         DropDownModel(id: data.catId.toString(), name: data.procCategory);
     dropDownMainCat =
         DropDownModel(id: data.mainCatId.toString(), name: data.mainCategory);
+    dropDownType.value = DropDownModel(id: data.type, name: data.type);
     editId = data.id.toString();
 
     Get.rootDelegate.toNamed(Routes.sizeAdd);
@@ -115,8 +124,11 @@ class SizeController extends GetxController {
 
   void add() async {
     isLoading(true);
-    final res = await _repo.add(nameController.text,
-        dropDownMainCat.id.toString(), dropDownCategory.id.toString());
+    final res = await _repo.add(
+        nameController.text,
+        dropDownMainCat.id.toString(),
+        dropDownCategory.id.toString(),
+        dropDownType.value?.id.toString() ?? '');
     res.fold(
       (failure) {
         isLoading(false);
@@ -137,8 +149,12 @@ class SizeController extends GetxController {
 
   void edit() async {
     isLoading(true);
-    final res = await _repo.edit(editId, nameController.text,
-        dropDownMainCat.id.toString(), dropDownCategory.id.toString());
+    final res = await _repo.edit(
+        editId,
+        nameController.text,
+        dropDownMainCat.id.toString(),
+        dropDownCategory.id.toString(),
+        dropDownType.value?.id.toString() ?? '');
     res.fold(
       (failure) {
         isLoading(false);
@@ -162,5 +178,6 @@ class SizeController extends GetxController {
     nameController.clear();
     dropDownCategory = DropDownModel(id: '', name: '--Select Category--');
     dropDownMainCat = DropDownModel(id: '', name: '--Select Main Category--');
+    dropDownType.value = DropDownModel(id: '', name: '--Select Type--');
   }
 }

@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:get/get.dart';
+
 CustomerModel customerModelFromJson(String str) =>
     CustomerModel.fromJson(json.decode(str));
 
@@ -12,128 +14,164 @@ String customerModelToJson(CustomerModel data) => json.encode(data.toJson());
 class CustomerModel {
   bool? status;
   String? message;
-  List<Customer>? data;
   int? totalCount;
   int? totalPages;
+  List<CustomerData>? data;
 
   CustomerModel({
     this.status,
     this.message,
-    this.data,
     this.totalCount,
     this.totalPages,
+    this.data,
   });
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) => CustomerModel(
         status: json["status"],
         message: json["message"],
-        data: json["data"] == null
-            ? []
-            : List<Customer>.from(
-                json["data"]!.map((x) => Customer.fromJson(x))),
         totalCount: json["totalCount"],
         totalPages: json["totalPages"],
+        data: json["data"] == null
+            ? []
+            : List<CustomerData>.from(json["data"]!.map((x) => CustomerData.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
         "message": message,
+        "totalCount": totalCount,
+        "totalPages": totalPages,
         "data": data == null
             ? []
             : List<dynamic>.from(data!.map((x) => x.toJson())),
-        "totalCount": totalCount,
-        "totalPages": totalPages,
       };
 }
 
-class Customer {
+class CustomerData {
   int? id;
-  String? district;
-  String? state;
   String? name;
-  String? customerType;
-  String? code;
+  String? mobile;
   String? password;
   String? email;
-  String? mobile;
   String? address;
-  String? place;
+  String? code;
   int? stateId;
+  String? state;
   int? districtId;
+  String? district;
+  String? place;
   String? latitude;
   String? longitude;
-  String? gpsLocation;
-  int? createdEmpId;
-  String? status;
+  String? customerType;
   int? pincode;
-  int? addedby;
+  int? createdEmpId;
+  int? creditDays;
+  double? targetAmount;
+  List<DivisionData>? divisions;
+    RxBool? isSelect;
 
-  Customer({
+  CustomerData({
     this.id,
-    this.district,
-    this.state,
     this.name,
-    this.customerType,
-    this.code,
+    this.mobile,
     this.password,
     this.email,
-    this.mobile,
     this.address,
-    this.place,
+    this.code,
     this.stateId,
+    this.state,
     this.districtId,
+    this.district,
+    this.place,
     this.latitude,
     this.longitude,
-    this.gpsLocation,
-    this.createdEmpId,
-    this.status,
+    this.customerType,
     this.pincode,
-    this.addedby,
+    this.createdEmpId,
+    this.creditDays,
+    this.targetAmount,
+    this.divisions,
+this.isSelect
   });
 
-  factory Customer.fromJson(Map<String, dynamic> json) => Customer(
+  factory CustomerData.fromJson(Map<String, dynamic> json) => CustomerData(
         id: json["id"],
-        district: json["district"],
-        state: json["state"],
         name: json["name"],
-        customerType: json["customer_type"],
-        code: json["code"],
+        mobile: json["mobile"],
         password: json["password"],
         email: json["email"],
-        mobile: json["mobile"],
         address: json["address"],
-        place: json["place"],
+        code: json["code"],
         stateId: json["state_id"],
+        state: json["state"],
         districtId: json["district_id"],
+        district: json["district"],
+        place: json["place"],
         latitude: json["latitude"],
         longitude: json["longitude"],
-        gpsLocation: json["gps_location"],
-        createdEmpId: json["created_emp_id"],
+        customerType: json["customer_type"],
         pincode: json["pincode"],
-        status: json["status"],
-        addedby: json["addedby"],
+        createdEmpId: json["created_emp_id"],
+        creditDays: json["credit_days"],
+      
+        targetAmount: json["target_amount"]?.toDouble(),
+        divisions: json["divisions"] == null
+            ? []
+            : List<DivisionData>.from(
+                json["divisions"]!.map((x) =>  DivisionData.fromJson(x))),
+                   isSelect: false.obs,
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "district": district,
-        "state": state,
         "name": name,
-        "customer_type": customerType,
-        "code": code,
+        "mobile": mobile,
         "password": password,
         "email": email,
-        "mobile": mobile,
         "address": address,
-        "place": place,
+        "code": code,
         "state_id": stateId,
+        "state": state,
         "district_id": districtId,
+        "district": district,
+        "place": place,
         "latitude": latitude,
         "longitude": longitude,
-        "gps_location": gpsLocation,
-        "created_emp_id": createdEmpId,
-        "status": status,
+        "customer_type": customerType,
         "pincode": pincode,
-        "addedby": addedby,
+        "created_emp_id": createdEmpId,
+        "credit_days": creditDays,
+        "target_amount": targetAmount,
+        "divisions": divisions == null
+            ? []
+            : List<dynamic>.from(divisions!.map((x) => x.toJson())),
+      };
+}
+
+class DivisionData {
+  int? cusId;
+  int? divisionId;
+  String? divisionName;
+  int? status;
+
+  DivisionData({
+    this.cusId,
+    this.divisionId,
+    this.divisionName,
+    this.status,
+  });
+
+  factory  DivisionData.fromJson(Map<String, dynamic> json) =>  DivisionData(
+        cusId: json["cus_id"],
+        divisionId: json["division_id"],
+        divisionName: json["division_name"],
+        status: json["status"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "cus_id": cusId,
+        "division_id": divisionId,
+        "division_name": divisionName,
+        "status": status,
       };
 }

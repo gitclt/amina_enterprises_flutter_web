@@ -144,26 +144,11 @@ class MainCategoryView extends GetView<MainCategoryController> {
                                                     width: size.width * 0.33,
                                                     color: bgColor),
                                               ),
-                                              ColumnWidget(
-                                                width: size.width * 0.24,
-                                                text: CircleAvatar(
-                                                  radius: 20,
-                                                  backgroundColor:
-                                                      Colors.black12,
-                                                  backgroundImage: item.image !=
-                                                          'http://192.168.1.101:8087/'
-                                                      //  &&
-                                                      // controller.fileType != 'pdf'
-                                                      ? NetworkImage(
-                                                          item.image ?? '')
-                                                      : null,
-                                                ),
-                                              ),
-                                              //  columnText(
-                                              //     item.image ?? '',
-                                              //     fontSize),
-                                              // width: size.width * 0.24,
-                                              // color: bgColor),
+                                          
+                                              ImageColumnWidget(
+                                                  imgName: item.imageurl ?? '',
+                                                  width: size.width * 0.24,
+                                                  color: bgColor),
                                               IconsColumnWidget(
                                                 width: size.width * 0.11,
                                                 delete: () async {

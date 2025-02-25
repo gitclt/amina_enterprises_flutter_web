@@ -65,7 +65,9 @@ class ItemSelectTable extends StatelessWidget {
                       children: [
                         ColumnWidget(
                           text: Obx(
-                            () => CheckBoxButton(
+                            () =>
+                            
+                             CheckBoxButton(
                               selectItem: item.isSelect.value,
                               act: () {
                                 item.isSelect.value = !item.isSelect.value;
