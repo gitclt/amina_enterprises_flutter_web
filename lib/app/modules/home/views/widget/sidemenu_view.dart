@@ -33,11 +33,14 @@ class _SidemenuViewState extends State<SidemenuView> {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Image.asset(
-                  ImageAssets.mainLogo,
-                  width: MediaQuery.of(context).size.width * .1,
-                  height: MediaQuery.of(context).size.width * .08,
-                  color: AppColor.appointTextColor,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset(
+                    ImageAssets.mainLogo,
+                    width: MediaQuery.of(context).size.width * .07,
+                    height: MediaQuery.of(context).size.width * .07,
+                    color: AppColor.appointTextColor,
+                  ),
                 ),
                 //  whiteText('admin'.tr, fontSize: 14)
               ]),

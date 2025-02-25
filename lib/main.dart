@@ -12,7 +12,7 @@ void main() async {
       translations: Languages(),
       locale: const Locale('en', 'US'),
       fallbackLocale: const Locale('en', 'US'),
-      title: 'AMINA ENTERPRISES WEB',
+      title: 'ABC ENTERPRISES WEB',
       getPages: AppPages.routes,
       theme: ThemeData(
         useMaterial3: false,
@@ -22,7 +22,6 @@ void main() async {
           backgroundColor: Colors.white,
         ),
         primaryColor: Colors.black,
-    
         fontFamily: 'Neue Montreal',
       ),
       // theme: ThemeData(useMaterial3: false),
