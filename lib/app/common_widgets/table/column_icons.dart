@@ -1,4 +1,3 @@
-import 'package:amina_enterprises_flutter_web/app/common_widgets/appbar/common_appbar.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
 import 'package:flutter/material.dart';

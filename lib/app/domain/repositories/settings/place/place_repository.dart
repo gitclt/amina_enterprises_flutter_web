@@ -16,7 +16,7 @@ class PlaceRepository extends NetworkApiServices {
   }) async {
     try {
       dynamic response = await getApi(
-          '${SettingsUrl.placeListApi}?"${stateId == null ? '' : "state_id=$stateId"}""${districtId == null ? '' : "&district_id=$districtId"}"');
+          '${SettingsUrl.placeListApi}?"${stateId == null ? '' : "state_id=$stateId"}"${districtId == null ? '' : "&district_id=$districtId"}');
 
       if (response != null && response["status"] == true) {
         PlaceModel res = PlaceModel.fromJson(response);

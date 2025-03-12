@@ -25,23 +25,27 @@ class ProductTabOne extends GetView<ProductController> {
                 : 50,
         runSpacing: 20,
         children: [
-          DropDown3Widget(
-            label: 'Main Category',
-            hint: '--Select Category--',
-            selectedItem:
-                controller.sdMainCat.id == null ? null : controller.sdMainCat,
-            items: controller.mainCatDropList,
-            onChanged: (data) async {
-              if (data == null) return;
-              controller.sdMainCat = data;
-            },
-            validator: (value) {
-              if (value == null) {
-                return 'Select Main Category';
-              }
-              return null;
-            },
-          ),
+          Obx(() => controller.isMaincatLoading.value
+              ? Center()
+              : DropDown3Widget(
+                  label: 'Main Category',
+                  hint: '--Select Category--',
+                  selectedItem: controller.sdMainCat.id == null
+                      ? null
+                      : controller.sdMainCat,
+                  items: controller.mainCatDropList,
+                  isLoading: controller.isMaincatLoading.value,
+                  onChanged: (data) async {
+                    if (data == null) return;
+                    controller.sdMainCat = data;
+                  },
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Select Main Category';
+                    }
+                    return null;
+                  },
+                )),
           DropDown3Widget(
             label: 'Category',
             hint: '--Select Category--',

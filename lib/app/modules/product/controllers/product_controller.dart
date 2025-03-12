@@ -196,7 +196,7 @@ class ProductController extends GetxController
       if (resData.data != null) {
         data.addAll(resData.data!);
         // totalPages.value = 50;
-         totalPages.value = (resData.totalPages ?? 1 / pageSize).ceil();
+        totalPages.value = (resData.totalPages ?? 1 / pageSize).ceil();
       }
     });
   }
@@ -334,11 +334,11 @@ class ProductController extends GetxController
             mainCategoryId: sdMainCat.id,
             name: nameController.text,
             newLaunch: islaunchChecked.value == true ? 1 : 0),
-             divisions: dropdownDivisionList
-                .map((f) => DivisionData(
-                      divisionId: int.tryParse('${f.id}'),
-                    ))
-                .toList());
+        divisions: dropdownDivisionList
+            .map((f) => DivisionData(
+                  divisionId: int.tryParse('${f.id}'),
+                ))
+            .toList());
     final res = await _repo.addProduct(data: addedItem);
     res.fold(
       (failure) {
@@ -592,13 +592,13 @@ class ProductController extends GetxController
       Utils.snackBar('Error', failure.message);
       setError(error.toString());
     }, (resData) {
-      isMaincatLoading(false);
-
       for (var state in resData.data!) {
         mainCatDropList
-            .add(DropDownModel(id: state.id.toString(), name: state.name));
+            .add(DropDownModel(id: state.id?.toString(), name: state.name));
       }
+      isMaincatLoading(false);
     });
+    mainCatDropList.refresh();
   }
 
   void getCat() async {

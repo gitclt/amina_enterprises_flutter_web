@@ -91,7 +91,7 @@ class CustomerController extends GetxController {
     final res = await _repo.getCustomerList(
       stateid: sdSearchState.id ?? '',
       districtId: sdSearchDistrict.id ?? '',
-      placeId:'',
+      placeId: '',
       routeId: '',
       page: currentPage.toString(),
       pageSize: pageSize.toString(),
@@ -244,8 +244,7 @@ class CustomerController extends GetxController {
     sdState = DropDownModel(id: data.stateId.toString(), name: data.state);
     sdDistrict =
         DropDownModel(id: data.districtId.toString(), name: data.district);
-        sdPlace =
-        DropDownModel(id: data.place.toString(), name: data.place);
+    sdPlace = DropDownModel(id: data.placeId.toString(), name: data.place);
     if (data.divisions != null) {
       dropdownDivisionList(data.divisions!
           .map((v) =>
@@ -269,7 +268,7 @@ class CustomerController extends GetxController {
               email: emailController.text.trim(),
               mobile: mobileController.text.trim(),
               address: addressController.text.trim(),
-              placeId:sdPlace.id,
+              placeId: sdPlace.id,
               districtId: int.tryParse('${sdDistrict.id}'),
               pincode: int.tryParse(pincodeController.text.trim()),
               stateId: int.tryParse('${sdState.id}'),
@@ -315,7 +314,7 @@ class CustomerController extends GetxController {
                 email: emailController.text.trim(),
                 mobile: mobileController.text.trim(),
                 address: addressController.text.trim(),
-                placeId:sdPlace.id,
+                placeId: sdPlace.id,
                 districtId: int.tryParse('${sdDistrict.id}'),
                 pincode: int.tryParse(pincodeController.text.trim()),
                 stateId: int.tryParse('${sdState.id}'),

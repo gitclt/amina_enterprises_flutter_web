@@ -95,6 +95,7 @@ class DropDownMultiWidget extends StatelessWidget {
                         enabledBorder: outlineInputBorder2,
                       ),
                     ),
+
                     // dropdownBuilder: (context, selectedItems) {
                     //   return Wrap(
                     //     children: selectedItems.map((item) {

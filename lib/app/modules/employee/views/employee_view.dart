@@ -193,7 +193,7 @@ class EmployeeView extends GetView<EmployeeController> {
                                                       width: size.width * 0.01,
                                                     ),
                                                     Text(
-                                                      item.activeStatus == "1"
+                                                      item.activeStatus == 1
                                                           ? "Active"
                                                           : "Inactive",
                                                     )

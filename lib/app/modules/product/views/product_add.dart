@@ -24,7 +24,7 @@ class ProductAdd extends GetView<ProductController> {
           HomeAppBar(
             title:
                 'Home / Product / ${controller.editId == '' ? 'Add' : 'Update'}',
-             label: 'view_all'.tr,
+            label: 'view_all'.tr,
             onClick: () {
               controller.isIndex.value = 0;
               controller.tabcontroller.animateTo(0);
@@ -130,7 +130,7 @@ class ProductAdd extends GetView<ProductController> {
                           bottom: 20,
                         )),
                     SizedBox(
-                      height: 500,
+                      height: 400,
                       child: TabBarView(
                         controller: controller.tabcontroller,
                         physics: const NeverScrollableScrollPhysics(),
@@ -150,4 +150,3 @@ class ProductAdd extends GetView<ProductController> {
     );
   }
 }
-

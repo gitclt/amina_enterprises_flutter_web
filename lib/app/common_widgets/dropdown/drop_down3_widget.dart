@@ -74,13 +74,13 @@ class DropDown3Widget extends StatelessWidget {
         if (label != null) const SizedBox(height: 10),
         Flexible(
           child: SizedBox(
-            height: size.height * 0.058,
+            height: size.height * 0.05,
             child: Stack(
               children: [
                 Container(
                   width: Responsive.isDesktop(context)
-                      ? width ?? size.width * 0.7 / 2
-                      : size.width * .9,
+                      ? width ?? size.width * 0.73 / 2
+                      : size.width * .8,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -108,14 +108,19 @@ class DropDown3Widget extends StatelessWidget {
                                     border: InputBorder.none,
                                   ),
                           ),
-                          itemBuilder: (context, item, isSelected) {
+                          itemBuilder: (
+                            context,
+                            item,
+                            isSelected,
+                          ) {
                             return Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Text(
                                 item.toString(), // Customize as per your item's display string
 
                                 style: const TextStyle(
-                                    fontSize: 11), // Decrease font size here
+                                  fontSize: 11,
+                                ), // Decrease font size here
                               ),
                             );
                           },

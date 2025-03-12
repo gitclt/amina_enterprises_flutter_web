@@ -1,7 +1,3 @@
-
-
-
-
 // To parse this JSON data, do
 //
 //     final employeeModel = employeeModelFromJson(jsonString);
@@ -35,7 +31,8 @@ class EmployeeModel {
         totalPages: json["totalPages"],
         data: json["data"] == null
             ? []
-            : List<EmployeeData>.from(json["data"]!.map((x) => EmployeeData.fromJson(x))),
+            : List<EmployeeData>.from(
+                json["data"]!.map((x) => EmployeeData.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -191,23 +188,24 @@ class Route {
   int? friRouteId;
   String? friRouteName;
   int? satRouteId;
+  int? routeId;
   String? satRouteName;
 
-  Route({
-    this.empId,
-    this.monRouteId,
-    this.monRouteName,
-    this.tueRouteId,
-    this.tueRouteName,
-    this.wedRouteId,
-    this.wedRouteName,
-    this.thuRouteId,
-    this.thuRouteName,
-    this.friRouteId,
-    this.friRouteName,
-    this.satRouteId,
-    this.satRouteName,
-  });
+  Route(
+      {this.empId,
+      this.monRouteId,
+      this.monRouteName,
+      this.tueRouteId,
+      this.tueRouteName,
+      this.wedRouteId,
+      this.wedRouteName,
+      this.thuRouteId,
+      this.thuRouteName,
+      this.friRouteId,
+      this.friRouteName,
+      this.satRouteId,
+      this.satRouteName,
+      this.routeId});
 
   factory Route.fromJson(Map<String, dynamic> json) => Route(
         empId: json["emp_id"],
@@ -223,6 +221,7 @@ class Route {
         friRouteName: json["fri_route_name"],
         satRouteId: json["sat_route_id"],
         satRouteName: json["sat_route_name"],
+        routeId: json["route_id"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -239,5 +238,6 @@ class Route {
         "fri_route_name": friRouteName,
         "sat_route_id": satRouteId,
         "sat_route_name": satRouteName,
+        "route_id": routeId,
       };
 }

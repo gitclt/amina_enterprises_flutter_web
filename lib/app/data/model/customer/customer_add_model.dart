@@ -39,7 +39,7 @@ class CustomerAddModel {
 }
 
 class Customer {
-   String? id;
+  String? id;
   String? name;
   String? customerType;
   String? code;
@@ -47,7 +47,7 @@ class Customer {
   String? email;
   String? mobile;
   String? address;
-  String?  placeId;
+  String? placeId;
   int? stateId;
   int? districtId;
   String? latitude;
@@ -82,7 +82,7 @@ class Customer {
   });
 
   factory Customer.fromJson(Map<String, dynamic> json) => Customer(
-    id: json["id"],
+        id: json["id"],
         name: json["name"],
         customerType: json["customer_type"],
         code: json["code"],
@@ -104,25 +104,25 @@ class Customer {
       );
 
   Map<String, dynamic> toJson() => {
-    "id":id,
-        "name": name,
-        "customer_type": customerType,
-        "code": code,
-        "password": password,
-        "email": email,
-        "mobile": mobile,
-        "address": address,
-        "place_id": placeId,
-        "state_id": stateId,
-        "district_id": districtId,
-        "latitude": latitude,
-        "longitude": longitude,
-        "gps_location": gpsLocation,
-        "created_emp_id": createdEmpId,
-        "addedby": addedby,
-        "pincode": pincode,
-        "credit_days": creditDays,
-        "target": target,
+        if (id != null) "id": id,
+        if (name != null) "name": name,
+        if (customerType != null) "customer_type": customerType,
+        if (code != null) "code": code,
+        if (password != null) "password": password,
+        if (email != null) "email": email,
+        if (mobile != null) "mobile": mobile,
+        if (address != null) "address": address,
+        if (placeId != null) "place_id": placeId,
+        if (stateId != null) "state_id": stateId,
+        if (districtId != null) "district_id": districtId,
+        if (latitude != null) "latitude": latitude,
+        if (longitude != null) "longitude": longitude,
+        if (gpsLocation != null) "gps_location": gpsLocation,
+        if (createdEmpId != null) "created_emp_id": createdEmpId,
+        if (addedby != null) "addedby": addedby,
+        if (pincode != null) "pincode": pincode,
+        if (creditDays != null) "credit_days": creditDays,
+        if (target != null) "target": target,
       };
 }
 

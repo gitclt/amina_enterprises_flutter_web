@@ -40,9 +40,9 @@ class OrderView extends GetView<OrderController> {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           HomeAppBar(
             title: 'Home / Order / View',
-            onClick: () async {
-              // controller.clear();
-            },
+            // onClick: () async {
+            //   // controller.clear();
+            // },
             label: 'add_new'.tr,
           ),
           const SizedBox(
@@ -361,7 +361,7 @@ class OrderView extends GetView<OrderController> {
                                                 }
                                               },
                                               view: () async {
-                                            await    controller.getOrderDetail(
+                                                await controller.getOrderDetail(
                                                     orderId:
                                                         item.id.toString());
                                                 Get.rootDelegate
