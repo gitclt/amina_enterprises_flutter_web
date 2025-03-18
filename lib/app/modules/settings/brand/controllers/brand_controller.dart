@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:amina_enterprises_flutter_web/app/data/model/settings/brand/brand_model.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
@@ -9,6 +10,7 @@ import 'package:amina_enterprises_flutter_web/app/utils/utils.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class BrandController extends GetxController {
   final rxRequestStatus = Status.completed.obs;
@@ -20,6 +22,8 @@ class BrandController extends GetxController {
   TextEditingController nameController = TextEditingController();
   RxBool isLoading = false.obs;
   String editId = '';
+  String oldImage = '';
+
   @override
   void onInit() {
     get();
@@ -28,6 +32,7 @@ class BrandController extends GetxController {
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
   void setError(String value) => error.value = value;
+
   void get() async {
     setRxRequestStatus(Status.loading);
     data.clear();
@@ -46,14 +51,21 @@ class BrandController extends GetxController {
   //edit
   void editClick(Brand data) async {
     nameController = TextEditingController(text: data.name);
+    imgCtr = TextEditingController(text: data.image);
+    oldImage = data.image ?? '';
     editId = data.id.toString();
     Get.rootDelegate.toNamed(Routes.brandAdd);
   }
 
   edit() async {
     isLoading(true);
-    final res =
-        await _repo.editBrand(id: editId, name: nameController.text, image: '');
+    final res = await _repo.editBrand(
+        id: editId,
+        name: nameController.text,
+        image: imgCtr.text.trim(),
+        imageData: encodedData,
+        imgChanged: imgCtr.text.trim() == oldImage ? "no" : "yes",
+        oldImageName: oldImage);
     res.fold(
       (failure) {
         isLoading(false);
@@ -78,8 +90,8 @@ class BrandController extends GetxController {
 
   void add() async {
     isLoading(true);
-    final res = await _repo.addBrand(
-        nameController.text, imgCtr.text, encodedData.value);
+    final res =
+        await _repo.addBrand(nameController.text, imgCtr.text, encodedData);
     res.fold(
       (failure) {
         isLoading(false);
@@ -116,30 +128,44 @@ class BrandController extends GetxController {
     editId = '';
     nameController.clear();
     imgCtr.clear();
-    encodedData.value = '';
+    encodedData = '';
   }
 
   TextEditingController imgCtr = TextEditingController(); // description
+  Uint8List? pickedImageBytes;
+  File? pickedImage;
+  var encodedData = '';
 
-  var encodedData = ''.obs;
   // var pickedFileBytes = Rxn<Uint8List>();
 
   Future<void> pickImage() async {
-    FilePickerResult? result =
-        await FilePicker.platform.pickFiles(type: FileType.image);
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'png'],
+    );
+
     if (result != null) {
-      File file = File(result.files.single.path!);
-      String uniqueImageName =
-          'image_${DateTime.now().millisecondsSinceEpoch}.jpg';
+      PlatformFile file = result.files.first;
+      String dateFormat = getFormattedTimestamp();
+      pickedImageBytes = file.bytes;
+      pickedImage = File.fromRawPath(result.files.first.bytes!);
+      //  File file = File(result.files.single.path!);
+      String uniqueImageName = '${dateFormat}_${file.name}';
       imgCtr.text = uniqueImageName;
 
       // Encode image data to base64
-      List<int> imageBytes = await file.readAsBytes();
-      String base64Image = base64Encode(imageBytes);
-      encodedData.value = base64Image;
+
+      encodedData = base64Encode(pickedImageBytes!);
       //print("Base64 Encoded Image Data: $base64Image");
     } else {
       // print("No image selected.");
     }
+    update();
   }
+}
+
+String getFormattedTimestamp() {
+  final now = DateTime.now();
+  final formatted = DateFormat('yyyyMMdd').format(now);
+  return formatted;
 }

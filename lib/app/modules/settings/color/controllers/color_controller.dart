@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ColorController extends GetxController {
-   final rxRequestStatus = Status.completed.obs;
+  final rxRequestStatus = Status.completed.obs;
 
   RxString error = ''.obs;
   final _repo = ColorRepository();
   RxList<Color> data = <Color>[].obs;
   final formkey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
-   TextEditingController colorCodeController = TextEditingController();
+  TextEditingController colorCodeController = TextEditingController();
   RxBool isLoading = false.obs;
   String editId = '';
   @override
@@ -43,7 +43,7 @@ class ColorController extends GetxController {
   //edit
   void editClick(Color data) async {
     nameController = TextEditingController(text: data.name);
-        colorCodeController = TextEditingController(text: data.colorCode);
+    colorCodeController = TextEditingController(text: data.colorCode);
     editId = data.id.toString();
 
     Get.rootDelegate.toNamed(Routes.colorAdd);
@@ -51,7 +51,10 @@ class ColorController extends GetxController {
 
   edit() async {
     isLoading(true);
-    final res = await _repo.edit(id: editId, name: nameController.text,code: colorCodeController.text);
+    final res = await _repo.edit(
+        id: editId,
+        name: nameController.text.trim(),
+        code: colorCodeController.text.trim());
     res.fold(
       (failure) {
         isLoading(false);
@@ -76,7 +79,8 @@ class ColorController extends GetxController {
 
   void add() async {
     isLoading(true);
-    final res = await _repo.add(nameController.text,colorCodeController.text);
+    final res = await _repo.add(
+        nameController.text.trim(), colorCodeController.text.trim());
     res.fold(
       (failure) {
         isLoading(false);
@@ -112,6 +116,6 @@ class ColorController extends GetxController {
   clear() {
     editId = '';
     nameController.clear();
-      colorCodeController.clear();
+    colorCodeController.clear();
   }
 }

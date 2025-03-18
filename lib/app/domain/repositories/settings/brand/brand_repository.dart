@@ -33,16 +33,9 @@ class BrandRepository extends NetworkApiServices {
     String img,
   ) async {
     try {
-      var body = json.encode({
-        "name": name,
-         "image": image,
-          'image_data': img
-      });
-      dynamic response = await _apiServices.postApi(
-        body,
-        SettingsUrl.brandAdd,
-        isJson: true
-      );
+      var body = json.encode({"name": name, "image": image, 'image_data': img});
+      dynamic response =
+          await _apiServices.postApi(body, SettingsUrl.brandAdd, isJson: true);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);
@@ -58,22 +51,24 @@ class BrandRepository extends NetworkApiServices {
 
   //edit
 
-  Future<Either<Failure, ApiModel>> editBrand({
-    required String id,
-    required String name,
-    required String image,
-  }) async {
+  Future<Either<Failure, ApiModel>> editBrand(
+      {required String id,
+      required String name,
+      required String image,
+      required String imageData,
+      String? imgChanged,
+      String? oldImageName}) async {
     try {
-       var body = json.encode({
+      var body = json.encode({
         "id": id,
         "name": name,
-         "image": image,
+        "image": image,
+        "image_data": imageData,
+        "is_img_chged": imgChanged,
+        "img_oldname": oldImageName
       });
-      dynamic response = await _apiServices.putApi(
-        body,
-        SettingsUrl.brandEdit,
-        isJson: true
-      );
+      dynamic response =
+          await _apiServices.putApi(body, SettingsUrl.brandEdit, isJson: true);
 
       if (response != null && response["status"] == true) {
         ApiModel res = ApiModel.fromJson(response);

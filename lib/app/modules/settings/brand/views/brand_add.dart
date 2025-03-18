@@ -63,9 +63,11 @@ class BrandAddView extends GetView<BrandController> {
                             : size.width * .32,
                         textController: controller.imgCtr,
                         readonly: true,
-                        onTap: () {
-                          controller.pickImage();
-                        },
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              controller.pickImage();
+                            },
+                            icon: const Icon(Icons.upload)),
                         label: 'Image',
                         validator: (value) {
                           if (value!.isEmpty) {

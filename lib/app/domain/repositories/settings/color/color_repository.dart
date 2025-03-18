@@ -27,15 +27,9 @@ class ColorRepository extends NetworkApiServices {
   }
 
 //add
-  Future<Either<Failure, ApiModel>> add(
-    String name,
-    String colorcode
-  ) async {
+  Future<Either<Failure, ApiModel>> add(String name, String colorcode) async {
     try {
-      var body = json.encode({
-        "name": name,
-         "color_code":colorcode
-      });
+      var body = json.encode({"name": name, "color_code": colorcode});
       dynamic response = await _apiServices
           .postApi(body, SettingsUrl.colorAddApi, isJson: true);
 
@@ -53,16 +47,10 @@ class ColorRepository extends NetworkApiServices {
 
   //edit
 
-  Future<Either<Failure, ApiModel>> edit({
-    required String id,
-    required String name,
-    required String code
-  }) async {
+  Future<Either<Failure, ApiModel>> edit(
+      {required String id, required String name, required String code}) async {
     try {
-      var body = json.encode({
-        "id": id,
-        "name": name,
-      });
+      var body = json.encode({"id": id, "name": name, "color_code": code});
       dynamic response = await _apiServices
           .putApi(body, SettingsUrl.colorEditApi, isJson: true);
 
