@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-
 import 'package:amina_enterprises_flutter_web/app/data/model/settings/main_category/main_category_model.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/repositories/settings/main_category/main_category_repository.dart';
@@ -10,7 +9,6 @@ import 'package:amina_enterprises_flutter_web/app/utils/utils.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 
 class MainCategoryController extends GetxController {
   final rxRequestStatus = Status.completed.obs;
@@ -123,26 +121,27 @@ class MainCategoryController extends GetxController {
 
   TextEditingController imgCtr = TextEditingController(); // description
 
-
   var encodedData = ''.obs;
-
 
   Future<void> pickImage() async {
     FilePickerResult? result =
         await FilePicker.platform.pickFiles(type: FileType.image);
-    if (result != null) {
-      File file = File(result.files.single.path!);
+
+    if (result != null && result.files.isNotEmpty) {
+      PlatformFile file = result.files.first;
+
       String uniqueImageName =
           'image_${DateTime.now().millisecondsSinceEpoch}.jpg';
       imgCtr.text = uniqueImageName;
 
-      // Encode image data to base64
-      List<int> imageBytes = await file.readAsBytes();
-      String base64Image = base64Encode(imageBytes);
-      encodedData.value = base64Image;
-      //print("Base64 Encoded Image Data: $base64Image");
+      // For web, use bytes instead of path
+      if (file.bytes != null) {
+        String base64Image = base64Encode(file.bytes!);
+        encodedData.value = base64Image;
+        // print("Base64 Encoded Image Data: $base64Image");
+      }
     } else {
-     // print("No image selected.");
+      // print("No image selected.");
     }
   }
 }

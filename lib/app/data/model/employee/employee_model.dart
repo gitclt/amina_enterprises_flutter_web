@@ -58,7 +58,7 @@ class EmployeeData {
   String? location;
   int? roleId;
   String? role;
-  int? activeStatus;
+  String? activeStatus;
   String? joiningDate;
   int? districtId;
   String? address;
@@ -105,7 +105,7 @@ class EmployeeData {
         location: json["location"],
         roleId: json["role_id"],
         role: json["role"],
-        activeStatus: json["active_status"],
+        activeStatus: json["active_status"]?.toString(),
         joiningDate: json["joining_date"],
         districtId: json["district_id"],
         address: json["address"],

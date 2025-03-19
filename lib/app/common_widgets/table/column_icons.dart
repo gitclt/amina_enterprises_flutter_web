@@ -1,4 +1,3 @@
-import 'package:amina_enterprises_flutter_web/app/common_widgets/appbar/common_appbar.dart';
 import 'package:amina_enterprises_flutter_web/app/constants/colors.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
 import 'package:flutter/material.dart';
@@ -49,9 +48,10 @@ class IconsColumnWidget extends StatelessWidget {
                 ),
               ),
             ),
-          const SizedBox(
-            width: 10,
-          ),
+          if (view != null)
+            const SizedBox(
+              width: 10,
+            ),
           if (edit != null)
             InkWell(
               onTap: edit,
@@ -74,6 +74,10 @@ class IconsColumnWidget extends StatelessWidget {
                   ),
                 ),
               ).paddingOnly(left: 10),
+            ),
+          if (edit != null)
+            const SizedBox(
+              width: 10,
             ),
           if (delete != null)
             InkWell(

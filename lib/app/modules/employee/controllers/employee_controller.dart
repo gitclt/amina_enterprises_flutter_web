@@ -26,7 +26,6 @@ class EmployeeController extends GetxController {
   final _repo = EmployeeRepository();
   final routerepo = RouteSettingRepository();
 
-
   final formkey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController codeController = TextEditingController();
@@ -76,11 +75,10 @@ class EmployeeController extends GetxController {
 // List to hold the dropdown options for each day
   RxList<DropDownModel> mondayList = <DropDownModel>[].obs;
   RxList<DropDownModel> tuesList = <DropDownModel>[].obs;
-   RxList<DropDownModel> wednesList = <DropDownModel>[].obs;
+  RxList<DropDownModel> wednesList = <DropDownModel>[].obs;
   RxList<DropDownModel> thusList = <DropDownModel>[].obs;
-   RxList<DropDownModel> friList = <DropDownModel>[].obs;
+  RxList<DropDownModel> friList = <DropDownModel>[].obs;
   RxList<DropDownModel> saturList = <DropDownModel>[].obs;
-
 
 // division
 
@@ -94,7 +92,8 @@ class EmployeeController extends GetxController {
   final roleRepo = SettingsRepository();
 
   String editId = '';
-    String empId = '';
+  String empId = '';
+  String activeStatus = '';
   final int pageSize = 10;
   var currentPage = 1.obs;
   var totalPages = 1.obs;
@@ -134,16 +133,16 @@ class EmployeeController extends GetxController {
             DropDownModel(id: route.rootId.toString(), name: route.rootName));
         mondayList.add(
             DropDownModel(id: route.rootId.toString(), name: route.rootName));
-        tuesList.add( DropDownModel(id: route.rootId.toString(), name: route.rootName));
-         wednesList.add(
+        tuesList.add(
             DropDownModel(id: route.rootId.toString(), name: route.rootName));
-             thusList.add(
+        wednesList.add(
+            DropDownModel(id: route.rootId.toString(), name: route.rootName));
+        thusList.add(
             DropDownModel(id: route.rootId.toString(), name: route.rootName));
         friList.add(
             DropDownModel(id: route.rootId.toString(), name: route.rootName));
         saturList.add(
             DropDownModel(id: route.rootId.toString(), name: route.rootName));
-       
       }
     });
   }
@@ -346,16 +345,18 @@ class EmployeeController extends GetxController {
       },
     );
   }
+
   void addRouteClick(EmployeeData data) async {
     empId = data.id.toString();
     nameController = TextEditingController(text: data.name);
     codeController = TextEditingController(text: data.code);
     emailController = TextEditingController(text: data.email);
     mobileController = TextEditingController(text: data.mobile);
-    
+
     getRoute();
     Get.rootDelegate.toNamed(Routes.routeAssignAdd);
   }
+
   //edit
   void editRouteClick(EmployeeData data) async {
     editId = data.id.toString();
@@ -363,6 +364,8 @@ class EmployeeController extends GetxController {
     codeController = TextEditingController(text: data.code);
     emailController = TextEditingController(text: data.email);
     mobileController = TextEditingController(text: data.mobile);
+    activeStatus = data.activeStatus ?? '';
+   
     dropDownMonday = DropDownModel(
         id: data.route!.first.monRouteId?.toString() ?? '',
         name: data.route!.first.monRouteName?.toString() ?? '');
@@ -386,10 +389,10 @@ class EmployeeController extends GetxController {
     Get.rootDelegate.toNamed(Routes.routeAssignAdd);
   }
 
-void assignRouteUpdate() async {
+  void assignRouteUpdate() async {
     isLoading(true);
     final res = await _repo.assignRouteUpdate(
-      // editId: editId,
+     
       empId: editId,
       monRouteId: dropDownMonday.id,
       tueRouteId: dropDownTuesday.id,

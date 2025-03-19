@@ -196,7 +196,7 @@ class ProductController extends GetxController
       if (resData.data != null) {
         data.addAll(resData.data!);
         // totalPages.value = 50;
-         totalPages.value = (resData.totalPages ?? 1 / pageSize).ceil();
+        totalPages.value = (resData.totalPages ?? 1 / pageSize).ceil();
       }
     });
   }
@@ -334,11 +334,11 @@ class ProductController extends GetxController
             mainCategoryId: sdMainCat.id,
             name: nameController.text,
             newLaunch: islaunchChecked.value == true ? 1 : 0),
-             divisions: dropdownDivisionList
-                .map((f) => DivisionData(
-                      divisionId: int.tryParse('${f.id}'),
-                    ))
-                .toList());
+        divisions: dropdownDivisionList
+            .map((f) => DivisionData(
+                  divisionId: int.tryParse('${f.id}'),
+                ))
+            .toList());
     final res = await _repo.addProduct(data: addedItem);
     res.fold(
       (failure) {
@@ -476,6 +476,8 @@ class ProductController extends GetxController
                 getSize();
                 getdetails();
                 update();
+                get();
+                Get.rootDelegate.toNamed(Routes.product);
               }
             },
           );
@@ -741,7 +743,7 @@ class ProductController extends GetxController
       );
 
       if (result != null) {
-        PlatformFile file = result.files.single;
+        PlatformFile file = result.files.first;
 
         // Update the specific image's state based on the imageIndex
         if (imageIndex == 1) {

@@ -139,33 +139,30 @@ class BrandController extends GetxController {
   // var pickedFileBytes = Rxn<Uint8List>();
 
   Future<void> pickImage() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['jpg', 'png'],
-    );
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(type: FileType.image);
 
-    if (result != null) {
+    if (result != null && result.files.isNotEmpty) {
       PlatformFile file = result.files.first;
-      String dateFormat = getFormattedTimestamp();
-      pickedImageBytes = file.bytes;
-      pickedImage = File.fromRawPath(result.files.first.bytes!);
-      //  File file = File(result.files.single.path!);
-      String uniqueImageName = '${dateFormat}_${file.name}';
+
+      String uniqueImageName =
+          'image_${DateTime.now().millisecondsSinceEpoch}.jpg';
       imgCtr.text = uniqueImageName;
 
-      // Encode image data to base64
-
-      encodedData = base64Encode(pickedImageBytes!);
-      //print("Base64 Encoded Image Data: $base64Image");
+      // For web, use bytes instead of path
+      if (file.bytes != null) {
+        String base64Image = base64Encode(file.bytes!);
+        encodedData = base64Image;
+        // print("Base64 Encoded Image Data: $base64Image");
+      }
     } else {
       // print("No image selected.");
     }
-    update();
   }
-}
 
-String getFormattedTimestamp() {
-  final now = DateTime.now();
-  final formatted = DateFormat('yyyyMMdd').format(now);
-  return formatted;
+  String getFormattedTimestamp() {
+    final now = DateTime.now();
+    final formatted = DateFormat('yyyyMMdd').format(now);
+    return formatted;
+  }
 }

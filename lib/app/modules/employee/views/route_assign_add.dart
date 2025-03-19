@@ -8,6 +8,7 @@ import 'package:amina_enterprises_flutter_web/app/modules/employee/controllers/e
 import 'package:amina_enterprises_flutter_web/app/routes/app_pages.dart';
 import 'package:amina_enterprises_flutter_web/app/utils/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class RouteAssignAdd extends GetView<EmployeeController> {
@@ -33,14 +34,33 @@ class RouteAssignAdd extends GetView<EmployeeController> {
           ),
           PageContainer(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
-                    const CircleAvatar(),
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Colors
+                          .transparent, // Make sure the background is clear
+                      child: ClipOval(
+                        child: SvgPicture.asset(
+                          'assets/svg_icons/users.svg',
+                          fit: BoxFit.cover,
+                          width: 60,
+                          height: 60,
+                          colorFilter: const ColorFilter.mode(
+                            Colors.red, // Change to any color
+                            BlendMode
+                                .srcIn, // Ensures the color replaces the SVG fill
+                          ),
+                        ),
+                      ),
+                    ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: size.width * 0.1,
+                          width: size.width * 0.06,
                         ),
                         Text(controller.codeController.text),
                         SizedBox(
@@ -50,6 +70,7 @@ class RouteAssignAdd extends GetView<EmployeeController> {
                       ],
                     ),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(controller.emailController.text),
                         SizedBox(
@@ -70,9 +91,9 @@ class RouteAssignAdd extends GetView<EmployeeController> {
                     ),
                     CircleAvatar(radius: 4, backgroundColor: AppColor.green),
                     SizedBox(
-                      width: size.width * 0.001,
+                      width: size.width * 0.003,
                     ),
-                    const Text("Active")
+                    Text(controller.activeStatus == "1" ? "Active" : "Inactive")
                   ],
                 ),
               ],
@@ -146,7 +167,7 @@ class RouteAssignAdd extends GetView<EmployeeController> {
 
                         DropDown3Widget(
                           width: size.width * 0.18,
-                          label: 'Wensday',
+                          label: 'Wednesday',
                           hint: '',
                           selectedItem: controller.dropDownWednesday.id == null
                               ? null
@@ -165,7 +186,7 @@ class RouteAssignAdd extends GetView<EmployeeController> {
                         ),
                         DropDown3Widget(
                           width: size.width * 0.18,
-                          label: 'Thusday',
+                          label: 'Thursday',
                           hint: '',
                           selectedItem: controller.dropDownThursday.id == null
                               ? null
@@ -272,7 +293,7 @@ class RouteAssignAdd extends GetView<EmployeeController> {
                                   : size.width * 0.25,
                               onClick: () {
                                 if (controller.editId == '') {
-                                  controller.assignRoute( );
+                                  controller.assignRoute();
                                 } else {
                                   controller.assignRouteUpdate();
                                 }
