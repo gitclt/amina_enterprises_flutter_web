@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:amina_enterprises_flutter_web/app/data/model/settings/main_category/main_category_model.dart';
 import 'package:amina_enterprises_flutter_web/app/domain/entity/status.dart';
@@ -20,6 +19,7 @@ class MainCategoryController extends GetxController {
   TextEditingController nameController = TextEditingController();
   RxBool isLoading = false.obs;
   String editId = '';
+
   @override
   void onInit() {
     get();
@@ -28,6 +28,7 @@ class MainCategoryController extends GetxController {
 
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value;
   void setError(String value) => error.value = value;
+
   void get() async {
     setRxRequestStatus(Status.loading);
     data.clear();
@@ -52,8 +53,8 @@ class MainCategoryController extends GetxController {
 
   edit() async {
     isLoading(true);
-    final res =
-        await _repo.edit(id: editId, name: nameController.text, image: '');
+    final res = await _repo.edit(
+        id: editId, name: nameController.text, image: imgCtr.text);
     res.fold(
       (failure) {
         isLoading(false);
@@ -67,8 +68,6 @@ class MainCategoryController extends GetxController {
           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
 
           get();
-
-          // clrValue();
         }
       },
     );
@@ -93,8 +92,6 @@ class MainCategoryController extends GetxController {
           Utils.snackBar('Sucess', resData.message ?? '', type: 'success');
 
           get();
-
-          // clrValue();
         }
       },
     );
@@ -119,7 +116,7 @@ class MainCategoryController extends GetxController {
     encodedData.value = '';
   }
 
-  TextEditingController imgCtr = TextEditingController(); // description
+  TextEditingController imgCtr = TextEditingController(); 
 
   var encodedData = ''.obs;
 
